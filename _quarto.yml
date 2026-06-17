@@ -1,0 +1,29 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Goal, Code, Verify, Reflect"
+  subtitle: "Guided Activities for Learning R Workflow"
+  author: "Lorraine Gaudio"
+  date: today
+
+  chapters:
+    - index.qmd
+
+  sidebar:
+    style: docked
+    search: true
+
+format:
+  html:
+    theme:
+      - cosmo
+      - assets/styles/guided-book.scss
+    toc: true
+    number-sections: false
+    code-copy: true
+    code-overflow: wrap
+
+execute:
+  freeze: auto

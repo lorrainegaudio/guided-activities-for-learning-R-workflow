@@ -1,0 +1,43 @@
+/*-- scss:defaults --*/
+
+$primary: #0033A0;
+$secondary: #D64309;
+$body-color: #333333;
+$link-color: #0033A0;
+$font-size-root: 18px;
+
+/*-- scss:rules --*/
+
+h1, h2, h3 {
+  color: #0033A0;
+}
+
+h1 {
+  border-bottom: 4px solid #D64309;
+  padding-bottom: 0.35rem;
+}
+
+a {
+  font-weight: 600;
+}
+
+.callout {
+  border-radius: 0.4rem;
+}
+
+.callout-note {
+  border-left-color: #0033A0;
+}
+
+.callout-tip {
+  border-left-color: #D64309;
+}
+
+.sidebar-title {
+  color: #0033A0;
+  font-weight: 700;
+}
+
+code {
+  font-size: 0.95em;
+}

@@ -1,0 +1,24 @@
+Welcome to **Goal, Code, Verify, Reflect**.
+
+This book contains guided activities for learning R workflow. The activities are designed to help you practice the habits that make R work more reliable: setting a goal, writing code, checking the result, and reflecting on what happened.
+
+
+# What this book is
+
+This book is a working collection of guided R activities. Each activity will help you build practical habits for coding, troubleshooting, organizing your work, and explaining what your code does.
+
+# How to use this book
+
+Move through the activities in order unless your instructor gives you different directions.
+
+For each activity:
+
+1. Read the goal.
+2. Run the example code.
+3. Check what the code produced.
+4. Try the practice task.
+5. Write down what you learned or what confused you.
+
+## Current build status
+
+This is the first working scaffold for the Quarto book. Chapter files will be added one at a time after the book layout and style are stable.
