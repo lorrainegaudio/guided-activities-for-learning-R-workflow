@@ -1,24 +1,52 @@
-Welcome to **Goal, Code, Verify, Reflect**.
+# Welcome {.unnumbered}
 
-This book contains guided activities for learning R workflow. The activities are designed to help you practice the habits that make R work more reliable: setting a goal, writing code, checking the result, and reflecting on what happened.
+::: {.hero-book}
+::: {.hero-book__media}
+![DATA-R 155 course banner for Introduction to R Programming](assets/images/data-r-155-banner.png){.hero-book__banner fig-alt="Data R 155 Introduction to R Programming banner."}
+:::
 
+::: {.hero-book__content}
+<div class="hero-book__eyebrow">DATA-R 155 • Boise State University</div>
 
-# What this book is
+## Guided activities for Introduction to R Programming
 
-This book is a working collection of guided R activities. Each activity will help you build practical habits for coding, troubleshooting, organizing your work, and explaining what your code does.
+This book contains the guided activities for **Introduction to R Programming**. It is designed to help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.
 
-# How to use this book
+<div class="chip-row">
+  <span class="course-chip">Seven-week online course</span>
+  <span class="course-chip">Guided activities</span>
+  <span class="course-chip">Code-along learning</span>
+</div>
 
-Move through the activities in order unless your instructor gives you different directions.
+<div class="book-actions">
+  <a class="cta-primary" href="front-matter/preface.qmd">Start with the Preface</a>
+  <a class="cta-secondary" href="chapters/01-tenacity/ch01-navigation.Rmd">Open Chapter 1</a>
+</div>
+:::
+:::
 
-For each activity:
+::: {.home-note}
+You are not expected to know this before you begin. The goal of this book is not perfect code on the first try. The goal is to build a reliable workflow for setting a goal, typing code, checking results, and revising your thinking.
+:::
 
-1. Read the goal.
-2. Run the example code.
-3. Check what the code produced.
-4. Try the practice task.
-5. Write down what you learned or what confused you.
+## What this book is
 
-## Current build status
+This is the guided activity book for the course. Each chapter supports your learning by walking you through explanations, screenshots, code you type in RStudio, checks, summaries, chapter terms, and practice connections.
 
-This is the first working scaffold for the Quarto book. Chapter files will be added one at a time after the book layout and style are stable.
+## What this book is not
+
+This book is not the gradebook, the discussion board, or the submission portal. Use the guided activities to learn and review. Use Canvas and course assignment directions for submission, grading, and progress tracking.
+
+## How to use the guided activities
+
+Use the book with RStudio open beside it.
+
+- Read the overview first.
+- Type the code yourself.
+- Pause after each step and verify what happened.
+- Use the summary and chapter terms when you review.
+- Treat confusion as information about what to check next.
+
+## Start here
+
+Begin with the **Preface**, then move into **Tenacity**.

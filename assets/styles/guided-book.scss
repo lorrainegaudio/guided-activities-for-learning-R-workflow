@@ -1,43 +1,364 @@
 /*-- scss:defaults --*/
 
-$primary: #0033A0;
-$secondary: #D64309;
-$body-color: #333333;
-$link-color: #0033A0;
+$boise-blue: #0033A0;
+$boise-orange: #D64309;
+$boise-gray: #535455;
+$text-dark: #333333;
+$soft-gray: #f4f4f4;
+$panel-gray: #f8fafc;
+$border-gray: #d9dde4;
+$white: #ffffff;
+
+$body-bg: $white;
+$body-color: $text-dark;
+$link-color: $boise-orange;
+
 $font-size-root: 18px;
+$line-height-base: 1.65;
+
+$font-family-base: Garamond, Georgia, "Times New Roman", serif;
+$headings-font-family: "Gotham", Arial, Helvetica, sans-serif;
+$font-family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+$headings-color: $boise-blue;
 
 /*-- scss:rules --*/
 
-h1, h2, h3 {
-  color: #0033A0;
+/* Base layout */
+
+body {
+  text-align: left;
 }
 
-h1 {
-  border-bottom: 4px solid #D64309;
-  padding-bottom: 0.35rem;
+main.content {
+  max-width: 980px;
 }
+
+p,
+li {
+  max-width: 75ch;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+ul,
+ol {
+  margin-bottom: 1.1rem;
+}
+
+/* Title block */
+
+h1.title {
+  color: $boise-blue;
+  border-bottom: 5px solid $boise-orange;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: $boise-gray;
+  font-size: 1.1rem;
+  margin-bottom: 1.4rem;
+}
+
+/* Heading hierarchy */
+
+h1,
+h2,
+h3,
+h4 {
+  color: $boise-blue;
+  line-height: 1.2;
+}
+
+h1:not(.title) {
+  margin-top: 2.2rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 3px solid rgba(214, 67, 9, 0.18);
+}
+
+h2 {
+  margin-top: 1.9rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid $border-gray;
+}
+
+h3 {
+  margin-top: 1.4rem;
+}
+
+/* Links */
 
 a {
+  color: $boise-orange;
   font-weight: 600;
+  text-decoration: none;
 }
 
-.callout {
-  border-radius: 0.4rem;
+a:hover,
+a:focus {
+  color: $boise-blue;
+  text-decoration: underline;
 }
 
-.callout-note {
-  border-left-color: #0033A0;
-}
-
-.callout-tip {
-  border-left-color: #D64309;
-}
+/* Sidebar and page TOC */
 
 .sidebar-title {
-  color: #0033A0;
+  color: $boise-blue;
   font-weight: 700;
 }
 
+.sidebar-item-text {
+  line-height: 1.35;
+}
+
+.sidebar nav[role="doc-toc"] ul > li > a.active,
+.sidebar nav[role="doc-toc"] ul > li > a:hover {
+  color: $boise-blue;
+  font-weight: 700;
+}
+
+#TOC {
+  font-size: 0.95rem;
+}
+
+#TOC .active {
+  color: $boise-blue;
+  font-weight: 700;
+}
+
+/* Home page hero */
+
+.hero-book {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.2rem 0 2rem;
+  padding: 1.4rem;
+  border: 1px solid $border-gray;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+  box-shadow: 0 8px 20px rgba(0, 51, 160, 0.06);
+}
+
+.hero-book__media,
+.hero-book__content {
+  min-width: 0;
+}
+
+.hero-book__banner {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.75rem;
+  background: $white;
+}
+
+.hero-book__eyebrow {
+  font-family: "Gotham", Arial, Helvetica, sans-serif;
+  color: $boise-gray;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1rem 0 1.1rem;
+}
+
+.course-chip {
+  display: inline-block;
+  font-family: "Gotham", Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: $boise-blue;
+  background: #eef3ff;
+  border: 1px solid #cfdcf8;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+.book-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.book-actions a {
+  font-family: "Gotham", Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  border-radius: 0.55rem;
+  padding: 0.72rem 1rem;
+  text-decoration: none;
+}
+
+.book-actions .cta-primary {
+  background: $boise-blue;
+  color: $white;
+}
+
+.book-actions .cta-primary:hover,
+.book-actions .cta-primary:focus {
+  background: #00257a;
+  color: $white;
+  text-decoration: none;
+}
+
+.book-actions .cta-secondary {
+  background: $white;
+  color: $boise-blue;
+  border: 2px solid $boise-blue;
+}
+
+.book-actions .cta-secondary:hover,
+.book-actions .cta-secondary:focus {
+  background: #eef3ff;
+  color: $boise-blue;
+  text-decoration: none;
+}
+
+.home-note {
+  background: #fff7f2;
+  border-left: 6px solid $boise-orange;
+  border-radius: 0.45rem;
+  padding: 1rem 1.1rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+/* Code */
+
+pre,
 code {
   font-size: 0.95em;
+}
+
+code {
+  background-color: $soft-gray;
+  color: #1f2933;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.28rem;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+div.sourceCode {
+  background: $panel-gray;
+  border: 1px solid $border-gray;
+  border-left: 6px solid $boise-blue;
+  border-radius: 0.5rem;
+  margin: 1rem 0 1.25rem;
+}
+
+div.sourceCode pre {
+  padding: 1rem;
+}
+
+.code-copy-button {
+  color: $boise-blue;
+}
+
+/* Figures, screenshots, captions */
+
+figure {
+  margin: 1.5rem auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.4rem;
+}
+
+figcaption,
+.figure-caption {
+  color: $boise-gray;
+  font-size: 0.94rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+/* Tables */
+
+table {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+}
+
+thead th {
+  color: $boise-blue;
+  background: #eef3ff;
+  border-bottom: 2px solid $boise-blue;
+}
+
+th,
+td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid $border-gray;
+}
+
+/* Block quotes */
+
+blockquote {
+  border-left: 5px solid $boise-orange;
+  background: #fff7f2;
+  padding: 0.75rem 1rem;
+  border-radius: 0.35rem;
+  margin: 1rem 0 1.25rem;
+}
+
+/* Callouts */
+
+.callout {
+  border-radius: 0.5rem;
+  margin: 1.25rem 0;
+}
+
+.callout-note,
+.callout-important {
+  border-left-color: $boise-blue;
+}
+
+.callout-tip,
+.callout-warning,
+.callout-caution {
+  border-left-color: $boise-orange;
+}
+
+/* Footer */
+
+.nav-footer {
+  border-top: 1px solid $border-gray;
+  margin-top: 2rem;
+}
+
+/* Focus visibility */
+
+:focus {
+  outline: 3px solid $boise-orange;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 900px) {
+  .hero-book {
+    grid-template-columns: 1fr;
+  }
+
+  main.content {
+    max-width: 100%;
+  }
 }

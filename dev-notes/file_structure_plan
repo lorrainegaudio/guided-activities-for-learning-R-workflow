@@ -1,0 +1,42 @@
+guided-activities-for-learning-R-workflow/
+├── _quarto.yml
+├── index.qmd
+├── guided-activities-for-learning-R-workflow.Rproj
+├── .gitignore
+├── README.md
+│
+├── front-matter/
+│   ├── preface.qmd
+│   └── images/
+│       ├── r_console.png
+│       └── RStudio_Logo.png
+│
+├── chapters/
+│   ├── 01-tenacity/
+│   │   ├── ch01-navigation.Rmd
+│   │   ├── ch02-scripts.Rmd
+│   │   └── images/
+│   │       ├── ch01-navigation/
+│   │       │   ├── Quiz_Question.png
+│   │       │   ├── clear_environment.png
+│   │       │   ├── environment.png
+│   │       │   ├── environment_print.png
+│   │       │   ├── r_studio.png
+│   │       │   ├── r_studio_console.png
+│   │       │   ├── RStudio_roundlogo.png
+│   │       │   ├── save_RData.png
+│   │       │   ├── setwd_UI_files.png
+│   │       │   └── setwd_UI_session.png
+│   │       └── ch02-scripts/
+│   │           ├── new_rscript.png
+│   │           ├── run_script.png
+│   │           ├── run_script2.png
+│   │           ├── run_source.png
+│   │           └── save_icon.png
+
+├── assets/
+│   ├── styles/
+│   │   ├── guided-book.scss
+
+├── dev-notes/
+│   ├── file_structure_plan

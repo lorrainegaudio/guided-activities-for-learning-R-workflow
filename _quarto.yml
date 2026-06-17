@@ -7,13 +7,31 @@ book:
   subtitle: "Guided Activities for Learning R Workflow"
   author: "Lorraine Gaudio"
   date: today
+  site-url: "https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/"
+  repo-url: "https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow"
+  search: true
+  page-navigation: true
 
-  chapters:
-    - index.qmd
+  # Optional later if you want Quarto to place the course card on the home page:
+  # cover-image: assets/images/data-r-155-course-card.png
 
   sidebar:
     style: docked
-    search: true
+    collapse-level: 1
+
+  page-footer:
+    left: "Goal, Code, Verify, Reflect"
+    center: "Boise State University"
+    right: "[lorrainegaudio@boisestate.edu](mailto:lorrainegaudio@boisestate.edu)"
+    background: light
+
+  chapters:
+    - index.qmd
+    - front-matter/preface.qmd
+    - part: "Tenacity"
+      chapters:
+        - chapters/01-tenacity/ch01-navigation.Rmd
+        - chapters/01-tenacity/ch02-scripts.Rmd
 
 format:
   html:
@@ -21,9 +39,11 @@ format:
       - cosmo
       - assets/styles/guided-book.scss
     toc: true
+    toc-depth: 2
     number-sections: false
     code-copy: true
     code-overflow: wrap
-
-execute:
-  freeze: auto
+    anchor-sections: true
+    smooth-scroll: true
+    lightbox: true
+    link-external-newwindow: true
