@@ -3,7 +3,7 @@ project:
   output-dir: _book
 
 book:
-  title: "Goal, Code, Verify, Reflect"
+  title: "Introduction to R Programming: Goal, Code, Verify, Reflect"
   subtitle: "Guided Activities for Learning R Workflow"
   author: "Lorraine Gaudio"
   date: today
@@ -38,12 +38,14 @@ format:
     theme:
       - cosmo
       - assets/styles/guided-book.scss
-    toc: true
-    toc-depth: 2
+    toc: false
+    toc-depth: 3
+    toc-title: "On this page"
+    toc-expand: true
+    anchor-sections: true
+    smooth-scroll: true
     number-sections: false
     code-copy: true
     code-overflow: wrap
-    anchor-sections: true
-    smooth-scroll: true
     lightbox: true
     link-external-newwindow: true

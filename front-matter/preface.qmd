@@ -1,16 +1,20 @@
 ---
-title: "Preface"
+toc: true
 ---
 
-# Welcome
+# Preface {.unnumbered}
 
-Welcome to _Introduction to R Programming_! This course is for students who expect to work with data—in their majors, in research, industry, or graduate study. You will be in class with first-year undergraduates and advanced graduate students, with backgrounds ranging from biology and psychology to anthropology, engineering, business, and the humanities. Some of your classmates already code in languages like Python; others are opening RStudio for the first time. The course is designed so that no programming experience is assumed, while still offering meaningful extension work for those who want more depth or need R for thesis and research projects.
+<p class="chapter-subtitle">Welcome to Introduction to R Programming</p>
 
-Over sixteen weeks, you will learn to use R with the desktop version of RStudio to create transparent, reproducible analyses that another person can re-run on a different computer. Early chapters focus on the foundations: navigating RStudio, managing your workspace, writing and submitting clean R scripts, and keeping a record of the objects you create. From there you will build up a working toolkit with vectors, functions, and missing-data handling; move into importing data from real files; and practice wrangling datasets with base R indexing, logical tests, and the `dplyr` verbs that power much of modern data science. In the final stretch, you will create visualizations with `ggplot2`, run basic simulations, and assemble an end-to-end mini-analysis that demonstrates readiness for your next statistics or data course.
+## Guided Activities for Learning R Workflow {#guided-activities-for-learning-r-workflow}
+
+Welcome to _Introduction to R Programming: Goal, Code, Verify, Reflect_! This text is for learners who expect to work with data—in their majors, research, or industry, graduate study, or as data-educated member of society. You will be in class with first-year undergraduates and advanced graduate students, with backgrounds ranging from biology and psychology to anthropology, engineering, business, and the humanities. Some of your classmates already code in languages like Python; others are opening RStudio for the first time. The course is designed so that no programming experience is assumed, while still offering meaningful extension work for those who want more depth or need R for thesis and research projects.
+
+In sixteen chapters, you will learn to use R with the desktop version of RStudio to create transparent, reproducible analyses that another person can re-run on a different computer. Early chapters focus on the foundations: navigating RStudio, managing your workspace, writing and submitting clean R scripts, and keeping a record of the objects you create. From there you will build up a working toolkit with vectors, functions, and missing-data handling; move into importing data from real files; and practice wrangling datasets with base R indexing, logical tests, and the `dplyr` verbs that power much of modern data science. In the final stretch, you will create visualizations with `ggplot2`, run basic simulations, and assemble an end-to-end mini-analysis that demonstrates readiness for your next statistics or data course.
 
 The course is not only about code. Each chapter asks you to document your thinking as you work, building your memoing skills alongside your R programming skills. You will practice stating goals, making predictions, and writing short memos about what you tried, what failed, and what finally worked. You will practice asking questions, persisting through bugs, revisiting your reasoning and examine how and when to use AI tools as part of your workflow. Throughout, you will be expected to type your own code, to disclose when you consult outside resources (including AI), and to treat reproducibility and integrity as central parts of doing data work, not as afterthoughts.
 
-# Why Learn R?
+## Why Learn R? {#why-learn-r}
 
 R is one of the most widely used programming languages for data analysis, statistics, and scientific research. It is popular among statisticians, data scientists, and researchers due to its powerful capabilities for data manipulation, visualization, and statistical modeling. Here are some reasons why learning R is beneficial:
 
@@ -38,7 +42,7 @@ If these AI tools are very good at producing code, why should you learn to read 
 
 While course will focus on the foundations, learning R opens up many possibilities for advanced data analysis, machine learning, and statistical modeling. It is a valuable skill for anyone working with data in various fields, including academia, industry, healthcare, finance, and more.
 
-# Acquiring the Software
+## Acquiring the Software {#acquiring-the-software}
 
 Lessons are hands-on. To follow along, you must have both **R** and **RStudio** installed on your own computer. These are two separate pieces of software that work together. They run on Windows, macOS, and Linux.
 
@@ -48,7 +52,7 @@ Lessons are hands-on. To follow along, you must have both **R** and **RStudio** 
 
 RStudio does not include R. You must install R first, then RStudio Desktop, which will detect your R installation when it starts. 
 
-## Download and Install R
+### Download and Install R {#download-and-install-r}
 
 1. Go to the [CRAN R Project for Statistical Computing](https://cran.r-project.org/){target="_blank" rel="noopener noreferrer"} website.
 
@@ -64,7 +68,7 @@ c. **Linux**: Click the [Linux folder of the Cran website](https://cran.r-projec
 
 If you double-click the R icon after installation, you may see a window like this, called the R console (or RGui on Windows). This is the base interface that comes with R, and it can run R code, but we will not use it in this course. Instead, you will always write, run, and save your work in **RStudio Desktop**, which provides a script editor, projects, and tools that make your analyses easier to organize, share, and reproduce.
 
-## Download and Install RStudio
+### Download and Install RStudio {#download-and-install-rstudio}
 
 1. Go to the [RStudio download page](https://posit.co/download/rstudio-desktop/){target="_blank" rel="noopener noreferrer"}.
 
@@ -81,7 +85,7 @@ c. **Linux**: Select the installer that matches your Linux distribution (for exa
 
 ![Figure 2. The RStudio icon on Windows.](images/RStudio_Logo.png)
 
-## Intallation Video Tutorials
+### Intallation Video Tutorials {#installation-video-tutorials}
 
 If you prefer a video walkthrough, you can watch a short tutorial:
 
@@ -97,7 +101,7 @@ If you prefer a video walkthrough, you can watch a short tutorial:
 
 [R for Ecologists (Lesson 1) Installing R and RStudio](https://youtu.be/YKvkXKeGoa8?si=YAMM-MpMqtQX-6ep){target="_blank" rel="noopener noreferrer"}
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Large Language Models (LLMs)**: AI systems trained on massive collections of text and code to predict and generate language, including R code and explanations. In an R-learning context, LLMs can help you brainstorm, interpret error messages, and draft code—but they can also produce plausible-sounding mistakes, so you must verify outputs, understand each line you run, and document when and how you used the tool.
 
@@ -105,7 +109,7 @@ If you prefer a video walkthrough, you can watch a short tutorial:
 
 **RStudio Desktop** is an **integrated development environment** (IDE) that makes writing, running and organizing R code easier.
 
-# References
+## References {#references}
 
 Kisselburgh, L., & Beever, J. (2022). The Ethics of Privacy in Research and Design: Principles, Practices, and Potential. In B. P. Knijnenburg, X. Page, P. Wiseniewski, H. R. Lipford, N. Proferes, & J. Romano (Eds.), Modern Socio-Technical Perspectives on Privacy (pp. 395–426). Springer. [https://doi.org/10.1007/978-3-030-82786-1](https://doi.org/10.1007/978-3-030-82786-1){target="_blank" rel="noopener noreferrer"}
 
