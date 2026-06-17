@@ -26,7 +26,7 @@ In Chapter One you will learn how to:
 
 ## RStudio Interface {#rstudio-interface}
 
-**RStudio Desktop** is an integrated development environment (IDE) because it brings script editing, the R console, environment/object viewing, help/documentation, and file navigation into a single interface.
+**RStudio Desktop** is an [integrated development environment]{.glossary-term data-term="Integrated Development Environment"} (IDE) because it brings script editing, the R console, environment/object viewing, help/documentation, and file navigation into a single interface.
 
 RStudio should already be installed on your computer. You can identify RStudio by its distinctive round blue icon as shown in Figure 1. If you do not have RStudio installed, please refer to the installation instructions provided in the Preface.
 
@@ -38,20 +38,20 @@ Grey code boxes like this one below contains instructions for you to follow. Com
 # Open RStudio Desktop.  
 ```
 
-You should see a window with four main panes (see Figure 2).
+You should see a window with four main [panes]{.glossary-term data-term="Panes"} (see Figure 2).
 
-1. **Console** – where R runs commands and shows results  
-2. **Environment** – where you can see the objects (data, vectors, functions) in your current session  
-3. **Script Editor (Source)** – where you write and save your R scripts and notebooks 
-4. **Files and Help** – where you browse files and access plots, packages, and help pages
+1. [Console]{.glossary-term data-term="Console Pane"} – where R runs commands and shows results  
+2. [Environment]{.glossary-term data-term="Environment Pane"} – where you can see the [objects]{.glossary-term data-term="Objects"} (data, vectors, functions) in your current session  
+3. [Script Editor (Source)]{.glossary-term data-term="Script Editor Pane"} – where you write and save your R scripts and notebooks 
+4. [Files]{.glossary-term data=term="File Pane"} and [Help]{.glossary-term data=term="Help"} – where you browse files and access plots, packages, and help pages
 
 ![Figure 2. The RStudio interface with four panes: Console, Environment, Script Editor, and Files/Help.](images/ch01-navigation/r_studio.png)
 
-💡 **Tip:** If your layout looks different, that’s okay—RStudio lets you move panes. Look at the **tab labels** in each pane (for example, *Console*, *Environment*, *Files*, *Help*) to identify them. You can always reset the layout later using **Tools → Global Options → Pane Layout**.
+💡 **Tip:** If your [layout]{.glossary-term data-term="Pane Layout"} looks different, that’s okay—RStudio lets you move panes. Look at the **tab labels** in each pane (for example, *Console*, *Environment*, *Files*, *Help*) to identify them. You can always reset the layout later using **[Tools]{.glossary-term data-term="Tools"} → [Global Options]{.glossary-term data-term="Global Options"} → [Pane Layout]{.glossary-term data-term="Pane Layout"}**.
 
 ## Console {#console}
 
-The Console is where R runs commands. You can type commands directly into the Console and press **Enter** to run them. R will evaluate your command and usually print the result immediately below.
+The [Console]{.glossary-term data-term="Console Pane"} is where R runs commands. You can type commands directly into the Console and press **Enter** to run them. R will evaluate your command and usually print the result immediately below.
 
 ### Basic Calculations {#basic-calculations}
 
@@ -91,7 +91,7 @@ R performs standard operations like addition (`+`), subtraction (`-`), multiplic
 
 ### Functions {#functions}
 
-Many mathematical operations in R are performed using **functions**. A function is a reusable block of code that takes inputs, processes them, and returns an output. Functions can be built-in or user-defined. In this course, we will only use built-in functions. Many functions have **arguments** (inputs) that you provide inside the parentheses. 
+Many mathematical operations in R are performed using [functions]{.glossary-term data-term="Functions"}. A function is a reusable block of code that takes inputs, processes them, and returns an output. Functions can be built-in or user-defined. In this course, we will only use built-in functions. Many functions have [arguments]{.glossary-term data-term="Arguments"} (inputs) that you provide inside the parentheses. 
 
 Built-in mathematical functions include `sum()`, `mean()`, `sd()`, and `sqrt()`. These functions require arguments to specify the data they operate on.
 
@@ -118,13 +118,13 @@ We'll use functions throughout this course. Before we dive into more details abo
 
 ## Global Environment {#global-environment}
 
-During a session, You can create or load **objects** into the global environment. These are named containers that store data values (such as numbers, vectors, data tables, or models), which can then be accessed and manipulated later. Objects are also sometimes called variables, identifiers, or data structures. 
+During a session, you can create or load [objects]{.glossary-term data-term="Objects"} into the global environment. These are named containers that store data values (such as numbers, vectors, data tables, or models), which can then be accessed and manipulated later. Objects are also sometimes called [variables]{.glossary-term data-term="variables"}, identifiers, or data structures. 
 
-The **Environment** pane lists all of the objects that currently exist in your R session and gives a quick preview of their contents.
+The [Environment pane]{.glossary-term data-term="Environment Pane"} lists all of the objects that currently exist in your R session and gives a quick preview of their contents.
 
 ### Naming and Storing Results {#naming-and-storing-results}
 
-An **object name** is the label you use to retrieve something you stored. The **assignment operator** `<-` (or `->`) is used to **store** a result in an object (a named container). This is how you give a result a name so you can reuse it later.
+An **object name** is the label you use to retrieve something you stored. The [assignment operator]{.glossary-term data-term="Assignment Operator"} `<-` (or `->`) is used to **store** a result in an object (a named container). This is how you give a result a name so you can reuse it later.
 
 🎯 Use `<-` to store the result of `2 + 2` in an object named `value`.
 
@@ -201,9 +201,9 @@ number five <- 5  # space not allowed without backticks
 
 The syntax of R can be difficult for students to learn, and they often report spending many hours debugging simple problems. Understanding how R reads your code can help you avoid common pitfalls. I encourage students to reach out to peers, consult with instructors, explore online resources, use AI tools, and refer to R’s help files, since these errors are often simple but difficult to notice on your own. 
 
-The smallest meaningful units R reads when it parses your code is called a **token**. R breaks each line into tokens, then checks whether that sequence forms valid syntax.
+The smallest meaningful units R reads when it parses your code is called a [token]{.glossary-term data-term="Tokens"}. R breaks each line into tokens, then checks whether that sequence forms valid syntax.
 
-White space between **tokens** is generally flexible and ignored by the interpreter for most operations, which offers a high degree of formatting freedom for readability. The whitespace inside a multi-character token can change meaning, because it splits the token.
+White space between tokens is generally flexible and ignored by the interpreter for most operations, which offers a high degree of formatting freedom for readability. The whitespace inside a multi-character token can change meaning, because it splits the token.
 
 🛠 **Break Things!** Test out this by adding extra spaces or removing spaces around the assignment operator `<-` when creating a new object named `total` that stores the value `5 - 2`.
 
@@ -234,13 +234,13 @@ _____
 
 ## Files Pane {#files-pane}
 
-The Files pane allows you to navigate your computer's file system, manage files and folders, and set your working directory. 
+The [Files pane]{.glossary-term data-term="Files Pane"} allows you to navigate your computer's file system, manage files and folders, and set your [working directory]{.glossary-term data-term="Working Directory"}. 
 
 💡 **Tip:** I do not recommend that you rename, delete, and create new files or folders from this pane. Instead, use your computer's file explorer (e.g., File Explorer on Windows, Finder on macOS) for these tasks to avoid potential issues with file paths and syncing.
 
 ### Working Directory {#working-directory}
 
-The **working directory** is where files actually go when you save them from RStudio. RStudio normally starts in your home directory. A common challenge for early RStudio users is having trouble finding their saved files because they were not aware of the working directory. Many “I saved it but I can’t find it” problems are really “my working directory wasn’t what I thought it was.”
+The [working directory]{.glossary-term data-term="Working Directory"} is where files actually go when you save them from RStudio. RStudio normally starts in your home directory. A common challenge for early RStudio users is having trouble finding their saved files because they were not aware of the working directory. Many “I saved it but I can’t find it” problems are really “my working directory wasn’t what I thought it was.”
 
 Two important points about the working directory:
 
@@ -279,7 +279,7 @@ Keep your coursework organized by creating a dedicated folder for this course on
 
 Many tutorials teach the function `setwd()`. For beginners, the RStudio menu method provides a convenient UI method. Using the UI method helps avoid typos in the file path. There are two reliable UI routes to set the working directory:
 
-Method A. **Session Menu**
+Method A. **[Session Menu]{.glossary-term data-term="Session Menu"}**
 
 - **Windows/Linux**: Tools → Change Working Dir…
 
@@ -457,7 +457,7 @@ Use the file explorer on your computer to locate the `workspace.RData` file you 
 ```
 ___
 
-Saving your workspace is a snapshot for submission. Your next chapter (Scripts) is the long-term skill: saving the instructions (code) that recreate your work. **Script Editor (Source)** is a place for creating, saving, and submitting R files that keep a record of your code and research process.
+Saving your workspace is a snapshot for submission. Your next chapter (Scripts) is the long-term skill: saving the instructions (code) that recreate your work. [Script Editor]{.glossary-term data-term="Script Editor Pane"} (Source) is a place for creating, saving, and submitting R files that keep a record of your code and research process.
 
 ___
 
@@ -477,7 +477,7 @@ The Files pane helps you navigate folders so you can find course materials and, 
 
 **Environment Pane**: The pane that lists the objects currently stored in memory for your session (for example, data frames, vectors, and functions). It helps you check what exists, inspect object names/types, and remove or manage objects.
 
-**Files Pane** and Help – Tabs/panes used to navigate your project folders and view supporting information. Files lets you browse, open, rename, and manage files; Help shows documentation for functions and packages (including searchable help pages).
+**Files Pane**:  Tabs/panes used to navigate your project folders and view supporting information. Files lets you browse, open, rename, and manage files.
 
 **Functions**: Reusable blocks of code that perform specific tasks. Functions can take inputs (arguments) and return outputs. R has many built-in functions, and you can also create your own.
 

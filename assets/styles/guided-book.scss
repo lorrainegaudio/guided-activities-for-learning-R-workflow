@@ -542,3 +542,57 @@ hr {
     text-align: center;
   }
 }
+
+/* =========================================================
+   Glossary terms and popovers
+   ========================================================= */
+
+.glossary-term {
+  color: $boise-blue;
+  font-weight: 700;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  cursor: help;
+}
+
+.glossary-term:hover,
+.glossary-term:focus {
+  color: $boise-orange;
+  text-decoration-style: solid;
+  outline: none;
+}
+
+.glossary-term:focus {
+  box-shadow: 0 0 0 0.18rem rgba(0, 51, 160, 0.18);
+  border-radius: 0.2rem;
+}
+
+.glossary-term-missing {
+  color: $boise-orange;
+  text-decoration-style: wavy;
+}
+
+.popover.glossary-popover {
+  max-width: 390px;
+  border: 1px solid $boise-blue;
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgba(0, 51, 160, 0.14);
+  font-family: $font-family-base;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.popover.glossary-popover .popover-header {
+  background: $soft-blue;
+  color: $boise-blue;
+  border-bottom: 1px solid $border-gray;
+  font-family: $headings-font-family;
+  font-weight: 700;
+}
+
+.popover.glossary-popover .popover-body {
+  color: $text-dark;
+  background: $white;
+}

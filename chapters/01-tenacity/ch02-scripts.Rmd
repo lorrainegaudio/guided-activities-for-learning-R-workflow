@@ -26,13 +26,13 @@ In Chapter Two you will learn how to:
 
 ## Script Editor (Source) {#script-editor}
 
-Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with **R Script**, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand *how* and *why* you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio. 
+Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with [R Script]{.glossary-term data-term="R Script"}, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand *how* and *why* you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio. 
 
 ### Console vs Script Editor {#console-vs-script}
 
-The **Console** is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. However, the Console does not save your commands after you close RStudio, so it is not suitable for documenting your work. 
+The [Console]{.glossary-term data-term="Console Pane"} is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. However, the Console does not save your commands after you close RStudio, so it is not suitable for documenting your work. 
 
-An **R script** is a plain text file that contains a series of R commands. The script acts as a static record of the analysis. If the data or method change later, the original script preserves the logic used for your initial findings. The inclusion of comments (lines that begin with `#`) allows you to explain the *why* behind your code, detailing assumptions, data transformations, and the rationale for specific analytical choices. 
+An [R Script]{.glossary-term data-term="R Script"} is a plain text file that contains a series of R commands. The script acts as a static record of the analysis. If the data or method change later, the original script preserves the logic used for your initial findings. The inclusion of comments (lines that begin with `#`) allows you to explain the *why* behind your code, detailing assumptions, data transformations, and the rationale for specific analytical choices. 
 
 Think of programming like writing a recipe. Using the Console is like throwing ingredients into a pan on the fly. You might make something delicious (a great chart), but you didn't write down how much salt you used or in what order you added the spices. If you close RStudio, your "cooking" session is gone forever. Using an R script is like writing down the recipe step-by-step. You can share it with others, and you (or anyone else) can follow the same steps later to recreate the dish exactly. Comments act as notes in the margins of your recipe card.
 
@@ -40,7 +40,7 @@ Think of programming like writing a recipe. Using the Console is like throwing i
 
 There are two primary ways to create a new R script in RStudio. You can use either method.
 
-Method A. **File Menu**
+Method A. [File Menu]{.glossary-term data-term="File Menu"}
 
 1. Go to the File menu at the top left of RStudio.
 
@@ -180,7 +180,7 @@ the_aftermath <- seven.eight - nine
 
 ✍️  Error: object 'seven.eight' not found. 🗣 This is an error because `seven.eight` has not been created yet in this session.
 
-🚧  **Errors** prevent code from running. 
+🚧  [Errors]{.glossary-term data-term="Error"} prevent code from running. 
 
 🤔 No Error? This example may not error if you already ran `seven.eight <- seven + eight` before `the_aftermath <- seven.eight - nine`. Another way you can produce the error is by clearing the Environment before testing. 🧹 Sweep your environment and run code out of order.
 
@@ -343,26 +343,24 @@ ___
 
 We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity on a memo whenever you encounter an error or do not fully understand.
 
----
-
 ## Vectors {#vectors}
 
-So far, we have only stored single numbers in objects. These single-element numeric objects are often called **scalars**. R can also store collections of values in a single object.
+So far, we have only stored single numbers in objects. These single-element numeric objects are often called [scalars]{.glossary-term data-term="Scalar"}. R can also store collections of values in a single object.
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Script
 scalar <- 42
 ```
 
-An **atomic vector** one-dimensional object that stores an ordered collection of values (**elements**), all of the same basic type. For simplicity, I will simply use the word **vector**. A vector is like a row in a spreadsheet: a single dimension of related values.
+An [atomic vector]{.glossary-term data-term="Atomic Vector"} is a one-dimensional object that stores an ordered collection of values ([elements]{.glossary-term data-term="Element"}), all of the same basic type. For simplicity, I will simply use the word [vector]{.glossary-term data-term="Vector"}. A vector is like a row in a spreadsheet: a single dimension of related values.
 
 Let's use `c()`, `:`, and `seq()` to create vectors of different storage types: numeric, integer, and character. 
 
 ### Numeric Vectors with `c()` {#numeric-vectors}
 
-**Numeric vectors** are a list of numbers. So far, we have only stored single numbers in objects. 
+[Numeric vectors]{.glossary-term data-term="Numeric Vector"} are a list of numbers. So far, we have only stored single numbers in objects. 
 
-Vector Method A. Use the `c()` function to combine (or "**concatenate**") values into a single vector.
+Vector Method A. Use the `c()` function to combine (or "[concatenate]{.glossary-term data-term="Concatenate"}) values into a single vector.
 
 🎯 Create a numeric vector named `numbers3` that contains three decimal point and negative numbers using the `c()` function.
 
@@ -381,7 +379,7 @@ print(numbers3)
 
 ### Integer Vectors with `c()` {#integer-vectors}
 
-**Integer vectors** are a list of whole numbers. In R, integers are typically written with an `L` suffix.
+[Integer vectors]{.glossary-term data-term="Integer Vector"} are a list of whole numbers. In R, integers are typically written with an `L` suffix.
 
 🎯 Create a vector named `cursed_seq` that contains the integer values 4, 8, 15, 16, 23, and 42 using the `c()` function.
 
@@ -437,7 +435,7 @@ print(travel_jumps)
 
 ### Character Vectors with `c()` {#character-vectors}
 
-**Character vectors** store text strings, which are sequences of characters enclosed in quotes. Character vectors can include letters, numbers, symbols, and spaces. They are often used to represent names, labels, or any other textual data.
+[Character vectors]{.glossary-term data-term="Character Vector"} store text strings, which are sequences of characters enclosed in quotes. Character vectors can include letters, numbers, symbols, and spaces. They are often used to represent names, labels, or any other textual data.
 
 Quotes are enclosed in either double quotes `"` or single quotes `'`. Both types of quotes function the same way in R, but it's important to be consistent within a single string. The commas separate individual strings within the vector is outside the quotes.
 
@@ -514,7 +512,7 @@ Before using data, we need to confirm *what* it is.
 
 ### Mode of a Vector {#mode-of-vector}
 
-The storage type of a vector tells R how to interpret the data inside it. The `mode()` function tells you what kind of data the object is fundamentally made of. For typical vectors, the mode could be "numeric," "character," or "logical" to name a few.
+The storage type of a vector tells R how to interpret the data inside it. The [mode]{.glossary-term data-term="Mode"} function, `mode()`, tells you what kind of data the object is fundamentally made of. For typical vectors, the mode could be "numeric," "character," or "logical" to name a few.
 
 *The function* `typeof()` *returns R's internal storage type of an object. For a higher-level understanding of the data type, we use the* `mode()` *function.*
 
@@ -535,7 +533,7 @@ mode(activation_code)
 
 ### Length of a Vector {#length-of-vector}
 
-`length()` counts elements.
+The [length]{.glossary-term data-term="Length"} function, `length()`, counts elements.
 
 🎯 Use the `length()` function to find the number of elements in the `activation_code` vector.
 
@@ -554,7 +552,7 @@ length(activation_code)
 
 ## Dataframes {#dataframes}
 
-A **data frame** is a two-dimensional, tabular data structure in R that can store data of different types (numeric, character, logical, etc.) in each column. It is similar to a spreadsheet or SQL table and is widely used for data analysis and manipulation in R.
+A [data frame]{.glossary-term data-term="Data Frame"} is a two-dimensional, tabular data structure in R that can store data of different types (numeric, character, logical, etc.) in each column. It is similar to a spreadsheet or SQL table and is widely used for data analysis and manipulation in R.
 
 We can create a data frame by combining multiple vectors of the *same length* using the `data.frame()` function.
 
@@ -592,45 +590,55 @@ print(spectrum_shift)
 
 ## Summary {#summary}
 
-This chapter taught you how to work in an R script: create a new `.R` file in the Source pane, run code into the Console with RStudio’s Run commands/shortcuts, and use comments to document what you tried when something failed. You built vectors with `c()`, `:` and `seq()`, practiced element-wise vector arithmetic (including R’s recycling behavior and the warnings it can trigger), created character and logical vectors, and then checked objects with `mode()` and `length()` to confirm what they are before using them. Finally, you combined same-length vectors into a data frame using `data.frame()`, which is the standard “table” structure you will use constantly in later chapters.
+In Chapter 2, you learned how to work in an R script: create a new `.R` file in the Source pane, save it in the correct course folder, run code into the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.
+
+You built basic R objects, including numeric, integer, character, and logical vectors. You practiced creating vectors with `c()`, `:`, and `seq()`, adding an element to an existing vector, and checking objects with `mode()` and `length()` so you can confirm what kind of data an object contains and how many elements it stores.
+
+Finally, you combined same-length vectors into a simple data frame using `data.frame()`. By the end of this chapter, your main goal is not advanced analysis yet. Your goal is to build a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save the correct files for submission.
 
 ## Chapter Terms {#chapter-terms}
 
 **Atomic Vector**: A one-dimensional R vector where all elements must be the same basic type (logical, integer, double/numeric, character, complex, or raw). If you combine different types, R will coerce them to a single type so the vector stays atomic.
 
-**Character Vector**: A vector that stores text strings, written in quotes, such as `"apple", "banana", "grapes"` or `"ID_001", "ID_002", "ID_003"`.
+**Character Vector**: A vector that stores text strings written in quotation marks, such as `"red"`, `"orange"`, or `"TARDIS Blue"`.
 
-**Concatenate** `c()`: A function that combines (concatenates) values into a single vector. You use `c()` to create a vector, append items to an existing vector, or join multiple vectors together (for example, `c(1, 2, 3)` or `c(x, y))`.
+**Concatenate** `c()`: A function that combines values into a single vector. In this chapter, you use `c()` to create vectors and to add a new element to an existing vector.
 
-**Data Frame**: A rectangular table-like object where each column is a vector (all values in a column share the same type), and all columns have the same number of rows. Data frames are the standard structure for working with datasets in R because they organize variables (columns) and observations (rows) in a consistent format.
+**Console Pane**: The pane where R executes commands and prints output. Anything you type and run here is evaluated immediately, and messages, warnings, errors, and results appear here.
 
-**Elements**: The individual data values stored inside a vector object. Each element has a position (its index) and can be accessed by indexing (for example, `x[1]` for the first element).
+**Data Frame**: A rectangular table-like object in R. A data frame is made from columns, and each column is a vector. In this chapter, you create a simple data frame by combining vectors with the same length.
 
-**Error**: A console message indicating that R could not complete a command. Execution stops at that point, no result is produced for that step, and you must fix the problem (for example, a misspelled object name, invalid argument, or syntax issue) before the code can run.
+**Element**: One individual value stored inside a vector. For example, in `c("red", "blue", "green")`, each color name is an element.
 
-**File Menu**: The top-left menu in RStudio that provides commands for creating, opening, saving, exporting, and printing files and projects. It’s where you start new items (for example, a new R Script), open existing files, manage recent files/projects, and access project-level actions. 
+**Error**: A message from R that means the command could not run successfully. Errors are useful information. They help you identify what R could not understand or complete.
 
-**Hexadecimal Color Codes**: A way to specify colors using a `#` followed by hexadecimal digits. In R (and most software), `#RRGGBB` defines the red, green, and blue intensities using two hex digits each (00–FF), for example `#FF0000` (red) or `#1E90FF` (blue). Some codes include transparency as a fourth pair, `#RRGGBBAA`, where `AA` controls alpha (00 = fully transparent, FF = fully opaque).
+**File Menu**: The menu in RStudio used to create, open, and save files. In this chapter, you use the File menu to create and save an R script.
 
-**Integer Vector**: A vector that stores whole numbers. In R, integers are typically written with an `L` suffix, such as `1L` or `42L`.
+**Hexadecimal Color Code**: A text code that represents a color, usually written with `#` followed by letters and numbers, such as `#FF0000` or `#003B6F`. In this chapter, hexadecimal color codes are stored as character values.
 
-**Length** `length()`: A function that returns the number of elements in an object. For a vector, `length(x)` is the count of elements in the vector; for a list, it’s the number of list components; for a data frame, it returns the number of columns.
+**Integer Vector**: A vector that stores whole numbers. In R, integers may be written with an `L` after the number, such as `4L` or `42L`.
 
-**Mode**: The underlying storage type of an R object—the low-level kind of data it is fundamentally stored as. `mode(x)` reports this storage mode (often aligning with atomic types like `"numeric"`, `"integer"`, `"logical"`, or `"character"`), which is useful for understanding coercion and how R will treat the object in computations.
+**Length** `length()`: A function that counts how many elements are stored in an object. In this chapter, you use `length()` to check how many values are in a vector.
 
-**Numeric Vector**: A vector that stores real (decimal) numbers, such as `3.14`, `-2.5`, or `0`.
+**Logical Vector**: A vector that stores logical values such as `TRUE`, `FALSE`, and sometimes `NA`.
 
-**Recycling**: R’s rule for handling vector operations when the vectors have different lengths. The shorter vector is repeated (recycled) to match the length of the longer vector, then the operation is performed element-by-element. Recycling is safe only when the longer length is an exact multiple of the shorter; otherwise R issues a warning and the result may be unreliable.
+**Memo**: A short comment in your script that explains your thinking, your goal, what the output shows, what went wrong, or what you tried to fix a problem.
 
-**R Script**: A plain-text file (typically saved with a `.R` extension) that contains a sequence of R commands you write and save for later use. An R script lets you run code in a repeatable, organized way—so you can recreate analyses, clean data, define functions, and document your workflow without relying on one-off console commands.
+**Mode** `mode()`: A function that reports the basic storage mode of an object, such as `"numeric"`, `"character"`, or `"logical"`. In this chapter, you use `mode()` to check what kind of values are stored in a vector.
 
-**Scalars**: Single-value objects (length 1). In R, scalars are not a separate data type—what people call a “scalar” is typically an atomic vector with exactly one element (numeric, character, logical, etc.).
+**Numeric Vector**: A vector that stores numbers, including decimals and negative values.
 
-**Vector**: A one-dimensional object that stores an ordered sequence of elements of the same basic type (for example, all numeric, all character, or all logical). Vectors are the core building block of many R objects, and you create them with functions like `c()`; you can subset them by position or by logical conditions.
+**R Script**: A plain-text file with the `.R` extension that stores R code and comments. An R script gives you a reusable record of the code you wrote and the order it should run.
 
-**Vector Arithmetic**: Performing mathematical operations directly on vectors. In R, operations like` +`, `-`, `*`, `/`, and `^` are applied element-by-element, so `c(1, 2, 3) + c(10, 20, 30)` returns `c(11, 22, 33)`.
+**Scalar**: A single-value object. In beginner terms, a scalar is one value stored in an object, such as `scalar <- 42`.
 
-**Warning**: A console message indicating that R did run the command but detected a potential problem. Execution continues and a result is produced, but the output may be incomplete, unexpected, or based on an assumption (for example, coercing types, removing missing elements, or using a function in a way that may not behave as intended).
+**Sequence Operator** `:`: An operator that creates a sequence of values by ones, such as `1:5`.
+
+**Tenacity**: The learning habit of staying with a coding problem productively. In this chapter, tenacity means documenting errors, trying a reasonable fix, checking the result, and knowing when to seek help.
+
+**Vector**: A one-dimensional object that stores an ordered group of values. In this chapter, vectors are used to store numbers, text, and logical values.
+
+**Workspace**: The collection of objects currently stored in your R Environment. In this chapter, you save the workspace as an `.RData` file for submission.
 
 ## 📝 Practice Space {#practice-space}
 
@@ -641,7 +649,7 @@ Before you begin:
 1. Create a new R Script in RStudio.
 2. Save it in your course folder as `chapter2_practice.R`.
 3. Complete all Practice Space tasks in that notebook.
-4. Save your workspace as `chapter2_practice.RData`.
+4. Save your [workspace]{.glossary-term data-term="Workspace"} as `chapter2_practice.RData`.
 
 Required files to submit:
 
@@ -711,7 +719,7 @@ length(________)
                  
 ### Task 3 {#task-3}
 
-R can store hexadecimal color codes in character vectors. **Hexadecimal color** codes are six-digit codes that represent colors in web design and digital graphics.
+R can store hexadecimal color codes in character vectors. [Hexadecimal color codes ]{.glossary-term data-term="Hexadecimal Color Code"} are six-digit codes that represent colors in web design and digital graphics.
 
 Type this in your R Script, Fill in the blanks
 
