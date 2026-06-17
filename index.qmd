@@ -1,52 +1,66 @@
+---
+toc: false
+page-layout: full
+---
+
+::: {.book-home}
+
+<img src="assets/images/data-r-155-banner.png" class="home-banner-strip" alt="DATA-R 155 Introduction to R Programming course banner.">
+
 # Welcome {.unnumbered}
 
-::: {.hero-book}
-::: {.hero-book__media}
-![DATA-R 155 course banner for Introduction to R Programming](assets/images/data-r-155-banner.png){.hero-book__banner fig-alt="Data R 155 Introduction to R Programming banner."}
-:::
+::: {.home-intro-card}
+## Guided activities for learning R workflow
 
-::: {.hero-book__content}
-<div class="hero-book__eyebrow">DATA-R 155 • Boise State University</div>
+This book contains the guided activities for **Introduction to R Programming**. These activities help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.
 
-## Guided activities for Introduction to R Programming
-
-This book contains the guided activities for **Introduction to R Programming**. It is designed to help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.
-
-<div class="chip-row">
-  <span class="course-chip">Seven-week online course</span>
-  <span class="course-chip">Guided activities</span>
-  <span class="course-chip">Code-along learning</span>
-</div>
-
-<div class="book-actions">
-  <a class="cta-primary" href="front-matter/preface.qmd">Start with the Preface</a>
-  <a class="cta-secondary" href="chapters/01-tenacity/ch01-navigation.Rmd">Open Chapter 1</a>
-</div>
-:::
-:::
-
-::: {.home-note}
-You are not expected to know this before you begin. The goal of this book is not perfect code on the first try. The goal is to build a reliable workflow for setting a goal, typing code, checking results, and revising your thinking.
+You are not expected to know this before you begin. The goal is not perfect code on the first try. The goal is to build a reliable workflow for noticing, checking, and improving your work.
 :::
 
 ## What this book is
 
-This is the guided activity book for the course. Each chapter supports your learning by walking you through explanations, screenshots, code you type in RStudio, checks, summaries, chapter terms, and practice connections.
+This book is a working collection of guided R activities. Each chapter introduces course concepts, models R workflow, gives you code to type in RStudio, and prompts you to document what you are learning.
+
+The guided activities are instructional support. They help you learn the material before, during, and after class.
 
 ## What this book is not
 
-This book is not the gradebook, the discussion board, or the submission portal. Use the guided activities to learn and review. Use Canvas and course assignment directions for submission, grading, and progress tracking.
+This book is not the same thing as the **Practice Space** assignment you submit for evaluation.
 
-## How to use the guided activities
+The guided activity helps you learn. The Practice Space is where you show evidence of what you learned. Some chapters include a Practice Space section so you can see how the guided work connects to the submitted work, but you should always follow the Canvas assignment directions for what to submit.
 
-Use the book with RStudio open beside it.
+## How to use this book
 
-- Read the overview first.
-- Type the code yourself.
-- Pause after each step and verify what happened.
-- Use the summary and chapter terms when you review.
-- Treat confusion as information about what to check next.
+Keep this book open next to RStudio.
+
+Use each chapter to:
+
+- read the overview,
+- type the code yourself,
+- check what happened,
+- write down what worked,
+- notice what confused you,
+- and use the summary and chapter terms when you review.
+
+## When something does not work
+
+Confusion is not a sign that you are failing. It is information you can use to decide what to check next.
+
+When code does not work, slow down and ask:
+
+- What was my goal?
+- What did I type?
+- What happened?
+- What did I expect to happen?
+- What can I check next?
 
 ## Start here
 
-Begin with the **Preface**, then move into **Tenacity**.
+Begin with the **Preface**, then move into the first guided activity in **Tenacity**.
+
+<div class="home-button-row">
+  <a class="home-button-primary" href="front-matter/preface.html">Start with the Preface</a>
+  <a class="home-button-secondary" href="chapters/01-tenacity/ch01-navigation.html">Open Chapter 1</a>
+</div>
+
+:::

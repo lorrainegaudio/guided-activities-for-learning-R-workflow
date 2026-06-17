@@ -234,6 +234,110 @@ a:focus {
   margin: 1.25rem 0 1.75rem;
 }
 
+/* Home page layout */
+
+.book-home {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.25rem 2.5rem;
+}
+
+/* Hide the right-side page TOC only when index.qmd sets toc: false.
+   This rule is just extra protection for the home layout. */
+
+.book-home + #TOC,
+.book-home ~ #TOC {
+  display: none;
+}
+
+/* Course banner strip */
+
+.home-banner-strip {
+  display: block;
+  width: 100%;
+  max-width: 980px;
+  height: auto;
+  margin: 0.5rem auto 2rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d9dde4;
+  box-shadow: 0 6px 18px rgba(0, 51, 160, 0.08);
+}
+
+/* Home page heading */
+
+.book-home h1 {
+  color: #0033A0;
+  border-bottom: 4px solid #D64309;
+  padding-bottom: 0.35rem;
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+/* Intro card */
+
+.home-intro-card {
+  background: #f8fafc;
+  border-left: 8px solid #0033A0;
+  border-radius: 0.65rem;
+  padding: 1.2rem 1.4rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.home-intro-card h2 {
+  margin-top: 0;
+  color: #0033A0;
+  border-bottom: 1px solid #d9dde4;
+  padding-bottom: 0.35rem;
+}
+
+.home-intro-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Home buttons */
+
+.home-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 1.5rem 0 0;
+}
+
+.home-button-row a {
+  font-family: Gotham, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.1rem;
+}
+
+.home-button-primary {
+  background: #0033A0;
+  color: #ffffff !important;
+  border: 2px solid #0033A0;
+}
+
+.home-button-primary:hover,
+.home-button-primary:focus {
+  background: #00257a;
+  border-color: #00257a;
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
+.home-button-secondary {
+  background: #ffffff;
+  color: #0033A0 !important;
+  border: 2px solid #0033A0;
+}
+
+.home-button-secondary:hover,
+.home-button-secondary:focus {
+  background: #eef3ff;
+  color: #0033A0 !important;
+  text-decoration: none;
+}
+
 /* Code */
 
 pre,

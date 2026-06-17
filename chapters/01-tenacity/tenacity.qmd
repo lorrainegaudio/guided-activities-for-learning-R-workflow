@@ -1,0 +1,41 @@
+---
+toc: false
+---
+
+# Tenacity {.unnumbered}
+
+Tenacity is the first guided activity group in this book. These chapters help you get oriented to RStudio, practice moving between instructions and software, and begin building a reliable workflow for learning R.
+
+In this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 1: Navigation
+
+Get oriented to the RStudio interface, including the Console, Environment, Files pane, and basic workflow habits.
+
+[Open Chapter 1](ch01-navigation.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 2: Scripts
+
+Practice writing, saving, running, and submitting R scripts so your work is easier to reuse and revise.
+
+[Open Chapter 2](ch02-scripts.html){.section-button}
+:::
+
+:::
+
+## What to focus on
+
+As you work through Tenacity, pay attention to three habits:
+
+- where you are working in RStudio,
+- whether you typed the code exactly as intended,
+- and how you check what happened before moving on.
+
+These habits will matter in every later chapter.

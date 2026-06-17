@@ -13,6 +13,7 @@ guided-activities-for-learning-R-workflow/
 │
 ├── chapters/
 │   ├── 01-tenacity/
+│   │   ├── tenacity.qmd
 │   │   ├── ch01-navigation.Rmd
 │   │   ├── ch02-scripts.Rmd
 │   │   └── images/
@@ -36,7 +37,9 @@ guided-activities-for-learning-R-workflow/
 
 ├── assets/
 │   ├── styles/
-│   │   ├── guided-book.scss
-
+│   │   └──  guided-book.scss
+│   ├── images/
+│   │   ├── data-r-155-banner.png
+│   │   └── data-r-155-course-card.png
 ├── dev-notes/
 │   ├── file_structure_plan

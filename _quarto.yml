@@ -28,7 +28,7 @@ book:
   chapters:
     - index.qmd
     - front-matter/preface.qmd
-    - part: "Tenacity"
+    - part: chapters/01-tenacity/tenacity.qmd
       chapters:
         - chapters/01-tenacity/ch01-navigation.Rmd
         - chapters/01-tenacity/ch02-scripts.Rmd
