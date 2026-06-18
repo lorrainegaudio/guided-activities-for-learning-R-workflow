@@ -32,7 +32,16 @@ book:
       chapters:
         - chapters/01-tenacity/ch01-navigation.Rmd
         - chapters/01-tenacity/ch02-scripts.Rmd
-
+    - part: chapters/02-transparency/transparency.qmd
+      chapters:
+        - chapters/02-transparency/ch03-vectors.Rmd
+        - chapters/02-transparency/ch04-structures.Rmd
+    - part: chapters/03-courage/courage.qmd
+      chapters:
+        - chapters/03-courage/ch05-help.Rmd
+        - chapters/03-courage/ch05-help-prompting.Rmd
+        - chapters/03-courage/ch06-missing-values.Rmd      
+      
 format:
   html:
     theme:

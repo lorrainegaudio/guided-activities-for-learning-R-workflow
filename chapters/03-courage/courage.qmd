@@ -1,0 +1,37 @@
+---
+toc: false
+---
+
+## Courage
+
+Courage is ...
+
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 5: Help
+
+blah blah blah
+
+[Open Chapter 5](ch05-help.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 6: Missing Values
+
+blah blah blah
+
+[Open Chapter 6](ch06-missing-values.html){.section-button}
+:::
+
+:::
+
+## What to focus on
+
+As you work through courage ...
+
+
+

@@ -1,0 +1,36 @@
+---
+toc: false
+---
+
+# Transparency {.unnumbered}
+
+Transparency is ...
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 3: Vectors
+
+blah blah blah
+
+[Open Chapter 3](ch03-vectors.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 4: Structures
+
+blah blah blah
+
+[Open Chapter 4](ch04-structures.html){.section-button}
+:::
+
+:::
+
+## What to focus on
+
+As you work through transparency ...
+
+
+

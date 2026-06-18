@@ -1,9 +1,7 @@
 ---
 title: "Chapter 4:️ Structuers"
 subtitle: "Transparency, Indexing, and Logical Vectors"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+toc: true
 ---
 
 

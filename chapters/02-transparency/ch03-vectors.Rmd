@@ -1,14 +1,9 @@
 ---
-title: "Chapter 3"
-subtitle: "📏 Vector"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+title: "Chapter 3: Vector"
+subtitle: "Vectorization and Memoing in R Notebooks"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Overview {#overview}
 
@@ -129,8 +124,6 @@ To create an R Notebook in RStudio:
 💡 **Tip:** If your RStudio version does not show “R Notebook,” choose R Markdown. Select HTML Notebook as the output format. The end result is still an R Notebook stored as an `.Rmd` file. 
 
 
-📖  For more information on R Notebooks, refer to the [Documentation on R Notebooks](https://bookdown.org/yihui/rmarkdown/notebook.html).
-
 ### The YAML Header {#the-yaml-header}
 
 At the very top of your notebook you will see a block that looks like this:
@@ -233,7 +226,7 @@ Placing your cursor inside the chunk and pressing `Ctrl + Shift + Enter` (Window
 
 #### Example: Vector Arithmetic {#vector-arithmetic}
 
-[Vectorization]{.glossary-term data-term="Vectorization"} is when R applies an operation to each [element]{.glossary-term data-term="Element"} of a vector.
+[Vectorization]{.glossary-term data-term="Vectorization"} is when R applies an operation to each [element]{.glossary-term data-term="Element Names"} of a vector.
 
 🎯 Insert a code chunk then type and run the following R code to do vector arithmetic. 
 
@@ -275,12 +268,6 @@ length(powers_of_three)
 ```
 
 🗣 R reads `3 ^ small_exponents` as “raise 3 to each value stored in `small_exponents`.” The vector `small_exponents` tells R which exponents to use. The length tells us how many powers were created, not how large the biggest value is.
-
----
-
-🌳 For more information on R Markdown code chunks, refer to the [R Notebook documentation](https://bookdown.org/yihui/rmarkdown/notebook.html#using-notebooks).
-
-----
 
 
 As you practice R programming in the R Notebook, please keep a record of your learning process. Memoing is a lot easier in R Notebooks than in R Scripts! 🥳
@@ -396,7 +383,7 @@ today + 7
 
 ### Types vs Classes {#types-vs-classes}
 
-Every object has an [underlying type]{.glossary-term data-term="Underlying Type"}; some objects also have a class attribute that changes behavior. So far, you've seen numeric, integer, and character underlying types. `class()` often matches the underlying type label. 
+Every object has an underlying type; some objects also have a class attribute that changes behavior. So far, you've seen numeric, integer, and character underlying types. `class()` often matches the underlying type label. 
 
 **Common Atomic Vector Types:**
 
@@ -592,7 +579,7 @@ as.numeric(mixed)            # character → numeric: text converts to NA
 
 🗣 The output shows `NA` for `"candy"` and `"book"` because those text values cannot be converted to numbers. The character values `"4"` and `"92"` can be converted to numeric values, so they become `4` and `92`.
 
-R will also give a warning because some values could not be converted. A [Warning]{.glossary-term data-term="Warning"} message may appear indicating that the longer vector length is not a multiple of the shorter vector length.
+R will also give a warning because some values could not be converted. A [warning]{.glossary-term data-term="Warning"} message may appear indicating that the longer vector length is not a multiple of the shorter vector length.
 
 
 ---
