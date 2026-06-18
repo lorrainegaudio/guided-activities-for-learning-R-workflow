@@ -1,6 +1,11 @@
 project:
   type: book
   output-dir: _book
+  resources:
+    - "chapters/**/downloads/*"
+    - "chapters/**/downloads/**/*"
+    - "chapters/**/data/*"
+    - "chapters/**/data/**/*"
 
 book:
   title: "Introduction to R Programming: Goal, Code, Verify, Reflect"

@@ -605,7 +605,7 @@ Next, you will see how help-page examples can give you working patterns even whe
 
 ### Examples {#examples}
 
-The [Examples section{.glossary-term data-term="Examples Section"} is often one of the most useful parts of a help page. Examples show working patterns. Your job is to adapt the pattern to your own object.
+The [Examples section]{.glossary-term data-term="Examples Section"} is often one of the most useful parts of a help page. Examples show working patterns. Your job is to adapt the pattern to your own object.
 
 You are using the example to understand a structure, then applying that structure to your own task.
 
@@ -752,10 +752,14 @@ Choose the best answer for each question in this section.
 
 ### Part 2: Troubleshoot a broken R Markdown file {#troubleshoot-rmd}
 
+::: {.callout-note title="Download the Chapter 5 practice files"}
+
 Download these two files and save them in the same course folder:
 
-* <a href="downloads/ch05-help/ch05-practice-space.Rmd" download>ch05-practice-space.Rmd</a>
-* <a href="downloads/ch05-help/ch05-practice-space.RData" download>ch05-practice-space.RData</a>
+- [ch05-practice-space.Rmd](downloads/ch05-practice-space.Rmd){download="ch05-practice-space.Rmd"}
+- [ch05-practice-space.RData](downloads/ch05-practice-space.RData){download="ch05-practice-space.RData"}
+
+:::
 
 Then complete the troubleshooting workflow:
 
