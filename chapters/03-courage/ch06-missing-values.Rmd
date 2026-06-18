@@ -89,12 +89,12 @@ The `na.rm` argument in the `mean()` function has a default value of `FALSE`, me
 
 ### Special Values {#special-values}
 
-In R, **missing values** are represented by the **special value** symbol `NA` (which stands for "Not Available"). 
+In R, [missing values]{.glossary-term data-term="Missing Values"} are represented by the [special value]{.glossary-term data-term="Special Values"} symbol `NA`. 
 
-R has several **special values** that represent non-standard data states. Two common ones are `NA` and `NaN`.
+R has several [special values]{.glossary-term data-term="Special Values"} that represent non-standard data states.
 
-- **`NA`** ("Not Available") signals *missing* information: the value simply was not recorded.
-- **`NaN`** ("Not a Number") signals an *undefined* numeric result, such as 0 divided by 0.
+- [NA]{.glossary-term data-term="NA"} ("Not Available") signals *missing* information: the value simply was not recorded.
+- [NaN]{.glossary-term data-term="NaN"} ("Not a Number") signals an *undefined* numeric result, such as 0 divided by 0.
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
@@ -108,7 +108,7 @@ NA         # Built-in constant representing a missing value
 - `NA` means the value is absent or unknown.
 - `NaN` means the result is not a valid number, usually because the math operation is undefined.
 
-We will mostly focus on `NA` in this chapter because missing values are common in real datasets. Missing values can occur in datasets because of incomplete data entries such as non-responses in surveys, or when joining two datasets. R *will* do the operation, but the result becomes `NA` because the value is unknown (e.g., `5 + NA` returns `NA`; that's not an error; that's nothing.). This is called **propagation**.
+We will mostly focus on `NA` in this chapter because missing values are common in real datasets. Missing values can occur in datasets because of incomplete data entries such as non-responses in surveys, or when joining two datasets. R will do the operation, but the result becomes `NA` because the value is unknown; this is called [propagation]{.glossary-term data-term="Propagation"}.
 
 📜 The SYNTAX (with na.rm default argument):
 
@@ -173,7 +173,7 @@ There are two useful functions to find the exact positions of missing values in 
 
 - `is.na(x)` returns a logical vector: `TRUE` wherever x is `NA` or `NaN`.
 
-- `which(logical_vec)` converts `TRUE` positions into numeric indices (handy for slicing or replacing values).
+- `which(logical_vec)` converts `TRUE` positions into numeric indices, which are handy for slicing or replacing values using [positional indexing]{.glossary-term data-term="Positional Indexing"}.
 
 🎯 Use `is.na()` and `which()` to locate missing values in `Vector_NA`.
 
@@ -210,7 +210,7 @@ The key is to choose the function that matches your question. If you only need a
 
 ## Nesting Function Calls {#nesting-function-calls}
 
-**Nesting function calls** means putting one function call inside another function call. The output of the inner function becomes an argument to the outer function. This works because functions return values. R can immediately pass a returned value into the next function.
+[Nesting function calls]{.glossary-term data-term="Nesting Function Calls"} means putting one function call inside another function call. The output of the inner function becomes an argument to the outer function. This works because functions return values. R can immediately pass a returned value into the next function.
 
 🎯 Use `sample()` to randomly select 5 numbers from the vector `travel_jumps`, then calculate the mean of those sampled numbers by nesting the `sample()` function inside the `mean()` function.
 
@@ -337,7 +337,7 @@ ___
 
 **Impute missing values (replace NA with the mean)**
 
-**Impute** means “fill in missing values.” A common simple imputation method is to replace missing values with the mean of the observed values.
+Now that you can detect and locate gaps, you have to decide what to do about them; one option is to [impute]{.glossary-term data-term="Impute"} missing values by replacing them with a summary value. It means “fill in missing values.” A common simple imputation method is to replace missing values with the mean of the observed values.
 
 🎯 Make a copy of LargeVec, then replace only the missing values with the mean of the observed values.
 
