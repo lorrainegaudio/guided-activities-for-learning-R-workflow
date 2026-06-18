@@ -7,7 +7,7 @@ team: "Fall 2026"
 ---
 
 
-# Overview
+## Overview {#overview}
 
 Now that you can work in an R Notebook and write usable memos, Chapter 4 raises the standard for documentation: transparency.
 
@@ -41,7 +41,7 @@ In Chapter Four, you will practice how to:
 
 ----
 
-# R Notebooks—Part 2
+## R Notebooks—Part 2 {#r-notebooks-part-2}
 
 In Chapter 3, you learned how to use an R Notebook (`.Rmd`) as a “reproducible thinking” document: code + output + memo-style writing in one place, in order. This section is a quick setup review before you begin the Chapter 4 work.
 
@@ -63,25 +63,25 @@ Here’s what you can do now:
 
    - Use the notebook to document your learning process, including your goal, checks, explanations, and resources used.
 
-An R Notebook is only useful if a human can read it. In this chapter, you will keep building clean notebook habits: preserving the **YAML header**, organizing your work clearly, writing readable memos, and preparing a notebook that can knit successfully to HTML.
+An [R Notebook]{.glossary-term data-term="R Notebook"} is only useful if a person can read and understand it. In this chapter, you will keep building clean notebook habits: preserving the **YAML header**, organizing your work clearly, writing readable memos, and preparing a notebook that can knit successfully to HTML.
 
-## Default Text
+### Default Text {#default-text}
 
 🎯 Please open a new R Notebook in your course folder named `chapter4_notes.Rmd`. 
 
 When you create a new R Notebook or R Markdown file, RStudio provides a template. It is designed to demonstrate the three core components of a notebook:
 
-- The YAML header: The block of text at the very top, enclosed between two lines of three dashes (`---`). This tells RStudio how to knit, or render, your document.
+- The [YAML header]{.glossary-term data-term="YAML Header"}: The block of text at the very top, enclosed between two lines of three dashes (`---`). This tells RStudio how to knit, or render, your document.
 
-- Markdown Text: The white background text (like "This is an R Markdown Notebook"). This shows you how to write regular prose.
+- [Markdown]{.glossary-term} Text: The white background text (like "This is an R Markdown Notebook"). This shows you how to write regular prose.
 
-- Code Chunks: The gray boxes containing code (like plot(cars)). This shows you how to embed executable R code.
+- [Code Chunks]{.glossary-term data-term="Code Chunks"}: The gray boxes containing code (like plot(cars)). This shows you how to embed executable R code.
 
-### Clear the Default Notebook Body
+#### Clear the Default Notebook Body {#clear-the-default-notebook-body}
 
 To start fresh, delete all the default text in the R Notebook so you have a blank canvas to work with. 
 
-#### **Keep the Header** 
+##### **Keep the Header** {#keep-the-header}
 
 Do not delete the text at the very top between the --- lines. This is your metadata (Title, Author, Output format). If you delete this, your file might not run correctly.
 
@@ -96,7 +96,7 @@ output: html_notebook
 
 Keep this top section. Delete the example text and code below it.
 
-#### **Delete the Body** 
+##### **Delete the Body** {#delete-the-body}
 
 You can safely delete everything below the second `---` line. Keep the YAML header at the top.
 
@@ -106,11 +106,11 @@ You can safely delete everything below the second `---` line. Keep the YAML head
 
 3. Press Delete or Backspace.
 
-#### **Save the Blank Notebook**
+##### **Save the Blank Notebook** {#save-the-blank-notebook}
 
 After clearing the default text, save your blank notebook as `chapter4_notes.Rmd` in your course folder. This will be your working file for Chapter 4.
 
-#### **Type a memo**
+##### **Type a memo** {#type-a-memo}
 
  🗣 **Add Comments:** In 1–3 sentences, explain what you did to clear the default text and why you kept the YAML header.
 
@@ -122,19 +122,19 @@ I cleared the default text because the default text is just an example and I wan
 
 ---
 
-# Transparency
+## Transparency {#transparency}
 
-Science is not just about numbers; it is also about the values that guide how and why we do our work. Researchers, policymakers, and the general public must be able to trust scientific expertise for this work to have meaning (Resnik & Elliott, 2023). Transparency in academic work promotes that trust. **Transparency** means disclosing methods, materials, assumptions, values, and interests so another person can understand what you did and reproduce it (Resnik & Elliott, 2023).
+Science is not just about numbers; it is also about the values that guide how and why we do our work. Researchers, policymakers, and the general public must be able to trust scientific expertise for this work to have meaning (Resnik & Elliott, 2023). Transparency in academic work promotes that trust. [Transparency]{.glossary-term data-term="Transparency"} means disclosing methods, materials, assumptions, values, and interests so another person can understand what you did and reproduce it (Resnik & Elliott, 2023).
 
 Transparency is associated with these three related values:
 
-1. **Honesty** means reporting what actually happened, including shortcuts, mistakes, unexpected results, and outside help. You record what you tried even when it did not produce the result you expected. You state what you do not know yet. You do not present outside work as your own. If you use a peer, website, AI tool, instructor, or other resource, document what you used and what you learned.
+1. [Honesty]{.glossary-term data-term="Honesty"} means reporting what actually happened, including shortcuts, mistakes, unexpected results, and outside help. You record what you tried even when it did not produce the result you expected. You state what you do not know yet. You do not present outside work as your own. If you use a peer, website, AI tool, instructor, or other resource, document what you used and what you learned.
 
-2. **Openness** means making your work inspectable so someone else can see what you used and how you got your result. Reproducibility is a key part of openness. In this course, that means sharing the data source, code, steps, and explanations needed for someone else to follow your workflow.
+2. [Openness]{.glossary-term data-term="Openness"} means making your work inspectable so someone else can see what you used and how you got your result. Reproducibility is a key part of openness. In this course, that means sharing the data source, code, steps, and explanations needed for someone else to follow your workflow.
 
-3. **Accountability** means taking responsibility for your work. In this course, accountability means checking your results, correcting mistakes, responding to feedback, and documenting your process clearly enough that someone else can understand your choices.
+3. [Accountability]{.glossary-term data-term="Accountability"} means taking responsibility for your work. In this course, accountability means checking your results, correcting mistakes, responding to feedback, and documenting your process clearly enough that someone else can understand your choices.
 
-In this course, **research journals** are running records of your R analysis process. They are internal documents that help you prepare reports, return to old work, and explain your decisions later.
+[Research journals]{.glossary-term data-term="Research Journal"} are the running records of your R analysis process. They are internal documents that help you prepare reports, return to old work, and explain your decisions.
 
 In this course, your R Notebook works like a research journal. Add comments before or near your code explaining:
 
@@ -160,13 +160,15 @@ You do not need every memo label for every small line of code. Use memo labels w
 
 Next, you will practice these transparency habits while learning how R labels vector elements and selects specific values.
 
-## Indexing Vectors
+### Indexing Vectors {#indexing-vectors}
 
-The **indexing operator** `[` is the standard way to extract parts of a vector. The basic pattern is `x[i]`, where `x` is the vector and `i` is the index, or indices, of the elements you want to extract. For the atomic vectors in this chapter, `[ ]` can select one element or many, and it returns an object of the same type as `x`. 
+The [indexing operator]{.glossary-term data-term="Indexing Operator"} `[` is the standard way to extract parts of a vector. The basic pattern is `x[i]`, where `x` is the vector and `i` is the index, or indices, of the elements you want to extract. For the atomic vectors in this chapter, `[ ]` can select one element or many, and it returns an object of the same type as `x`. 
 
-An **index** is a value used to identify elements in an object. In R, indices are often integers for positions, character values for names, or logical values such as `TRUE` and `FALSE`.
+An [index]{.glossary-term data-term="Index"} is a value used to identify elements in an object. In R, indices are often integers for positions, character values for names, or logical values such as `TRUE` and `FALSE`.
 
-### Positional Indexing
+#### Positional Indexing {#positional-indexing}
+
+[Positional indexing]{.glossary-term data-term="Positional Indexing"} uses the numeric positions of elements in the vector to retrieve specific values.
 
 🎯 **Goal** Use `[ ]` with index positions to extract values from a vector.
 
@@ -204,20 +206,20 @@ z[2:4]
 z[-c(1, 5)] 
 ```
 
-🗣 Negative indexing removes elements. This returns all elements except the first and last.
+🗣 [Negative indexing]{.glossary-term data-term="Negative Indexing"} removes elements from a vector. This returns all elements except the first and last.
 
 > 🧐 **Notice:** R counts positions starting at 1, not 0. Also notice that negative positions remove values instead of selecting them.
 
 
-### Character Indexing
+#### Character Indexing {#character-indexing}
 
-When a vector has names, you can use those names to index into the vector. **Character indexing** uses the names of the elements to retrieve specific values.
+When a vector has names, you can use those names to index into the vector. [Character indexing]{.glossary-term data-term="Character Indexing"} uses the names of the elements to retrieve specific values.
 
 There are two different naming ideas here. 
 
-1. **Object name** is the variable name `nerdy_palette` that you use to refer to the entire vector.
+1. [Object name]{.glossary-term data-term="Object Name"} is the variable name `nerdy_palette` that you use to refer to the entire vector.
 
-2. **Element names** are the labels assigned to each element within the vector (e.g., `"Octarine"`, `"TARDIS Blue"`).
+2. [Element names]{.glossary-term data-term="Element Names"} are the labels assigned to each element within the vector (e.g., `"Octarine"`, `"TARDIS Blue"`).
 
 Element names can be used in indexing to access specific elements of the vector. A named vector works like a small lookup table: each value has a label, and you can use the label to retrieve the matching value.
 
@@ -244,7 +246,7 @@ nerdy_palette["Octarine"]
 
 🗣 When you run this chunk, it should return the hexadecimal color code for `"Octarine"` from the `nerdy_palette` vector.
 
-Character indexing requires exact matching on names. If you ask for a name that doesn’t exist, you get NA for that element.
+Character indexing requires exact matching on names. If you ask for a name that doesn’t exist, you get [NA]{.glossary-term data-term="NA"} for that element.
 
 🎯 Use character indexing to retrieve the color codes for "Octarine," "TARDIS Blue," and "NotAColor" from the `nerdy_palette` vector.
 
@@ -255,9 +257,7 @@ nerdy_palette[c("Octarine", "TARDIS Blue", "NotAColor")]
 
 🗣 The output should return the color codes for `"Octarine"` and `"TARDIS Blue"`, plus `NA` for `"NotAColor"` because that name does not exist in the vector.
 
-### More Indexing by Position
-
-**Positional indexing** uses the numeric positions of elements in the vector to retrieve specific values. 
+#### More Indexing by Position {#more-indexing-by-position}
 
 🎯 Use positional indexing to return the first and third color codes from the `nerdy_palette` vector.
 
@@ -270,11 +270,11 @@ nerdy_palette[c(1, 3)]
 
 We will return to indexing in later chapters when we learn about data frames.
 
-# Logical Vectors
+## Logical Vectors {#logical-vectors}
 
 📖 **Review** from Chapter 2. 
 
-**Logical vectors** are used for conditions and comparisons. They contain `TRUE` or `FALSE` values.
+[Logical vectors]{.glossary-term data-term="Logical Vector"} are used for conditions and comparisons.
 
 🎯 Create a logical vector named `real` that contains the values `TRUE`, `FALSE`, and `NA` using the `c()` function.
 
@@ -291,9 +291,9 @@ print(real)
 
 ----
 
-## Comparison Operators
+### Comparison Operators {#comparison-operators}
 
-Logical vectors can also be created using comparison operators. These operators compare values and return TRUE or FALSE based on the comparison.
+Logical vectors can also be created using [comparison operators]{.glossary-term data-term="Comparison Operators"}. These operators compare values and return TRUE or FALSE based on the comparison.
 
 **Comparison  operators** include:
 
@@ -324,9 +324,9 @@ print(logicals)
 🗣 The output shows the results of the comparisons stored in the `logicals` vector. There is one `FALSE` value and two `TRUE` values. The first value is `FALSE` because 1 is not greater than 2. The second value is `TRUE` because 3 is less than 5. The final value is `TRUE` because 4 is equal to 4.
 
 
-## Logical Indexing
+### Logical Indexing {#logical-indexing}
 
-Logical values can be used to select elements from a vector. **Logical indexing** uses a logical vector inside `[ ]`. Values paired with `TRUE` are kept. Values paired with `FALSE` are left out.
+[Logical indexing]{.glossary-term data-term="Logical Indexing"} uses a logical vector inside `[ ]`. Values paired with `TRUE` are kept. Values paired with `FALSE` are left out.
 
 🎯 Create a new vector called `smaller` that contains only the values in `number_list` that are less than or equal to 20.
 
@@ -361,7 +361,7 @@ The key idea is that the condition `number_list <= 20` creates a logical vector,
 
 ---
 
-# Summary
+## Summary {#summary}
 
 In this chapter, you strengthened your R Notebook habits by practicing transparency in your code memos. You learned to document your goals, explain what your code produced, verify your results, and record outside resources when you used help. These habits make your work easier to understand, check, revise, and share.
 
@@ -372,7 +372,7 @@ Finally, you learned how logical vectors support filtering. You created logical 
 Your main takeaway is that transparent notebooks make your coding choices inspectable, and indexing gives you control over which vector values you select or filter.
 
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Accountability**: Taking responsibility for the results you report by verifying them, responding to questions or critiques, and correcting errors when found. In practice, this means you keep a clear record (e.g., in an R Markdown/Notebook or script) that shows how you checked your work and why you made your choices.
 
@@ -396,6 +396,8 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Logical Vector**: A vector that stores Boolean elements: `TRUE` or `FALSE` (and sometimes `NA` for missing). Logical vectors are commonly produced by comparisons (for example, `x > 0`) and are heavily used for filtering and conditional code
 
+**Markdown**: A lightweight plain-text formatting syntax used to write structured documents (headings, lists, links, emphasis, code) in a way that stays readable as plain text and can be rendered into formats like HTML on many platforms and tools.
+
 **NA**: A special constant that marks a missing value (“Not Available”)—meaning the data point is unknown or not recorded. R also provides typed missing values like `NA_integer_`, `NA_real_`, `NA_character_`, and `NA_complex_` to match the underlying data type.
 
 **Named Vectors**: Vectors that have labels attached to their elements via the `names()` attribute, so you can refer to values by name instead of only by position. Named vectors are useful as simple lookup tables (for example, retrieving a hex code by a color name).
@@ -414,9 +416,9 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Transparency**: The practice of clearly disclosing your methods, materials, assumptions, tools, values, and sources so another person can follow your workflow, reproduce your results, and evaluate your claims. In this course, transparency supports explanatory power (you can explain what your code does and why) and originality/accountability (you produce and attribute work honestly, including documenting if and how you used AI).
 
-**YAML header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
+**YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 Fill in the blanks to complete the code in your R Notebook.
 
@@ -446,11 +448,13 @@ You may ask an AI to explain an error or provide you with more details to a curi
 Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.
 
 
-## Task 1
+### Task 1 {#task-1}
 
 🧑‍🎓 **Create a named vector**
 
-Practice creating a named vector by pairing values with element names. Some labels and some values are missing. The blanks test both parts of the name-value pair. 💡 **Tip:** Include quotes around the element names.
+Practice creating a [named vector]{.glossary-term data-term="Named Vectors"} by pairing values with element names. Some labels and some values are missing. The blanks test both parts of the name-value pair. 
+
+💡 **Tip:** Remember to include quotes around the element names.
 
 🎯 Create a named vector called student_counts that stores the number of students in four campus groups. Use the exact group names and counts: `"First Year"` count is 18, `"Sophomore"` count is 22, `"Junior"` count is 16, and `"Senior"` count is 14.
 
@@ -476,7 +480,7 @@ missing element names: "First Year", "Junior"
 missing values: 22, 14
 ```
 
-## Task 2
+### Task 2 {#task-2}
 
 ➖ **Use negative indexing**
 
@@ -502,7 +506,7 @@ quiz_scores[____(1, 5)]
 quiz_scores[-c(1, 5)]
 ```
 
-## Task 3
+### Task 3 {#task-3}
 
 🏷️ **Use character indexing**
 
@@ -523,11 +527,11 @@ student_counts["Junior"]
 
 🪞 **Reflect:** Does the exact spelling of `"Junior"` matter here? Why? Explain what you would check if R returned `NA` or did not find the value.
 
-## Task 4
+### Task 4 {#task-4}
 
 ⚖️ **Create a logical vector**
 
-Practice using a comparison operator to create a logical vector.
+Practice using a [comparison operator]{.glossary-term data-term="Comparison Operators"} to create a logical vector.
 
 🎯 Create a logical vector called `meets_goal` that checks whether each value in `quiz_scores` vector from Task 2 is greater than or equal to 80.
 
@@ -553,7 +557,7 @@ meets_goal <- quiz_scores >= 80
 ```
 
 
-## Task 5
+### Task 5 {#task-5}
 
 🔎 **Use logical indexing**
 
@@ -580,13 +584,13 @@ print(passing_scores)
 passing_scores <- quiz_scores[meets_goal]
 ```
 
-## Task 6
+### Task 6 {#task-6}
 
 🪞 **Reflect on logical masks**
 
 🎯 In 1–3 sentences, explain how the logical mask controls which values are kept from `quiz_scores`. Use the words `TRUE`, `FALSE`, and `position` in your answer.
 
-## Task 7
+### Task 7 {#task-7}
 
 ✅ **Final checks before submitting**
 
@@ -599,7 +603,7 @@ Use **Run → Run All** to execute every chunk in order.
 🎯 **Step 3: Save and submit.**  
 After your notebook runs without errors, save your notebook (`chapter4_practice.Rmd`) and save your workspace (`chapter4_practice.RData`) for submission to Canvas.
 
-# References
+## References {#references}
 
 Resnik, D. B., & Elliott, K. C. (2023). Science, values, and the new demarcation problem. Journal for General Philosophy of Science, 54(2), 259-286.
 
