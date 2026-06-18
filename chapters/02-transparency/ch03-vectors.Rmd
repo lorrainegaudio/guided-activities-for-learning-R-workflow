@@ -608,7 +608,7 @@ You should be able to create a basic R Notebook, write short memo notes about yo
 
 **Class** `class()`: A function that reports the object’s class, which tells R how to interpret the object and which methods to use when functions are applied to it. For example, `class(3.14)` returns `"numeric"`, and `class(mtcars)` returns `"data.frame"`.
 
-**Code Chunks**: Fenced blocks in an R Markdown/Notebook document where R code is written and executed, usually starting with ```{r}. Only code inside a chunk runs, and its output (including plots and tables) appears directly below the chunk when executed.
+**Code Chunks**: Fenced blocks in an R Markdown/Quarto document where R code is written and executed, usually starting with ```{r}. Only code inside a chunk runs, and its output (including plots and tables) appears directly below the chunk when executed.
 
 **Element Names**: The individual labels assigned to elements inside a named vector (for example, `"Octarine"` or `"TARDIS Blue"`). Element names let you index by label (e.g., `nerdy_palette["Octarine"]`) to retrieve specific values.
 

@@ -26,7 +26,7 @@ In Chapter Two you will learn how to:
 
 ## Script Editor (Source) {#script-editor}
 
-Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with [R Script]{.glossary-term data-term="R Script"}, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand *how* and *why* you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio. 
+Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with R Script, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand *how* and *why* you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio. 
 
 ### Console vs Script Editor {#console-vs-script}
 

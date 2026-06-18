@@ -34,6 +34,38 @@ guided-activities-for-learning-R-workflow/
 │   │           ├── run_script2.png
 │   │           ├── run_source.png
 │   │           └── save_icon.png
+│   │
+│   ├── 02-transparency/
+│   │   ├── transparency.qmd
+│   │   ├── ch03-vectors.Rmd
+│   │   ├── ch04-structures.Rmd
+│   │   └── images/
+│   │       └── ch03-vectors/
+│   │           ├── Code_chunk.png
+│   │           ├── run_menu.png
+│   │           ├── play_button.png
+│   │           ├── Memo_Example.png
+│   │           ├── Memo_Example2.png
+│   │           ├── Memo_Example3.png
+│   │           └── Memo_Example4.png
+│   │
+│   ├── 03-courage/
+│   │   ├── courage.qmd
+│   │   ├── ch05-help.Rmd
+│   │   ├── ch05-help-prompting.Rmd
+│   │   ├── ch06-missing-values.Rmd
+│   │   ├── images/
+│   │   │   └── ch05-help/
+│   │   │       ├── Memo_Example_heading.png
+│   │   │       ├── Memo_Example_knithtml.png
+│   │   │       ├── Memo_Example_knithtml2.png
+│   │   │       ├── Memo_Example_knithtml3.png
+│   │   │       └── missing_back_tick_error.png
+│   │   └── downloads/
+│   │       └── ch05-help/
+│   │           ├── ch05-missing-backtick-example.Rmd
+│   │           ├── ch05-practice-space.Rmd
+│   │           └── ch05-practice-space.RData
 
 ├── assets/
 │   ├── styles/

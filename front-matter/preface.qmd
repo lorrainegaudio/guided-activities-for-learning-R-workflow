@@ -32,7 +32,7 @@ R is one of the most widely used programming languages for data analysis, statis
 
 - **Integration with Other Tools**: R can be integrated with other programming languages (like Python and C++) and tools (like databases and web applications), making it versatile for various data workflows. Version control systems like Git and GitHub can be used to track changes to your files, saving snapshots of your work over time. Shiny apps allow you to turn your analyses into interactive web applications.
 
-[Large Language Models]{.glossary-term} (LLMs) are AI tools that can predict text and code. They can be used to draft and explain code. Given the transformative potential of AI for human societies, it is crucial to equip you with the values, knowledge and skills needed to navigate the future with AI. Using AI will undoubtedly have an impact on your learning. Using AI tools can either facilitate and prevent learning. It all depends on how it is used, the specific use case. 
+- **[Large Language Models (LLMs)]{.glossary-term}** are AI tools that can predict text and code. They can be used to draft and explain code. Given the transformative potential of AI for human societies, it is crucial to equip you with the values, knowledge and skills needed to navigate the future with AI. Using AI will undoubtedly have an impact on your learning. Using AI tools can either facilitate and prevent learning. It all depends on how it is used, the specific use case. 
 
 If these AI tools are very good at producing code, why should you learn to read and write R code? Here are just a few important reasons:
 
@@ -48,7 +48,7 @@ Lessons are hands-on. To follow along, you must have both **R** and **RStudio** 
 
 - [R]{.glossary-term data-term="R"} is a programming language and engine that runs your R code.
 
-- [RStudio Desktop]{.glossary-term data-term="RStudio Desktop"} is an [integrated development environment]{.glossary-term data-term="Integrated Development Environment"} (IDE) that makes writing, running and organizing R code easier. In this course, you will always use RStudio to interact with R. You must use the **desktop** version locally (not the Posit Cloud or other browser-based tools).
+- [RStudio Desktop]{.glossary-term data-term="RStudio Desktop"} is an [integrated development environment (IDE)]{.glossary-term data-term="Integrated Development Environment (IDE)"} that makes writing, running and organizing R code easier. In this course, you will always use RStudio to interact with R. You must use the **desktop** version locally (not the Posit Cloud or other browser-based tools).
 
 RStudio does not include R. You must install R first, then RStudio Desktop, which will detect your R installation when it starts. 
 
@@ -103,13 +103,13 @@ If you prefer a video walkthrough, you can watch a short tutorial:
 
 ## Chapter Terms {#chapter-terms}
 
-**Integrated Development Environment** (IDE): A software application that combines the core tools you need to write and run code in one place. RStudio is an IDE because it brings script editing, the R console, environment/object viewing, help/documentation, and file navigation into a single interface.
+**Integrated Development Environment (IDE)**: A software application that combines the core tools you need to write and run code in one place. RStudio is an IDE because it brings script editing, the R console, environment/object viewing, help/documentation, and file navigation into a single interface.
 
 **Large Language Models (LLMs)**: AI systems trained on massive collections of text and code to predict and generate language, including R code and explanations. In an R-learning context, LLMs can help you brainstorm, interpret error messages, and draft code—but they can also produce plausible-sounding mistakes, so you must verify outputs, understand each line you run, and document when and how you used the tool.
 
-**R** is a programming language and engine that runs your R code.
+**R**: is a programming language and engine that runs your R code.
 
-**RStudio Desktop** is an **integrated development environment** (IDE) that makes writing, running and organizing R code easier.
+**RStudio Desktop**: is an **integrated development environment** (IDE) that makes writing, running and organizing R code easier.
 
 ## References {#references}
 
