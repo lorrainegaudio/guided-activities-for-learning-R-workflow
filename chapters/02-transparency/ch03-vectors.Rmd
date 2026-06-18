@@ -10,7 +10,7 @@ team: "Fall 2026"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Overview
+## Overview {#overview}
 
 Up to this point, you’ve been writing code in the Console and saving your work in R Scripts. In this chapter, you switch into an R Notebook (`.Rmd`): one document that combines your writing, your code, and the output produced by that code. This matters for research because the goal is not just to “get an answer,” but to leave a record that another person, or future-you, can follow, audit, and rerun. In other words, the notebook is your first step toward reproducible work.
 
@@ -46,7 +46,7 @@ In Chapter Three, you will learn how to:
 
 ----
 
-# R Notebooks—Part 1
+## R Notebooks—Part 1 {#r-notebooks-part-1}
 
 An [R Notebook]{.glossary-term data-term="R Notebook"} is an [R Markdown]{.glossary-term data-term="R Markdown"} (`.Rmd`) document where you can run code in [code chunks]{.glossary-term data-term="Code Chunks"} and immediately see the output *directly below the chunk*.
 
@@ -62,7 +62,7 @@ R Notebooks are similar to R Scripts but offer additional features such as:
 
 - **Reproducibility**: R Notebooks support reproducible research by allowing you to combine code and narrative in a single document.
 
-## R Script vs R Notebook
+### R Script vs R Notebook {#r-script-vs-r-notebook}
 
 In this course, the key advantage of an R Notebook over an R Script is memoing. A script can hold code + `#` comments, but an R Notebook is built for writing full memos (regular text) between code chunks without turning everything into comments. This supports a reproducible workflow (Course Objective CLO1).
 
@@ -75,11 +75,11 @@ In this course, the key advantage of an R Notebook over an R Script is memoing. 
 | Text Formatting             | Comments only (`#`)              | Full Markdown support             |
 | Memoing                     | Limited to comments              | Full memos with text and code     |
 
-## Open a New R Notebook
+### Open a New R Notebook {#open-a-new-r-notebook}
 
 To open an R Notebook, you will need to install the `rmarkdown` package and then create a new R Notebook file in RStudio. 
 
-### Step 0: Install the rmarkdown package
+#### Step 0: Install the rmarkdown package {#install-rmarkdown-package}
 
 To use R Notebooks, you need the `rmarkdown` [package]{.glossary-term data-term="Package"} and then create a new R Notebook file in RStudio. A package is an installable bundle of tools—functions, documentation, and sometimes data—that extends what R can do. Most packages are downloaded from CRAN (the main public repository for R packages).
 
@@ -118,7 +118,7 @@ After installing, please comment out (`#`) the `install.packages()` function. Th
 # install.packages("rmarkdown")
 ```
 
-### Step 1: Open an R Notebook
+#### Step 1: Open an R Notebook {#open-an-r-notebook}
 
 To create an R Notebook in RStudio:
 
@@ -131,7 +131,7 @@ To create an R Notebook in RStudio:
 
 📖  For more information on R Notebooks, refer to the [Documentation on R Notebooks](https://bookdown.org/yihui/rmarkdown/notebook.html).
 
-## The YAML Header
+### The YAML Header {#the-yaml-header}
 
 At the very top of your notebook you will see a block that looks like this:
 
@@ -144,7 +144,7 @@ output: html_notebook
 
 This is called the [YAML header]{.glossary-term data-term="YAML Header"} (pronounced “YAM-ul”). It is document metadata—settings that control the notebook’s title and output type. Think of it as the document’s “front label,” not code. 
 
-### Renaming the Notebook
+#### Renaming the Notebook {#renaming-the-notebook}
 
 🎯 Edit the title of the notebook to match the assignment
 
@@ -155,7 +155,7 @@ output: html_notebook
 ---
 ```
 
-### Saving the Notebook
+#### Saving the Notebook {#saving-the-notebook}
 
 🎯 To save your R Notebook:
 
@@ -169,7 +169,7 @@ output: html_notebook
 
 ✅ Verify you can see `chapter3_notes.Rmd` in the **Files** pane.
 
-## Code Chunks
+### Code Chunks {#code-chunks}
 
 A [code chunk]{.glossary-term data-term="Code Chunks"} is a fenced block where R code runs. It begins with three [backticks]{.glossary-term data-term="Backtick"} plus `{r}` and ends with three backticks: <code>&#96;&#96;&#96;{r}</code> … <code>&#96;&#96;&#96;</code>.
 
@@ -184,7 +184,7 @@ A [code chunk]{.glossary-term data-term="Code Chunks"} is a fenced block where R
 
 Memos are the notes you write to explain your code and results. In an R Notebook, write memos as regular text between code chunks, without needing to comment them out with `#`. This allows you to keep your code, results, and memos together in one document. 
 
-### Inserting Code Chunks
+#### Inserting Code Chunks {#inserting-code-chunks}
 
 Method A. **Toolbar Button**
 
@@ -211,7 +211,7 @@ Type the following lines in your R Notebook:
 💡 **Tip:** Remember that these are [backticks]{.glossary-term data-term="Backtick"} and not single quotes. The backtick is located on the same key as the tilde (`~`) on most keyboards, just above the tab button.
   
 
-## Run Code Chunks
+### Run Code Chunks {#run-code-chunks}
 
 Like so many things in R, there are several ways you can run code chunks. 
 
@@ -231,7 +231,7 @@ Method C. **Keyboard Shortcut**
 
 Placing your cursor inside the chunk and pressing `Ctrl + Shift + Enter` (Windows/Linux) or `Cmd + Shift + Enter` (macOS).
 
-### Example: Vector Arithmetic
+#### Example: Vector Arithmetic {#vector-arithmetic}
 
 [Vectorization]{.glossary-term data-term="Vectorization"} is when R applies an operation to each [element]{.glossary-term data-term="Element"} of a vector.
 
@@ -286,7 +286,7 @@ length(powers_of_three)
 As you practice R programming in the R Notebook, please keep a record of your learning process. Memoing is a lot easier in R Notebooks than in R Scripts! 🥳
 
 
-# Memoing in R Notebooks
+## Memoing in R Notebooks {#memoing-in-r-notebooks}
 
 The code chunk is like a mini R Script. Inside a code chunk, memo text must start with # or R will try to run it as code (and may error). Treat `#` like a “do not execute” marker for the computer.
 
@@ -318,7 +318,7 @@ ___
 
 Now that you can write code in code chunks and memos in regular text, practice recycling vectors while keeping a transparent [research journal]{.glossary-term data-term="Research Journal"}.
 
-### Example: Recycling Vectors
+#### Example: Recycling Vectors {#recycling-vectors}
 
 When you perform arithmetic on two vectors of different lengths, R will [recycle]{.glossary-term data-term="Recycling"} the shorter one to match the longer one.
 
@@ -356,11 +356,11 @@ Learning to use an AI tool is part of becoming a modern researcher. However, it 
 
 Next, let's explore how R uses metadata to determine how to treat different types of vectors.
 
-# Vector Types and Classes
+## Vector Types and Classes {#vector-types-and-classes}
 
 In this section you will learn how [class]{.glossary-term data-term="Class"} affects how R interprets an object and decides how it should behave.
 
-## Class and behavior
+### Class and behavior {#class-and-behavior}
 
 Recall from chapter 2 that [vectors]{.glossary-term data-term="Vector"} are collections of elements *of one underlying type*. Some vectors also carry a class attribute that changes how R treats them. Classes are built on top of types. `class()` reports the attribute that controls *how* R treats an object and which methods to use when functions are applied to it. It is the semantic type of the object, what the vector is considered to be. The class of an object affects printing, method selection, and how many functions behave. 
 
@@ -394,7 +394,7 @@ today + 7
 
 🗣 R treats `7` as seven days and returns the date one week after `today`.
 
-## Types vs Classes
+### Types vs Classes {#types-vs-classes}
 
 Every object has an [underlying type]{.glossary-term data-term="Underlying Type"}; some objects also have a class attribute that changes behavior. So far, you've seen numeric, integer, and character underlying types. `class()` often matches the underlying type label. 
 
@@ -428,7 +428,7 @@ Every object has an [underlying type]{.glossary-term data-term="Underlying Type"
 
 - **data.frame**: a table-like structure (e.g., `data.frame(name = c("Alice", "Bob"), age = c(25, 30))`)
 
-## Character strings
+### Character strings {#character-strings}
 
 A character string{.glossary-term data-term="Character String"} is a sequence of characters (text) enclosed in quotes. They are used to represent text data in R.
 
@@ -465,13 +465,13 @@ print(full_names)
 
 🌳 If you don't want spaces, try `paste0(first_names, last_names)`.
 
-## Factor Vectors (Categorical Data)
+### Factor Vectors (Categorical Data) {#factor-vectors-categorical-data}
 
 A [factor]{.glossary-term data-term="Factor Class"} is R’s way of storing categorical data. Factors store values that come from a fixed set of categories, such as “freshman,” “sophomore,” “junior,” and “senior.” Factors are common in data analysis because they help R treat categories correctly in tables, summaries, and models.
 
 A factor often looks like a character vector, but it is not the same thing. In fact, object *type* will sometimes surprise you!
 
-### Creating Factors
+#### Creating Factors {#creating-factors}
 
 The function `factor()` is used to create factor vectors from character vectors.
 
@@ -508,7 +508,7 @@ Levels: A B C
 
 🗣 The output shows that the `grades` object has class `"factor"`. Underneath, R stores the factor using integer codes, even though it prints the category labels. 
 
-### Levels and Ordering
+#### Levels and Ordering {#levels-and-ordering}
 
 The printed output above displays the [levels]{.glossary-term data-term="Factor Levels"} of the factor, which are the unique categories present in the vector. R may automatically assign levels in alphabetical order unless you specify a different order when creating the factor.
 
@@ -544,7 +544,7 @@ ___
 
 Another type of attribute that vectors can have is names. Let's look at named vectors more closely.
 
-### Data Coercion
+#### Data Coercion {#data-coercion}
 
 An atomic vector stores elements of one type. If you try to mix types, R will coerce (convert) them to a common type based on a hierarchy of flexibility.
 
@@ -563,7 +563,7 @@ class(mixed)
 A vector can only hold *one* type. Mixing types triggers [coercion]{.glossary-term data-term="Coercion"} to a common type. For the types used here, R generally moves from logical to numeric to character.
 
 
-#### Converting Between Types
+##### Converting Between Types {#converting-between-types}
 
 You can explicitly convert between types using functions like `as.numeric()`, `as.character()`, and `as.logical()`. 
 
@@ -597,7 +597,7 @@ R will also give a warning because some values could not be converted. A [Warnin
 
 ---
 
-# Summary
+## Summary {#summary}
 
 In this chapter, you learned to create an R Notebook (`.Rmd`), rename and save it correctly, and use code chunks to run R code with output shown directly beneath your work. You practiced memoing in a notebook by writing short, clear notes about what your code does and what the output shows.
 
@@ -607,7 +607,7 @@ Finally, you practiced an important reproducible workflow habit: clearing your E
 
 You should be able to create a basic R Notebook, write short memo notes about your work, build numeric vectors, perform vector arithmetic, and prepare your notebook files for submission. You are ready to test your understanding with the practice exercises.
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Backtick**: The &#96; character (above the Tab key) used for code-related formatting and quoting. In **Markdown**, single backticks mark *inline code* and triple backticks create *fenced code blocks*; in **R Markdown**, backticks also mark *inline R code* (<code>&#96;r ...&#96;</code>), including inside YAML fields like <code>date: "&#96;r Sys.Date()&#96;"</code>, which gets evaluated when you render the document. In R, backticks can also quote non-syntactic names (e.g., names with spaces) so they can be used safely in code.
 
@@ -667,7 +667,7 @@ You should be able to create a basic R Notebook, write short memo notes about yo
 
 **YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 Fill in the blanks to complete the code in your R Notebook.
 
@@ -696,7 +696,7 @@ You may ask an AI to explain an error or provide you with more details to a curi
 
 Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.
 
-## Task 1
+### Task 1 {#task-1}
 
 🛠 **Build numeric vectors**
 
@@ -727,7 +727,7 @@ ___(sales_q2)
 
 🗣 Add Comment:  # The output shows __________
 
-## Task 2
+### Task 2 {#task-2}
 
 📈 **Vector arithmetic**
 
@@ -746,7 +746,7 @@ print(growth)
 🗣 Add Comment:  # The output shows __________
 
 
-## Task 3
+### Task 3 {#task-3}
 
 🔢 **Exponents and vectorized math**
 
@@ -776,7 +776,7 @@ print(binary_powers)
 
 🪞 Reflect: Before running the code, did you expect `2 ^ exponents` to create one answer or many answers? In 1–3 sentences, explain how this task changed or confirmed your understanding of vectorized math in R.
 
-## Task 4
+### Task 4 {#task-4}
 
 📈 **Subtract one vector from another**
 
@@ -807,7 +807,7 @@ print(anomaly)
 
 _These are just playful example vectors. The important skill is subtracting one vector from another._
 
-## Task 5
+### Task 5 {#task-5}
 
 🔎 **Check type and class**
 
@@ -840,7 +840,7 @@ class(__________)
 
 🪞 Reflect: Did R treat the number vector and the word vector the same way or differently? In 1–3 sentences, explain what this helped you notice about how R stores objects.
 
-## Task 6
+### Task 6 {#task-6}
 
 🏷️ **Create and check a factor**
 
@@ -866,7 +866,7 @@ print(__________________)
 
 🪞 Reflect: Why might R need a special class for categorical values instead of treating everything as ordinary character text? Keep your answer to 1–3 sentences.
 
-## Task 7
+### Task 7 {#task-7}
 
 🧠 **Reflect on coercion**
 
@@ -891,7 +891,7 @@ class(mixed_vector)
 
 🪞 Reflect: What would you check in R to confirm that coercion happened? Name one function or output you would use.
 
-## Task 8
+### Task 8 {#task-8}
 
 ✅ **Final checks before submitting**
 
@@ -907,7 +907,7 @@ Knit your notebook to HTML to check that the report works from beginning to end.
 🎯 **Step 4: Save and submit.**  
 After your notebook runs without errors, save your notebook (`.Rmd`) and save your workspace (`.RData`) for submission, as directed.
 
-# References
+## References {#references}
 
 Resnik, D. B., & Elliott, K. C. (2023). Science, values, and the new demarcation problem. Journal for General Philosophy of Science, 54(2), 259–286.
 
