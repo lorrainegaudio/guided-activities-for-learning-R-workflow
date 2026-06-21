@@ -1,16 +1,10 @@
 ---
-title: "Chapter 11"
-subtitle: "💈dplyr Subsetting"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+title: "Chapter 11: dplyr Subsetting"
+subtitle: "Selecting columns and filtering rows with the pipe"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# Overview
+## Overview {#overview}
 
 In this chapter, you will learn how to subset data efficiently with `dplyr` by combining the pipe `%>%` with two core verbs: `select()` for choosing columns and `filter()` for keeping rows that meet specific conditions. You will also continue working in Quarto, which is the course’s reproducible workflow for combining code, results, and written interpretation in one document. Together, these tools help you move from writing individual R commands to building a clear, repeatable analysis process. The chapter closes with applied practice using datasets such as 🚗 `mtcars`, 🌐 `gapminder`, 🔫 `murders`, and ☣️ `us_contagious_diseases`.
 
@@ -42,16 +36,16 @@ By the end of Chapter 11 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# Quarto
+## Quarto {#quarto}
 
-In earlier chapters, you used an R Notebook as a reproducible thinking document: code, output, and memo-style writing in one place. **Quarto** keeps that same basic workflow, but the file is usually a `.qmd` file instead of an `.Rmd` file.
+In earlier chapters, you used an R Notebook as a reproducible thinking document: code, output, and memo-style writing in one place. [Quarto]{.glossary-term data-term="Quarto"} keeps that same basic workflow, but the file is usually a `.qmd` file instead of an `.Rmd` file.
 
 The biggest changes are:
 
 * Quarto files use the `.qmd` file extension.
 * The YAML header uses `format:` instead of the older R Markdown `output:` style.
 * Code chunk options are written as YAML-style lines that begin with `#|` inside the code chunk.
-* You render a Quarto document with the **Render** button instead of knitting an R Notebook.
+* You [render]{.glossary-term data-term="Render"} a Quarto document with the render button instead of knitting an R Notebook.
 
 Quarto is useful because it gives you a clean way to combine code, output, and written explanation in one document. It also supports more flexible publishing formats and can work with multiple coding languages, including R, Python, Julia, and Observable JavaScript. In this course, we will use R with Quarto.
 
@@ -59,9 +53,9 @@ Quarto is useful because it gives you a clean way to combine code, output, and w
 
 To learn more about Quarto, check out the [Quarto website](https://quarto.org/). You can also find a helpful [Quarto Cheat Sheet](https://rstudio.github.io/cheatsheets/quarto.pdf).
 
-## R Notebook → Quarto
+### R Notebook → Quarto {#notebook-quarto}
 
-Quarto will be **similar** to an R Notebook in several ways. You still write normal paragraphs outside code chunks. You still run R code inside chunks. You still use Markdown headings to create an outline. You still render the document to create a readable HTML report.
+Quarto will be similar to an R Notebook in several ways. You still write normal paragraphs outside code chunks. You still run R code inside chunks. You still use Markdown headings to create an outline. You still render the document to create a readable HTML report.
 
 What changes is the file extension, the YAML header, and the way chunk options are written.
 
@@ -85,9 +79,9 @@ Just like an R Notebook template, a new Quarto file will open with sample text. 
 
 🤔 An `.Rmd` notebook and a `.qmd` document both support reproducible work, but they organize some settings differently. As you build out the Quarto notes, ask yourself: “Which file type feels easier for me to set up, read, and render?”
 
-## The YAML Header
+### The YAML Header {#yaml-header}
 
-At the top of the document is the **YAML header**. This is document metadata. In Quarto, the header is still surrounded by three dashes (`---`) and uses `key: value` pairs. Quarto uses fields such as `title`, `subtitle`, `author`, `date`, `format`, and `execute`.
+At the top of the document is the [YAML header]{.glossary-term data-term="YAML Header"}. This is document metadata. In Quarto, the header is still surrounded by three dashes (`---`) and uses `key: value` pairs. Quarto uses fields such as `title`, `subtitle`, `author`, `date`, `format`, and `execute`.
 
 ````{r echo=FALSE, results='asis'}
 cat("```yaml
@@ -106,7 +100,7 @@ execute:
 ```")
 ````
 
-### What each part does:
+#### What each part does: {#yaml-parts}
 
 * `title:` gives your document a title.
 
@@ -128,7 +122,7 @@ execute:
 
 🤔 Notice that YAML uses lowercase `true` and `false`. R uses uppercase `TRUE` and `FALSE`. Same idea, different file language. Ask yourself: “Am I writing YAML settings, or am I writing R code?”
 
-## Markdown Headings
+### Markdown Headings {#markdown-headings}
 
 Quarto uses Markdown for normal text, just like your notebook work. Headings are created with `#`, `##`, `###`, and so on. These headings create the structure of your document.
 
@@ -150,7 +144,7 @@ Use this outline in your notes file:
 # Application
 ```
 
-## Memoing in Quarto
+### Memoing in Quarto {#memoing}
 
 Quarto is not just for tracking your R code. It is also where you document your thinking, reasoning, and understanding. Your memos should usually be written as normal text outside code chunks, not jammed into code chunk comments.
 
@@ -183,11 +177,11 @@ mean(x)
 
 You can also use `#| eval=FALSE` in code chunks that contain `install.packages()` instead of commenting out each line with `#`. Let's see that in action next.
 
-# 📦 Packages
+## 📦 Packages {#packages}
 
 You will need the `dplyr` and `dslabs` packages installed and loaded to follow along with the code examples in this chapter.
 
-The `dplyr` package is part of the **tidyverse**, a collection of R packages designed for data science. The `dplyr` package gives you data-wrangling functions called **verbs**. These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
+The `dplyr` package is part of the [tidyverse]{.glossary-term data-term="Tidyverse"}, a collection of R packages designed for data science. The [dplyr package]{.glossary-term data-term="dplyr"} gives you data-wrangling functions called [verbs]{.glossary-term data-term="Verbs". These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
 
 🧠 Recall that you only need to install a package **once** on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put `#| eval=FALSE` at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.
 
@@ -228,11 +222,11 @@ You may see messages when packages load. Messages are not always errors. Read th
 
 Now that we have `dplyr` and `dslabs` installed and loaded, we can use their functions to manipulate data frames. Let's start with the pipe operator.
 
-# The Pipe (`%>%`)
+## The Pipe (`%>%`) {#the-pipe}
 
 The `dplyr` package helps you manipulate data frames. You can use it to filter rows, select columns, create variables, summarize data, and arrange rows.
 
-One reason people like `dplyr` is that it makes code easier to read using the **pipe**: `%>%`. The pipe lets you chain steps together in a readable order from left to right. You can read the pipe as **"and then"** or **"goes into."**
+One reason people like `dplyr` is that it makes code easier to read using the [pipe]{.glossary-term data-term="Pipe"}: `%>%`. The pipe lets you chain steps together in a readable order from left to right. You can read the pipe as **"and then"** or **"goes into."**
 
 The pipe takes the object on the left and sends it into the function on the right.
 
@@ -279,17 +273,17 @@ mtcars %>%        # start with data
 
 To understand how to use the pipe in real data work, you need to learn at least one `dplyr` verb. Let's start with `select()` for choosing columns.
 
-# Selecting Columns
+## Selecting Columns {#selecting-columns}
 
 In Chapter 8, you learned that you can select columns with base R brackets by name, like `data[c("col1", "col2")]`. With `dplyr::select()`, you can do the same thing with a more concise syntax.
 
-The `dplyr` verb `select()` returns the same type of data object, keeps all rows, and changes which columns are shown. It can select columns by name, by ranges such as `x:y`, and by helper patterns.
+The `dplyr` verb [`select()`]{.glossary-term data-term="select()"} returns the same type of data object, keeps all rows, and changes which columns are shown. It can select columns by name, by ranges such as `x:y`, and by helper patterns.
 
 You can use R operators such as `:`, `!`, `&`, `|`, `c()`, and `%in%` to select columns. You can also use helper functions like `starts_with()`, `ends_with()`, `contains()`, and `matches()` to select columns based on patterns in their names. **To keep it simple, we will focus on selecting columns by name and by negative selection with `-`.**
 
 📜 The SYNTAX: `select(data, col1, col2, …)`
 
-## Positive Selection
+### Positive Selection {#positive-selection}
 
 🎯 Keep specific columns by name.
 
@@ -304,7 +298,7 @@ select(mtcars, mpg, cyl, hp)    # keep three columns
 
 🤔 This is a method-choice moment. Base R brackets (Chapter 10) and `select()` can both choose columns. Ask yourself: “Which version makes the column choices easier to read?”
 
-## Negative Selection
+### Negative Selection {#negative-selection}
 
 In Chapter 10, you learned that `x[-i, -j]` can drop the i-th row and j-th column. In `dplyr::select()`, you can use a leading `-` to drop columns by name.
 
@@ -325,7 +319,7 @@ select(mtcars, -gear)   # drop one column
 
 Now that you know how to select columns, let's see how to use the pipe to chain operations together.
 
-## Piping with Select
+### Piping with Select {#piping-with-select}
 
 🎯 Add a pipe.
 
@@ -345,11 +339,11 @@ mtcars %>%
 
 Now that you can select columns and use the pipe, let's practice storing a subset of a dataset in the environment.
 
-## Subset with Select
+### Subset with Select {#subset-with-select}
 
 We'll mix it up by using a different dataset, 🌐 `gapminder` from `dslabs`. This dataset contains information about countries over time.
 
-```{r}
+```{r eval=FALSE}
 ?gapminder
 ```
 
@@ -404,15 +398,15 @@ head(Your_Choice)
 
 Now that you know how to store a subset when selecting columns and use the pipe, let's see how to filter rows with `filter()`.
 
-# Filtering Rows
+## Filtering Rows {#filtering-rows}
 
 In chapter 8 and 10, you learned that you can filter rows with base R brackets by name, like `data[data$col1 > 10, ]`. With `dplyr::filter()`, you can do the same thing but with a more concise syntax.
 
-`filter()` keeps only rows for which the condition is `TRUE`. This means that `filter()` treats `NA` values as `FALSE` and drops them. If you want to keep rows with `NA`, you can use the `is.na()` function in your filter condition.
+[`filter()`]{.glossary-term data-term="filter()"} keeps only rows for which the condition is `TRUE`. This means that `filter()` treats `NA` values as `FALSE` and drops them. If you want to keep rows with `NA`, you can use the `is.na()` function in your filter condition.
 
 📜 The SYNTAX: `filter(data, condition1, condition2, …)`
 
-You'll often use **logical operators** with `filter()`. 
+You'll often use [logical operators]{.glossary-term data-term="Logical Operators"} with `filter()`. 
 
 | Operator | Meaning | Example  |
 | -------- | ------- | ------------|
@@ -429,7 +423,7 @@ You'll often use **logical operators** with `filter()`.
 
 Let's start with a simple example of filtering rows with a single condition.
 
-## Single Condition
+### Single Condition {#single-condition}
 
 🎯 `filter()` uses logical operators!
 
@@ -444,7 +438,7 @@ filter(mtcars, mpg >= 25)               # high‑mileage cars
 
 🤔 This is the same row-filtering idea you used with base R brackets, but using a custom function. 
 
-## Piping with Filter
+### Piping with Filter {#piping-with-filter}
 
 We'll mix it up by using a different data set, 🔫️`murders` from `dslabs`. This data set contains information about gun murders in the US.
 
@@ -486,11 +480,11 @@ unique(No_Washington$state)
 
 🗣 A new dataset called `No_Washington` was created from the `murders` dataset that excludes Washington DC.
 
-## Multiple Conditions with AND
+### Multiple Conditions with AND {#multiple-conditions-and}
 
 We learned in chapter 8 and 10 that we can filter with multiple conditions using `&` for AND. In `dplyr::filter()`, commas (`,`) equal AND (`&`).
 
-### And `,` and `&`
+#### And `,` and `&` {#and-comma}
 
 Let's filter with two conditions! In filter(), multiple conditions separated by commas are combined with &. So these two calls mean the same thing:
 
@@ -508,7 +502,7 @@ filter(mtcars, mpg >= 25 & cyl == 4)
 
 The catch is that comma is only a shortcut inside `filter()` for separating multiple conditions. It is not a general replacement for `&` in R, and it does not help when you need more complex grouping with `|`.
 
-### With the pipe
+#### With the pipe {#with-the-pipe}
 
 🎯 Let's filter with two conditions with a pipe and store it as `efficient` 
 
@@ -531,12 +525,12 @@ nrow(efficient)  # how many cars are efficient?
 
 🤔 AND logic is strict. A row must satisfy both conditions to stay. Ask yourself: “Did I mean both conditions at the same time, or did I mean either condition?”
 
-## Multiple Conditions with OR
+### Multiple Conditions with OR {#multiple-conditions-or}
 
 In `dplyr::filter()`, multiple conditions separated by commas are combined with AND, not OR. So when you want OR logic, you must write `|` explicitly inside the condition. In base R, `|` is the elementwise OR operator, and `%in%` returns `TRUE` when a value appears in a set of values.
 
 
-### Or `|` and `%in%`
+#### Or `|` and `%in%` {#or-pipe-in}
 
 🎯  Let's filter with OR! When you want rows that match either one condition or another, use `|`.
 
@@ -567,7 +561,7 @@ filter(mtcars, cyl == 4 | mpg >= 30)  # different variables
 
 🗣 This code chunk returns a subset of the `mtcars` dataset that includes rows where either `cyl` is equal to 4 or `mpg` is greater than or equal to 30. Since these conditions involve different variables, you cannot use `%in%` and must use the `|` operator to combine them.
 
-### With the pipe
+#### With the pipe {#with-the-pipe-or}
 
 🎯 Let's filter with two conditions using OR (`|`), piping, and storing the subset to the environment.
 
@@ -590,7 +584,7 @@ nrow(efficient_ish)  # how many cars are efficient_ish?
 
 🤔 OR logic is broader than AND logic. A row only needs to satisfy one condition to stay. Ask yourself: “Did my row count get larger because I widened the rule?”
 
-# filter() AND select()
+## filter() AND select() {#filter-and-select}
 
 So far, you have used `select()` to change which columns you keep and `filter()` to change which rows you keep. Now let's combine them.
 
@@ -638,7 +632,7 @@ colnames(alaska_disease)
 
 🤔 This is why order matters. If you had selected only `year`, `disease`, and `count` first, the `state` column would not be available for filtering. Ask yourself: “Did I remove a column before I was done using it?”
 
-# One Application
+## One Application {#one-application}
 
 ❓ Which automatic cars (`am == 0`) in `mtcars` have horsepower greater than 150?
 
@@ -667,7 +661,7 @@ nrow(powerful_auto)
 
 ---
 
-# Summary
+## Summary {#summary}
 
 In Chapter 11, you learned how to use `dplyr` to create smaller, analysis-ready datasets in a clear and reproducible way. You practiced `select()` to keep or drop columns, `filter()` to keep rows based on logical conditions, and `%>%` to connect multiple steps into a readable workflow. You also worked in Quarto so that your code, output, and written notes stay together in one document.
 
@@ -675,20 +669,30 @@ You applied comparison operators and Boolean logic to ask more precise questions
 
 The larger learning goal is method judgment. Base R brackets and `dplyr` verbs can often answer the same question, but they make different parts of the work easier to see. Open-minded coding means comparing reasonable approaches, verifying the result, and choosing the method that makes your logic easiest to read and explain.
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
+
+**dplyr**: An R package in the tidyverse that provides readable data-wrangling verbs for working with data frames. In this chapter, `dplyr` is used to select columns, filter rows, and build clear subsetting workflows.
+
+**`filter()`**: A `dplyr` function used to keep rows from a data frame or tibble based on one or more logical conditions. `filter()` keeps observations where the condition evaluates to `TRUE` and drops rows where the condition evaluates to `FALSE`.
 
 **Logical Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`/`FALSE`, and Boolean operators—`!` (NOT), `&` / `|` (AND/OR applied element-by-element), and `&&` / `||` (AND/OR that evaluate only the first element, mainly for if conditions).
 
 **Pipe**: An operator that passes the result of one step directly into the next step, letting you write code as a readable sequence of actions instead of nesting functions inside each other. In tidyverse code, the pipe is usually `%>%`, so `x %>% f()` means “take `x`, then apply `f()`”; in newer base R, a similar built-in pipe is `|>`.
 
+**Render**: To process a Quarto document and create an output file, such as an HTML report. Rendering runs the document’s code as needed, combines the code results with the written text, and checks whether the document can be rebuilt as a reproducible report.
+
+**`select()`**: A `dplyr` function used to choose columns from a data frame or tibble. `select()` keeps all rows but lets you keep, reorder, rename, or drop variables by column name or selection helper.
+
 **Tidyverse**: An opinionated collection of R packages designed to work together for data science. The packages share a common design philosophy, data structures, and coding style, which makes it easier to import, clean, reshape, visualize, and analyze data within a consistent workflow.
 
 **Quarto**: An open-source scientific and technical publishing system that uses Quarto Markdown files (`.qmd`) to combine Markdown text with executable code (including R) and render reproducible outputs like HTML, PDF, Word, slides, and websites. It’s the language-agnostic successor to R Markdown, designed for reports where code, results, and writing stay tied together.
 
+**Verbs**: The main data-wrangling functions in `dplyr`, named for the actions they perform on a data frame or tibble. Common `dplyr` verbs include `filter()` to keep rows, `select()` to choose columns, `mutate()` to create or change variables, `summarise()` to calculate summaries, and `arrange()` to reorder rows.
+
 **YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
 
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 In this Practice Space, you will use `dplyr::select()`, `dplyr::filter()`, and the pipe `%>%` to create smaller, focused datasets. You will also keep practicing Quarto as a reproducible workspace for code, output, and memo notes.
 
@@ -724,7 +728,7 @@ Before you submit, clear your Environment and run the `.qmd` from top to bottom.
 
 For this assignment, submit the saved `.qmd` file. You do not need to submit a rendered HTML file.
 
-## Task 0
+### Task 0 {#task-0}
 
 📦 Load the packages needed for this Practice Space: `dplyr` and `dslabs`. This setup chunk is also a good place to practice Quarto chunk controls like `#| message: false` and `#| warning: false`.
 
@@ -745,7 +749,7 @@ _______(dplyr)
 
 💡 **Tip:** Open-mindedness in this chapter means comparing reasonable options and choosing the one that makes your workflow easier to read, check, and explain.
 
-## Task 1
+### Task 1 {#task-1}
 
 **Column Selection**
 
@@ -767,7 +771,7 @@ head(C_Overload)
 
 🪞 Reflect: In Chapter 10, you used base R brackets to choose columns. In this task, you used `select()` without a pipe. Which version feels easier to read for this task, and what output helps you verify that only the intended columns were kept?
 
-## Task 2
+### Task 2 {#task-2}
 
 **Single-Column Dataframe**
 
@@ -789,7 +793,7 @@ head(star_names)
 
 🪞 Reflect: A one-column data frame and a vector can look similar at first. Why does it matter to stay open to that difference instead of assuming they are the same kind of object?
 
-## Task 3
+### Task 3 {#task-3}
 
 **Row Filtering**
 
@@ -816,7 +820,7 @@ unique(No_Florida$state)
 
 🪞 Reflect: You could have assumed `"Florida"` appeared exactly as expected, but you checked the available values first. How did that pre-check help you avoid guessing? If `"Florida"` still appeared in the verification output, what would you check next?
 
-## Task 4
+### Task 4 {#task-4}
 
 **Multiple Conditions**
 
@@ -847,7 +851,7 @@ nrow(Fast_n_Furious)
 
 🪞 Reflect: This task uses AND logic, so a car must meet all three conditions to stay in the dataset. If your result had more or fewer rows than expected, which condition would you check first, and why?
 
-## Task 5
+### Task 5 {#task-5}
 
 **OR Logic + Column Slice**
 
@@ -880,7 +884,7 @@ all(filtered_cars$disp > 250 | filtered_cars$disp < 160) # check disp condition
 
 🪞 Reflect: This task uses OR logic, so a car can stay if it meets either displacement condition. Why is `|` the right choice here instead of `&`? How does `all()` help you test whether your first filtering idea worked?
 
-## Task 6
+### Task 6 {#task-6}
 
 **Reflection**
 
@@ -890,7 +894,7 @@ all(filtered_cars$disp > 250 | filtered_cars$disp < 160) # check disp condition
 
 🪞 Reflect: Open-minded coding does not mean every method is equally good. It means comparing reasonable options and choosing the one that makes the logic clearest for the task. After this chapter, when would you choose base R brackets? When would you choose `dplyr` verbs?
 
-## Task 7
+### Task 7 {#task-7}
 
 **Self-check checklist**
 

@@ -148,7 +148,7 @@ Instead of keeping rows/columns by position or condition, you can also drop them
 
 ### Negative Indices {#negative-indices}
 
-**Negative indexing** drops rows or columns by position. Inside the bracket subsetting operator `[` for vectors/matrices/data frames, a negative integer index means “leave these positions out.”
+[Negative indexing]{.glossary-term data-term="Negative Indexing"} drops rows or columns by position. Inside the bracket subsetting operator `[` for vectors/matrices/data frames, a negative integer index means “leave these positions out.”
 
 📜 The SYNTAX:  `x[-i, -j]`
 
@@ -173,9 +173,9 @@ The use of the negative sign `-` is one way to subset by excluding columns. Howe
 
 ### Inequality `!=` {#inequality}
 
-**Conditional subsetting** with logical (relational) operators is more flexible than negative indexing because you can specify conditions on the values in the data frame, not just positions. Recall from Chapter 8 that logical tests create `TRUE`/`FALSE` vectors used inside of `[ ]`.
+[Conditional subsetting]{.glossary-term data-term="Conditional Subsetting"} with logical (relational) operators is more flexible than negative indexing because you can specify conditions on the values in the data frame, not just positions. Recall from Chapter 8 that logical tests create `TRUE`/`FALSE` vectors used inside of `[ ]`.
 
-**Not Equal To** (`!=`) is a relational operator that compares values and returns a logical vector of `TRUE`/`FALSE` results. When the element value is not equal to the specified value, the result is `TRUE`. When the element value is equal to the specified value, the result is `FALSE`. The result is the opposite of the `==` operator, which tests for equality.
+[Not Equal To]{.glossary-term data-term="Not Equal To"} (`!=`) is a relational operator that compares values and returns a logical vector of `TRUE`/`FALSE` results. When the element value is not equal to the specified value, the result is `TRUE`. When the element value is equal to the specified value, the result is `FALSE`. The result is the opposite of the `==` operator, which tests for equality.
 
 🎯 Use `!=` to create a logical vector that is `TRUE` where the number of cylinders (`cyl`) is NOT equal to 4.
 
@@ -224,7 +224,7 @@ head(not4)
 
 ### Not `!` {#not}
 
-The **Not** operator `!` negates a logical value. `!TRUE` becomes `FALSE`, and `!FALSE` becomes `TRUE`. It can be used to flip the result of a logical test.
+The [Not]{.glossary-term data-term="Not"} operator `!` negates a logical value. `!TRUE` becomes `FALSE`, and `!FALSE` becomes `TRUE`. It can be used to flip the result of a logical test.
 
 🎯 Use `!` to create a logical vector that is `TRUE` where the number of cylinders (`cyl`) is NOT equal to 4.
 
@@ -270,13 +270,13 @@ The **Less Than or Equal To** (`<=`) operator returns `TRUE` where the left side
 sum(mtcars$mpg <= 15)
 ```
 
-🗣 The logical test `<= 15` evaluates each row value in the column `mpg` in the `mtcars` dataset (`mtcars$mpg`). If the car in a row has a value less than or equal to 15, the result is `TRUE`, otherwise `FALSE`. In R, `TRUE` is treated as `1` and `FALSE` as `0`. The function `sum()` adds all the `TRUE` values. There are 6 cars in the `mtcars` dataset with miles per gallon less than or equal to 15.
+🗣 The [less than or equal to]{.glossary-term data-term="Less Than or Equal To"} logical test `<= 15` evaluates each row value in the column `mpg` in the `mtcars` dataset (`mtcars$mpg`). If the car in a row has a value less than or equal to 15, the result is `TRUE`, otherwise `FALSE`. In R, `TRUE` is treated as `1` and `FALSE` as `0`. The function `sum()` adds all the `TRUE` values. There are 6 cars in the `mtcars` dataset with miles per gallon less than or equal to 15.
 
 🤔 This is a good time to translate code back into words. `mtcars$mpg <= 15` means “find cars with mpg less than or equal to 15.” If your words and your code do not match, revise before moving on.
 
 ### Example 2 {#example-2}
 
-The **Greater Than or Equal To** (`>=`) operator returns `TRUE` where the left side is greater than or equal to the right side, and `FALSE` otherwise. We can combine this operator with negative indexing to create a subset of the data frame.
+The [Greater Than or Equal To]{.glossary-term data-term="Greater Than or Equal To"} (`>=`) operator returns `TRUE` where the left side is greater than or equal to the right side, and `FALSE` otherwise. We can combine this operator with negative indexing to create a subset of the data frame.
 
 🎯 Create a subset of `mtcars` that contains rows with `hp >= 100`, and drops columns `3`, `5`, and `8:9` by position.
 
@@ -299,7 +299,7 @@ head(selection)
 
 ### Example 3 {#example-3}
 
-We can also verify that we got the expected number of columns in our subset by passing the stored object names through functions. The function `ncol()` counts columns, and `==` compares the results.
+We can also verify that we got the expected number of columns in our subset by passing the stored object names through functions. The function `ncol()` counts columns, and [Equal To]{.glossary-term data-term="Equal To"} (`==`) compares the results.
 
 🎯 Verify that `selection` has the expected number of columns: 7 columns, since we dropped 4 from the original 11.
 
@@ -351,13 +351,7 @@ What if we have multiple requirements?
 
 * “I want cylinders in the set `{4, 6}`.”
 
-This section adds three new logical operators to your R toolkit.
-
-* `&` means **AND** and checks that both conditions are true.
-
-* `|` means **OR** and checks whether at least one condition is true.
-
-* `%in%` means membership, or **in set**, and checks whether a value is within a set.
+This section adds three new logical operators to your R toolkit: [And]{.glossary-term data-term="And"} (`&`), [Or]{.glossary-term data-term="Or"} (`|`), and [In Set]{.glossary-term data-term="In Set"} (`%in%`).
 
 These operators allow us to combine multiple conditions for more complex subsetting.
 
@@ -382,7 +376,7 @@ Let's explore each of these three new operators in more detail. In this section,
 
 ### And `&` {#and}
 
-Suppose we have two events: A and B. The **And** operator `&` returns `TRUE` only if **both** event A and event B are **true**. It returns `FALSE` if either event A or event B, or both, are false. The "and" is used to combine two or more conditions where all conditions must be true.
+Suppose we have two events: A and B. The [and]{.glossary-term data-term="And"} operator `&` returns `TRUE` only if **both** event A and event B are **true**. It returns `FALSE` if either event A or event B, or both, are false. The "and" is used to combine two or more conditions where all conditions must be true.
 
 ```{r And, out.width='40%', fig.align='center', fig.cap='Figure 1. Venn diagram showing the AND condition. The shaded area is the overlap between A and B, which means only observations that satisfy both conditions are included.', fig.alt='Venn diagram showing the AND operation, with only the overlapping area between A and B shaded.', echo=FALSE}
 knitr::include_graphics("images/ch10-andor/And.png")
@@ -471,7 +465,7 @@ The next section uses `|`, which answers a different kind of question. Use `&` w
 
 ### Or `|` {#or}
 
-Suppose we have two events: A and B. The **Or** logical operator `|` returns `TRUE` if either **event A** is true, **event B** is true, **or both** events are **true**. It only returns `FALSE` if both events are false. "Or" is inclusive and is used to combine two or more conditions where at least one condition must be true.
+Suppose we have two events: A and B. The [or]{.glossary-term data-term="OR"} logical operator `|` returns `TRUE` if either **event A** is true, **event B** is true, **or both** events are **true**. It only returns `FALSE` if both events are false. "Or" is inclusive and is used to combine two or more conditions where at least one condition must be true.
 
 
 ```{r Or, out.width='40%', fig.align='center', fig.cap='Figure 2. Venn diagram showing the OR condition. The shaded area includes anything in A or B, which means observations that satisfy either condition, or both conditions, are included.', fig.alt='Venn diagram showing the inclusive OR operation, with both circles A and B shaded, including their overlap.', echo=FALSE} 
@@ -508,8 +502,7 @@ unique(four_or_eight$cyl)
 * "I want rows where at least one condition, A **or** B, is `TRUE`." 👉 use `|`
 
 ### Membership `%in%` {#membership}
-
-**OR** becomes annoying when you have many options. The **in set** `%in%` operator tests if values belong to a set, or vector. It is a shorthand for multiple OR `|` conditions. This is the scalable OR operator when you have many values to match.
+[OR]{.glossary-term data-term="OR"} becomes annoying when you have many options. The [in set]{.glossary-term data-term="In Set"} `%in%` operator tests if values belong to a set, or vector. It is a shorthand for multiple OR `|` conditions. This is the scalable OR operator when you have many values to match.
 
 The `%in%` in `x %in% c(a, b, c)` means, "For each value in `x`, is it one of these allowed values?" It returns a logical vector (`TRUE`/`FALSE`) the same length as `x`.
 
@@ -561,9 +554,9 @@ In this section, you’ll practice combining `&`, `|`, and `%in%` into realistic
 
 ### Grouping Parentheses {#grouping-parentheses}
 
-When we combine multiple conditions with `&`, `|`, or `%in%`, we need to make sure the code matches the sentence we think it does. Use **grouping parentheses** when mixing `&` and `|` to make intent explicit. Without grouping parentheses, we can trigger a **precedence bug**, where R groups a mixed `&`/`|` filter by its precedence rules. R evaluates `&` before `|`, so `a & b | c` is treated as `(a & b) | c` instead of the logic we may have intended: `a & (b | c)`. The **grouping parentheses** override the operator precedence.
+When we combine multiple conditions with `&`, `|`, or `%in%`, we need to make sure the code matches the sentence we think it does. Use [grouping parentheses]{.glossary-term data-term="Grouping Parentheses"} when mixing `&` and `|` to make intent explicit. Without grouping parentheses, we can trigger a [precedence bug]{.glossary-term data-term="Precedence Bug"}, where R groups a mixed `&`/`|` filter by its precedence rules. R evaluates `&` before `|`, so `a & b | c` is treated as `(a & b) | c` instead of the logic we may have intended: `a & (b | c)`. The grouping parentheses override the operator precedence.
 
-> **Add parentheses to show what the OR part is.**
+**Add parentheses to show what the OR part is.**
 
 Let's see how the parentheses change which rows are selected.
 

@@ -113,10 +113,11 @@ list.files()
 
 ```{r eval=FALSE}
 # ⚡ Type this in your R Notebook
-library(readr) # Load the readr package for reading CSV files
+ # Load the readr package for reading CSV files
 field_sightings <- read_csv("field_sightings.csv")
 ```
 ```{r include=FALSE}
+library(readr)
 field_sightings <- read_csv("data/field_sightings.csv")
 ```
 
@@ -151,9 +152,9 @@ The return output from a single square bracket operator is usually a container o
 
 #### Vector {#vector}
 
-In Chapter 3, you practiced using the **indexing operator** with positional indexing to extract elements from vectors. Let's review that briefly before we move on to [data frames](#data-frame). 
+In Chapter 3, you practiced using the [indexing operator]{.glossary-term data-term="Indexing Operator"} with positional indexing to extract elements from vectors. Let's review that briefly before we move on to [data frames](#data-frame). 
 
-You learned that the basic pattern for **positional indexing** is `x[i]`, where `x` is the vector and `i` is the index (or indices) of the elements you want to extract. A position used to identify elements in an object. 
+You learned that the basic pattern for positional indexing is `x[i]`, where `x` is the vector and `i` is the index (or indices) of the elements you want to extract. A position used to identify elements in an object. 
 
 🎯   Practice using `[ ]` with positional indexing on vectors. 
 
@@ -209,7 +210,7 @@ Let's see this in practice with our `field_sightings` data frame.
 field_sightings[1:6, ]  
 ```
 
-💡 **Tip**: I remember bracket indexing by watching the comma. In `df[rows, columns]`, the comma divides the row instruction from the column instruction. The left side answers “which rows?” The right side answers “which columns?” **In `df[rows, cols]`, the comma is the divider.** 
+💡 **Tip**: I remember bracket indexing by watching the comma. In `df[rows, columns]`, the comma divides the row instruction from the column instruction. The left side answers “which rows?” The right side answers “which columns?” In `df[rows, cols]`, **the comma is the divider**.
 
 ✅ Check that the output has 6 rows and both columns. The blank space after the comma means “keep all columns."
 
@@ -252,7 +253,7 @@ You can also use [names indexing]{.glossary-term data-term="Names Indexing"} (al
 
 #### Vector {#vector}
 
-In Chapter 3, you created the `nerdy_palette` vector and then used **names indexing** to return the hexadecimal color code. 
+In Chapter 3, you created the `nerdy_palette` vector and then used names indexing to return the hexadecimal color code. 
 
 ```{r}
 # 📖 Review
@@ -278,7 +279,7 @@ nerdy_palette["Octarine"]
 
 #### Data Frame {#data-frame}
 
-A common use of names indexing is to **select a column by its name**.  
+A common use of names indexing is to select a column by its name.  
 
 🎯  Use names indexing to return the band colors in the `field_sightings` data frame. 
 
@@ -325,7 +326,7 @@ field_sightings[, "Band_Color", drop = FALSE]    # 1-column DATA FRAME
 
 🗣 A 1-column data frame is printed showing all row values in the column `Band_Color` the `field_sightings` data frame. It is a subset of one column, keeping that data-frame structure.
 
-⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using **names indexing** with `[ ]`.
+⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using names indexing with `[ ]`.
 
 🧭 The autonomous move here is not memorizing three methods as separate tricks. It is deciding what kind of output you need next. If you need a smaller data frame, keep the data-frame structure. If you need values to pass into a function, extract the column as a vector.
 
@@ -333,11 +334,11 @@ field_sightings[, "Band_Color", drop = FALSE]    # 1-column DATA FRAME
 
 ---
 
-So far, you've learned about positional indexing and names indexing. Both of these methods rely on you knowing the positions or names of the elements you want to subset. But what if you want to subset based on a condition, like keeping only rows where `Status` is "Tagged"? This is where **logical mask indexing** comes in.
+So far, you've learned about positional indexing and names indexing. Both of these methods rely on you knowing the positions or names of the elements you want to subset. But what if you want to subset based on a condition, like keeping only rows where `Status` is "Tagged"? This is where logical mask indexing comes in.
 
 ### 🔍 Logical Mask Indexing {#logical-mask}
 
-A **logical mask** is the logical vector you use to index.
+A [logical mask]{.glossary-term data.term="Logical Mask"} is the logical vector you use to index.
 
 #### Vector
 
@@ -663,7 +664,7 @@ In this chapter, you’ll use three core replacement patterns for data frames:
 
 `x[i, j] <- value`
 
-*Notice that indexing is located on the left side of an assignment operator (`<-`) to change specific values in a data frame.*
+> 🧐 **Notice:** Indexing is located on the left side of an assignment operator (`<-`) to change specific values in a data frame.
 
 What if all the tagged birds in the `field_sightings` data frame were raised as part of a breeding program and then reintroduced into an area where the species no longer existed? This means all the untagged birds were hatched in the wild. Suppose we decide to rename the element value `"Untagged"` to `"Wild Hatch"` in the `Status` column to communicate this information more clearly.
 
@@ -1002,7 +1003,7 @@ _____________ <- read_csv(__Values_Transport_dplace.csv__)
 
 ### Task 2 {#task-2}
 
-📍 **Positional subsetting** (rows/cols by index number)
+📍 **[Positional]{.glossary-term data-term="Positional Indexing"} subsetting** (rows/cols by index number)
 
 🎯  Create `first_10_basic` containing the first 10 rows and columns 2 through 5 of `values_transport`. Use `df[rows, cols]`
 
@@ -1027,7 +1028,7 @@ head(first_10_basic)
 
 ### Task 3 {#task-3}
 
-🏷 **Names/character subsetting** (choose specific columns by name)
+🏷 **[Names]{.glossary-term data-term="Names Indexing"}/character subsetting** (choose specific columns by name)
 
 🎯  Create `id_name_year` containing only the columns: `id`, `name`, and `year`.
 
@@ -1050,7 +1051,7 @@ head(id_name_year)
 
 ### Task 4 {#task-4}
 
-🔍 **Logical mask subsetting**
+🔍 **[Logical Mask]{.glossary-term} Subsetting**
 
 🎯  Subset rows where `year` greater than or equal to 1900 using `which()` to ensure not `NA` problems.
 
@@ -1078,7 +1079,7 @@ nrow(values_1900)
 
 ### Task 5 {#task-5}
 
-⚠️ **Explain Missing Value Propagation**
+⚠️ **Explain [Missing Value Propagation]{.glossary-term}**
 
 🎯  In 3–5 sentences, explain what **Missing Value Propagation** means when you create a logical mask like:
 
@@ -1099,7 +1100,7 @@ unique(mask)
 
 ### Task 6 {#task-6}
 
-🧪  **Extraction**
+🧪  **[Extraction]{.glossary-term}**
 
 🎯  Extract the `year` column as a vector using `[[ ]]`, storing it as `year__vector`.
 
@@ -1124,7 +1125,7 @@ unique(_____)
 
 ### Task 7 {#task-7}
 
-🛠 **Overwrite**
+🛠 **[Overwrite]{.glossary-term}**
 
 **Scenario**: You found four data-entry errors in the year column. After reviewing field notes, you confirm these corrections:
 
