@@ -1,0 +1,38 @@
+---
+toc: false
+---
+
+
+## Autonomy
+
+
+Autonomy is ...
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 7: Importing Data
+
+blah blah blah
+
+[Open Chapter 7](ch07-importing-data.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 8: Indexing
+
+blah blah blah
+
+[Open Chapter 8](ch08-indexing.html){.section-button}
+:::
+
+:::
+
+## What to focus on
+
+As you work through autonomy ...
+
+
+

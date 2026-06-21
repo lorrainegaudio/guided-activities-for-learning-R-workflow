@@ -1,0 +1,50 @@
+---
+toc: true
+---
+
+
+## Openmindedness
+
+Openmindedness is ...
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 9: Importing Data
+
+blah blah blah
+
+[Open Chapter 9](ch09-github.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 10: And, Or, and In
+
+blah blah blah
+
+[Open Chapter 10](ch10-and-or-in.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 11: dplyr Subsetting
+
+blah blah blah
+
+[Open Chapter 11](ch11-dplyr-subsetting.html){.section-button}
+:::
+
+
+:::
+
+## What to focus on
+
+As you work through openmindedness ...
+
+
+
+
+
+
+

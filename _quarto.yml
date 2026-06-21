@@ -45,7 +45,16 @@ book:
       chapters:
         - chapters/03-courage/ch05-help.Rmd
         - chapters/03-courage/ch05-help-prompting.Rmd
-        - chapters/03-courage/ch06-missing-values.Rmd      
+        - chapters/03-courage/ch06-missing-values.Rmd    
+    - part: chapters/04-autonomy/autonomy.qmd
+      chapters:
+        - chapters/04-autonomy/ch07-importing-data.Rmd
+        - chapters/04-autonomy/ch08-indexing.Rmd
+    - part: chapters/05-openmindedness/autonomy.qmd
+      chapters:
+        - chapters/05-openmindedness/ch09-github.Rmd
+        - chapters/05-openmindedness/ch10-and-or-in.Rmd        
+        - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd      
       
 format:
   html:

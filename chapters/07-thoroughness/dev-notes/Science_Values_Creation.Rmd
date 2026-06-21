@@ -1,0 +1,58 @@
+---
+title: "Build Your Own Very Long Character Vector"
+author: "Lorraine Gaudio"
+date: "2025-05-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+This is a simple example of how to create a very long character vector in R. I will upload 
+
+
+```{r}
+#install.packages(c("readtext", "pdftools", "stringr"))
+
+```
+
+```{r}
+library(readtext)   # universal reader for .txt, .docx, .pdf, etc.
+library(stringr)    # stringr verbs (str_detect, str_squish, ...)
+
+```
+
+## Read in the PDF
+
+```{r}
+my_doc <- pdftools::pdf_text("Resnik_Elliott2023.pdf") |>
+          paste(collapse = "\n")
+```
+
+## Fix hyphenation issues
+
+```{r}
+fixed_doc <- my_doc |>
+  # More general pattern for hyphenation at line breaks
+  str_replace_all("([a-zA-Z])- ?\\n?([a-zA-Z])", "\\1\\2") |>
+  # Handle potential punctuation or special cases
+  str_replace_all("([a-zA-Z])- ([a-zA-Z])", "\\1\\2")
+```
+
+
+## Store as a lone character vector
+```{r}
+Science_Values_raw <- str_squish(fixed_doc)   # removes extra line breaks/space
+Science_Values <- unlist(stringi::stri_split_boundaries(Science_Values_raw, type = "sentence"))
+## Remove any empty elements
+Science_Values <- Science_Values[Science_Values != "."]
+```
+
+## Save the character vector
+```{r}
+saveRDS(Science_Values, file = "Science_Values.rds")
+```
+

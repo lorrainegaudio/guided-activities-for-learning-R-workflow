@@ -1,0 +1,924 @@
+---
+title: "Chapter 11"
+subtitle: "💈dplyr Subsetting"
+author: "by Lorraine Gaudio"
+date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
+team: "Fall 2026"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview
+
+In this chapter, you will learn how to subset data efficiently with `dplyr` by combining the pipe `%>%` with two core verbs: `select()` for choosing columns and `filter()` for keeping rows that meet specific conditions. You will also continue working in Quarto, which is the course’s reproducible workflow for combining code, results, and written interpretation in one document. Together, these tools help you move from writing individual R commands to building a clear, repeatable analysis process. The chapter closes with applied practice using datasets such as 🚗 `mtcars`, 🌐 `gapminder`, 🔫 `murders`, and ☣️ `us_contagious_diseases`.
+
+This chapter matters because subsetting is one of the most common tasks in data analysis. Before you can graph, summarize, model, or answer a research question, you usually need to isolate the relevant cases and variables. In later coursework, you will rely on these skills to prepare datasets for visualization, descriptive statistics, hypothesis testing, and project-based analysis. In professional data work, analysts constantly filter records, choose relevant fields, remove duplicates, and create smaller, targeted datasets for reporting and decision-making. Learning to do this with readable `dplyr` code will make your work faster, easier to check, and easier for other people to follow.
+
+🤔 This chapter also asks you to practice open-mindedness as a coding habit. Base R brackets and `dplyr` verbs can often solve the same subsetting problem. Your job is not to decide that one method is always better. Your job is to compare the options, check the result, and choose the version that makes the logic clearest for the task.
+
+By the end of Chapter 11 you will be able to:
+
+* 🔗 Use the pipe `%>%` to connect multiple data-wrangling steps into a readable workflow.
+
+* 🧱 Distinguish between `select()` for choosing columns and `filter()` for keeping rows.
+
+* 🎯 Apply `select()` to keep, reorder, or exclude variables from a data frame.
+
+* 🕵️ Apply `filter()` to keep rows that meet one or more logical conditions.
+
+* ⚖️ Construct filtering conditions with relational operators such as `>`, `<`, `==`, `!=`, `<=`, and `>=`.
+
+* 🧺 Combine conditions with `&`, `|`, and `%in%` to create multi-criteria subsets.
+
+* 🧠 Interpret how Boolean logic affects which observations are kept in a dataset.
+
+* 🔄 Build pipelines that combine `filter()` and `select()` to create focused, analysis-ready data subsets.
+
+* 📋 Produce smaller, relevant datasets that are ready for later visualization, summarization, and modeling.
+
+* 📝 Use Quarto to organize code, output, and written interpretation in a reproducible analysis document.
+
+Keep these goals in mind as you move through each section.
+
+# Quarto
+
+In earlier chapters, you used an R Notebook as a reproducible thinking document: code, output, and memo-style writing in one place. **Quarto** keeps that same basic workflow, but the file is usually a `.qmd` file instead of an `.Rmd` file.
+
+The biggest changes are:
+
+* Quarto files use the `.qmd` file extension.
+* The YAML header uses `format:` instead of the older R Markdown `output:` style.
+* Code chunk options are written as YAML-style lines that begin with `#|` inside the code chunk.
+* You render a Quarto document with the **Render** button instead of knitting an R Notebook.
+
+Quarto is useful because it gives you a clean way to combine code, output, and written explanation in one document. It also supports more flexible publishing formats and can work with multiple coding languages, including R, Python, Julia, and Observable JavaScript. In this course, we will use R with Quarto.
+
+🤔 This is an open-minded tool shift. A Quarto document does much of what your R Notebook did, but the file type and setup details are a little bit different. Ask yourself: “What stays the same about my workflow, and what changes?”
+
+To learn more about Quarto, check out the [Quarto website](https://quarto.org/). You can also find a helpful [Quarto Cheat Sheet](https://rstudio.github.io/cheatsheets/quarto.pdf).
+
+## R Notebook → Quarto
+
+Quarto will be **similar** to an R Notebook in several ways. You still write normal paragraphs outside code chunks. You still run R code inside chunks. You still use Markdown headings to create an outline. You still render the document to create a readable HTML report.
+
+What changes is the file extension, the YAML header, and the way chunk options are written.
+
+🎯 Create a Quarto file.
+
+1. For those of you who **have GitHub** and a course project, navigate to your course folder and open your course project. This will open RStudio. Click **Pull** in the Git pane to get the latest version of the course materials. After completing your work, save, stage, commit, and push.
+
+If you **do not have GitHub** or a course project, open RStudio and set your working directory to your course folder.
+
+2. Open a new Quarto document in your course folder and save it as: `chapter11_notes.qmd` (`File > New File > Quarto Document`).
+
+Just like an R Notebook template, a new Quarto file will open with sample text. Start fresh:
+
+* Keep the YAML header at the top.
+* Delete the example body text below it.
+* Replace that content with your own notes, code, and memos.
+
+✅ Check that your file ends in `.qmd`, not `.Rmd`.
+
+🗣 The `.qmd` file is the editable Quarto document. The rendered `.html` file is the readable report created from it.
+
+🤔 An `.Rmd` notebook and a `.qmd` document both support reproducible work, but they organize some settings differently. As you build out the Quarto notes, ask yourself: “Which file type feels easier for me to set up, read, and render?”
+
+## The YAML Header
+
+At the top of the document is the **YAML header**. This is document metadata. In Quarto, the header is still surrounded by three dashes (`---`) and uses `key: value` pairs. Quarto uses fields such as `title`, `subtitle`, `author`, `date`, `format`, and `execute`.
+
+````{r echo=FALSE, results='asis'}
+cat("```yaml
+---
+title: \"Chapter 11 Notes\"
+subtitle: \"dplyr Subsetting\"
+author: \"YOUR NAME\"
+date: today
+format:
+  html:
+    code-fold: false
+execute:
+  warning: true
+  message: true
+---
+```")
+````
+
+### What each part does:
+
+* `title:` gives your document a title.
+
+* `subtitle:` gives your document a subtitle.
+
+* `author:` puts your name on the document.
+
+* `date: today` inserts the current local date automatically. [Quarto Dates and Date Formatting](https://quarto.org/docs/reference/dates.html) has more options for date formatting and dynamic date keywords.
+
+* `format:` tells Quarto what kind of output to create.
+
+* `html:` tells Quarto to render the document as an HTML file.
+
+* `code-fold: false` keeps code visible in the HTML report. If you change this to `true`, readers can collapse and expand the code.
+
+* `execute:` sets default chunk behavior for the whole document.
+
+* `warning: true` and `message: true` mean warnings and messages will appear in the rendered HTML if your code produces them. You can change these to `false` later when you want a cleaner final report, but for learning, seeing messages and warnings can help you understand what R is doing.
+
+🤔 Notice that YAML uses lowercase `true` and `false`. R uses uppercase `TRUE` and `FALSE`. Same idea, different file language. Ask yourself: “Am I writing YAML settings, or am I writing R code?”
+
+## Markdown Headings
+
+Quarto uses Markdown for normal text, just like your notebook work. Headings are created with `#`, `##`, `###`, and so on. These headings create the structure of your document.
+
+Use this outline in your notes file:
+
+```markdown
+# Quarto
+
+# Packages
+
+# The Pipe
+
+# Selecting Columns
+
+# Filtering Rows
+
+# filter() and select()
+
+# Application
+```
+
+## Memoing in Quarto
+
+Quarto is not just for tracking your R code. It is also where you document your thinking, reasoning, and understanding. Your memos should usually be written as normal text outside code chunks, not jammed into code chunk comments.
+
+Outside a code chunk, write normal sentences and paragraphs. This is where most of your memoing goes.
+
+Inside a code chunk, write R code. If you want to leave yourself a short note about a specific line of code, use `#` so R treats it as a comment.
+
+A Quarto R code chunk still uses fenced backticks with `{r}`. The difference is that chunk options are written as YAML-style lines beginning with `#|` at the top of the chunk.
+
+The `#` symbol means different things depending on where you type it:
+
+* Outside a code chunk, `#` creates a Markdown heading.
+* Inside a code chunk, `#` creates an R comment.
+* At the top of a Quarto code chunk, `#|` sets a chunk option.
+
+```{r, eval=FALSE}
+#| eval=FALSE
+# your R code
+x <- 1:5
+mean(x)
+```
+
+🗣 The `eval=FALSE` chunk option means the code will not run when you render the document. This is useful for example code, code that you are discussing but not running, or code that installs packages.
+
+🤔 This is a readability choice. Quarto gives you easy to understand control over what code runs and what appears in the final report. Ask yourself: “Should this chunk run, or is it here only as an example?”
+
+**💡 Test render.**
+
+---
+
+You can also use `#| eval=FALSE` in code chunks that contain `install.packages()` instead of commenting out each line with `#`. Let's see that in action next.
+
+# 📦 Packages
+
+You will need the `dplyr` and `dslabs` packages installed and loaded to follow along with the code examples in this chapter.
+
+The `dplyr` package is part of the **tidyverse**, a collection of R packages designed for data science. The `dplyr` package gives you data-wrangling functions called **verbs**. These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
+
+🧠 Recall that you only need to install a package **once** on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put `#| eval=FALSE` at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.
+
+You should already have dslabs from previous chapters, but if not, install it now.
+
+```{r, eval=FALSE}
+#| eval=FALSE
+# ⚡ Type this in a Quarto code chunk
+install.packages("dslabs")
+install.packages("dplyr")
+```
+
+✅ Check that the chunk option says `#| eval=FALSE`. This means the install code will be shown in your document but will not run when you render.
+
+🗣 The `install.packages()` function downloads a package to your computer. You usually only need to do that once. The `#| eval=FALSE` option is useful here because reinstalling packages every time you render your report is unnecessary and can slow down or interrupt the render.
+
+🤔 This is a Quarto file-choice moment. In an R Notebook, you may have commented out install code with `#`. In Quarto, you can use a chunk option instead. Ask yourself: “Do I want this code to appear in my report, run during render, or both?”
+
+After installing the packages, you need to load them into your R session using the `library()` function. Each time you open R, you need to load the packages you plan to use. Loading a package makes its functions available for your current R session.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+library(dslabs)
+library(dplyr)
+```
+
+✅ Check that both packages load without an error.
+
+🗣 The `library()` function loads an installed package into the current R session. Unlike `install.packages()`, `library()` needs to run each time you start a new R session and want to use that package.
+
+You may see messages when packages load. Messages are not always errors. Read them first before assuming something is broken.
+
+**💡 Test render.**
+
+🤔 If you want to hide package messages or warnings in a final report, you can use Quarto chunk options such as `#| message=FALSE` or `#| warning=FALSE`. For now, it is fine to leave messages visible while you are learning because they give you information about what R is doing.
+
+---
+
+Now that we have `dplyr` and `dslabs` installed and loaded, we can use their functions to manipulate data frames. Let's start with the pipe operator.
+
+# The Pipe (`%>%`)
+
+The `dplyr` package helps you manipulate data frames. You can use it to filter rows, select columns, create variables, summarize data, and arrange rows.
+
+One reason people like `dplyr` is that it makes code easier to read using the **pipe**: `%>%`. The pipe lets you chain steps together in a readable order from left to right. You can read the pipe as **"and then"** or **"goes into."**
+
+The pipe takes the object on the left and sends it into the function on the right.
+
+In tidyverse code, the pipe in action looks like this:
+
+`x %>% f()`
+
+This means:
+
+Start with `x`, and then apply `f()`.
+
+You may also see the base R pipe, `|>`, in newer R code. In this chapter, we will use the tidyverse pipe, `%>%`, because it is common in `dplyr` examples.
+
+🎯 See how the pipe works with a simple `head()` example using the 🚗 `mtcars` dataset.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+mtcars %>% head()
+```
+
+✅ Check that the output shows the first six rows of `mtcars`.
+
+🗣 This is equivalent to `head(mtcars)`, but the pipe version reads more like a sequence of actions: start with `mtcars`, and then show the first few rows.
+
+🤔 `head(mtcars)` and `mtcars %>% head()` give the same result. The question is not “Which one is always better?” The question is: “Which version makes the workflow easier to read for this task?” 
+
+It is common to break lines after the pipe for readability, especially when chaining multiple operations. Each step gets its own line, which makes the flow easier to follow.
+
+🎯 Use the pipe across multiple lines to show the first six rows of the `mtcars` dataset.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+mtcars %>%        # start with data
+  head()          # show first six rows
+```
+
+✅ Check that this returns the same output as the previous example.
+
+🗣 The line break does not change what the code does. It makes the code easier for a human to read. In longer workflows, each line can show one step in the data process.
+
+🤔 Readability is part of good coding judgment. A short one-line command may be fine for a simple task. A multi-line pipe can be better when the workflow has several steps. Ask yourself: “Would future-me understand this faster if each step had its own line?”
+
+---
+
+To understand how to use the pipe in real data work, you need to learn at least one `dplyr` verb. Let's start with `select()` for choosing columns.
+
+# Selecting Columns
+
+In Chapter 8, you learned that you can select columns with base R brackets by name, like `data[c("col1", "col2")]`. With `dplyr::select()`, you can do the same thing with a more concise syntax.
+
+The `dplyr` verb `select()` returns the same type of data object, keeps all rows, and changes which columns are shown. It can select columns by name, by ranges such as `x:y`, and by helper patterns.
+
+You can use R operators such as `:`, `!`, `&`, `|`, `c()`, and `%in%` to select columns. You can also use helper functions like `starts_with()`, `ends_with()`, `contains()`, and `matches()` to select columns based on patterns in their names. **To keep it simple, we will focus on selecting columns by name and by negative selection with `-`.**
+
+📜 The SYNTAX: `select(data, col1, col2, …)`
+
+## Positive Selection
+
+🎯 Keep specific columns by name.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+select(mtcars, mpg, cyl, hp)    # keep three columns
+```
+
+✅ Check that the output keeps all rows but only shows the `mpg`, `cyl`, and `hp` columns.
+
+🗣 The `select()` function keeps only the `mpg`, `cyl`, and `hp` columns from the `mtcars` dataset. The resulting data frame contains all rows but only those three columns.
+
+🤔 This is a method-choice moment. Base R brackets (Chapter 10) and `select()` can both choose columns. Ask yourself: “Which version makes the column choices easier to read?”
+
+## Negative Selection
+
+In Chapter 10, you learned that `x[-i, -j]` can drop the i-th row and j-th column. In `dplyr::select()`, you can use a leading `-` to drop columns by name.
+
+🎯 Remove columns with a leading `-`.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+select(mtcars, -gear)   # drop one column
+```
+
+✅ Check that the output keeps all rows and removes only the `gear` column.
+
+🗣 The `select()` function drops the `gear` column from the `mtcars` dataset. The resulting data frame contains all rows and all columns except for `gear`.
+
+🤔 Sometimes it is clearer to say what you do not want instead of listing everything you want to keep. Ask yourself: “Is excluding this column clearer than naming all the columns I want?”
+
+---
+
+Now that you know how to select columns, let's see how to use the pipe to chain operations together.
+
+## Piping with Select
+
+🎯 Add a pipe.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+mtcars %>% 
+  select(mpg, cyl, hp)   # easier to read?
+```
+
+✅ Check that this returns the same columns as the earlier `select(mtcars, mpg, cyl, hp)` example.
+
+🗣 The pipe `%>%` takes the `mtcars` dataset and feeds it into the `select()` function, which keeps only the `mpg`, `cyl`, and `hp` columns. This version reads more like a sequence of actions: start with `mtcars`, and then select these columns.
+
+🤔 The result is the same, but the reading direction is different. Ask yourself: “Do I prefer seeing the dataset inside the function, or starting with the dataset and moving step by step?”
+
+---
+
+Now that you can select columns and use the pipe, let's practice storing a subset of a dataset in the environment.
+
+## Subset with Select
+
+We'll mix it up by using a different dataset, 🌐 `gapminder` from `dslabs`. This dataset contains information about countries over time.
+
+```{r}
+?gapminder
+```
+
+🎯 Create a copy of the `gapminder` dataset that contains only specific columns: `country`, `year`, `infant_mortality`, and `continent`. Name the subset `I_Demo`.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+I_Demo <- gapminder %>% 
+  select(country, year, infant_mortality, continent)
+```
+
+```{r}
+# ✅ Verify
+head(I_Demo)
+```
+
+✅ Check that `I_Demo` contains the columns `country`, `year`, `infant_mortality`, and `continent`.
+
+🗣 A new dataset called `I_Demo` was created from the `gapminder` dataset. It contains all rows from `gapminder`, but only the columns `country`, `year`, `infant_mortality`, and `continent`.
+
+🤔 Creating a smaller dataset is a choice about focus. Ask yourself: “Which columns do I need for the question I am trying to answer, and which columns would only distract me?”
+
+---
+
+✍️ Practice: fill in the blank prompt
+
+You try to design your own subsetting operation.
+
+🎯 Write an example that selects only the columns you choose.
+
+**Step 1** Identify the column options.
+
+```{r}
+# ✅ Pre-check
+colnames(gapminder)
+```
+
+**Step 2** Choose which columns to keep and write the code to create a new dataset with only those columns. Use the exact names of the columns.
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk
+Your_Choice <- gapminder %>%
+  select(____, ____, ____)   # choose columns
+
+# ✅ Verify
+head(Your_Choice)
+```
+
+🗣 Your new dataset should keep all rows from `gapminder` but only show the columns you selected.
+
+---
+
+Now that you know how to store a subset when selecting columns and use the pipe, let's see how to filter rows with `filter()`.
+
+# Filtering Rows
+
+In chapter 8 and 10, you learned that you can filter rows with base R brackets by name, like `data[data$col1 > 10, ]`. With `dplyr::filter()`, you can do the same thing but with a more concise syntax.
+
+`filter()` keeps only rows for which the condition is `TRUE`. This means that `filter()` treats `NA` values as `FALSE` and drops them. If you want to keep rows with `NA`, you can use the `is.na()` function in your filter condition.
+
+📜 The SYNTAX: `filter(data, condition1, condition2, …)`
+
+You'll often use **logical operators** with `filter()`. 
+
+| Operator | Meaning | Example  |
+| -------- | ------- | ------------|
+| `>`      |greater than| mpg **`>`** 20|
+| `<`      |less than| mpg **`<`** 15|
+| `==`     | equal to | am **`==`** 1|
+| `>=`     |greater *or* equal|mpg **`>=`** 25|
+| `<=`     |less *or* equal   |mpg **`<=`** 15|
+| `!`      | not     | **`!`**(gear %in% c(3,4))  |
+| `!=`     | not equal to| gear **`!=`** 4|
+| `&`      |  and    | x > 2 **`&`** y == "a" |
+| `|`      |  or     | cyl == 4 **`|`** cyl == 8 |
+| `%in%`   | in set  | region **`%in%`** c("West", "South") |
+
+Let's start with a simple example of filtering rows with a single condition.
+
+## Single Condition
+
+🎯 `filter()` uses logical operators!
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, mpg >= 25)               # high‑mileage cars
+```
+
+✅ Check that every row shown has `mpg` greater than or equal to 25.
+
+🗣 The `filter()` function keeps rows where the condition is `TRUE`. This code keeps cars with `mpg >= 25` and drops cars that do not meet that condition.
+
+🤔 This is the same row-filtering idea you used with base R brackets, but using a custom function. 
+
+## Piping with Filter
+
+We'll mix it up by using a different data set, 🔫️`murders` from `dslabs`. This data set contains information about gun murders in the US.
+
+```{r , eval=FALSE}
+?murders
+```
+
+💬 Prediction: There are 50 states in the US, so I expect about 50 rows. 
+
+```{r}
+# ✅  Pre-check
+nrow(murders)  
+```
+
+🗣 The row count is 51, not 50. That means this dataset includes one place that is not one of the 50 states. ❓ Question: What is the extra place?
+
+```{r}
+#⚡ Test:
+unique(murders$state)  # 51 states
+```
+
+🗣 The `murders` dataset includes the District of Columbia, so the dataset has 51 rows before we remove it.
+
+🎯 Create a copy of the `murders` dataset that excludes the District of Columbia.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+No_Washington <- murders %>% 
+  filter(state != "District of Columbia")
+```
+
+✅ Check that `No_Washington` has 50 rows.
+
+```{r}
+# ✅  Verify
+nrow(No_Washington)  # 50 states
+unique(No_Washington$state)
+```
+
+🗣 A new dataset called `No_Washington` was created from the `murders` dataset that excludes Washington DC.
+
+## Multiple Conditions with AND
+
+We learned in chapter 8 and 10 that we can filter with multiple conditions using `&` for AND. In `dplyr::filter()`, commas (`,`) equal AND (`&`).
+
+### And `,` and `&`
+
+Let's filter with two conditions! In filter(), multiple conditions separated by commas are combined with &. So these two calls mean the same thing:
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, mpg >= 25, cyl == 4)
+```
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, mpg >= 25 & cyl == 4)
+```
+
+🗣 Both of these code chunks will return the same result: a subset of the `mtcars` dataset that includes only rows where `mpg` is greater than or equal to 25 and `cyl` is equal to 4. The first chunk uses commas to separate conditions, while the second chunk uses the `&` operator to combine them. Both are valid ways to specify multiple conditions in `filter()`.
+
+The catch is that comma is only a shortcut inside `filter()` for separating multiple conditions. It is not a general replacement for `&` in R, and it does not help when you need more complex grouping with `|`.
+
+### With the pipe
+
+🎯 Let's filter with two conditions with a pipe and store it as `efficient` 
+
+❓ Question: How many cars have *both* mpg ≥ 25 *and* 4 cylinders? 
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+efficient <- mtcars %>%
+  filter(mpg >= 25, cyl == 4)           # two conditions
+```
+
+✅ Check that `efficient` has 6 rows.
+
+```{r}
+# ✅  Verify
+nrow(efficient)  # how many cars are efficient?
+```
+
+🗣 A new dataset called `efficient` was created from the `mtcars` dataset that includes only rows where `mpg` is greater than or equal to 25 *and* `cyl` is equal to 4. The number of rows in the `efficient` dataset indicates how many cars in the dataset meet **both** conditions (n = 6).
+
+🤔 AND logic is strict. A row must satisfy both conditions to stay. Ask yourself: “Did I mean both conditions at the same time, or did I mean either condition?”
+
+## Multiple Conditions with OR
+
+In `dplyr::filter()`, multiple conditions separated by commas are combined with AND, not OR. So when you want OR logic, you must write `|` explicitly inside the condition. In base R, `|` is the elementwise OR operator, and `%in%` returns `TRUE` when a value appears in a set of values.
+
+
+### Or `|` and `%in%`
+
+🎯  Let's filter with OR! When you want rows that match either one condition or another, use `|`.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, cyl == 4 | cyl == 6)
+```
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, cyl %in% c(4, 6))
+```
+
+🗣 Both of these code chunks return the same result: a subset of the `mtcars` dataset that includes only rows where `cyl` is equal to 4 or 6. The first chunk uses the `|` operator to say “4 cylinders or 6 cylinders.” The second chunk uses `%in%` to check whether `cyl` is one of the values in `c(4, 6)`. Both are valid, but %in% is often easier to read when you are checking one variable against several possible values.
+
+The catch is that `%in%` is only a shortcut when you are comparing one variable to multiple values. It is not a general replacement for `|`. For example, if you want cars with 4 cylinders or cars with `mpg >= 30`, you must use `|` because those are two different conditions on different variables.
+
+🤔 This is another method-choice decision. `|` works well when comparing different conditions. `%in%` is often cleaner when checking whether one variable matches several possible values. Ask yourself: “Am I comparing one variable to a set, or combining different conditions?”
+
+🎯 Let's filter with OR on different variables.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+filter(mtcars, cyl == 4 | mpg >= 30)  # different variables
+```
+
+✅ Check that this keeps cars that meet at least one condition: 4 cylinders, high mileage, or both.
+
+🗣 This code chunk returns a subset of the `mtcars` dataset that includes rows where either `cyl` is equal to 4 or `mpg` is greater than or equal to 30. Since these conditions involve different variables, you cannot use `%in%` and must use the `|` operator to combine them.
+
+### With the pipe
+
+🎯 Let's filter with two conditions using OR (`|`), piping, and storing the subset to the environment.
+
+❓ Question: How many cars have *either* mpg ≥ 25 *or* 4 cylinders?
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+efficient_ish <- mtcars %>%
+  filter(mpg >= 25 | cyl == 4)    # two conditions
+```
+
+✅ Check that `efficient_ish` has 11 rows.
+
+```{r}
+# ✅  Verify
+nrow(efficient_ish)  # how many cars are efficient_ish?
+```
+
+🗣 A new dataset called `efficient_ish` was created from the `mtcars` dataset that includes rows where either `mpg` is greater than or equal to 25 or `cyl` is equal to 4. The number of rows in the `efficient_ish` dataset indicates how many cars meet *at least one* of those conditions. (n = 11)
+
+🤔 OR logic is broader than AND logic. A row only needs to satisfy one condition to stay. Ask yourself: “Did my row count get larger because I widened the rule?”
+
+# filter() AND select()
+
+So far, you have used `select()` to change which columns you keep and `filter()` to change which rows you keep. Now let's combine them.
+
+📖 Review
+
+* `filter()` looks at the values in a data frame and keeps only rows where the condition is `TRUE`.
+* `select()` looks at column names and keeps only the variables you ask for.
+
+Combining them lets you subset a data frame by both rows and columns.
+
+📜 The SYNTAX:
+
+`data %>% filter(condition) %>% select(col1, col2, …)`
+
+A safe beginner workflow habit is to `filter()` first and `select()` second. That way, all columns are still available when you write your filtering conditions. If you `select()` first and accidentally remove a column needed by `filter()`, your code will fail.
+
+🤔 This is a workflow-order choice. Both `filter()` and `select()` are useful, but the order matters when one step depends on a column that might disappear. Ask yourself: “Which columns do I still need for the next step?”
+
+We'll mix it up by using a different dataset, ☣️ `us_contagious_diseases` from `dslabs`. This dataset contains information about contagious diseases in the US.
+
+```{r, eval=FALSE}
+?us_contagious_diseases
+```
+
+🎯 Using `us_contagious_diseases` from `dslabs`, keep only rows for `Alaska` from `1980` and later. Then keep only the columns `year`, `disease`, and `count`. Store the result as `alaska_disease`.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk
+alaska_disease <- us_contagious_diseases %>% 
+  filter(state == "Alaska", year >= 1980) %>%   # rows
+  select(year, disease, count)                  # columns
+```
+
+🗣 This pipeline says: start with `us_contagious_diseases`, keep only the rows for Alaska in 1980 or later, and then trim the result down to three columns. `filter()` changes the number of rows. `select()` changes the number of columns.
+
+```{r}
+# ✅ Verify
+head(alaska_disease)
+colnames(alaska_disease)
+```
+
+✅ Check that `alaska_disease` only shows the columns `year`, `disease`, and `count`.
+
+🗣 A new dataset called `alaska_disease` was created from `us_contagious_diseases`. First, `filter()` kept only rows where `state` is `"Alaska"` and `year` is greater than or equal to `1980`. Then, `select()` kept only the columns `year`, `disease`, and `count`. Notice that `state` was used in the filtering step, but it does not appear in the final result because `select()` removed it afterward.
+
+🤔 This is why order matters. If you had selected only `year`, `disease`, and `count` first, the `state` column would not be available for filtering. Ask yourself: “Did I remove a column before I was done using it?”
+
+# One Application
+
+❓ Which automatic cars (`am == 0`) in `mtcars` have horsepower greater than 150?
+
+In `mtcars`, `am` is coded as `0 = automatic` and `1 = manual`. Horsepower is stored in `hp`, and miles per gallon is stored in `mpg`.
+
+🎯 Answer the question. Show only `hp` and `mpg`.
+
+```{r}
+# ⚡ Test
+powerful_auto <- mtcars %>%
+  filter(am == 0, hp > 150) %>%
+  select(hp, mpg)
+```
+
+```{r}
+# ✅ Verify
+head(powerful_auto)
+nrow(powerful_auto)
+```
+
+✅ Check that `powerful_auto` contains 10 rows.
+
+🗣 A new dataset called `powerful_auto` was created from `mtcars`. The `filter()` step kept only cars that are automatic (`am == 0`) and have more than 150 horsepower. The `select()` step then kept only the `hp` and `mpg` columns because those are the variables needed for the report. The result contains 10 cars.
+
+🤔 Open-minded coding means checking whether your workflow matches the question. This pipeline filters with columns that explain the rule, then selects the columns needed for the final answer. Ask yourself: “Does my final dataset show enough information to answer the question clearly?”
+
+---
+
+# Summary
+
+In Chapter 11, you learned how to use `dplyr` to create smaller, analysis-ready datasets in a clear and reproducible way. You practiced `select()` to keep or drop columns, `filter()` to keep rows based on logical conditions, and `%>%` to connect multiple steps into a readable workflow. You also worked in Quarto so that your code, output, and written notes stay together in one document.
+
+You applied comparison operators and Boolean logic to ask more precise questions of data, including single-condition filters, multiple-condition filters with AND/OR logic, and workflows that combine `filter()` and `select()` in the same pipeline. You also practiced previewing results, checking row counts, and creating focused subsets from real datasets for exploration and reporting.
+
+The larger learning goal is method judgment. Base R brackets and `dplyr` verbs can often answer the same question, but they make different parts of the work easier to see. Open-minded coding means comparing reasonable approaches, verifying the result, and choosing the method that makes your logic easiest to read and explain.
+
+# Chapter Terms
+
+**Logical Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`/`FALSE`, and Boolean operators—`!` (NOT), `&` / `|` (AND/OR applied element-by-element), and `&&` / `||` (AND/OR that evaluate only the first element, mainly for if conditions).
+
+**Pipe**: An operator that passes the result of one step directly into the next step, letting you write code as a readable sequence of actions instead of nesting functions inside each other. In tidyverse code, the pipe is usually `%>%`, so `x %>% f()` means “take `x`, then apply `f()`”; in newer base R, a similar built-in pipe is `|>`.
+
+**Tidyverse**: An opinionated collection of R packages designed to work together for data science. The packages share a common design philosophy, data structures, and coding style, which makes it easier to import, clean, reshape, visualize, and analyze data within a consistent workflow.
+
+**Quarto**: An open-source scientific and technical publishing system that uses Quarto Markdown files (`.qmd`) to combine Markdown text with executable code (including R) and render reproducible outputs like HTML, PDF, Word, slides, and websites. It’s the language-agnostic successor to R Markdown, designed for reports where code, results, and writing stay tied together.
+
+**YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
+
+
+# 📝 Practice Space
+
+In this Practice Space, you will use `dplyr::select()`, `dplyr::filter()`, and the pipe `%>%` to create smaller, focused datasets. You will also keep practicing Quarto as a reproducible workspace for code, output, and memo notes.
+
+Create a new Quarto document and save it in your course folder as:
+
+`chapter11_practice.qmd`
+
+Before you begin:
+
+1. Create a new Quarto document in RStudio.
+2. Save it as `chapter11_practice.qmd`.
+3. Edit the YAML so it includes the title `"Chapter 11 Practice"`, your name, the date, and HTML output.
+4. Delete the default body text below the YAML.
+5. Create headings for each task using `## Task 0`, `## Task 1`, and so on.
+
+Complete each task in order. Fill in the blanks, run your code, and add short memo notes as you work.
+
+In this Practice Space, you will see three memo prompts:
+
+* 🎯 **Write the goal** state the coding directions in your own words.
+* 🗣 **Add Comments:** explain what the code or output shows.
+* 🪞 **Reflect:** explain your thinking, what you checked, what changed, or what you would try next.
+
+Each task should include at least one memo response. You do not need to answer every prompt perfectly. The goal is to practice documenting your thinking while you work.
+
+**Open-mindedness** memos means documenting comparing reasonable methods, and choosing the approach that makes the code easiest to read, check, and explain. If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (**transparency**). Show **courage** by sharing your thinking process, even if it includes mistakes or confusion.
+
+If you get stuck, briefly document what happened, what you tried, and what still confuses you.
+
+You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using `>`. Then hand-type your own explanation of why you are including the quote.
+
+Before you submit, clear your Environment and run the `.qmd` from top to bottom. Your file should run without errors and create the required objects listed in Task 7.
+
+For this assignment, submit the saved `.qmd` file. You do not need to submit a rendered HTML file.
+
+## Task 0
+
+📦 Load the packages needed for this Practice Space: `dplyr` and `dslabs`. This setup chunk is also a good place to practice Quarto chunk controls like `#| message: false` and `#| warning: false`.
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+#| message: false
+#| warning: false
+
+_______(dslabs)
+_______(dplyr)
+```
+
+🗣 Add Comments: Explain why `library()` needs to run when you start a new R session, even if the package was already installed earlier.
+
+🪞 Reflect: Quarto lets you choose whether messages and warnings appear in the rendered report. When might it be useful to show messages while learning? When might it be useful to hide them in a cleaner final report?
+
+💡 **Tip:** Open-mindedness in this chapter means comparing reasonable options and choosing the one that makes your workflow easier to read, check, and explain.
+
+## Task 1
+
+**Column Selection**
+
+📝 Create **`C_Overload`** that keeps only `year` and `carbon_emissions` from the 🌡️ `temp_carbon` data frame. Use `select()` without `%>%`.
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+C_Overload <- _______(_______, year, _______)
+```
+
+```{r, eval=FALSE}
+# ✅ Verify
+head(C_Overload)
+```
+
+🗣 Add Comments: Explain what `select()` did in this task. How does `head()` help you check that it worked?
+
+🪞 Reflect: In Chapter 10, you used base R brackets to choose columns. In this task, you used `select()` without a pipe. Which version feels easier to read for this task, and what output helps you verify that only the intended columns were kept?
+
+## Task 2
+
+**Single-Column Dataframe**
+
+Pipe the 🌟 `stars` dataset in `dslabs` through `select()` to keep only the `star` column. Name the result **`star_names`**.
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+star_names <- _______ _______ _______(star)
+```
+
+```{r, eval=FALSE}
+# ✅ Verify
+head(star_names)
+```
+
+🗣 Add Comments: Does this return a vector or keep a one-column data frame? Explain how you can tell from the output.
+
+🪞 Reflect: A one-column data frame and a vector can look similar at first. Why does it matter to stay open to that difference instead of assuming they are the same kind of object?
+
+## Task 3
+
+**Row Filtering**
+
+From 🔫 `murders`, remove every row where `state` equals `"Florida"` using `!=`. Name the object **`No_Florida`**.
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+# ✅ Pre-test
+unique(murders$state)
+```
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+No_Florida <- _______ _______ filter(state _______ "Florida")
+```
+
+```{r, eval=FALSE}
+# ✅ Verify
+unique(No_Florida$state)
+```
+
+🗣 Add Comments: Explain why pre-checking the unique values of `state` is useful. What change are you expecting to see in the ✅ Verify step? Explain what rows are removed.
+
+🪞 Reflect: You could have assumed `"Florida"` appeared exactly as expected, but you checked the available values first. How did that pre-check help you avoid guessing? If `"Florida"` still appeared in the verification output, what would you check next?
+
+## Task 4
+
+**Multiple Conditions**
+
+🚗 From `mtcars`, use `filter()` and piping to pull cars that are **manual**, have `8` **cylinders**, and have **1/4 mile time** less than `15`. Store the result as **`Fast_n_Furious`**.
+
+*Hint: use `?mtcars` to identify the relevant variables for each condition.*
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+summary(mtcars$qsec)  # check qsec range
+```
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+Fast_n_Furious <- mtcars %>% 
+  _______(am == _______, 
+          cyl == 8, _______ < _______)
+```
+
+```{r, eval=FALSE}
+# ✅ Verify
+head(Fast_n_Furious)
+nrow(Fast_n_Furious)
+```
+
+🗣 Add Comments: Explain the conditions you used to filter the rows. What does each condition mean in terms of the characteristics of the cars? How many cars meet all three conditions?
+
+🪞 Reflect: This task uses AND logic, so a car must meet all three conditions to stay in the dataset. If your result had more or fewer rows than expected, which condition would you check first, and why?
+
+## Task 5
+
+**OR Logic + Column Slice**
+
+From 🚗 `mtcars`, keep only the cars whose displacement is either **under 160** or **over 250**, and then show only the first three columns of those rows. Store the result as **`filtered_cars`**.
+
+*Hint: use `:` when selecting the first three columns.*
+
+🎯 Write the goal of this task in your own words.
+
+```{r, eval=FALSE}
+# ✅ Pre-check
+range(mtcars$disp)  # check disp range
+```
+
+🗣 Add Comments: Explain how `range(mtcars$disp)` helps you decide whether the cutoffs `160` and `250` make sense.
+
+```{r, eval=FALSE}
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
+filtered_cars <- mtcars %>% 
+  _______(disp > 250 _______ disp < 160) %>% 
+  _______(_______)
+```
+
+```{r, eval=FALSE}
+# ✅ Verify
+all(filtered_cars$disp > 250 | filtered_cars$disp < 160) # check disp condition
+```
+
+🗣 Add Comments: Explain what `all()` is testing here. What does `TRUE` tell you about the rows kept in `filtered_cars`?
+
+🪞 Reflect: This task uses OR logic, so a car can stay if it meets either displacement condition. Why is `|` the right choice here instead of `&`? How does `all()` help you test whether your first filtering idea worked?
+
+## Task 6
+
+**Reflection**
+
+📝 Write a few sentences comparing base R brackets `[ ]`, `select()`, and `filter()` for subsetting.
+
+🗣 Add Comments: Explain which method felt easiest to read and which method felt easiest to verify. Use at least one example from this Practice Space.
+
+🪞 Reflect: Open-minded coding does not mean every method is equally good. It means comparing reasonable options and choosing the one that makes the logic clearest for the task. After this chapter, when would you choose base R brackets? When would you choose `dplyr` verbs?
+
+## Task 7
+
+**Self-check checklist**
+
+For the file submission, make sure your `.qmd` runs from top to bottom without errors and that the following objects are created in your environment with the expected content:
+
+* `C_Overload` exists and has only `year` and `carbon_emissions`.
+
+* `star_names` exists and has one column named `star`.
+
+* `No_Florida` has 0 rows with `state == "Florida"`.
+
+* `Fast_n_Furious` has rows that only contain manual cars with 8 cylinders where `qsec < 15`.
+
+* `filtered_cars` has rows where `disp > 250` OR `disp < 160` and only the first three columns.
+
+* **All code in your Quarto document runs top-to-bottom without errors.**
+
+🎯 Check your `.qmd` for submission quality.
+
+**Step 1: Sweep your Environment (start clean).**
+Click the 🧹 **broom icon** in the Environment pane to clear objects.
+
+**Step 2: Run everything top-to-bottom.**
+Use **Run → Run All** to execute every chunk in order.
+
+**Step 3: Verify the required objects.**
+Use the checklist above to confirm that each object exists and contains the expected rows and columns.
+
+**Step 4: Save and submit.**
+After your Quarto document runs without errors, make sure your latest edits are saved. Submit the required `.qmd` file as directed in Canvas.
+
