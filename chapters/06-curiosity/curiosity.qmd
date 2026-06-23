@@ -1,0 +1,45 @@
+---
+toc: true
+---
+
+## Curiosity
+
+Curiosity is ...
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 12: Recoding
+
+blah blah blah
+
+[Open Chapter 12](ch12-recoding.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 13: Grouped Summaries
+
+blah blah blah
+
+[Open Chapter 13](ch13-grouped-summaries.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 14: dplyr Subsetting
+
+blah blah blah
+
+[Open Chapter 14](ch14-chaining.html){.section-button}
+:::
+
+
+:::
+
+## What to focus on
+
+As you work through curiosity ...
+
+
+

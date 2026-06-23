@@ -129,19 +129,19 @@ Quarto uses Markdown for normal text, just like your notebook work. Headings are
 Use this outline in your notes file:
 
 ```markdown
-# Quarto
+## Quarto
 
-# Packages
+## Packages
 
-# The Pipe
+## The Pipe
 
-# Selecting Columns
+## Selecting Columns
 
-# Filtering Rows
+## Filtering Rows
 
-# filter() and select()
+## filter() and select()
 
-# Application
+## Application
 ```
 
 ### Memoing in Quarto {#memoing}

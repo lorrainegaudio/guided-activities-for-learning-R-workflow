@@ -54,7 +54,12 @@ book:
       chapters:
         - chapters/05-openmindedness/ch09-github.Rmd
         - chapters/05-openmindedness/ch10-and-or-in.Rmd        
-        - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd      
+        - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd    
+    - part: chapters/06-curiosity/curiosity.qmd
+      chapters:
+        - chapters/06-curiosity/ch12-recoding.Rmd
+        - chapters/06-curiosity/ch13-grouped-summaries.Rmd #Start editing here
+        - chapters/06-curiosity/ch14-chaining.Rmd
       
 format:
   html:
