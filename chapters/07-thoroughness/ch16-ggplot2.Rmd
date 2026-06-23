@@ -621,7 +621,7 @@ Pretty_Flowers <- iris %>%
 ```{r, eval=FALSE}
 # ✅ Checks
 class(Pretty_Flowers)
-pretty_flowers
+Pretty_Flowers
 ```
 
 🗣/🪞 What pattern do you notice in petal length across species?
