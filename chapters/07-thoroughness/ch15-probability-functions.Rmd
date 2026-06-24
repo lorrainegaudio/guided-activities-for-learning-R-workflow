@@ -838,7 +838,7 @@ mean(big_die == ___)
 boring_weekend <- sample(___, size = ___, replace = ___)
 ```
 
-🗣 What do you expect the distribution of rolls to look like? Will the values be exactly equal? Have a normal distribution? Something else? Type your answer before working ahead. *Keep whatever you typed, even if you are wrong. That's the integrity of science!*
+💬 Prediction: What do you expect the frequency table for a fair D20 to look like? Should each face appear about the same number of times, or should some values be much more common than others? Explain your prediction before running the check. *Keep whatever you typed, even if you are wrong. That's the integrity of science!*
 
 ### Step 2
 
