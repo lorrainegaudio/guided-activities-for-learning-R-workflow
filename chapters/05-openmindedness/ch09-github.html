@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 9: Git and GitHub – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/05-openmindedness/ch10-and-or-in.html" rel="next">
+<link href="../../chapters/05-openmindedness/openmindedness.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/05-openmindedness/openmindedness.html">Openmindedness</a></li><li class="breadcrumb-item"><a href="../../chapters/05-openmindedness/ch09-github.html"><span class="chapter-title">Chapter 9: Git and GitHub</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4:️ Structuers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help-prompting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help! Prompting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Openmindedness</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#setup-order" id="toc-setup-order" class="nav-link" data-scroll-target="#setup-order">Step up Order</a></li>
+  </ul></li>
+  <li><a href="#github-git-and-rstudio" id="toc-github-git-and-rstudio" class="nav-link" data-scroll-target="#github-git-and-rstudio">GitHub, Git, and RStudio</a></li>
+  <li><a href="#update-r-and-rstudio" id="toc-update-r-and-rstudio" class="nav-link" data-scroll-target="#update-r-and-rstudio">Update R and RStudio</a></li>
+  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git">Git</a>
+  <ul class="collapse">
+  <li><a href="#step-1-git-check" id="toc-step-1-git-check" class="nav-link" data-scroll-target="#step-1-git-check">Step 1</a></li>
+  <li><a href="#step-2-git-check" id="toc-step-2-git-check" class="nav-link" data-scroll-target="#step-2-git-check">Step 2</a></li>
+  <li><a href="#step-3-git-check" id="toc-step-3-git-check" class="nav-link" data-scroll-target="#step-3-git-check">Step 3</a></li>
+  </ul></li>
+  <li><a href="#rstudio-terminal-check" id="toc-rstudio-terminal-check" class="nav-link" data-scroll-target="#rstudio-terminal-check">RStudio Terminal Check</a>
+  <ul class="collapse">
+  <li><a href="#step-1-terminal-check" id="toc-step-1-terminal-check" class="nav-link" data-scroll-target="#step-1-terminal-check">Step 1</a></li>
+  <li><a href="#step-2-terminal-check" id="toc-step-2-terminal-check" class="nav-link" data-scroll-target="#step-2-terminal-check">Step 2</a></li>
+  <li><a href="#step-3-terminal-check" id="toc-step-3-terminal-check" class="nav-link" data-scroll-target="#step-3-terminal-check">Step 3</a></li>
+  </ul></li>
+  <li><a href="#checkpoint-git" id="toc-checkpoint-git" class="nav-link" data-scroll-target="#checkpoint-git">Checkpoint: Do You Need to Install Git?</a></li>
+  <li><a href="#install-git" id="toc-install-git" class="nav-link" data-scroll-target="#install-git">Install Git</a>
+  <ul class="collapse">
+  <li><a href="#install-git-macos" id="toc-install-git-macos" class="nav-link" data-scroll-target="#install-git-macos">macOS: Install Git</a></li>
+  <li><a href="#install-git-linux" id="toc-install-git-linux" class="nav-link" data-scroll-target="#install-git-linux">Linux: Install Git</a></li>
+  <li><a href="#install-git-windows" id="toc-install-git-windows" class="nav-link" data-scroll-target="#install-git-windows">Windows: Git Bash</a></li>
+  </ul></li>
+  <li><a href="#configure-git-identity" id="toc-configure-git-identity" class="nav-link" data-scroll-target="#configure-git-identity">Configure Git Identity</a>
+  <ul class="collapse">
+  <li><a href="#step-1-configure-git-identity" id="toc-step-1-configure-git-identity" class="nav-link" data-scroll-target="#step-1-configure-git-identity">Step 1</a></li>
+  <li><a href="#rstudio-terminal-check-2" id="toc-rstudio-terminal-check-2" class="nav-link" data-scroll-target="#rstudio-terminal-check-2">Checkpoint: RStudio Terminal Check</a></li>
+  <li><a href="#step-2-configure-git-identity" id="toc-step-2-configure-git-identity" class="nav-link" data-scroll-target="#step-2-configure-git-identity">Step 2</a></li>
+  </ul></li>
+  <li><a href="#github" id="toc-github" class="nav-link" data-scroll-target="#github">GitHub</a>
+  <ul class="collapse">
+  <li><a href="#step-1-github" id="toc-step-1-github" class="nav-link" data-scroll-target="#step-1-github">Step 1</a></li>
+  <li><a href="#step-2-github" id="toc-step-2-github" class="nav-link" data-scroll-target="#step-2-github">Step 2</a></li>
+  <li><a href="#step-3-github" id="toc-step-3-github" class="nav-link" data-scroll-target="#step-3-github">Step 3</a></li>
+  <li><a href="#step-4-github" id="toc-step-4-github" class="nav-link" data-scroll-target="#step-4-github">Step 4</a></li>
+  <li><a href="#step-5-github" id="toc-step-5-github" class="nav-link" data-scroll-target="#step-5-github">Step 5</a></li>
+  <li><a href="#step-6-github" id="toc-step-6-github" class="nav-link" data-scroll-target="#step-6-github">Step 6</a></li>
+  </ul></li>
+  <li><a href="#configure-ssh-keys" id="toc-configure-ssh-keys" class="nav-link" data-scroll-target="#configure-ssh-keys">Configure SSH Keys</a>
+  <ul class="collapse">
+  <li><a href="#step-1-configure-ssh-keys" id="toc-step-1-configure-ssh-keys" class="nav-link" data-scroll-target="#step-1-configure-ssh-keys">Step 1</a></li>
+  <li><a href="#step-2-configure-ssh-keys" id="toc-step-2-configure-ssh-keys" class="nav-link" data-scroll-target="#step-2-configure-ssh-keys">Step 2</a></li>
+  <li><a href="#step-3-configure-ssh-keys" id="toc-step-3-configure-ssh-keys" class="nav-link" data-scroll-target="#step-3-configure-ssh-keys">Step 3</a></li>
+  <li><a href="#step-4-configure-ssh-keys" id="toc-step-4-configure-ssh-keys" class="nav-link" data-scroll-target="#step-4-configure-ssh-keys">Step 4</a></li>
+  <li><a href="#step-5-configure-ssh-keys" id="toc-step-5-configure-ssh-keys" class="nav-link" data-scroll-target="#step-5-configure-ssh-keys">Step 5</a></li>
+  <li><a href="#step-6-configure-ssh-keys" id="toc-step-6-configure-ssh-keys" class="nav-link" data-scroll-target="#step-6-configure-ssh-keys">Step 6</a></li>
+  <li><a href="#step-7-configure-ssh-keys" id="toc-step-7-configure-ssh-keys" class="nav-link" data-scroll-target="#step-7-configure-ssh-keys">Step 7</a></li>
+  <li><a href="#step-8-configure-ssh-keys" id="toc-step-8-configure-ssh-keys" class="nav-link" data-scroll-target="#step-8-configure-ssh-keys">Step 8</a></li>
+  <li><a href="#step-9-configure-ssh-keys" id="toc-step-9-configure-ssh-keys" class="nav-link" data-scroll-target="#step-9-configure-ssh-keys">Step 9</a></li>
+  <li><a href="#checkpoint-ssh-setup-complete" id="toc-checkpoint-ssh-setup-complete" class="nav-link" data-scroll-target="#checkpoint-ssh-setup-complete">Checkpoint: SSH Setup Complete</a></li>
+  </ul></li>
+  <li><a href="#make-github-repo" id="toc-make-github-repo" class="nav-link" data-scroll-target="#make-github-repo">Make GitHub Repo</a>
+  <ul class="collapse">
+  <li><a href="#step-1-make-github-repo" id="toc-step-1-make-github-repo" class="nav-link" data-scroll-target="#step-1-make-github-repo">Step 1</a></li>
+  <li><a href="#step-2-make-github-repo" id="toc-step-2-make-github-repo" class="nav-link" data-scroll-target="#step-2-make-github-repo">Step 2</a></li>
+  <li><a href="#step-3-make-github-repo" id="toc-step-3-make-github-repo" class="nav-link" data-scroll-target="#step-3-make-github-repo">Step 3</a></li>
+  <li><a href="#step-4-make-github-repo" id="toc-step-4-make-github-repo" class="nav-link" data-scroll-target="#step-4-make-github-repo">Step 4</a></li>
+  <li><a href="#step-5-make-github-repo" id="toc-step-5-make-github-repo" class="nav-link" data-scroll-target="#step-5-make-github-repo">Step 5</a></li>
+  <li><a href="#step-6-make-github-repo" id="toc-step-6-make-github-repo" class="nav-link" data-scroll-target="#step-6-make-github-repo">Step 6</a></li>
+  <li><a href="#step-7-make-github-repo" id="toc-step-7-make-github-repo" class="nav-link" data-scroll-target="#step-7-make-github-repo">Step 7</a></li>
+  <li><a href="#step-8-make-github-repo" id="toc-step-8-make-github-repo" class="nav-link" data-scroll-target="#step-8-make-github-repo">Step 8</a></li>
+  </ul></li>
+  <li><a href="#copy-ssh-repo-link" id="toc-copy-ssh-repo-link" class="nav-link" data-scroll-target="#copy-ssh-repo-link">Copy SSH Repository Link</a>
+  <ul class="collapse">
+  <li><a href="#step-1-copy-ssh-repo-link" id="toc-step-1-copy-ssh-repo-link" class="nav-link" data-scroll-target="#step-1-copy-ssh-repo-link">Step 1</a></li>
+  <li><a href="#step-2-copy-ssh-repo-link" id="toc-step-2-copy-ssh-repo-link" class="nav-link" data-scroll-target="#step-2-copy-ssh-repo-link">Step 2</a></li>
+  </ul></li>
+  <li><a href="#clone-github-via-rstudio" id="toc-clone-github-via-rstudio" class="nav-link" data-scroll-target="#clone-github-via-rstudio">Clone GitHub via RStudio</a>
+  <ul class="collapse">
+  <li><a href="#step-1-clone-github-via-rstudio" id="toc-step-1-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-1-clone-github-via-rstudio">Step 1</a></li>
+  <li><a href="#step-2-clone-github-via-rstudio" id="toc-step-2-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-2-clone-github-via-rstudio">Step 2</a></li>
+  <li><a href="#step-3-clone-github-via-rstudio" id="toc-step-3-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-3-clone-github-via-rstudio">Step 3</a></li>
+  <li><a href="#step-4-clone-github-via-rstudio" id="toc-step-4-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-4-clone-github-via-rstudio">Step 4</a></li>
+  <li><a href="#step-5-clone-github-via-rstudio" id="toc-step-5-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-5-clone-github-via-rstudio">Step 5</a></li>
+  <li><a href="#step-6-clone-github-via-rstudio" id="toc-step-6-clone-github-via-rstudio" class="nav-link" data-scroll-target="#step-6-clone-github-via-rstudio">Step 6</a></li>
+  <li><a href="#local-changes" id="toc-local-changes" class="nav-link" data-scroll-target="#local-changes">Local Changes</a>
+  <ul class="collapse">
+  <li><a href="#step-1-local-changes" id="toc-step-1-local-changes" class="nav-link" data-scroll-target="#step-1-local-changes">Step 1</a></li>
+  <li><a href="#step-2-local-changes" id="toc-step-2-local-changes" class="nav-link" data-scroll-target="#step-2-local-changes">Step 2</a></li>
+  <li><a href="#step-3-local-changes" id="toc-step-3-local-changes" class="nav-link" data-scroll-target="#step-3-local-changes">Step 3</a></li>
+  <li><a href="#step-4-local-changes" id="toc-step-4-local-changes" class="nav-link" data-scroll-target="#step-4-local-changes">Step 4</a></li>
+  <li><a href="#step-5-local-changes" id="toc-step-5-local-changes" class="nav-link" data-scroll-target="#step-5-local-changes">Step 5</a></li>
+  <li><a href="#step-6-local-changes" id="toc-step-6-local-changes" class="nav-link" data-scroll-target="#step-6-local-changes">Step 6</a></li>
+  <li><a href="#step-7-local-changes" id="toc-step-7-local-changes" class="nav-link" data-scroll-target="#step-7-local-changes">Step 7</a></li>
+  </ul></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
+  <ul class="collapse">
+  <li><a href="#step-1-workflow" id="toc-step-1-workflow" class="nav-link" data-scroll-target="#step-1-workflow">Step 1</a></li>
+  <li><a href="#step-2-workflow" id="toc-step-2-workflow" class="nav-link" data-scroll-target="#step-2-workflow">Step 2</a></li>
+  <li><a href="#step-3-workflow" id="toc-step-3-workflow" class="nav-link" data-scroll-target="#step-3-workflow">Step 3</a></li>
+  <li><a href="#step-4-workflow" id="toc-step-4-workflow" class="nav-link" data-scroll-target="#step-4-workflow">Step 4</a></li>
+  <li><a href="#step-5-workflow" id="toc-step-5-workflow" class="nav-link" data-scroll-target="#step-5-workflow">Step 5</a></li>
+  <li><a href="#step-6-workflow" id="toc-step-6-workflow" class="nav-link" data-scroll-target="#step-6-workflow">Step 6</a></li>
+  <li><a href="#step-7-workflow" id="toc-step-7-workflow" class="nav-link" data-scroll-target="#step-7-workflow">Step 7</a></li>
+  <li><a href="#step-8-workflow" id="toc-step-8-workflow" class="nav-link" data-scroll-target="#step-8-workflow">Step 8</a></li>
+  <li><a href="#step-9-workflow" id="toc-step-9-workflow" class="nav-link" data-scroll-target="#step-9-workflow">Step 9</a></li>
+  </ul></li>
+  <li><a href="#data-privacy-and-organization" id="toc-data-privacy-and-organization" class="nav-link" data-scroll-target="#data-privacy-and-organization">Data Privacy &amp; Organization</a>
+  <ul class="collapse">
+  <li><a href="#step-1-data-privacy-and-organization" id="toc-step-1-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-1-data-privacy-and-organization">Step 1</a></li>
+  <li><a href="#step-2-data-privacy-and-organization" id="toc-step-2-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-2-data-privacy-and-organization">Step 2</a></li>
+  <li><a href="#step-3-data-privacy-and-organization" id="toc-step-3-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-3-data-privacy-and-organization">Step 3</a></li>
+  <li><a href="#step-4-data-privacy-and-organization" id="toc-step-4-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-4-data-privacy-and-organization">Step 4</a></li>
+  <li><a href="#step-5-data-privacy-and-organization" id="toc-step-5-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-5-data-privacy-and-organization">Step 5</a></li>
+  <li><a href="#step-6-data-privacy-and-organization" id="toc-step-6-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-6-data-privacy-and-organization">Step 6</a></li>
+  <li><a href="#step-7-data-privacy-and-organization" id="toc-step-7-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-7-data-privacy-and-organization">Step 7</a></li>
+  <li><a href="#step-8-data-privacy-and-organization" id="toc-step-8-data-privacy-and-organization" class="nav-link" data-scroll-target="#step-8-data-privacy-and-organization">Step 8</a></li>
+  <li><a href="#final-repository-structure" id="toc-final-repository-structure" class="nav-link" data-scroll-target="#final-repository-structure">Check Point: Final Repository Structure</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/05-openmindedness/openmindedness.html">Openmindedness</a></li><li class="breadcrumb-item"><a href="../../chapters/05-openmindedness/ch09-github.html"><span class="chapter-title">Chapter 9: Git and GitHub</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 9: Git and GitHub</span></h1>
+<p class="subtitle lead">Version control for R projects</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this guided activity, you will connect GitHub, Git, and RStudio so they can work together. You will create a small GitHub repository, clone it into RStudio as a project, make changes locally, commit those changes, push them to GitHub, and practice pulling a change back down from GitHub.</p>
+<p>In this course, you are not expected to learn how to write Git commands from memory. Git can be confusing at first, so the chapter keeps things simple with low-tech workarounds when useful. RStudio provides a beginner-friendly way to use Git, but its built-in Git tools are limited, so learning Git commands is necessary to take full advantage of Git.</p>
+<blockquote class="blockquote">
+<p>To learn more about Git, check out the 1 credit hour course CS 155 - Introduction to Version Control.</p>
+</blockquote>
+<p>By the end of this activity, you will</p>
+<ul>
+<li><p>🐙 have a working GitHub repository that proves your setup works.</p></li>
+<li><p>🐙 understand the relationship between GitHub, Git, and RStudio.</p></li>
+<li><p>🐙 know the workflow: Open Project → Pull → Edit → Save → Stage → Commit → Push.</p></li>
+<li><p>🐙 know where to go to find Git and GitHub support on Campus.</p></li>
+</ul>
+<section id="setup-order" class="level3">
+<h3 class="anchored" data-anchor-id="setup-order">Step up Order</h3>
+<p>GitHub setup challenges novice coders because <strong>skipping one small step can break the set up</strong>. Just like when you are writing R code, GitHub setup includes verification steps. <strong>Verify each action</strong> was successful before moving on. <strong>Do not skip ahead.</strong> If you complete tasks out of order, you may have to start over!</p>
+<p>🎯 In this guided activity, you will:</p>
+<ol type="1">
+<li>Learn how <a href="#github-git-and-rstudio">GitHub, Git, and RStudio</a> work together.</li>
+<li><a href="#update-r-and-rstudio">Update R and RStudio</a> if needed.</li>
+<li>Check that RStudio can find <a href="#git">Git</a>.</li>
+<li><a href="#install-git">Install Git</a> or verify you have Git.</li>
+<li><a href="#configure-git-identity">Configure your Git identity</a>.</li>
+<li>Create a GitHub account and log into <a href="#github">GitHub</a>.</li>
+<li><a href="#configure-ssh-keys">Configure SSH keys</a>.</li>
+<li><a href="#make-github-repo">Create a GitHub repository</a> and <a href="#clone-github-via-rstudio">clone that repository into RStudio</a>.</li>
+<li>Practice <a href="#local-changes">local changes</a> and the full <a href="#workflow">workflow</a></li>
+<li>Review your <a href="#final-repository-structure">final repository structure</a>.</li>
+<li>Create a <code>.gitignore</code> file to support <a href="#data-privacy-and-organization">data privacy and organization</a>.</li>
+</ol>
+<p>💡 <strong>Tip</strong>: If something does not work, and you’re stuck, use the course support options to get help. You can do hard things!</p>
+<hr>
+</section>
+</section>
+<section id="github-git-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="github-git-and-rstudio">GitHub, Git, and RStudio</h2>
+<p><span class="glossary-term" data-term="GitHub">GitHub</span> is the online place where your <span class="glossary-term" data-term="Repository">repository</span> lives. <span class="glossary-term" data-term="Git">Git</span> is the <span class="glossary-term" data-term="Version Control">version control</span> tool that tracks changes. RStudio is where you will edit your files and use the <span class="glossary-term" data-term="Git Pane">Git pane</span> to commit and push your work.</p>
+<p>You are using three connected locations:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 42%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Place</th>
+<th>What it means</th>
+<th>What you do there</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GitHub.com</td>
+<td>The online copy of your project</td>
+<td>Create the repository and verify pushed work</td>
+</tr>
+<tr class="even">
+<td>Your computer</td>
+<td>The local copy of your project folder</td>
+<td>Store and organize files</td>
+</tr>
+<tr class="odd">
+<td>RStudio Project</td>
+<td>The R working space connected to that folder</td>
+<td>Edit files, commit changes, pull, and push</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p>GitHub is the online copy. Your computer has the local copy. RStudio helps you work inside the local project folder.</p>
+</blockquote>
+<p><span class="glossary-term" data-term="Version Control">Version control</span> means tracking changes to files over time. It is like save checkpoints in a video game. Git lets you save meaningful checkpoints called <span class="glossary-term" data-term="Commit">commits</span>. As you make progress, you create checkpoints you can return to if something breaks or you want to try a different path.</p>
+<p>Version control is basically a time machine for files. You can rewind to earlier versions, compare changes over time, or restore something that was accidentally deleted. Commits let you safely experiment without losing earlier work.</p>
+<hr>
+</section>
+<section id="update-r-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="update-r-and-rstudio">Update R and RStudio</h2>
+<p>R and RStudio are updated frequently. From time to time, when you open RStudio, you will be notified in a pop up window that you need to download the latest versions installed. Having the most up-to-date version will ensure compatibility with Git and GitHub.</p>
+<p>💡 <strong>Tip</strong>: It is good practice to always update R or RStudio when prompted. Outdated versions of R can result is incompatibilities with downloaded packages, Git and GitHub.</p>
+<p><a href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener noreferrer">Download R and RStudio at https://posit.co/download/rstudio-desktop/</a></p>
+</section>
+<section id="git" class="level2">
+<h2 class="anchored" data-anchor-id="git">Git</h2>
+<p>As you are beginning to understand, <span class="glossary-term" data-term="Git">Git</span> is the tool that tracks file changes. RStudio can use Git, but Git must be installed on your computer first.</p>
+<p>Git tools appear after version control is enabled for an RStudio Project.</p>
+<p>Before downloading anything, check whether RStudio can already find Git. If RStudio can find Git, you do not need to install it again. RStudio Git integration means RStudio can use Git inside an RStudio Project. When this works, RStudio knows where Git is installed on your computer.</p>
+<section id="step-1-git-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-git-check">Step 1</h3>
+<p><strong>Open version control settings</strong></p>
+<p>🎯 From the <strong><span class="glossary-term">Tools</span></strong> menu, click <strong><span class="glossary-term">Global Options</span></strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/Tools_Global Options.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 2. Tools menu is selected and Global Options is at the bottom of the list"><img src="images/ch09-github/Tools_Global Options.png" class="img-fluid figure-img" alt="Figure 2. Tools menu is selected and Global Options is at the bottom of the list"></a></p>
+<figcaption>Figure 2. Tools menu is selected and Global Options is at the bottom of the list</figcaption>
+</figure>
+</div>
+<p>🗣 This opens the Global Options window. On the left side of the window is a list of settings.</p>
+</section>
+<section id="step-2-git-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-git-check">Step 2</h3>
+<p><strong>View Git/SVN settings</strong></p>
+<p>🎯 Click the <strong>Git/SVN</strong> tab.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/Tools_Global Options_VersionControl.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 3. Git/SVN option item shows version control settings."><img src="images/ch09-github/Tools_Global Options_VersionControl.png" class="img-fluid figure-img" alt="Figure 3. Git/SVN option item shows version control settings."></a></p>
+<figcaption>Figure 3. Git/SVN option item shows version control settings.</figcaption>
+</figure>
+</div>
+<p>🎯 Make sure the box for <strong>Enable version control interface for RStudio projects</strong> is <strong>checked.</strong></p>
+<p>🎯 Look for the box labeled <strong>Git executable</strong>.</p>
+<p>✅ Verify what you see:</p>
+<ul>
+<li>If you see a file path in the <strong>Git executable</strong> box, RStudio has found Git.</li>
+<li>If the Git executable box is empty, or RStudio says Git was not found, you need to install Git.</li>
+</ul>
+<p>🗣 The Git executable path tells RStudio where Git lives on your computer.</p>
+<p>💡 <strong>Tip:</strong> Do not worry if your path looks different from someone else’s. Windows, Mac, and Linux store Git in different places.</p>
+</section>
+<section id="step-3-git-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-git-check">Step 3</h3>
+<p><strong>Save the setting</strong></p>
+<p>🎯 If the <strong>Enable version control interface for RStudio projects</strong> box was not checked, check it now.</p>
+<p>🎯 Click <strong>Apply</strong>.</p>
+<p>🎯 Click <strong>OK</strong>.</p>
+<p>✅ Verify that the Global Options window closes.</p>
+<p>🗣 You have now checked whether RStudio is ready to use Git.</p>
+</section>
+</section>
+<section id="rstudio-terminal-check" class="level2">
+<h2 class="anchored" data-anchor-id="rstudio-terminal-check">RStudio Terminal Check</h2>
+<p>The Git/SVN tab is the main check for this activity. The Terminal check is optional, but it can help confirm that Git works.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/check_for_git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 4. Screenshot of both the Terminal pane and the Git/SVN option window in Global Options."><img src="images/ch09-github/check_for_git.png" class="img-fluid figure-img" alt="Figure 4. Screenshot of both the Terminal pane and the Git/SVN option window in Global Options."></a></p>
+<figcaption>Figure 4. Screenshot of both the Terminal pane and the Git/SVN option window in Global Options.</figcaption>
+</figure>
+</div>
+<p>In Figure 4, the Git/SVN option window in Global Options shows the path to the Git executable as well, confirming that Git is installed and recognized by RStudio. The Terminal pane shows the command which git and the output is /mingw64/bin/git, which indicates that Git is installed and located at that path. Your path will likely be different, but the key is that it shows a path to Git rather than an error message. The git –version command also shows the version of Git installed. If Git is not installed, it will return an error message, such as git: command not found.</p>
+<section id="step-1-terminal-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-terminal-check">Step 1</h3>
+<p>🎯 In RStudio, open the <span class="glossary-term">Terminal</span> tab.</p>
+<p>If you do not see the Terminal tab, go to:</p>
+<pre class="text"><code>Tools &gt; Terminal &gt; New Terminal</code></pre>
+</section>
+<section id="step-2-terminal-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-terminal-check">Step 2</h3>
+<p>🎯 Type <code>git --version</code> in the terminal to check if Git is installed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-3-terminal-check" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-terminal-check">Step 3</h3>
+<p>✅ Verify what happens:</p>
+<ul>
+<li>If you see a Git version number, Git is installed.</li>
+<li>If you see an error message, Git may not be installed or RStudio may not be able to find it.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/git_not_installed_error.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 5. git –version output examples"><img src="images/ch09-github/git_not_installed_error.png" class="img-fluid figure-img" alt="Figure 5. git –version output examples"></a></p>
+<figcaption>Figure 5. git –version output examples</figcaption>
+</figure>
+</div>
+<p>🗣 The Terminal check confirms whether Git responds to a command. The Git/SVN tab confirms whether RStudio knows where Git is installed.</p>
+<hr>
+</section>
+</section>
+<section id="checkpoint-git" class="level2">
+<h2 class="anchored" data-anchor-id="checkpoint-git">Checkpoint: Do You Need to Install Git?</h2>
+<p>✅ If RStudio shows a Git executable path, skip the install directions and continue to <a href="#configure-git-identity">Configure Git Identity</a>.</p>
+<p>✅ If RStudio does not show a Git executable path, continue to the install directions for your operating system:</p>
+<ul>
+<li><a href="#install-git-macos">macOS: Install Git</a></li>
+<li><a href="#install-git-linux">Linux: Install Git</a></li>
+<li><a href="#install-git-windows">Windows: Git Bash</a></li>
+</ul>
+<hr>
+</section>
+<section id="install-git" class="level2">
+<h2 class="anchored" data-anchor-id="install-git">Install Git</h2>
+<p>Installation depends on your operating system: Windows users should install Git for Windows/Git Bash. If needed, Mac users should install Git through Xcode Command Line Tools, and Linux users can install Git through their package manager.</p>
+<p>If you found that you do not have Git installed, navigate to the section that describes how to install Git for your operating system.</p>
+<section id="install-git-macos" class="level3">
+<h3 class="anchored" data-anchor-id="install-git-macos">macOS: Install Git</h3>
+<p>Most Macs have git. If for some reason you do not have Git installed, follow this 3 step process.</p>
+<p>Most Mac computers can install Git through <strong>Xcode Command Line Tools</strong>. For this installation step, use the <strong>Mac Terminal app</strong>, not RStudio. You do <strong>not</strong> need to install the full Xcode app from the App Store for this course.</p>
+<section id="step-1-install-git-macos" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-install-git-macos">Step 1</h4>
+<p><strong>Open the Mac Terminal app</strong></p>
+<p>🎯 Here’s how:</p>
+<ol type="1">
+<li>Press <code>Command + Space</code> to open Spotlight Search.</li>
+<li>Type <code>Terminal</code>.</li>
+<li>Press <code>Return</code>.</li>
+</ol>
+</section>
+<section id="step-2-install-git-macos" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-install-git-macos">Step 2</h4>
+<p><strong>Type the command to install Git</strong></p>
+<p>🎯 In the Mac Terminal app, type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Complete the installation process</strong></p>
+<p>🎯 When the installation window appears:</p>
+<ol type="1">
+<li>Click Install.</li>
+<li>Agree to the license terms.</li>
+<li>Wait for the installation to finish.</li>
+<li>Click Done when prompted.</li>
+</ol>
+</section>
+<section id="step-3-install-git-macos" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-install-git-macos">Step 3</h4>
+<p><strong>✅ Verify Git installed correctly.</strong></p>
+<p>🎯 Close the Mac Terminal app, reopen it, and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see a Git version number.</p>
+<p>🗣 If you see a Git version number, Git is already installed. Return to RStudio and continue to <a href="#configure-git-identity">Configure Git Identity</a>.</p>
+<p>💡 <strong>Tip</strong>: The Mac Terminal app and the RStudio Terminal tab look similar because both let you type commands. For installing Git on a Mac, you start with the Mac Terminal app, but after Git is installed, please use the RStudio Terminal for the remainder of the set up activity.</p>
+</section>
+</section>
+<section id="install-git-linux" class="level3">
+<h3 class="anchored" data-anchor-id="install-git-linux">Linux: Install Git</h3>
+<p>Most Linux computers either already have Git installed or can install it through the Linux system’s <strong>package manager</strong>. A package manager is the tool Linux uses to install and update software.</p>
+<p>For this installation step, use your <strong>Linux Terminal app</strong>, not RStudio. After Git is installed, return to RStudio and check whether RStudio can find it.</p>
+<section id="step-1-install-git-linux" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-install-git-linux">Step 1</h4>
+<p><strong>Open the Linux Terminal app</strong></p>
+<p>🎯 Open the Terminal app on your Linux computer.</p>
+<p>How you open Terminal depends on your Linux version, but common options include:</p>
+<ul>
+<li>Press <code>Ctrl + Alt + T</code></li>
+<li>Open the application menu and search for <code>Terminal</code></li>
+<li>Right-click on the desktop and choose <code>Open Terminal</code>, if that option appears</li>
+</ul>
+</section>
+<section id="step-2-install-git-linux" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-install-git-linux">Step 2</h4>
+<p><strong>Check whether Git is already installed</strong></p>
+<p>🎯 In the Linux Terminal app, type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>✅ Verify what happens:</p>
+<ul>
+<li>If you see a Git version number, Git is already installed. Return to RStudio and continue to the <strong>Configure Git Identity</strong> section.</li>
+<li>If you see an error such as git: command not found, Git is not installed yet. Continue with the installation steps below.</li>
+</ul>
+</section>
+<section id="step-3-install-git-linux" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-install-git-linux">Step 3</h4>
+<p><strong>Choose the command for your Linux version</strong></p>
+<p>Linux has different versions, called distributions. The installation command depends on your distribution.</p>
+<p>🎯 Use the command that matches your Linux system.</p>
+<p><strong>Ubuntu or Debian</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Fedora</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Red Hat, CentOS, or older Fedora systems</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> yum install git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Arch Linux</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> pacman <span class="at">-S</span> git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>openSuSE</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> zypper install git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-4-install-git-linux" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-install-git-linux">Step 4</h4>
+<p><strong>Complete the installation process</strong></p>
+<p>🎯 If Terminal asks for your password, type your computer password and press <code>Enter</code>.</p>
+<p>You may not see the password characters while you type. That is normal.</p>
+<p>🎯 If Terminal asks whether you want to continue, type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">y</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then press <code>Enter</code>.</p>
+</section>
+<section id="step-5-install-git-linux" class="level4">
+<h4 class="anchored" data-anchor-id="step-5-install-git-linux">Step 5</h4>
+<p><strong>✅ Verify Git installed correctly</strong></p>
+<p>🎯 Close the Linux Terminal app, reopen it, and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see a Git version number.</p>
+<p>🗣 If you see a Git version number, Git is installed on your Linux computer. Return to RStudio and continue to <a href="#configure-git-identity">Configure Git Identity</a>.</p>
+<p>💡 Tip: The Linux Terminal app and the RStudio Terminal tab look similar because both let you type commands. For installing Git on Linux, start with the Linux Terminal app. After Git is installed, please use the RStudio Terminal for the remainder of the setup activity.</p>
+</section>
+</section>
+<section id="install-git-windows" class="level3">
+<h3 class="anchored" data-anchor-id="install-git-windows">Windows: Git Bash</h3>
+<p>Most Windows computers do not come with Git already installed. Windows users usually need to install <strong>Git for Windows</strong>, which includes <span class="glossary-term">Git Bash</span>. Here is how to install Git on your Windows computer when it is not already installed.</p>
+<p>▶️ Watch the demonstration video if you want a visual walkthrough:</p>
+<p><a href="https://boisestate.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=21199429-d002-49ac-be8b-b3fa0017c302" target="_blank" rel="noopener noreferrer">Lorraine’s Demonstration Video. Watch an RStudio Update and Git install on a Windows computer.</a></p>
+<section id="step-1-install-git-windows" class="level4">
+<h4 class="anchored" data-anchor-id="step-1-install-git-windows">Step 1</h4>
+<p>🎯 Go to the official Git for Windows download page:</p>
+<p><a href="https://git-scm.com/install/windows" target="_blank" rel="noopener noreferrer">Link to Download Git for Windows</a></p>
+</section>
+<section id="step-2-install-git-windows" class="level4">
+<h4 class="anchored" data-anchor-id="step-2-install-git-windows">Step 2</h4>
+<p>🎯 Click the download link for the current 64-bit Git for Windows Setup.</p>
+<p>💡 <strong>Tip:</strong> Choose the regular installer, not the portable version.</p>
+</section>
+<section id="step-3-install-git-windows" class="level4">
+<h4 class="anchored" data-anchor-id="step-3-install-git-windows">Step 3</h4>
+<p>Move through the installation process:</p>
+<p>🎯 Open the downloaded installer file.</p>
+<p>It will usually have a name like: <code>Git-2.XX.X-64-bit.exe</code></p>
+<p>🎯 Work through the installer screens.</p>
+<p>For this course, keep the default options unless your computer gives you a clear reason not to.</p>
+<ul>
+<li>Keep the default installation location. It is usually something like “<code>C:\Program Files\Git</code>”</li>
+<li>Choosing the default editor used by Git.</li>
+<li>Keep the recommended/default PATH environment option.</li>
+<li>Keep the default HTTPS transport backend.</li>
+<li>Keep the default line ending conversions.</li>
+<li>Keep the default terminal emulator option.</li>
+</ul>
+<p>🎯 Click Install.</p>
+<p>🎯 When the installer finishes, click Finish.</p>
+</section>
+<section id="step-4-install-git-windows" class="level4">
+<h4 class="anchored" data-anchor-id="step-4-install-git-windows">Step 4</h4>
+<p>✅ Verify that Git Bash was installed.</p>
+<ol type="1">
+<li>Click the Windows Start menu.</li>
+<li>Search for Git Bash.</li>
+<li>Open Git Bash.</li>
+<li>Type:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should see a Git version number.</p>
+<p>🗣 If Git Bash opens and shows a Git version number, Git is installed on your Windows computer. Return to RStudio and continue to <a href="#configure-git-identity">Configure Git Identity</a>.</p>
+<hr>
+<p>Now that we all have Git installed, we need to configure our Git identity.</p>
+</section>
+</section>
+</section>
+<section id="configure-git-identity" class="level2">
+<h2 class="anchored" data-anchor-id="configure-git-identity">Configure Git Identity</h2>
+<p>Your <span class="glossary-term" data-term="Git Identity">Git Identity</span> means the name and email Git attaches to your commits. This labels your work.</p>
+<section id="step-1-configure-git-identity" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-configure-git-identity">Step 1</h3>
+<p>🎯 Click the Terminal tab in the bottom left pane (next to the Console).</p>
+<p>If you do not see the Terminal tab, go to:</p>
+<pre class="text"><code>Tools &gt; Terminal &gt; New Terminal</code></pre>
+<hr>
+</section>
+<section id="rstudio-terminal-check-2" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio-terminal-check-2">Checkpoint: RStudio Terminal Check</h3>
+<p>🎯 In RStudio, go to the Terminal tab and type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>✅ Verify you see a Git version number. See Figure 4 for more details. If you see a version number, Git is installed. If you see an error, Git is not installed correctly yet or RStudio cannot find it.</p>
+<p>💡<strong>Tip:</strong> After installing Git, you may need to restart RStudio before RStudio recognizes it.</p>
+<p>Without Git installed, you cannot progress forward with the activity. Reach out for help. You can use the activity support options to get help with Git installation.</p>
+<hr>
+</section>
+<section id="step-2-configure-git-identity" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-configure-git-identity">Step 2</h3>
+<p><strong>“Introduce” yourself to Git</strong></p>
+<p>In the Terminal, type in the following commands, replacing the name and email with your own.</p>
+<p>💡<strong>Tip:</strong> Use the email associated with your GitHub account.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"example@u.boisestate.edu"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>✅ Verify you see your <code>user.name</code>and <code>user.email.</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> <span class="at">--list</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🗣 This tells Git who is making the commits on your computer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/git_identity.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 5. screenshot of a Git introduction."><img src="images/ch09-github/git_identity.png" class="img-fluid figure-img" alt="Figure 5. screenshot of a Git introduction."></a></p>
+<figcaption>Figure 5. screenshot of a Git introduction.</figcaption>
+</figure>
+</div>
+<p>In Figure 5, the Terminal tab in RStudio shows the commands used to set the Git identity. The command <code>git config --global user.name "Your Name"</code> sets the user name for Git commits, and <code>git config --global user.email "example@u.boisestate.edu"</code> sets the email address. The command <code>git config --global --list</code> displays the current Git configuration, confirming that the user name and email have been set correctly. The output shows the user name and email that will be associated with Git commits made from your computer.</p>
+<p>The <code>init.defaultBranch</code> is also shown, which indicates the default branch name for new Git repositories which is often set to <code>main</code> or <code>master</code> depending on the Git version and configuration. In this example, <code>windows.appendatomically=false</code> is also shown, which is a Git configuration specific to Windows that controls how Git handles file updates on Windows systems.</p>
+<p>You do not need to worry about the <code>init.defaultBranch</code> or <code>windows.appendatomically</code> settings for this activity. The key is that your user name and email are correctly set in the Git configuration.</p>
+<hr>
+<p>Now that Git is installed, your Git identity is configured, and RStudio is ready, we can connect your local R workflow to GitHub.</p>
+</section>
+</section>
+<section id="github" class="level2">
+<h2 class="anchored" data-anchor-id="github">GitHub</h2>
+<p><span class="glossary-term" data-term="GitHub">GitHub</span> is the website that will host your online repository. A repository is a project folder that Git can track. In this course, you will use GitHub so your RStudio project can have an online copy.</p>
+<p>Before you continue, make sure Git is installed, your Git identity is configured, and RStudio can find Git.</p>
+<section id="step-1-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-github">Step 1</h3>
+<p><strong>Open the GitHub sign-up page</strong></p>
+<p>🎯 If you do not already have a GitHub account, go to the GitHub sign-up page:</p>
+<p><a href="https://github.com/signup" target="_blank" rel="noopener noreferrer">Sign up for GitHub: https://github.com/signup</a></p>
+<p>🎯 Keep this activity page open in another tab so you can return to the directions.</p>
+<p>✅ Verify that you are on the GitHub sign-up page.</p>
+</section>
+<section id="step-2-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-github">Step 2</h3>
+<p><strong>Create your account</strong></p>
+<p>🎯 Follow the GitHub prompts to create a free personal account.</p>
+<p>You will usually be asked for:</p>
+<ol type="1">
+<li>An email address.</li>
+<li>A password.</li>
+<li>A username.</li>
+</ol>
+<p>💡 <strong>Tip:</strong> Use an email address you can access right now. GitHub may send a verification email before your account is fully ready.</p>
+</section>
+<section id="step-3-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-github">Step 3</h3>
+<p><strong>Choose a username</strong></p>
+<p>Your GitHub username may be visible on your public repositories, commits, and profile. Choose a username you would not mind showing to a professor, research mentor, internship supervisor, or future employer.</p>
+<p>💡 <strong>Tip</strong>: A good username is:</p>
+<ul>
+<li>short,</li>
+<li>professional,</li>
+<li>memorable,</li>
+<li>timeless,</li>
+<li>easy to type,</li>
+<li>all lowercase if possible,</li>
+<li>separated with a hyphen <code>-</code> or underscore <code>_</code> if needed.</li>
+</ul>
+<p>Examples of reasonable username styles:</p>
+<pre class="text"><code>firstname-lastname
+firstnamelastname
+firstinitial-lastname
+lastname-data</code></pre>
+<p>💡 <strong>Tip</strong>: Avoid usernames that are too silly, hard to spell, tied to a temporary joke, too personal, likely to embarrass you later.</p>
+<p>🗣 Your GitHub username should be professional enough for academic or career use.</p>
+</section>
+<section id="step-4-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-github">Step 4</h3>
+<p><strong>✅ Verify your email address</strong></p>
+<p>🎯 Check the email account you used to sign up for GitHub.</p>
+<p>🎯 Look for an email from GitHub.</p>
+<p>🎯 Follow the verification instructions in that email.</p>
+<p>✅ Verify that your GitHub email address is confirmed.</p>
+<p>🗣 If your email is not verified, some GitHub features may not work correctly.</p>
+<p>💡 <strong>Tip</strong>: If you do not see the email, check your spam, junk, promotions, or clutter folder.</p>
+</section>
+<section id="step-5-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-github">Step 5</h3>
+<p><strong>Log into GitHub</strong></p>
+<p>🎯 Go to <a href="https://github.com/login" target="_blank" rel="noopener noreferrer">Github</a> and log in.</p>
+<p>🎯 Log in with the account you created.</p>
+<p>✅ Verify that you can see your GitHub dashboard or profile menu.</p>
+<p>🗣 If you can log in and see your GitHub account, you are just about ready to configure SSH keys.</p>
+</section>
+<section id="step-6-github" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-github">Step 6</h3>
+<p><strong>Keep your GitHub information available</strong></p>
+<p>🎯 Write down or save your GitHub username somewhere safe.</p>
+<p>✅ Verify that you know your GitHub username.</p>
+<p>🗣 You will need your GitHub username later when you create and submit your repository link.</p>
+<p>💡 <strong>Tip:</strong> Set up dual authentication to keep your account secure.</p>
+<hr>
+</section>
+</section>
+<section id="configure-ssh-keys" class="level2">
+<h2 class="anchored" data-anchor-id="configure-ssh-keys">Configure SSH Keys</h2>
+<p><span class="glossary-term" data-term="SSH Key">SSH keys</span> help your computer prove to GitHub that it is allowed to connect to your account. This lets RStudio and GitHub communicate without asking for your GitHub password every time.</p>
+<p>An SSH key setup creates two related files on your computer:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key file</th>
+<th>What it does</th>
+<th>Should you share it?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Private key</td>
+<td>Stays on your computer and proves your identity</td>
+<td>No.&nbsp;Never share it.</td>
+</tr>
+<tr class="even">
+<td>Public key</td>
+<td>Gets copied into GitHub</td>
+<td>Yes. This is the one GitHub needs.</td>
+</tr>
+</tbody>
+</table>
+<p>🗣 The public key is like a lock you give to GitHub. The private key is like the matching key that stays on your computer.</p>
+<p>💡 <strong>Tip:</strong> Never paste your private key into Canvas, email, a discussion board, ChatGPT, or a shared document.</p>
+<p>Official GitHub reference pages:</p>
+<ul>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener noreferrer">Generate a new SSH key</a></li>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank" rel="noopener noreferrer">Add a new SSH key to GitHub</a></li>
+<li><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection" target="_blank" rel="noopener noreferrer">Test your SSH connection</a></li>
+</ul>
+<hr>
+<section id="step-1-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-configure-ssh-keys">Step 1</h3>
+<p><strong>Open the correct terminal</strong></p>
+<p>For this step, use a terminal that can run Git and SSH commands.</p>
+<p>🎯 Open the correct terminal for your operating system:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operating system</th>
+<th>Use this terminal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Windows</td>
+<td>Git Bash</td>
+</tr>
+<tr class="even">
+<td>macOS</td>
+<td>Mac Terminal app or RStudio Terminal</td>
+</tr>
+<tr class="odd">
+<td>Linux</td>
+<td>Linux Terminal app or RStudio Terminal</td>
+</tr>
+</tbody>
+</table>
+<p>✅ Verify that you have a terminal window open.</p>
+<p>💡 <strong>Tip:</strong> Windows users should use Git Bash for this step. It was installed when you installed Git for Windows.</p>
+<hr>
+</section>
+<section id="step-2-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-configure-ssh-keys">Step 2</h3>
+<p><strong>Check whether you already have an SSH key</strong></p>
+<p>Before creating a new key, check whether your computer already has one.</p>
+<p>🎯 In the terminal, type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-al</span> ~/.ssh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>✅ Look for files with names like: <code>id_rsa</code> and <code>id_rsa.pub</code> or <code>id_ed25519</code> and <code>id_ed25519.pub</code>.</p>
+<p>🗣 Files ending in .pub are public keys. Files without .pub are private keys.</p>
+<p>If you already see <code>id_ed25519</code> and <code>id_ed25519.pub</code>, you may already have an SSH key. You can still continue carefully, but do not delete existing keys.</p>
+</section>
+<section id="step-3-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-configure-ssh-keys">Step 3</h3>
+<p><strong>Generate a new SSH key</strong></p>
+<p>🎯 In the terminal, type the command below. Replace the email address with the email you used for your GitHub account.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your_email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If your computer says <code>Ed25519</code> is not supported, use this backup command instead:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> rsa <span class="at">-b</span> 4096 <span class="at">-C</span> <span class="st">"your_email@example.com"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>✅ Verify that the command starts the key creation process.</p>
+<p>🗣 Git is creating a public/private key pair on your computer.</p>
+</section>
+<section id="step-4-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-configure-ssh-keys">Step 4</h3>
+<p><strong>Accept the default file location</strong></p>
+<p>When you run the <code>ssh-keygen</code> command, it will ask where to save the key files.</p>
+<p>After you run the command, Terminal will ask where to save the key.</p>
+<p>You will see something like:</p>
+<pre class="text"><code>Enter file in which to save the key (/Users/yourname/.ssh/id_ed25519):</code></pre>
+<p>or on Windows:</p>
+<pre class="text"><code>Enter file in which to save the key (/c/Users/yourname/.ssh/id_ed25519):</code></pre>
+<p>🎯 Press <code>Enter</code> to accept the default location.</p>
+<p>✅ Verify that you did not type a new file name.</p>
+<p>💡 <strong>Tip</strong>: The default location is the easiest choice. Do not rename the file unless you already know what you are doing.</p>
+</section>
+<section id="step-5-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-configure-ssh-keys">Step 5</h3>
+<p><strong>Choose a passphrase</strong></p>
+<p>Terminal may ask for a passphrase.</p>
+<p>You may see:</p>
+<pre class="text"><code>Enter passphrase (empty for no passphrase):</code></pre>
+<p>🎯 Choose one option:</p>
+<p>For stronger security, type a passphrase you can remember. For fewer setup complications in this beginner activity, press Enter to leave it empty.</p>
+<p>If you type a passphrase, Terminal will ask you to type it again.</p>
+<p>✅ Verify that the SSH key was created.</p>
+<p>🗣 If the key was created successfully, you should see a message that includes the file location and a fingerprint.</p>
+<p>💡 <strong>Tip</strong>: If you type a passphrase, you may need to enter it again later when using Git. That is normal.</p>
+</section>
+<section id="step-6-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-configure-ssh-keys">Step 6</h3>
+<p><strong>Copy the public key</strong></p>
+<p>You need to copy the public key. The public key file ends in <code>.pub</code>.</p>
+<p>Use the command for your operating system.</p>
+<p><strong>Windows using Git Bash</strong></p>
+<p>🎯 Type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>macOS</strong></p>
+<p>🎯 Type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pbcopy</span> <span class="op">&lt;</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Linux</strong></p>
+<p>🎯 Type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_ed25519.pub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then carefully highlight and copy the full output.</p>
+<p>✅ Verify that you copied the public key, not the private key.</p>
+<p>🗣 The public key usually starts with ssh-ed25519 and ends with your email address.</p>
+<p>💡 <strong>Tip</strong>: Copy the whole public key as one long line. Do not add spaces, line breaks, or extra text.</p>
+</section>
+<section id="step-7-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-configure-ssh-keys">Step 7</h3>
+<p><strong>Open GitHub SSH key settings</strong></p>
+<p>🎯 In your browser, go to <a href="https://github.com/login" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+<p>🎯 Make sure you are logged in.</p>
+<p>🎯 Click your profile picture or icon in the top-right corner.</p>
+<p>🎯 Click Settings.</p>
+<p>🎯 In the left menu, click SSH and GPG keys.</p>
+<p>✅ Verify that you are on the SSH and GPG keys page.</p>
+</section>
+<section id="step-8-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-configure-ssh-keys">Step 8</h3>
+<p><strong>Add the SSH key to GitHub</strong></p>
+<p>🎯 Click <code>New SSH key</code>.</p>
+<p>🎯 In the <code>Title</code> box, type a name that helps you recognize this computer.</p>
+<p>Examples:</p>
+<pre class="text"><code>My laptop
+Windows laptop
+MacBook for DATA-R155
+Home computer
+Purple Rhino  # This is the name of my computer</code></pre>
+<p>🎯 For Key type, choose <code>Authentication Key</code>.</p>
+<p>🎯 In the Key box, paste the public key you copied.</p>
+<p>🎯 Click Add SSH key.</p>
+<p>GitHub may ask you to confirm your password.</p>
+<p>✅ Verify that the new key appears in your SSH keys list.</p>
+<p>🗣 GitHub now recognizes your computer’s SSH public key.</p>
+</section>
+<section id="step-9-configure-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="step-9-configure-ssh-keys">Step 9</h3>
+<p><strong>Test the SSH connection</strong></p>
+<p>Now test whether your computer can authenticate with GitHub.</p>
+<p>🎯 Return to your RStudio terminal.</p>
+<p>🎯 Type:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-T</span> git@github.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The first time, you may see a message like this:</p>
+<pre class="text"><code>Are you sure you want to continue connecting (yes/no/[fingerprint])?</code></pre>
+<p>🎯 Type: <code>yes</code> then press <code>Enter</code>.</p>
+<p>✅ Verify that you see a success message like this:</p>
+<pre class="text"><code>Hi USERNAME! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
+<p>🗣 This message means your SSH connection works. The phrase “does not provide shell access” is normal.</p>
+<p>💡 <strong>Tip</strong>: If you see Permission denied (publickey), GitHub did not accept your SSH key. Check that you copied the <code>.pub</code> public key and added it to the correct GitHub account.</p>
+<hr>
+</section>
+<section id="checkpoint-ssh-setup-complete" class="level3">
+<h3 class="anchored" data-anchor-id="checkpoint-ssh-setup-complete">Checkpoint: SSH Setup Complete</h3>
+<p>✅ You have completed this section if:</p>
+<ul>
+<li>You created or found an SSH key on your computer.</li>
+<li>You copied the public key, not the private key.</li>
+<li>You added the public key to GitHub.</li>
+<li>You tested the connection with <code>ssh -T git@github.com</code>.</li>
+<li>You saw the message: <code>You've successfully authenticated</code>.</li>
+</ul>
+<p>🗣 Your computer can now authenticate with GitHub using SSH.</p>
+<hr>
+<p>If SSH is working, you are ready to create a GitHub repository and clone it into RStudio.</p>
+</section>
+</section>
+<section id="make-github-repo" class="level2">
+<h2 class="anchored" data-anchor-id="make-github-repo">Make GitHub Repo</h2>
+<p>A GitHub <strong>repository</strong>, often called a repo, is the online project folder that GitHub stores for you. In this section, you will create a new repository on GitHub. Then you will copy its SSH link so RStudio can clone it onto your computer.</p>
+<p>We’ll start working on the GitHub website. Then, we’ll move back into RStudio.</p>
+<section id="step-1-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-make-github-repo">Step 1</h3>
+<p><strong>Open GitHub</strong></p>
+<p>🎯 In your browser, go to <a href="https://github.com/login" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+<p>🎯 Make sure you are logged in.</p>
+<p>✅ Verify that you can see your GitHub profile icon in the top-right corner.</p>
+</section>
+<section id="step-2-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-make-github-repo">Step 2</h3>
+<p><strong>Start a new repository</strong></p>
+<p>🎯 Find the <code>Repositories</code> area on your GitHub home page.</p>
+<p>🎯 Click the green <code>New</code> button.</p>
+<p>If you do not see the green <code>New</code> button:</p>
+<ol type="1">
+<li>Click your profile icon in the top-right corner.</li>
+<li>Click Your repositories.</li>
+<li>Click New.</li>
+</ol>
+<p>✅ Verify that you are on a page called something like “Create a new repository.”</p>
+</section>
+<section id="step-3-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-make-github-repo">Step 3</h3>
+<p><strong>Name the repository</strong></p>
+<p>🎯 In the <code>Repository name</code> box, type:</p>
+<pre class="text"><code>data-r155-github-practice</code></pre>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> GitHub repository names should not contain spaces.</p>
+</blockquote>
+<p>✅ Verify that your repository name is exactly <code>data-r155-github-practice</code>.</p>
+<p>🗣 This name tells you, GitHub, and me (grading) what the repository is for.</p>
+<p>💡 <strong>Tip</strong>: In the future, when selecting a repo name, use lowercase letters and hyphens. That keeps the name easy to read and easy to type.</p>
+</section>
+<section id="step-4-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-make-github-repo">Step 4</h3>
+<p><strong>Add a short description</strong></p>
+<p>🎯 In the Description box, type:</p>
+<pre class="text"><code>GitHub practice for DATA-R155</code></pre>
+<p>🗣 The description is a short note explaining the purpose of the repository.</p>
+</section>
+<section id="step-5-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-make-github-repo">Step 5</h3>
+<p><strong>Choose repository visibility</strong></p>
+<p>🎯 Choose Public.</p>
+<p>🗣 Public means the repository can be viewed online. For this activity, public is useful because I need to check that your GitHub workflow is working.</p>
+<p>💡 <strong>Tip</strong>: Do not put private data, passwords, tokens, or sensitive files in a public repository. More on that later.</p>
+</section>
+<section id="step-6-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-make-github-repo">Step 6</h3>
+<p><strong>Add a README file</strong></p>
+<p>A <code>README</code> file is the front page of your repository. It explains what the repository is for.</p>
+<p>🎯 Check the box for <code>Add a README file</code></p>
+<p>🗣 Adding a <code>README</code> gives the repository one starter file.</p>
+<p>We’ll use this file to practice editing in RStudio.</p>
+</section>
+<section id="step-7-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-make-github-repo">Step 7</h3>
+<p><strong>Leave the other options alone</strong></p>
+<p>🎯 Leave these options unchanged:</p>
+<ul>
+<li>Repository template: No template</li>
+<li><code>.gitignore</code>: None (for now).
+<ul>
+<li>You will create and edit a <code>.gitignore</code> file later in the workflow activity.</li>
+</ul></li>
+<li>License: None</li>
+</ul>
+</section>
+<section id="step-8-make-github-repo" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-make-github-repo">Step 8</h3>
+<p><strong>Create the repository</strong></p>
+<p>🎯 Click the green <code>Create repository</code> button.</p>
+<p>✅ You should see:</p>
+<ul>
+<li>the repository name,</li>
+<li>a file called <code>README.md</code>,</li>
+<li>a green Code button.</li>
+</ul>
+<hr>
+<p>Your repository now exists online on GitHub. Let’s get it onto your computer.</p>
+</section>
+</section>
+<section id="copy-ssh-repo-link" class="level2">
+<h2 class="anchored" data-anchor-id="copy-ssh-repo-link">Copy SSH Repository Link</h2>
+<p>Now you need the repository link. Because you already set up SSH keys, you should copy the SSH link, not the HTTPS link.</p>
+<section id="step-1-copy-ssh-repo-link" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-copy-ssh-repo-link">Step 1</h3>
+<p><strong>Open the Code menu</strong></p>
+<p>🎯 On your repository page, click the green Code button.</p>
+<p>🎯 Make sure you are in the Local tab.</p>
+<p>🎯 Choose <code>SSH</code>.</p>
+<p>✅ Verify that the link starts with:</p>
+<pre class="text"><code>git@github.com:</code></pre>
+<p>It should look something like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>git@github.com:YOUR-USERNAME/data-r155-github-practice.git</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🗣 The SSH link tells RStudio to connect to GitHub using the SSH key you already set up.</p>
+<p>💡 <strong>Tip</strong>: If the link starts with <code>https://</code>, you selected HTTPS. Switch to SSH before copying.</p>
+</section>
+<section id="step-2-copy-ssh-repo-link" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-copy-ssh-repo-link">Step 2</h3>
+<p><strong>Copy the SSH link</strong></p>
+<p>🎯 Click the copy button next to the SSH link.</p>
+<p>✅ Verify that you copied the SSH link.</p>
+<p>🗣 You are now ready to clone this GitHub repository into RStudio.</p>
+</section>
+</section>
+<section id="clone-github-via-rstudio" class="level1">
+<h1>Clone GitHub via RStudio</h1>
+<p><span class="glossary-term" data-term="Clone">Clone</span> means copy a GitHub repository onto your computer. RStudio will create a new project folder from the GitHub repository.</p>
+<p>This is the part where students often get confused: cloning creates a new folder on your computer. That new folder is not a mistake. It is your local project folder.</p>
+<section id="step-1-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-clone-github-via-rstudio">Step 1</h3>
+<p><strong>Start a new RStudio Project</strong></p>
+<p>🎯 Open RStudio.</p>
+<p>🎯 Go to:</p>
+<pre class="text"><code>File &gt; New Project</code></pre>
+<p>🎯 Click:</p>
+<pre class="text"><code>Version Control</code></pre>
+<p>🎯 Click:</p>
+<pre class="text"><code>Git</code></pre>
+<p>✅ Verify that you see a screen asking for a repository URL.</p>
+</section>
+<section id="step-2-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-clone-github-via-rstudio">Step 2</h3>
+<p><strong>Paste the SSH repository link</strong></p>
+<p>🎯 In the <code>Repository URL</code> box, paste the SSH link you copied from GitHub.</p>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> This is the link we copied in <a href="#copy-ssh-repo-link">Copy the SSH Repository Link</a> section. If you did not copy the SSH link, go back and copy it now.</p>
+</blockquote>
+</section>
+<section id="step-3-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-clone-github-via-rstudio">Step 3</h3>
+<p><strong>Check the project directory name</strong></p>
+<p>RStudio will fill in the project directory name automatically.</p>
+<p>🎯 The project directory name should be:</p>
+<pre class="text"><code>data-r155-github-practice</code></pre>
+<p>💡 <strong>Tip</strong>: Ideally, the GitHub repository name and the RStudio project folder name should match. That makes it easier to stay organized.</p>
+</section>
+<section id="step-4-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-clone-github-via-rstudio">Step 4</h3>
+<p><strong>Choose where to save the project folder</strong></p>
+<p>This is important. You are choosing where the cloned project folder will live on your computer.</p>
+<p>🎯 🎯 Create the project as a <span class="glossary-term" data-term="Subdirectory">subdirectory</span> by selecting choose your course folder. For example: <code>DATA-R155/</code></p>
+<p>Your final folder structure should look something like this:</p>
+<pre class="text"><code>DATA-R155/
+  data-r155-github-practice/</code></pre>
+<p>✅ Verify that you are not saving the project randomly in Downloads or another random location on your computer.</p>
+<p>🗣 RStudio will create the <code>data-r155-github-practice/</code> folder for you!</p>
+<p>💡 <strong>Tip</strong>: Folder organization matters. A lot of Git and RStudio confusion comes from saving projects in random places.</p>
+</section>
+<section id="step-5-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-clone-github-via-rstudio">Step 5</h3>
+<p><strong>Create the project</strong></p>
+<p>🎯 Choose to open in a <strong>new session</strong>, if that option appears.</p>
+<p>🎯 Click <code>Create Project</code>.</p>
+<p>✅ Verify that RStudio opens a project named:</p>
+<pre class="text"><code>data-r155-github-practice</code></pre>
+<p>🗣 RStudio displays the active project name in the top-right corner of the RStudio window. If you do not see the project name, you may not be in the project yet.</p>
+</section>
+<section id="step-6-clone-github-via-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-clone-github-via-rstudio">Step 6</h3>
+<p><strong>Check the local project files</strong></p>
+<p>🎯 Look in the RStudio Files pane.</p>
+<p>✅ Verify that you can see:</p>
+<pre class="text"><code>README.md
+data-r155-github-practice.Rproj</code></pre>
+<p>You may also see hidden Git files, depending on your settings.</p>
+<p>🗣 The <code>README.md</code> file came from GitHub. The <code>.Rproj</code> file was created by RStudio.</p>
+<p>📸 Screenshot showing the RStudio Files pane with README.md and the <code>.Rproj</code> file.</p>
+<hr>
+<p>With the repository cloned, you have a local project folder on your computer that is connected to the online GitHub repository. Now you can make changes in RStudio and push them to GitHub.</p>
+</section>
+<section id="local-changes" class="level2">
+<h2 class="anchored" data-anchor-id="local-changes">Local Changes</h2>
+<p>A <span class="glossary-term" data-term="Local Change">local change</span> is a change you make on your own computer. In this section, you will edit the <code>README</code> file in RStudio, commit the change, push it to GitHub, and confirm that GitHub received it.</p>
+<section id="step-1-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-local-changes">Step 1</h3>
+<p><strong>Open <code>README.md</code></strong></p>
+<p>🎯 In the RStudio Files pane, click <span class="glossary-term" data-term="README.md">README.md</span></p>
+<p>🗣 The <code>README.md</code> file opens in the source pane.</p>
+</section>
+<section id="step-2-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-local-changes">Step 2</h3>
+<p><strong>Edit the <code>README</code></strong></p>
+<p>🎯 Add this line to the <code>README</code>:</p>
+<pre class="text"><code>A line I wrote in RStudio.</code></pre>
+<p>🎯 Save the file.</p>
+<p>✅ Verify that the file is saved.</p>
+<p>🗣 You changed the file on your computer. Git should now notice that <code>README.md</code> has changed.</p>
+</section>
+<section id="step-3-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-local-changes">Step 3</h3>
+<p><strong>Open the Git pane</strong></p>
+<p>🎯 Find the <span class="glossary-term" data-term="Git Pane">Git pane</span>** in RStudio.</p>
+<p>It is usually near the Environment, History, Connections, and Tutorial panes in the upper right area.</p>
+<p>✅ Verify that <code>README.md</code> appears in the Git pane.</p>
+<p>💡 <strong>Tip</strong>: If you do not see the Git pane, make sure you are inside the RStudio Project created from the GitHub repository.</p>
+</section>
+<section id="step-4-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-local-changes">Step 4</h3>
+<p><strong>Stage the file</strong></p>
+<p>🎯 In the Git pane, check the <span class="glossary-term" data-term="Staged">Staged</span> box next to:</p>
+<p><code>README.md</code></p>
+<p>✅ Verify that <code>README.md</code> is checked.</p>
+<p>🗣 <span class="glossary-term" data-term="Staged">Staging</span> means, “include this file in the next commit.”</p>
+</section>
+<section id="step-5-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-local-changes">Step 5</h3>
+<p><strong>Commit the change</strong></p>
+<p>🎯 Click Commit button in the Git pane’s menu bar.</p>
+<p>The Commit window opens. It shows the staged file and a box for a commit message.</p>
+<p>🎯 In the <code>Commit message</code> box, type:</p>
+<pre class="text"><code>First Commit from RStudio</code></pre>
+<p>🎯 Click Commit.</p>
+<p>🗣 A <span class="glossary-term" data-term="Commit">commit</span> is a labeled checkpoint. It records what changed.</p>
+<p>✅ Verify that the Commit window does not show a red error message and instead reports that the commit completed successfully.</p>
+<p>💡 <strong>Tip:</strong> If you see a red error message, do not keep clicking Commit or Push repeatedly. Read the first error line carefully. Errors like <code>Permission denied (publickey)</code> usually mean there is a GitHub SSH setup problem, while authentication errors may mean GitHub cannot verify your account. Take a screenshot of the error and use the module’s support options.</p>
+</section>
+<section id="step-6-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-local-changes">Step 6</h3>
+<p><strong>Push the commit to GitHub</strong></p>
+<p>🎯 Click <span class="glossary-term" data-term="Push">Push</span>.</p>
+<p>You can find the Push button in the Git pane’s menu bar, usually near the Commit button. It is also in the Commit window after you make a commit.</p>
+<p>🗣 <span class="glossary-term" data-term="Push">Push</span> sends your local commit from RStudio up to GitHub.</p>
+<p>✅ Verify that the push finishes without an error.</p>
+<p>💡 <strong>Tip:</strong> Push errors are a very common issue. One reason they happen is when your local repository is “behind” GitHub. This usually means the GitHub version changed after you cloned or last pulled. If you see a message about <code>fetch first</code>, <code>non-fast-forward</code>, or being “behind,” stop and use the <span class="glossary-term">Pull</span> button in RStudio before trying Push again. To prevent Push errors, always follow the <a href="#workflow">workflow</a> explained in the next section.</p>
+</section>
+<section id="step-7-local-changes" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-local-changes">Step 7</h3>
+<p><strong>Confirm the change on GitHub</strong></p>
+<p>🎯 Return to your GitHub repository page in your browser.</p>
+<p>🎯 Refresh the page.</p>
+<p>🎯 Open or view <code>README.md</code>.</p>
+<p>✅ Verify that you can see this line on GitHub:</p>
+<p>A line I wrote in RStudio.</p>
+<p>🗣 If the line appears on GitHub, your RStudio project successfully pushed a local change to your online GitHub repository.</p>
+<hr>
+<p>Congratulations! You have successfully made a local change in RStudio, committed it, pushed it to GitHub, and confirmed that the change appears on GitHub. This is the basic workflow for using Git and GitHub with RStudio.</p>
+<p>Now let’s talk about how to make this workflow a regular part of your work process. To learn the full workflow, start by closing RStudio. Opening RStudio is part of the steps in the workflow and you’ll want to practice it from the beginning.</p>
+</section>
+</section>
+<section id="workflow" class="level2">
+<h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
+<p>A <span class="glossary-term" data-term="Git Workflow">Git workflow</span> is the repeatable order you follow when you sit down to work on a project connected to GitHub.</p>
+<p>For this course, your workflow is:</p>
+<pre class="text"><code>Open Project → Pull → Edit → Save → Stage → Commit → Push</code></pre>
+<p>This order matters. Pulling first checks whether GitHub has changes that your local computer does not have yet. That helps prevent push errors later. Git and GitHub are much easier to use when this workflow becomes automatic.</p>
+<section id="step-1-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-workflow">Step 1</h3>
+<p><strong>Open file system</strong></p>
+<p>When you turn on your computer to start working, you’ll want to start by opening finder/file explorer and navigating to your project folder (e.g, <code>DATA-R155/data-r155-github-practice/data-r155-github-practice.Rproj</code>).</p>
+<p>With RStudio closed, open your file system (Finder on Mac, File Explorer on Windows) and navigate to the folder where you saved your RStudio project. You should see a file with the extension <code>.Rproj</code> in that folder.</p>
+</section>
+<section id="step-2-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-workflow">Step 2</h3>
+<p><strong>Open the project</strong></p>
+<p>open the project by double-clicking the <code>.Rproj</code> file in <strong>Finder/File Explorer</strong>. That is the most beginner-friendly because it ensures the correct project folder. You can also open RStudio session and then open your project inthe file tab, if it is not already open. Personally, I prefer to open the project from the file system because it guarantees I am in the right place.</p>
+<p>🗣 RStudio opens with the project name in the top-right corner.</p>
+<p>✅ Verify that the project name is correct and that you can see the project files in the Files pane.</p>
+</section>
+<section id="step-3-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-workflow">Step 3</h3>
+<p><strong>Pull before working</strong></p>
+<p>After you open your project, the first thing you should do is <strong>Pull</strong>.</p>
+<p><span class="glossary-term" data-term="Pull">Pull</span> means to grab changes from GitHub and bring them into your local project. Pulling is like saying, “What’s new on GitHub since I last worked?” If you are the only person using the repository, you will likely see “Already up to date.” when you pull. That is normal. It means there are no new changes on GitHub that you don’t have locally.</p>
+<p>🎯 In RStudio, find the Git pane.</p>
+<p>🎯 Click Pull.</p>
+<p>✅ Verify that the pull finishes without a red error message.</p>
+<p>🗣 Pulling first helps make sure your local project matches the version on GitHub before you make new edits.</p>
+<p>💡 <strong>Tip</strong>: If you see a message that says “Already up to date,” that is good. It means GitHub does not have newer changes for your project right now.</p>
+</section>
+<section id="step-4-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-workflow">Step 4</h3>
+<p><strong>Edit a file</strong></p>
+<p>🎯 In RStudio, go to:</p>
+<pre class="text"><code>File &gt; New File &gt; R Markdown</code></pre>
+<p>🎯 Give the document this title:</p>
+<pre class="text"><code>GitHub Practice</code></pre>
+<p>🎯 Choose HTML as the output format.</p>
+<p>🎯 Click OK or Create.</p>
+<p>✅ Verify that a new R Markdown file opens in RStudio.</p>
+<p>🗣 This file is currently open in RStudio, but it is not saved in your project folder yet.</p>
+<blockquote class="blockquote">
+<p>🧐 Notice: These directions use an R Markdown file named <code>github_practice.Rmd</code>. If you prefer Quarto and already know how to use it, you may create <code>github_practice.qmd</code> instead. If you choose Quarto, treat every mention of <code>.Rmd</code> in the directions as <code>.qmd</code>.</p>
+</blockquote>
+</section>
+<section id="step-5-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-workflow">Step 5</h3>
+<p><strong>Save the file</strong></p>
+<p>🎯 Go to:</p>
+<pre class="text"><code>File &gt; Save As ...</code></pre>
+<p>🎯 Save the file in your project folder with this name:</p>
+<pre class="text"><code>github_practice.Rmd</code></pre>
+<p>✅ Verify that <code>github_practice.Rmd</code> appears in the Files pane next to <code>README.md</code>.</p>
+<p>🗣 The file should be saved in the main project folder.</p>
+</section>
+<section id="step-6-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-workflow">Step 6</h3>
+<p><strong>Stage the file</strong></p>
+<p>Recall that <span class="glossary-term" data-term="Stage">stage</span> means selecting the file or files that should be included in the next commit.</p>
+<p>🎯 Go to the Git pane.</p>
+<p>🎯 Check the Staged box next to:</p>
+<pre class="text"><code>github_practice.Rmd</code></pre>
+<p>💡 <strong>Tip</strong>: Only stage files you want to record version control. Be careful not to stage protected data or propitiatory information.</p>
+</section>
+<section id="step-7-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-workflow">Step 7</h3>
+<p><strong>Commit the file</strong></p>
+<p><span class="glossary-term" data-term="Commit">Commit</span> means creating a labeled checkpoint in Git.</p>
+<p>🎯 Click Commit.</p>
+<p>🎯 In the commit message box, type:</p>
+<pre class="text"><code>Add GitHub practice R Markdown file</code></pre>
+<p>🎯 Click Commit.</p>
+<p>✅ Verify that the Commit window does not show a red error message and instead reports that the commit completed successfully.</p>
+<p>🗣 The commit saved a checkpoint in your local Git history.</p>
+<p>💡 <strong>Tip</strong>: If you see a red error message, do not keep clicking Commit. Read the first error line, take a screenshot, and use the module’s support options.</p>
+</section>
+<section id="step-8-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-workflow">Step 8</h3>
+<p><strong>Push the commit to GitHub</strong></p>
+<p><span class="glossary-term" data-term="Push">Push</span> means sending your local commit to GitHub.</p>
+<p>🎯 Click Push.</p>
+<p>✅ Verify that the push finishes without a red error message.</p>
+<p>🗣 Push sends your committed work from your computer to GitHub.</p>
+<p>💡 Tip: Push errors can happen if your local repository is behind GitHub. If you see a message about <code>fetch first</code>, <code>non-fast-forward</code>, or being “behind,” stop and use the Pull button before trying Push again. If you get stuck here, take a screenshot and contact the module’s support options.</p>
+</section>
+<section id="step-9-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="step-9-workflow">Step 9</h3>
+<p><strong>Confirm the file on GitHub</strong></p>
+<p>🎯 Return to your GitHub repository page in your browser.</p>
+<p>🎯 Refresh the page.</p>
+<p>✅ In your GitHub repository, verify that you can see:</p>
+<pre class="text"><code>github_practice.Rmd</code></pre>
+<p>🗣 If the file appears on GitHub, your <strong>Pull → Edit → Save → Stage → Commit → Push</strong> workflow worked.</p>
+</section>
+</section>
+<section id="data-privacy-and-organization" class="level2">
+<h2 class="anchored" data-anchor-id="data-privacy-and-organization">Data Privacy &amp; Organization</h2>
+<p>A <span class="glossary-term" data-term="data/">data folder</span> (<code>data/</code>) is a folder where project data files are stored. A <span class="glossary-term" data-term=".gitignore"><code>.gitignore</code></span> file tells Git which files or folders to ignore when committing changes.</p>
+<p>In earlier course work, you may have stored a data file in the same folder as your R Notebook. That is a minimum workable structure, but it can get messy as projects grow. A better practice is to create a data/ folder and keep data files there.</p>
+<p>In this section, you will learn how to keep the <code>data/</code> folder on your local computer. You will use <code>.gitignore</code> to prevent Git from pushing any files stored in the <code>data/</code> folder to GitHub.</p>
+<p><strong>GitHub Sharing Guidelines</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 51%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Usually OK to upload to GitHub</th>
+<th>Do not upload to GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Code you wrote</td>
+<td>Human-subjects data</td>
+</tr>
+<tr class="even">
+<td>R Markdown or Quarto files</td>
+<td>Private, protected, or restricted data</td>
+</tr>
+<tr class="odd">
+<td>README files</td>
+<td>Passwords, tokens, or keys</td>
+</tr>
+<tr class="even">
+<td>Public/open data you are allowed to share</td>
+<td>Anything you promised to keep private</td>
+</tr>
+</tbody>
+</table>
+<p>🗣 GitHub is useful for code and documentation. It is not automatically safe for every dataset.</p>
+<section id="step-1-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-data-privacy-and-organization">Step 1</h3>
+<p><strong>Pull first</strong></p>
+<p>🎯 In RStudio, click <strong>Pull</strong> before making edits.</p>
+<p>✅ Verify that the pull finishes without a red error message.</p>
+</section>
+<section id="step-2-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-data-privacy-and-organization">Step 2</h3>
+<p><strong>Create a data folder</strong></p>
+<p>🎯 In the RStudio Files pane, click New Folder.</p>
+<p>🎯 Name the folder: “data”</p>
+<p>✅ Verify that the <code>data/</code>folder appears in your Files pane.</p>
+</section>
+<section id="step-3-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-data-privacy-and-organization">Step 3</h3>
+<p><strong>Check for or create a <code>.gitignore</code> file</strong></p>
+<p>🎯 In the RStudio Files pane, look in your main project folder for a file named:</p>
+<pre class="text"><code>.gitignore</code></pre>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> The file name starts with a period: <code>.gitignore</code>.<br>
+That may look strange if you are new to coding. Files that start with a period are often setup or configuration files. The period matters because Git is looking for this exact file name.</p>
+</blockquote>
+<p>If you already see <code>.gitignore</code>, do <strong>not</strong> create a second one.</p>
+<p>🎯 Click the existing <code>.gitignore</code> file to open it.</p>
+<p>If you do <strong>not</strong> see <code>.gitignore</code>, create one:</p>
+<pre class="text"><code>File &gt; New File &gt; Text File</code></pre>
+<p>🎯 Add these lines to the <code>.gitignore</code> file. If some lines are already there, leave them and add any missing lines:</p>
+<pre class="text"><code>.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.positai
+data/</code></pre>
+<p>🎯 Save the file in the main project folder with this exact name:</p>
+<pre class="text"><code>.gitignore</code></pre>
+<p>✅ Verify that <code>.gitignore</code> appears in the same folder as <code>README.md</code> and <code>github_practice.Rmd</code>.</p>
+<p>💡 <strong>Tip:</strong> The file must be named <code>.gitignore</code>, not <code>gitignore</code>, <code>gitignore.txt</code>, or <code>.gitignore.txt</code>.</p>
+<p>🗣 The line <code>data/</code> tells Git to ignore the local data folder. That means your <code>data/</code> folder can stay on your computer without being pushed to GitHub.</p>
+</section>
+<section id="step-4-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-4-data-privacy-and-organization">Step 4</h3>
+<p><strong>Check the project files with R</strong></p>
+<p>You can use R to check what files and folders are visible from the project.</p>
+<p>🎯 In <code>github_practice.Rmd</code>, add this code chunk:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">"data"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Add a short memo below the code chunk:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>🗣 The first command shows files and folders in my project folder. The second command checks what is inside the data folder.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🎯 Save <code>github_practice.Rmd</code>.</p>
+<p>✅ Verify that <code>github_practice.Rmd</code> is saved.</p>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> To load data into R, you must include <code>data/</code> in the file path when loading those files.</p>
+</blockquote>
+</section>
+<section id="step-5-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-5-data-privacy-and-organization">Step 5</h3>
+<p><strong>Stage only the files that should go to GitHub</strong></p>
+<p>🎯 Go to the Git pane.</p>
+<p>🎯 Stage these files:</p>
+<pre class="text"><code>github_practice.Rmd
+.gitignore</code></pre>
+<p>✅ Verify that <code>.gitignore</code> and <code>github_practice.Rmd</code> are staged.</p>
+<p>✅ Verify that <code>data/</code> is not shown in the Git pane as an option to be staged.</p>
+<p>🗣 By staging <code>.gitignore</code>, you are committing the rule that tells Git not to track the <code>data/</code> folder.</p>
+<p>💡 <strong>Tip:</strong> If <code>data/</code> appears in the Git pane after you saved <code>.gitignore</code>, go back and check three things:</p>
+<ul>
+<li><code>.gitignore</code> is saved in the main project folder.</li>
+<li>The file name is exactly <code>.gitignore</code>.</li>
+<li>The file includes this line exactly: <code>data/</code></li>
+</ul>
+</section>
+<section id="step-6-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-6-data-privacy-and-organization">Step 6</h3>
+<p><strong>Commit the data privacy rule</strong></p>
+<p>🎯 Click Commit.</p>
+<p>🎯 Use this commit message:</p>
+<pre class="text"><code>Add data folder ignore rule</code></pre>
+<p>🎯 Click Commit.</p>
+<p>✅ Verify that the commit completes successfully.</p>
+<p>🗣 This commit records your data privacy and organization rule on GitHub.</p>
+</section>
+<section id="step-7-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-7-data-privacy-and-organization">Step 7</h3>
+<p><strong>Push the data privacy rule to GitHub</strong></p>
+<p>🎯 Click Push.</p>
+<p>✅ Verify that the push finishes without a red error message.</p>
+<p>🗣 This sends <code>.gitignore</code> and your updated R Markdown file to GitHub.</p>
+</section>
+<section id="step-8-data-privacy-and-organization" class="level3">
+<h3 class="anchored" data-anchor-id="step-8-data-privacy-and-organization">Step 8</h3>
+<p><strong>Confirm the repository on GitHub</strong></p>
+<p>🎯 Return to your GitHub repository page.</p>
+<p>🎯 Refresh the page.</p>
+<p>✅ Verify that GitHub shows:</p>
+<pre class="text"><code>README.md
+github_practice.Rmd
+.gitignore</code></pre>
+<p>✅ Verify that GitHub does not show: <code>data/</code></p>
+<hr>
+</section>
+<section id="final-repository-structure" class="level3">
+<h3 class="anchored" data-anchor-id="final-repository-structure">Check Point: Final Repository Structure</h3>
+<p>✅ If your local computer folder and GitHub repo structure matches the diagram below, you have completed the activity.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch09-github/Folder_Structure.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure 1. Diagram of the folder structure on your computer and your GitHub Repository"><img src="images/ch09-github/Folder_Structure.png" class="img-fluid figure-img" alt="Figure 1. Diagram of the folder structure on your computer and your GitHub Repository"></a></p>
+<figcaption>Figure 1. Diagram of the folder structure on your computer and your GitHub Repository</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>You have now completed the full GitHub, Git, and RStudio setup workflow. You created a GitHub repository, connected it to an RStudio Project, made local changes, committed those changes as checkpoints, pushed your work to GitHub, and practiced the habit of pulling before editing. You also used <code>.gitignore</code> to keep the <code>data/</code> folder local, which helps protect files that should not be uploaded online. This workflow is not something you need to memorize perfectly today, but it is something you should practice systematically: <strong>Open Project → Pull → Edit → Save → Stage → Commit → Push</strong>. RStudio gives you buttons for Pull, Commit, and Push, but you still need to make careful decisions about what files belong in each commit and what files should stay private.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Clone</strong>: To copy a Git repository from GitHub or another remote location onto your computer. Cloning creates a new local project folder that contains the repository files and Git history, so you can work on the project in RStudio and later commit, pull, and push changes.</p>
+<p><strong>Commit</strong>: A saved checkpoint in Git that records a specific set of file changes with a message describing what changed. In this course, a commit is the version-control equivalent of saying, “save this meaningful stage of my work.”</p>
+<p><strong>data/</strong>: A project folder used to store dataset files separately from scripts, notebooks, and output files. Keeping data in a dedicated folder makes file paths clearer, keeps the project organized, and helps others find the raw or prepared data needed to reproduce the analysis. The data/ directory is also a common convention in R project structures.</p>
+<p><strong>Git</strong>: A version-control tool that tracks changes to files over time so you can save snapshots, review what changed, and return to earlier versions if needed. Git records the history of your R project files on your computer.</p>
+<p><strong>Git Identity</strong>: The name and email address that Git attaches to each commit to show who authored the work. Your Git identity is set with <code>user.name</code> and <code>user.email</code>; it labels your commits so the project history shows who made each checkpoint.</p>
+<p><strong>Git Pane</strong>: The RStudio tab that shows Git-tracked file changes for the current project and provides point-and-click controls for common Git actions, such as viewing differences, staging files, committing, pulling, pushing, and viewing history. The Git pane appears only when Git version control is enabled for the project, and it is usually located near the Environment and History panes.</p>
+<p><strong>GitHub</strong>: An online platform for storing and sharing Git repositories. GitHub is the web-based location where your repository lives, while Git tracks changes locally and RStudio provides the Git pane you use to commit and push your work.</p>
+<p><strong>Git Bash</strong>: A command-line program for Windows that comes with Git for Windows and provides a Bash-style terminal for running Git commands. It gives Windows users a consistent place to type commands such as <code>git status</code>, <code>git pull</code>, <code>git commit</code>, and <code>git push</code>, especially when instructions are written for a Unix-style terminal.</p>
+<p><strong>.gitignore</strong>: A plain-text file that tells Git which files or folders not to track or commit, such as temporary files, system files, rendered outputs, or large/private data files. A .gitignore file is usually placed in the root of a repository so the ignore rules apply consistently across the project.</p>
+<p><strong>Git Workflow</strong>: The regular sequence of steps used to move work through Git: update your local project, edit files, stage selected changes, commit a checkpoint, and push the commit to GitHub. A basic workflow is <strong>pull → edit → stage → commit → push</strong>. This pattern helps keep the local project and online repository in sync while creating a clear history of meaningful checkpoints. Commit snapshots when the project reaches a state worth recording.</p>
+<p><strong>Global Options</strong>: A settings window that controls how RStudio behaves across projects and sessions. This is where you can set defaults like appearance, saving behavior, code formatting, and how RStudio runs R.</p>
+<p><strong>Local Change</strong>: A file edit, addition, or deletion made in the project folder on your own computer before it is pushed to GitHub. Git can detect local changes in the working tree, but they are not part of the project history until you commit them, and they are not visible in the online repository until you push them.</p>
+<p><strong>Pull</strong>: Updating your local project with changes from the remote repository on GitHub. Pull before you start working so your RStudio project has the newest files before you edit, commit, and push. Technically, <code>git pull</code> fetches remote changes and merges them into your current local branch.</p>
+<p><strong>Push</strong>: Sending your local commits from your computer to the remote repository on GitHub. Pushing is how the work you committed in RStudio becomes visible in your online GitHub repository.</p>
+<p><strong>README.md</strong>: A Markdown file that explains what a repository contains and how to use it. On GitHub, the <code>README.md</code> is usually the first file people see when they open a repository, so it should provide key orientation such as the project purpose, file structure, setup steps, and important notes.</p>
+<p><strong>Repository</strong>: A project folder tracked by Git that stores the project files and each file’s revision history. A repository can live locally on your computer or remotely on a platform like GitHub, where it can be backed up, shared, and updated with commits, pulls, and pushes.</p>
+<p><strong>SSH Key</strong>: A pair of secure authentication files that lets your computer prove its identity to GitHub when Git connects by SSH. The public key is added to your GitHub account, and the private key stays on your computer; together, they let RStudio/Git communicate with GitHub without asking for your GitHub password each time. Never share the private key.</p>
+<p><strong>Staged</strong>: Marked for inclusion in the next Git commit. In RStudio’s Git pane, checking the Staged box tells Git, “include this file’s current changes in the checkpoint I am about to create.” Staging does not send the file to GitHub yet; it only prepares the selected change for the next commit.</p>
+<p><strong>Subdirectory</strong>: A folder located inside another folder, also called a <strong>subfolder</strong>. When you create a project as a subdirectory of a course folder, the new project folder is nested inside that larger folder (e.g, <code>DATA-R155/data-r155-github-practice/</code>). This keeps related files organized in a clear folder structure.</p>
+<p><strong>Terminal</strong>: A command-line tab in RStudio that lets you type commands directly to your computer’s system shell from inside the RStudio interface. The Terminal is different from the R Console: the Console runs R commands, while the Terminal is used for system-level commands such as Git commands, file navigation, and other command-line tools. In RStudio, the Terminal tab is usually next to the Console tab; if it is not visible, open it from Tools &gt; Terminal &gt; New Terminal or the Terminal menu.</p>
+<p><strong>Tools</strong>: The top-menu item that provides access to settings and helper features in RStudio. It is the place you go to change preferences, install tools, and access developer utilities. This menu that groups commands for customizing the IDE and running support tasks (for example, options, addins, and project tools).</p>
+<p><strong>Version Control</strong>: A system for tracking changes to files over time so you can review earlier versions, understand what changed, and return to a previous checkpoint if needed. In Git, these meaningful checkpoints are called commits, which are better than keep version history across many file copies.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Bryan, J., the STAT 545 TAs, &amp; Hester, J. (n.d.). <em>Happy Git and GitHub for the useR</em>. <a href="https://happygitwithr.com/" target="_blank" rel="noopener noreferrer">Happy Git and GitHub for the useR</a></p>
+<p>Douglas, A., Roos, D., Mancini, F., Couto, A., &amp; Lusseau, D. (2026, January 15). <em>An Introduction to R</em>. <a href="https://intro2r.com/github_r.html" target="_blank" rel="noopener noreferrer">Version control with Git and GitHub</a></p>
+<p>GitHub Docs. (n.d.). <em>About Git</em>. <a href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noopener noreferrer">Git, GitHub and how repositories work</a></p>
+<p>GitHub Docs. (n.d.). <em>Adding a new SSH key to your GitHub account</em>. <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank" rel="noopener noreferrer">Add a new SSH key to GitHub</a></p>
+<p>GitHub Docs. (n.d.). <em>Generating a new SSH key and adding it to the ssh-agent</em>. <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener noreferrer">Generate a new SSH key</a></p>
+<p>GitHub Docs. (n.d.). <em>Testing your SSH connection</em>. <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection" target="_blank" rel="noopener noreferrer">Test your SSH connection</a></p>
+<p>GitHub Docs. (n.d.). <em>Ignoring files</em>. <a href="https://docs.github.com/en/get-started/git-basics/ignoring-files" target="_blank" rel="noopener noreferrer">Use .gitignore to keep files out of GitHub</a></p>
+<p>Posit. (n.d.). <em>RStudio User Guide: Version Control</em>. <a href="https://docs.posit.co/ide/user/ide/guide/tools/version-control.html" target="_blank" rel="noopener noreferrer">Use Git and GitHub with RStudio</a></p>
+<p>Software Carpentry. (n.d.). <em>Version Control with Git</em>. <a href="https://swcarpentry.github.io/git-novice/index.html" target="_blank" rel="noopener noreferrer">Follow Software Carpentry: Version Control with Git</a></p>
+<p>Chacon, S., &amp; Straub, B. (2014). <em>Pro Git</em> (2nd ed.). Apress. <a href="https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository" target="_blank" rel="noopener noreferrer">Git basics: Getting a Git repository</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/05-openmindedness/openmindedness.html" class="pagination-link" aria-label="Openmindedness">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Openmindedness</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="pagination-link" aria-label="Chapter 10: And, Or, and Membership">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

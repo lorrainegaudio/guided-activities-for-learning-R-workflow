@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 12: Recoding – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/06-curiosity/ch13-grouped-summaries.html" rel="next">
+<link href="../../chapters/06-curiosity/curiosity.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch12-recoding.html"><span class="chapter-title">Chapter 12: Recoding</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4:️ Structuers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help-prompting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help! Prompting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Openmindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#quarto-setup" id="toc-quarto-setup" class="nav-link" data-scroll-target="#quarto-setup">Quarto Set Up</a>
+  <ul class="collapse">
+  <li><a href="#toc-true" id="toc-toc-true" class="nav-link" data-scroll-target="#toc-true">toc: true</a></li>
+  <li><a href="#what-each-part-does" id="toc-what-each-part-does" class="nav-link" data-scroll-target="#what-each-part-does">What each part does:</a></li>
+  <li><a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings">Headings</a></li>
+  <li><a href="#dynamic-memoing" id="toc-dynamic-memoing" class="nav-link" data-scroll-target="#dynamic-memoing">Dynamic memoing</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">📦 Packages</a></li>
+  </ul></li>
+  <li><a href="#vectorized-conditional-functions" id="toc-vectorized-conditional-functions" class="nav-link" data-scroll-target="#vectorized-conditional-functions">Vectorized Conditional Functions</a>
+  <ul class="collapse">
+  <li><a href="#review-subsetting-with-conditions" id="toc-review-subsetting-with-conditions" class="nav-link" data-scroll-target="#review-subsetting-with-conditions">Review Subsetting with Conditions</a></li>
+  <li><a href="#review-subassignment" id="toc-review-subassignment" class="nav-link" data-scroll-target="#review-subassignment">Review Subassignment</a></li>
+  <li><a href="#simple-ifelse" id="toc-simple-ifelse" class="nav-link" data-scroll-target="#simple-ifelse">Simple <code>ifelse()</code></a></li>
+  <li><a href="#simple-case-when" id="toc-simple-case-when" class="nav-link" data-scroll-target="#simple-case-when">Simple <code>case_when()</code></a></li>
+  <li><a href="#more-than-two-categories" id="toc-more-than-two-categories" class="nav-link" data-scroll-target="#more-than-two-categories">More Than Two Categories</a></li>
+  </ul></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><code>mutate()</code></a>
+  <ul class="collapse">
+  <li><a href="#column-copy" id="toc-column-copy" class="nav-link" data-scroll-target="#column-copy">Column Copy</a></li>
+  <li><a href="#overwrite-column-values" id="toc-overwrite-column-values" class="nav-link" data-scroll-target="#overwrite-column-values">Overwrite Column Values</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task-0" id="toc-task-0" class="nav-link" data-scroll-target="#task-0">Task 0</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch12-recoding.html"><span class="chapter-title">Chapter 12: Recoding</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 12: Recoding</span></h1>
+<p class="subtitle lead">Vectorized Conditional Functions</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this chapter, you will learn how to use <span class="glossary-term" data-term="Vectorized conditional">vectorized conditional functions</span> to return a result for every element in a vector. You will compare <code>ifelse()</code> and <code>case_when()</code>, learn when each is most useful, and see how conditional rules can be used inside <code>mutate()</code> to create or overwrite columns in a data frame. You will also continue practicing in Quarto, the course’s reproducible workflow (🎯 ⚡ ✅ 🗣) for planning and writing code, checking output, and written interpretation in one document. You move from simply selecting data to actively transforming it into more useful variables. <code>ifelse()</code> returns values based on a logical test, <code>case_when()</code> applies rules in order using the first match, and <code>mutate()</code> creates new columns from existing variables or modifies existing ones.</p>
+<p>This chapter matters because data analysts rarely work only with raw variables. In real analysis, you often need to recode categories, group values into meaningful labels, convert units, and create cleaner columns from existing data before you can summarize, visualize, or model it. Learning to do this with readable R code will help you build data sets that are easier to interpret, easier to check, and easier for other people to follow. <code>dplyr</code> describes these kinds of recoding and column-building tasks as common data manipulation work, especially when creating entirely new columns from existing ones</p>
+<p>🐱 As you work, watch for the <span class="glossary-term" data-term="Curiosity">curiosity</span> notes. These notes model what curious learning looks like while you are coding: noticing something interesting, asking how it works, checking what changed, and deciding when to stay focused instead of chasing every possible side question.</p>
+<p>By the end of Chapter 12 you will be able to:</p>
+<ul>
+<li><p>🔀 Distinguish between logical subsetting, subassignment, and vectorized conditionals.</p></li>
+<li><p>🧠 Use <code>ifelse()</code> to make simple two-way decisions across a vector.</p></li>
+<li><p>🧱 Use <code>case_when()</code> to apply multiple conditional rules in a clear order.</p></li>
+<li><p>⚠️ Explain why the order of rules matters in <code>case_when()</code>.</p></li>
+<li><p>🏷️ Recode numeric values into meaningful labels.</p></li>
+<li><p>➕ Use <code>mutate()</code>to create new columns from existing columns.</p></li>
+<li><p>♻️ Overwrite an existing column by reusing its name inside <code>mutate()</code>.</p></li>
+<li><p>📏 Use <code>mutate()</code> with arithmetic expressions to create transformed variables such as unit conversions.</p></li>
+<li><p>📝 Continue using Quarto to organize code, output, and written interpretation in a reproducible analysis document.</p></li>
+</ul>
+<p>Keep these goals in mind as you move through each section.</p>
+</section>
+<section id="quarto-setup" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-setup">Quarto Set Up</h2>
+<p>In Chapter 11, you learned how to create a Quarto file, keep the YAML header, use Markdown headings, write memos outside code chunks, and control chunks with #| options. In this chapter, you will build two more Quarto skills that make your notes more readable and more reproducible:</p>
+<ol type="1">
+<li><p>add a table of contents and section numbering</p></li>
+<li><p>use inline R code inside your sentences</p></li>
+</ol>
+<p>🎯 Create a Quarto File</p>
+<ol type="1">
+<li>For those of you who <strong>have GitHub</strong> and a course project, navigate to your course folder and open your course project. This will open RStudio. Click “Pull” in the Git pane to get the latest version of the course materials. After completing work, save, stage, commit, and push.</li>
+</ol>
+<p>If you <strong>don’t have GitHub</strong> or a course project, just open RStudio and set your working directory to your course folder.</p>
+<ol start="2" type="1">
+<li>Open a new Quarto document in your course folder and save it as: <code>chapter12_notes.qmd</code> (<code>File &gt; New File &gt; Quarto Document</code>).</li>
+</ol>
+<section id="toc-true" class="level3">
+<h3 class="anchored" data-anchor-id="toc-true">toc: true</h3>
+<p>As your notes get longer, it becomes harder to scroll and find what you need. Quarto can automatically build a table of contents from your headings, and it can also number your sections for you. The main YAML options for this are <code>toc: true</code>, <code>toc-depth:</code>, and <code>number-sections: true</code>. These options are commonly placed in the document options near the top of the YAML.</p>
+<p>Use this updated YAML header for Chapter 12:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 12 Notes"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"mutate() and case_when()"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="what-each-part-does" class="level3">
+<h3 class="anchored" data-anchor-id="what-each-part-does">What each part does:</h3>
+<ul>
+<li><p><code>title:</code> gives your document a title.</p></li>
+<li><p><code>subtitle:</code> gives your document a subtitle.</p></li>
+<li><p><code>author:</code> puts your name on the document.</p></li>
+<li><p><code>date: today</code> inserts the current local date automatically. <a href="https://quarto.org/docs/reference/dates.html">Quarto Dates and Date Formatting</a> has more options for date formatting and dynamic date keywords.</p></li>
+<li><p><code>format:</code> tells Quarto what kind of output to create.</p></li>
+<li><p><code>html:</code> tells Quarto to render the document as an HTML file.</p></li>
+<li><p><code>toc</code>: true adds a table of contents automatically.</p></li>
+<li><p><code>toc-depth</code>: 2 tells Quarto to include level 1 and level 2 headings in the table of contents.</p></li>
+<li><p><code>number-sections</code>: true adds section numbers to your headings in the rendered document.</p></li>
+<li><p><code>embed-resources</code>: true keeps the HTML report self-contained so it is easier to submit and share.</p></li>
+</ul>
+</section>
+<section id="headings" class="level3">
+<h3 class="anchored" data-anchor-id="headings">Headings</h3>
+<p>You will want to use headings to see how the table of contents works. Create a simple outline for Chapter 12 using headings. Try using the following structure:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># Quarto Notes</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># Load Packages</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Vectorized Conditionals</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## ifelse()</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## case_when()</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## More than Two Categories</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">### Nested ifelse()</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple Rule case_when()</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># mutate()</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Column Copy</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### mutate() with Arithmetic</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### case_when() inside mutate()</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overwrite Column Values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Render</strong> to HTML often to see the results. <em>Render is like knit or preview.</em></p>
+</section>
+<section id="dynamic-memoing" class="level3">
+<h3 class="anchored" data-anchor-id="dynamic-memoing">Dynamic memoing</h3>
+<p>So far, you have used code chunks to run R code. Quarto also lets you place small pieces of R code <strong>directly inside normal sentences</strong>. This is called inline code. Inline code is useful when you want your written memo to automatically include a value computed by your R code. Quarto evaluates inline code during rendering, so the sentence stays up to date with your analysis.</p>
+<p>In Quarto, inline code uses one pair of backticks and the engine name inside the backticks. For R, the pattern is:</p>
+<p><code>`{r} expression`</code></p>
+<p>🐱 This is a good place to be curious about how Quarto works. The code is written inside a sentence, but when the report renders, Quarto runs the code and shows the result. Very cool!</p>
+<section id="inline-example" class="level4">
+<h4 class="anchored" data-anchor-id="inline-example">Inline Example</h4>
+<p>🎯 Imagine you want to write a sentence that says how many rows are in the filtered <code>mtcars</code> dataset. Instead of hardcoding the number, you can use inline code to compute it.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>num_rows <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then, in your written memo, you can write the expression:</p>
+<p><code>🗣 The filtered dataset has `{r} num_rows` rows.</code></p>
+<p>When rendered to HTML, this will show as:</p>
+<p>🗣 The filtered dataset has 7 rows.</p>
+<p>In this chapter, use inline R code when you want your memo to report a computed value such as a vector length, category count, or converted measurement.</p>
+<hr>
+<p>🎯 For this chapter, practice setting up your notes file so that:</p>
+<ol type="1">
+<li><p>the YAML includes a table of contents and section numbering</p></li>
+<li><p>your headings organize the chapter clearly</p></li>
+<li><p>your code chunks do the main work</p></li>
+<li><p>your memos use inline R code whenever you want to report a value from your analysis</p></li>
+</ol>
+<p>Now that you have created and saved your Quarto file, follow along with this guided practice and take notes. Fill in each section under the headings.</p>
+<p><strong>💡 Test render</strong> your document often to see how your notes are coming together. Do your inline code expressions show the expected values?</p>
+</section>
+</section>
+<section id="packages" class="level3">
+<h3 class="anchored" data-anchor-id="packages">📦 Packages</h3>
+<p>In this chapter, you will use <code>dplyr</code> verbs and <code>dslabs</code> datasets.</p>
+<p>Remember that you only need to install once <code>install.packages("dplyr")</code>; <code>install.packages("dslabs")</code>.</p>
+<p>🎯 Load the required packages at the beginning of your QMD.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)  <span class="co"># Data science labs package</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🐱 Messages and warnings are often clues. A curious analyst asks what R is trying to tell them before hiding the message. Check that your packages loaded correctly.</p>
+</section>
+</section>
+<section id="vectorized-conditional-functions" class="level2">
+<h2 class="anchored" data-anchor-id="vectorized-conditional-functions">Vectorized Conditional Functions</h2>
+<p>In previous chapters, you used logical conditions to keep some values and drop others, or to replace selected values in place. In this chapter, you will use logical conditions in a third way: to return a result for every element. That is what functions like <span class="glossary-term" data-term="ifelse()"><code>ifelse()</code></span> and <span class="glossary-term" data-term="case_when()"><code>case_when()</code></span> do.</p>
+<p>Logical conditions in R can do more than <em>select</em> values. They can also be used to return a new vector by assigning an output to each element based on one or more rules. Functions such as <code>ifelse()</code> and <code>case_when()</code> are called <span class="glossary-term" data-term="Vectorized conditional">vectorized conditional functions</span> because they evaluate conditions element-by-element across a vector and return a new vector of the same length.</p>
+<p>This section builds on ideas you already know. In earlier chapters, you used conditions to keep values or rows with logical subsetting, and to replace selected values with subassignment. Now you will use conditions in a new way: not to drop or replace selected cases, but to return a result for every position. Those results are often used inside <code>mutate()</code> to create or modify columns.</p>
+<p>Subsetting keeps some values and drops others. Vectorized conditionals, by contrast, keep all positions and assign each one a result. In other words, subsetting answers “What do I keep?” while vectorized conditionals answer “What value should I return for each element?”</p>
+<section id="review-subsetting-with-conditions" class="level3">
+<h3 class="anchored" data-anchor-id="review-subsetting-with-conditions">Review Subsetting with Conditions</h3>
+<p><span class="glossary-term" data-term="Subsetting">Subsetting</span> answers the question, “Which values <em>or rows</em> do I keep?” With a vector, <span class="glossary-term" data-term="Logical Indexing">logical indexing</span> uses a pattern of <code>TRUE</code> and <code>FALSE</code> values to keep or modify selected positions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📖 Review</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Create vector x</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## logical vector</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📖 Review</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## logical subsetting</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&gt;</span> <span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 5 6</code></pre>
+</div>
+</div>
+<p>🗣 <code>x[x &gt; 3]</code> subsets <code>x</code> to keep only values greater than <code>3</code>. The expression <code>x &gt; 3</code> creates a <span class="glossary-term" data-term="Logical Vector">logical vector</span> of <code>TRUE</code> and <code>FALSE</code> values.</p>
+<p>🧐 <strong>Notice:</strong> You used the same idea with data frames in Chapter 11. The <code>filter()</code> function also applies a logical condition, but at the row level, keeping rows that satisfy the condition and dropping the rest.</p>
+</section>
+<section id="review-subassignment" class="level3">
+<h3 class="anchored" data-anchor-id="review-subassignment">Review Subassignment</h3>
+<p>Subsetting is used to <em>replace</em> values, called <span class="glossary-term" data-term="Subassignment">subassignment</span>. When you assign a value to a subset of an object, you are replacing the values in those positions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📖 Review</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## replaces values</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>x[x <span class="sc">&gt;</span> <span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">99</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ✅  print result</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  2  3 99 99 99</code></pre>
+</div>
+</div>
+<p>🗣 <code>x[x &gt; 3]</code> subsets <code>x</code> to keep only the values greater than <code>3</code>, and <code>x[x &gt; 3] &lt;- 99</code> uses logical indexing to replace those matching values with <code>99</code>.</p>
+<hr>
+<p>This review example uses a condition to identify matching cases. The difference is what happens next:</p>
+<ul>
+<li><p>Subsetting keeps only matching values or rows.</p></li>
+<li><p>Subassignment changes only matching values.</p></li>
+<li><p>Vectorized conditionals return a result for every position.</p></li>
+</ul>
+<p>That is the key new idea in this section. Vectorized conditional functions such as <code>ifelse()</code> and <code>case_when()</code> still test conditions element-by-element, but they do not drop nonmatching cases. Instead, they evaluate a condition for each element and return a <em>new vector</em> with one result for every position.</p>
+<p>When this new vector is used inside <code>mutate()</code>, a function shown at the end of this chapter, it becomes a new column rather than a subset of the old one.</p>
+</section>
+<section id="simple-ifelse" class="level3">
+<h3 class="anchored" data-anchor-id="simple-ifelse">Simple <code>ifelse()</code></h3>
+<p>Base R describes <code>ifelse()</code> as returning a value with the same shape as the test, filled from <code>yes</code> or <code>no</code>.</p>
+<p>📜 The SYNTAX: <code>ifelse(test, yes, no)</code></p>
+<ul>
+<li><p><strong>test</strong> – logical vector (<code>TRUE</code>/<code>FALSE</code>/<code>NA</code>)</p></li>
+<li><p><strong>yes</strong> – value to insert where test is <code>TRUE</code></p></li>
+<li><p><strong>no</strong> – value to insert where test is <code>FALSE</code>.</p></li>
+<li><p><strong>NA</strong> – if <code>NA</code>, the result is <code>NA</code> at that position.</p></li>
+</ul>
+<p>🎯 Label the vector of numbers greater than 3 as “Large” and others as “Small”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk: </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Pre-check</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<hr>
+<p>🐱 Inline R is worth practicing because it does something unusual: it lets code work inside paragrgaph sentences. I want to see whether Quarto can ask R for the length of <code>x</code> and place the answer directly in my memo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>🗣 <span class="in">`x`</span> is a vector with 5 values.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When rendered to HTML, this should read:</p>
+<p>🗣 <code>x</code> is a vector with 5 values.</p>
+<p><strong>💡 Test render.</strong> Does the sentence show the expected number of values in <code>x</code>? If not, check your code and try again. ___</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk: </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="at">test =</span> x <span class="sc">&gt;</span> <span class="dv">3</span>, <span class="at">yes =</span> <span class="st">"Large"</span>, <span class="at">no =</span> <span class="st">"Small"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Small" "Small" "Small" "Large" "Large"</code></pre>
+</div>
+</div>
+<p>🗣 The output positions for <code>3</code> and under are “Small” and numbers higher than <code>3</code> are “Large”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Verify</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">ifelse</span>(x <span class="sc">&gt;</span> <span class="dv">3</span>, <span class="st">"Large"</span>, <span class="st">"Small"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>🗣 The result has the same length as <code>x</code>. Nothing was dropped. Each position got a label.</p>
+<p>🐱 This is the curiosity move here: I am checking whether <code>ifelse()</code> gave one answer back for each value I started with. I might wonder about the pattern of <code>"Large"</code> and <code>"Small"</code> later, but first I need to understand what this function returns.</p>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> <span class="glossary-term" data-term="Arguments">Arguments</span>, such as <code>test</code>, <code>yes</code>, and <code>no</code> in <span class="glossary-term" data-term="ifelse()"><code>ifelse()</code></span>, are often not required to be named inside of functions.</p>
+</blockquote>
+<p>💡 <strong>Tip:</strong> Read this <code>ifelse()</code> statement like ‘If the vector is greater than 3, then return “Large”, otherwise return “Small”.’</p>
+<ul>
+<li><p>📖 <code>x[x &gt; 3]</code> logical subsetting keeps only matches</p></li>
+<li><p>📖 <code>x[x &gt; 3] &lt;- 99</code> subassignment replaces only matches</p></li>
+<li><p>⚡ <code>ifelse(x &gt; 3, "Large", "Small")</code> returns a new vector with a value for every position based on the condition.</p></li>
+</ul>
+</section>
+<section id="simple-case-when" class="level3">
+<h3 class="anchored" data-anchor-id="simple-case-when">Simple <code>case_when()</code></h3>
+<p><code>dplyr</code> describes <span class="glossary-term" data-term="case_when()"><code>case_when()</code></span> as a general vectorized if-else that evaluates rules in order and uses the first match for each element. This makes it especially useful when you have several categories to assign.</p>
+<p><code>dplyr::case_when()</code> can do exactly what <code>ifelse()</code> is doing.</p>
+<p>📜 The SYNTAX: <code>case_when(condition1 ~ value1, condition2 ~ value2, .default = default_value)</code></p>
+<p>The <code>~</code> symbol means “maps to” or “yields”.</p>
+<p>The <code>.default</code> argument specifies the value to return when no conditions are <code>TRUE</code>. If you omit <code>.default</code> and no conditions match, <code>case_when()</code> will return <code>NA</code> for those positions.</p>
+<p>🎯 Label the vector of numbers greater than 3 as “Large” and others as “Small”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk: </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>) <span class="sc">&gt;</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Large"</span>, <span class="at">.default =</span> <span class="st">"Small"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Small" "Small" "Small" "Large" "Large"</code></pre>
+</div>
+</div>
+<p>🗣 The output positions for <code>3</code> and under are “Small” and numbers higher than <code>3</code> are “Large”.</p>
+<ul>
+<li>⚡ <code>case_when(c(3, 2, 3, 6, 5) &gt; 3 ~ "Large", .default = "Small")</code> returns a new vector with a value for every position based on the condition.</li>
+</ul>
+<hr>
+<p>📖 Why do we need both <code>ifelse()</code> and <code>case_when()</code>? <code>case_when()</code> is usually clearer once you have 3+ categories.</p>
+</section>
+<section id="more-than-two-categories" class="level3">
+<h3 class="anchored" data-anchor-id="more-than-two-categories">More Than Two Categories</h3>
+<p><code>ifelse()</code> is designed for two categories. If you have more than two, you can nest <code>ifelse()</code> statements inside each other, but this quickly becomes hard to read. <code>case_when()</code> is designed for multiple categories and is much easier to read when you have more than two conditions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Setup</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk: </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">85</span>, <span class="dv">95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Re-code scores less than 60 as “Low”, scores less than 80 as “Medium”, and all others as “High”.</p>
+<section id="nested-ifelse" class="level4">
+<h4 class="anchored" data-anchor-id="nested-ifelse">Nested <code>ifelse()</code></h4>
+<p>🎯 Re-code scores less than 60 as “Low”, scores less than 80 as “Medium”, and all others as “High” using nested <code>ifelse()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk: </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(scores <span class="sc">&lt;</span> <span class="dv">60</span>, <span class="st">"Low"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ifelse</span>(scores <span class="sc">&lt;</span> <span class="dv">80</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Low"    "Medium" "Medium" "High"   "High"  </code></pre>
+</div>
+</div>
+<p>🗣 This works, but the logic is nested inside the no argument of the first <code>ifelse()</code>, which becomes harder to read as the number of categories grows.</p>
+</section>
+<section id="multiple-rule-case-when" class="level4">
+<h4 class="anchored" data-anchor-id="multiple-rule-case-when">Multiple Rule <code>case_when()</code></h4>
+<p><code>case_when()</code> avoids the ugly nesting that happens with repeated <code>ifelse()</code> calls. It is a general vectorized if-else: R checks the rules from top to bottom and uses the first rule that matches each element. That is why the order of the rules matters.</p>
+<p>🎯 Code scores less than <code>60</code> as <code>"Low"</code>, scores less than <code>80</code> as <code>"Medium"</code>, and all others as <code>"High"</code> using <code>case_when()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(scores <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>          scores <span class="sc">&lt;</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>          <span class="cn">TRUE</span>        <span class="sc">~</span> <span class="st">"High"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Low"    "Medium" "Medium" "High"   "High"  </code></pre>
+</div>
+</div>
+<p>🗣 This reads more like a set of classification rules: first check for <code>"Low"</code>, then check for <code>"Medium"</code>, and assign <code>"High"</code> to everything else.</p>
+<p>⚠️ The order of the rules matters because <code>case_when()</code> uses the first condition that matches.</p>
+<p>🐱 This is a good place to be curious and test what happens when the rules are in the wrong order. The goal is not to break the code randomly; the goal is to see how <code>case_when()</code> makes its decision.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">case_when</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  scores <span class="sc">&lt;</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  scores <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span>       <span class="sc">~</span> <span class="st">"High"</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Medium" "Medium" "Medium" "High"   "High"  </code></pre>
+</div>
+</div>
+<p>🗣 This does <strong>not</strong> work as intended. Any score less than <code>60</code> also satisfies <code>scores &lt; 80</code>, so those values are labeled <code>"Medium"</code> before R ever checks the <code>"Low"</code> rule.</p>
+<p>💡 <strong>Tip:</strong> write rules from most specific to more general, and end with a default rule such as <code>TRUE ~ "High"</code>.</p>
+<hr>
+<p>So far, <code>ifelse()</code> and <code>case_when()</code> have returned new vectors. That is useful, but most data work happens inside data frames. Next, you will use <code>mutate()</code> to store those new values as columns.</p>
+</section>
+</section>
+</section>
+<section id="mutate" class="level2">
+<h2 class="anchored" data-anchor-id="mutate"><code>mutate()</code></h2>
+<p>So far, <code>case_when()</code> has returned a new vector of labels. In real data analysis, you usually want to store that result in a data frame as a new column. That is what <span class="glossary-term" data-term="mutate()"><code>mutate()</code></span> does.</p>
+<p><code>mutate()</code> creates new columns that are functions of existing columns. It can also modify an existing column if you reuse the same column name.</p>
+<p>📜 The SYNTAX:</p>
+<p><code>mutate(data, new_col = expression)</code></p>
+<p>Or with piping</p>
+<p><code>name_data &lt;- data %&gt;% mutate(new_col = expression)</code></p>
+<ul>
+<li><p><code>data</code> is the data frame you are working with.</p></li>
+<li><p><code>new_col</code> is the name of the new column you want to create.</p></li>
+<li><p><code>expression</code> is the vector or calculation you want to store in that column.</p></li>
+</ul>
+<p>You can think of <code>mutate()</code> as saying: “Take this data frame, and add a new column based on these existing columns.”</p>
+<p>📖 <strong>The key idea is this:</strong></p>
+<ul>
+<li><p>A new name on the left side of <code>=</code> adds a new column.</p></li>
+<li><p>An existing name on the left side of <code>=</code> overwrites that column.</p></li>
+<li><p>The right side of <code>=</code> tells R what values to put there.</p></li>
+</ul>
+<section id="column-copy" class="level3">
+<h3 class="anchored" data-anchor-id="column-copy">Column Copy</h3>
+<p>🎯 Create a new column that is a copy of <code>am</code> in <code>mtcars</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Pre-Check</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mtcars) <span class="co"># Check the column names</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"
+[11] "carb"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_column_copy =</span> am)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 In a new data set called <code>mtcars2</code>, a <strong>new</strong> column named <code>new_column_copy</code> is created that is identical to the <code>am</code> column.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mtcars2) <span class="co"># Check the column names again</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "mpg"             "cyl"             "disp"            "hp"             
+ [5] "drat"            "wt"              "qsec"            "vs"             
+ [9] "am"              "gear"            "carb"            "new_column_copy"</code></pre>
+</div>
+</div>
+<p>This simple example shows that <code>mutate()</code> can create a new column from an existing one. The right side of <code>mutate()</code> is for calculations or rule-based expressions on existing columns. We’ll start by using calculations inside <code>mutate()</code> to create a new column.</p>
+<section id="mutate-with-arithmetic" class="level4">
+<h4 class="anchored" data-anchor-id="mutate-with-arithmetic"><code>mutate()</code> with Arithmetic</h4>
+<p>Doing unit conversions is a common data analyst task. Here it is in action.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Setup</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>measurements <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">height_in =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">70</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>measurements</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  height_in
+1        60
+2        65
+3        70</code></pre>
+</div>
+</div>
+<hr>
+<p>🐱 This is a small but useful thing to wonder about: can Quarto pull a column name directly from R into a sentence? Let’s try it before we add a new column.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>🗣 The <span class="in">`measurements`</span> data frame has one column: height<span class="sc">\_</span>in.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When rendered to HTML, this should read:</p>
+<p>🗣 The <code>measurements</code> data frame has one column: height_in</p>
+<hr>
+<p>🎯 Create a new column called <code>height_cm</code> that converts inches to centimeters (1 inch = 2.54 cm).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>measurements <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">height_cm =</span> height_in <span class="sc">*</span> <span class="fl">2.54</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  height_in height_cm
+1        60     152.4
+2        65     165.1
+3        70     177.8</code></pre>
+</div>
+</div>
+<p>🗣 <code>mutate(height_cm = height_in * 2.54)</code> creates a new column called <code>height_cm</code>. Each value in <code>height_cm</code> is calculated from the matching value in <code>height_in</code>.</p>
+</section>
+<section id="case-when-inside-mutate" class="level4">
+<h4 class="anchored" data-anchor-id="case-when-inside-mutate"><code>case_when()</code> inside <code>mutate()</code></h4>
+<p>The right side of <code>mutate()</code> can also be a rule-based expression. One common example is <code>case_when()</code> which lets you build a new categorical variable from an existing numeric variable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Setup</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>student_scores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">scores =</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">72</span>, <span class="dv">83</span>, <span class="dv">91</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Create a new column called <code>score_level</code> that labels each score from <code>scores</code> as <code>"Low"</code>, <code>"Medium"</code>, or <code>"High"</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>student_scores <span class="ot">&lt;-</span> student_scores <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">score_level =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>      scores <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>      scores <span class="sc">&lt;</span> <span class="dv">80</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>        <span class="sc">~</span> <span class="st">"High"</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <code>mutate()</code> adds a new column called <code>score_level</code>. The values in that column come from the rules inside <code>case_when()</code>.</p>
+<ul>
+<li><p><code>student_scores</code> is the data frame.</p></li>
+<li><p><code>mutate(...)</code> adds a new column.</p></li>
+<li><p><code>score_level =</code> names that new column.</p></li>
+<li><p><code>case_when(...)</code> decides what label to return for each row based on the value in <code>scores</code>.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  scores score_level
+1     55         Low
+2     68      Medium
+3     72      Medium
+4     83        High
+5     91        High</code></pre>
+</div>
+</div>
+<hr>
+<p>🐱 Now I want to practice using inline R to report the current column names in my memo.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>🗣 <span class="in">`student_scores`</span> has the columns scores and score<span class="sc">\_</span>level.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When rendered to HTML, this should read:</p>
+<p>🗣 <code>student_scores</code> has the columns scores and score_level.</p>
+<p><strong>💡 Test render.</strong></p>
+<p>🐱 Looking at this code, I might wonder how <code>paste()</code> works. Rather than guessing, I could check <code>?paste</code> in RStudio’s Help pane. <code>names(student_scores)</code> gets the column names, and <code>paste(..., collapse = " and ")</code> combines them into a single piece of text separated by the word “and”. Notice the space before and after the <code>and</code> between the quotes `” and “. Those spaces are included in the output, so the column names appear with space around the word”add”.</p>
+<p>🛠 <strong>Break Things!</strong></p>
+<p>Test render without the spaces to see the difference:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>🗣 <span class="in">`student_scores`</span> has the columns scoresandscore<span class="sc">\_</span>level.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>💡 Test render.</strong></p>
+<hr>
+<p>The <code>mutate()</code> + <code>case_when()</code> duo is a powerful way to create new variables based on complex rules. You can have as many conditions as you need, and you can use existing columns in your data frame to build those rules.</p>
+<p>In some situations, you may want to <span class="glossary-term" data-term="Overwrite">overwrite</span> an existing column instead of creating a new one. That is also possible with <code>mutate()</code>, as the next section shows.</p>
+</section>
+</section>
+<section id="overwrite-column-values" class="level3">
+<h3 class="anchored" data-anchor-id="overwrite-column-values">Overwrite Column Values</h3>
+<p><code>mutate()</code> will overwrite an existing column when you reuse the same column name on the left side of <code>=</code>. We’ll use <code>case_when()</code> to recode the values in the <code>am</code> column of <code>mtcars</code> from numeric to categorical labels.</p>
+<p>🐱 Overwriting is a place to slow down and be curious before running the code. I want to know what the original values are first, because after overwriting, those original <code>0</code> and <code>1</code> values will no longer be in the new data frame.</p>
+<p>🎯 Recode the <code>am</code> column in <code>mtcars</code> from 0/1 to “Automatic”/“Manual”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Pre-check</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mtcars<span class="sc">$</span>am) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 0</code></pre>
+</div>
+</div>
+<p>🗣 <code>am</code> is a numeric column with two unique values: <code>0</code> and <code>1</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>cars_overwrite <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">case_when</span>(</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>      am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(cars_overwrite<span class="sc">$</span>am)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Manual"    "Automatic"</code></pre>
+</div>
+</div>
+<hr>
+<p>🐱 Practice inline R code to dynamically report within a memo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>🗣 The <span class="in">`am`</span> column in <span class="in">`cars_overwrite`</span> has the unique values: Manual, Automatic.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When rendered to HTML, this should read:</p>
+<p>🗣 The <code>am</code> column in <code>cars_overwrite</code> has the unique values: Manual, Automatic.</p>
+<p>🗣 The <code>am</code> column has been <em>changed</em> from <code>0</code>/<code>1</code> to <code>"Automatic"</code>/<code>"Manual"</code>.</p>
+<p><strong>💡 Test render.</strong> ___</p>
+<p>📖 <strong>Overwrite Key Takeaway</strong></p>
+<p>In every example above, <code>mutate()</code> followed the same pattern:</p>
+<ul>
+<li><p>the left side of <code>=</code> named the output column</p></li>
+<li><p>the right side of <code>=</code> created its values</p></li>
+</ul>
+<p>When the left side is a new name, R adds a new column. When the left side reused an existing name, R overwrites that column.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this chapter, you learned that logical conditions in R can do more than keep or replace values: they can also return a new result for every element. You practiced this with <code>ifelse()</code> for simple two-way decisions and <code>case_when()</code> for multi-rule classification, then used <code>mutate()</code> to store those results as new or overwritten columns in a data frame. You also continued building your Quarto workflow by adding a table of contents, section numbering, and inline R code so your notes can report values dynamically and stay reproducible.</p>
+<p>You also practiced curiosity as a learning habit. The 🐱 notes modeled how to pause, wonder how a tool works, test what R returns, and check whether the result matches what you expected. Curiosity in this chapter is not random exploring. It means asking a useful question, checking the evidence, and knowing when to keep going with the main task.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Arguments</strong>: Inputs that you provide to functions to customize their behavior. Arguments are specified within the parentheses of a function call and can modify how the function operates or what data it processes.</p>
+<p><strong>case_when()</strong>: A <code>dplyr</code> function used to apply multiple conditional rules across a vector. <code>case_when()</code> checks conditions in order and returns the value connected to the first condition that is <code>TRUE</code>, making it useful for recoding values or creating categories from several rules.</p>
+<p><strong>Curiosity</strong>: A learning habit that means noticing something worth understanding, asking a useful question, checking what R returns, and deciding whether to investigate further or stay focused on the current task. Curiosity drives your intrinsic motivation to learn, ask questions, and seek understanding.</p>
+<p><strong>ifelse()</strong>: A base R function that applies a simple conditional rule across a vector. <code>ifelse()</code> checks each element of a logical test and returns one value when the test is <code>TRUE</code> and another value when the test is <code>FALSE</code>.</p>
+<p><strong>Logical Indexing</strong>: Indexing a vector using a logical vector of <code>TRUE</code>/<code>FALSE</code> values (for example, <code>x[x &gt; 0]</code>) so R keeps the elements where the index is <code>TRUE</code> and drops those where it is <code>FALSE</code>. If the logical index is a different length, R may recycle it, which can lead to surprising results.</p>
+<p><strong>Logical Vector</strong>: A vector that stores Boolean elements: <code>TRUE</code> or <code>FALSE</code> (and sometimes <code>NA</code> for missing). Logical vectors are commonly produced by comparisons (for example, <code>x &gt; 0</code>) and are heavily used for filtering and conditional code.</p>
+<p><strong>mutate()</strong>: A <code>dplyr</code> function used to create, change, or remove columns in a data frame or tibble. <code>mutate()</code> is commonly used to add new variables based on existing variables while keeping the same rows</p>
+<p><strong>Overwrite</strong>: A common type of subassignment where you change existing values (you replace what is already there).</p>
+<p><strong>Subsetting</strong>: Selecting a smaller piece of an R object using indices (positions, names, or a logical mask). With data frames, subsetting most commonly uses <code>[</code> in the form <code>df[rows, cols]</code> and typically preserves the object’s structure (e.g., you still get a data frame when you subset rows and columns).</p>
+<p><strong>Subassignment</strong>: Replacing part of an object by putting an index on the left side of <code>&lt;-</code>. R changes only the indexed part of the object. Examples: <code>x[i] &lt;- value</code>, <code>df[rows, "col"] &lt;- value</code>, <code>df[[col]] &lt;- value</code>, <code>df$col &lt;- value</code>.</p>
+<p><strong>Vectorized conditional</strong>: A function or expression that evaluates a condition element-by-element across a vector and returns an output for every element, producing a new vector of the same length. Unlike subsetting, which keeps some values and drops others, vectorized conditionals such as <code>ifelse()</code> and <code>case_when()</code> keep all positions and assign each one a result based on the condition.</p>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>In this Practice Space, you will use vectorized conditional functions to create clearer variables. You will practice <code>ifelse()</code> for a simple two-way label, <code>case_when()</code> for multiple rules, and <code>mutate()</code> to create new columns or overwrite existing ones. You will also keep practicing Quarto as a reproducible workspace for code, output, checks, and memo notes.</p>
+<p>Create a new Quarto document and save it in your course folder as:</p>
+<p><code>chapter12_practice.qmd</code></p>
+<p>Before you begin:</p>
+<ol type="1">
+<li>Create a new Quarto document in RStudio.</li>
+<li>Save it as <code>chapter12_practice.qmd</code>.</li>
+<li>Edit the YAML so it includes the title <code>"Chapter 12 Practice"</code>, your name, the date, and HTML output.</li>
+<li>Include the Chapter 12 Quarto settings for a table of contents and section numbering.</li>
+<li>Delete the default body text below the YAML.</li>
+<li>Create headings for each task using <code>## Task 0</code>, <code>## Task 1</code>, and so on.</li>
+<li>Render your document often so you can catch formatting problems and code errors early.</li>
+</ol>
+<p>Complete each task in order. Fill in the blanks, run your code, check your output, and add short memo notes as you work.</p>
+<p>In this Practice Space, you will see three memo prompts:</p>
+<ul>
+<li>🎯 <strong>Write the goal:</strong> state the coding directions in your own words.</li>
+<li>🗣 <strong>Add Comments:</strong> explain what the code or output shows.</li>
+<li>🪞 <strong>Reflect:</strong> explain your thinking, what you checked, what changed, what confused you, or what you would try next.</li>
+</ul>
+<p>Each task should include at least one memo response. You do not need to answer every prompt perfectly. The goal is to practice documenting your thinking while you work.</p>
+<p><strong>Open-mindedness</strong> means comparing reasonable methods and choosing the approach that makes the code easiest to read, check, and explain. If you encounter an error, document your <strong>tenacity</strong> by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (<strong>transparency</strong>). Show <strong>courage</strong> by sharing your thinking process, even if it includes mistakes, confusion, or a question you are still working through. Show <strong>Curiosity</strong> by noticing something worth understanding, asking a useful question, checking what R returns, and deciding whether to investigate further or stay focused on the current task.</p>
+<p>You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using <code>&gt;</code>. Then hand-type your own explanation of why you are including the quote.</p>
+<p>Before you submit, clear your Environment and render the <code>.qmd</code> from top to bottom. Your file should render without errors and show your code, output, checks, and memo notes.</p>
+<p>For this assignment, submit the rendered <code>chapter12_practice.html</code> file.</p>
+<section id="task-0" class="level3">
+<h3 class="anchored" data-anchor-id="task-0">Task 0</h3>
+<p>📦 Load the packages needed for this Practice Space: <code>dplyr</code> and <code>dslabs</code>. This setup chunk is also a good place to practice Quarto chunk controls like <code>#| message: false</code> and <code>#| warning: false</code>.</p>
+<p>🎯 You can skip writing the goal of this task.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk, fill in the blanks</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">_______</span>(dslabs)</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">_______</span>(dplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>💡 Test render.</strong></p>
+</section>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
+<p>🧠 <strong>Concept Check</strong></p>
+<p>Which method returns a new vector with one result for every position?</p>
+<ol type="a">
+<li>Vectorized conditional functions such as <code>ifelse()</code> and <code>case_when()</code></li>
+<li>Logical subsetting using <code>[ ]</code></li>
+<li>Subassignment using <code>[ ] &lt;-</code></li>
+<li><code>filter()</code></li>
+</ol>
+</section>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
+<p>🔀 <strong>Simple <code>ifelse()</code></strong></p>
+<p>Use <code>ifelse()</code> to label each <code>height</code> in the dataset <code>heights</code> as <code>"Tall"</code> if <code>height</code> is greater than <code>68</code> and <code>"Not Tall"</code> otherwise. Store the result as <code>height_label</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Pre-check</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>?dslabs<span class="sc">::</span>heights</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> dslabs<span class="sc">::</span>heights</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(heights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Which column contains height values in the <code>heights</code> data frame? Should <code>"Tall"</code> be assigned to the <code>yes</code> or <code>no</code> argument in the <code>ifelse()</code> statement? Why?</p>
+<p>🎯 Write the goal of this task in your own words.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>height_label <span class="ot">&lt;-</span> <span class="fu">_____</span>(</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">test =</span> _____<span class="sc">$</span>_____ <span class="sc">&gt;</span> <span class="dv">68</span>, </span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">yes =</span> ______, </span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">no =</span> ______</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🐱 This is a good place to wonder whether your new vector lines up with the original data. Check the length before trusting the result.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(height_label)  <span class="co"># expect "Tall" and "Not Tall"</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(height_label)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(heights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Do you see the expected labels? How many <code>"Tall"</code> and <code>"Not Tall"</code> values are there?</p>
+<p>🪞 Reflect: Did <code>ifelse()</code> return one label for every row in <code>heights</code>? What evidence from your checks shows that nothing was dropped?</p>
+<p><strong>💡 Test render.</strong></p>
+</section>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
+<p>📊 <strong>Recode with <code>mutate()</code> and <code>case_when()</code></strong></p>
+<p>Create <code>mpg_recode</code> from <code>mtcars</code>. Add a new column called <code>mpg_class</code> with three labels:</p>
+<ul>
+<li><code>"High MPG"</code> if <code>mpg</code> is greater than <code>25</code></li>
+<li><code>"Low MPG"</code> if <code>mpg</code> is less than <code>15</code></li>
+<li><code>"Medium MPG"</code> otherwise</li>
+</ul>
+<p>🎯 Write the goal of this task in your own words.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>mpg_recode <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">______</span>(<span class="at">mpg_class =</span> <span class="fu">_____</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    mpg <span class="sc">&gt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">"_______"</span>,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    mpg <span class="sc">&lt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"_______"</span>,</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>     <span class="sc">~</span> <span class="st">"_______"</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mpg_recode<span class="sc">$</span>____)  <span class="co"># expect 3 labels</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mpg_recode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Do you see the expected labels? How many <code>"High MPG"</code>, <code>"Medium MPG"</code>, and <code>"Low MPG"</code> values are there?</p>
+<p>🪞 Reflect: What did <code>mutate()</code> add to the data frame? What did <code>case_when()</code> decide for each row?</p>
+<p>🐱 If the counts surprise you, first ask whether the rule is doing what you told R to do.</p>
+<p><strong>💡 Test render.</strong></p>
+</section>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
+<p>↔︎️ <strong>Recode: Name Focus</strong></p>
+<p>With the dataset 🌟 <code>stars</code> from the <code>dslabs</code> package, classify each star by temperature range in a new column called <code>temp_group</code>. Store the result as <code>stars_recode</code>.</p>
+<p>Use these rules:</p>
+<ul>
+<li>temperatures less than <code>4000</code> are <code>"Cool"</code></li>
+<li>temperatures from <code>4000</code> through <code>7500</code> are <code>"Warm"</code></li>
+<li>temperatures greater than <code>7500</code> are <code>"Hot"</code></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Pre-check</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>?dslabs<span class="sc">::</span>stars</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>stars <span class="ot">&lt;-</span> dslabs<span class="sc">::</span>stars</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># View(stars)</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(stars)</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(stars<span class="sc">$</span>temp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: What column contains temperature values in the <code>stars</code> data frame? Where does the new output column name go in <code>mutate()</code>: left or right of the <code>=</code>?</p>
+<p>🎯 Write the goal of this task in your own words.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>______ <span class="ot">&lt;-</span> _____ <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">_____ =</span> <span class="fu">case_when</span>(</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>      _____ <span class="sc">&lt;</span> <span class="dv">4000</span> <span class="sc">~</span> <span class="st">"Cool"</span>,</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>      _____ <span class="sc">&lt;=</span> <span class="dv">7500</span> <span class="sc">~</span> <span class="st">"Warm"</span>,</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>          <span class="sc">~</span> <span class="st">"Hot"</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(stars_recode<span class="sc">$</span>temp_group)  <span class="co"># expect 3 labels</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stars_recode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Do you see the expected labels? How many <code>"Cool"</code>, <code>"Warm"</code>, and <code>"Hot"</code> stars are there?</p>
+<p>🪞 Reflect: Why does the order of the temperature rules matter here? What could go wrong if the broader rule came before the more specific rule?</p>
+<p>🐱 A curious learner asks, “Do these labels match the cutoffs I meant to use?”</p>
+<p><strong>💡 Test render.</strong></p>
+</section>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
+<p>⚖️ <strong>Unit conversion with <code>mutate()</code></strong></p>
+<p>Create <code>international_friendly_heights</code> from <code>heights</code> by overwriting the <code>height</code> column. Convert the values from inches to centimeters.</p>
+<p>💡 <strong>Tip:</strong> inches × 2.54</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Pre-check</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> dslabs<span class="sc">::</span>heights</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(heights)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(heights<span class="sc">$</span>height)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Write the goal of this task in your own words.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>international_friendly_heights <span class="ot">&lt;-</span> heights <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">_____ =</span> _____ <span class="sc">*</span> _____)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(international_friendly_heights)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(international_friendly_heights<span class="sc">$</span>height)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Did this code create a new column or overwrite an existing column? How do you know?</p>
+<p>🪞 Reflect: Do the new height values look reasonable for centimeters? What changed between the original <code>heights</code> data frame and <code>international_friendly_heights</code>?</p>
+<p>🐱 Overwriting is a good place to slow down. Before changing a column, check the original values. After changing it, check again so you know exactly what changed.</p>
+<p><strong>💡 Test render.</strong></p>
+</section>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
+<p><strong>Self-check checklist</strong></p>
+<p>For the file submission, make sure your <code>.qmd</code> renders to HTML without errors and that your report shows the required objects, checks, and memo notes:</p>
+<ul>
+<li><p><code>height_label</code> exists and includes both <code>"Tall"</code> and <code>"Not Tall"</code> labels.</p></li>
+<li><p><code>height_label</code> has the same number of values as rows in <code>heights</code>.</p></li>
+<li><p><code>mpg_recode</code> exists and includes a new column named <code>mpg_class</code>.</p></li>
+<li><p><code>mpg_recode$mpg_class</code> includes <code>"High MPG"</code>, <code>"Medium MPG"</code>, and <code>"Low MPG"</code>.</p></li>
+<li><p><code>stars_recode</code> exists and includes a new column named <code>temp_group</code>.</p></li>
+<li><p><code>stars_recode$temp_group</code> includes <code>"Cool"</code>, <code>"Warm"</code>, and <code>"Hot"</code>.</p></li>
+<li><p><code>international_friendly_heights</code> exists and has the <code>height</code> column converted from inches to centimeters.</p></li>
+<li><p>Your report includes short memo notes that show your goals, comments, checks, and reflections.</p></li>
+<li><p>All code in your Quarto document runs top-to-bottom without errors.</p></li>
+</ul>
+<p>🎯 Check your <code>.qmd</code> and rendered HTML for submission quality.</p>
+<p><strong>Step 1: Sweep your Environment.</strong> Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
+<p><strong>Step 2: Run everything top-to-bottom.</strong> Use <strong>Run → Run All</strong> to execute every chunk in order.</p>
+<p><strong>Step 3: Render to HTML.</strong> Click <strong>Render</strong> and confirm that the HTML file is created without errors.</p>
+<p><strong>Step 4: Verify the required objects and checks.</strong> Use the checklist above to confirm that each object exists and contains the expected labels, columns, or converted values.</p>
+<p><strong>Step 5: Read your memo notes.</strong> Make sure your comments and reflections explain what your code did, what you checked, and what you learned. Verify any inline R code worked in your memos. Look for at least one place where you documented curiosity by noticing something interesting, asking how something worked, checking the output, or deciding to stay focused.</p>
+<p><strong>Step 6: Save and submit.</strong> After your Quarto document renders without errors, make sure your latest edits are saved. Submit the rendered <code>chapter12_practice.html</code> file as directed.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/06-curiosity/curiosity.html" class="pagination-link" aria-label="Curiosity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Curiosity</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="pagination-link" aria-label="Chapter 13">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 13</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

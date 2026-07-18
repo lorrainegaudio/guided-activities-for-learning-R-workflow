@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 2: Scripts – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/02-transparency/transparency.html" rel="next">
+<link href="../../chapters/01-tenacity/ch01-navigation.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/tenacity.html">Tenacity</a></li><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/ch02-scripts.html"><span class="chapter-title">Chapter 2: Scripts</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4:️ Structuers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help-prompting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help! Prompting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Openmindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#script-editor" id="toc-script-editor" class="nav-link" data-scroll-target="#script-editor">Script Editor (Source)</a>
+  <ul class="collapse">
+  <li><a href="#console-vs-script" id="toc-console-vs-script" class="nav-link" data-scroll-target="#console-vs-script">Console vs Script Editor</a></li>
+  <li><a href="#create-script" id="toc-create-script" class="nav-link" data-scroll-target="#create-script">Create an R Script</a></li>
+  <li><a href="#run-code" id="toc-run-code" class="nav-link" data-scroll-target="#run-code">Run Code</a></li>
+  <li><a href="#save-script" id="toc-save-script" class="nav-link" data-scroll-target="#save-script">Save Your Script</a></li>
+  </ul></li>
+  <li><a href="#memos" id="toc-memos" class="nav-link" data-scroll-target="#memos">Memo in R Scripts</a>
+  <ul class="collapse">
+  <li><a href="#explain-thinking" id="toc-explain-thinking" class="nav-link" data-scroll-target="#explain-thinking">Explain Your Thinking</a></li>
+  </ul></li>
+  <li><a href="#tenacity" id="toc-tenacity" class="nav-link" data-scroll-target="#tenacity">Tenacity</a>
+  <ul class="collapse">
+  <li><a href="#why-r-challenging" id="toc-why-r-challenging" class="nav-link" data-scroll-target="#why-r-challenging">Why R is Challenging</a></li>
+  <li><a href="#getting-stuck" id="toc-getting-stuck" class="nav-link" data-scroll-target="#getting-stuck">Getting Stuck</a></li>
+  <li><a href="#document-tenacity" id="toc-document-tenacity" class="nav-link" data-scroll-target="#document-tenacity">Document Tenacity</a></li>
+  <li><a href="#cite-resources" id="toc-cite-resources" class="nav-link" data-scroll-target="#cite-resources">👀 Cite Your Resources</a></li>
+  </ul></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a>
+  <ul class="collapse">
+  <li><a href="#numeric-vectors" id="toc-numeric-vectors" class="nav-link" data-scroll-target="#numeric-vectors">Numeric Vectors with <code>c()</code></a></li>
+  <li><a href="#integer-vectors" id="toc-integer-vectors" class="nav-link" data-scroll-target="#integer-vectors">Integer Vectors with <code>c()</code></a></li>
+  <li><a href="#sequences" id="toc-sequences" class="nav-link" data-scroll-target="#sequences">Sequences with <code>:</code></a></li>
+  <li><a href="#character-vectors" id="toc-character-vectors" class="nav-link" data-scroll-target="#character-vectors">Character Vectors with <code>c()</code></a></li>
+  <li><a href="#adding-elements" id="toc-adding-elements" class="nav-link" data-scroll-target="#adding-elements">Adding Elements to Vectors</a></li>
+  <li><a href="#logical-vectors" id="toc-logical-vectors" class="nav-link" data-scroll-target="#logical-vectors">Logical Vectors</a></li>
+  </ul></li>
+  <li><a href="#inspecting-vectors" id="toc-inspecting-vectors" class="nav-link" data-scroll-target="#inspecting-vectors">Inspecting Vectors</a>
+  <ul class="collapse">
+  <li><a href="#mode-of-vector" id="toc-mode-of-vector" class="nav-link" data-scroll-target="#mode-of-vector">Mode of a Vector</a></li>
+  <li><a href="#length-of-vector" id="toc-length-of-vector" class="nav-link" data-scroll-target="#length-of-vector">Length of a Vector</a></li>
+  </ul></li>
+  <li><a href="#dataframes" id="toc-dataframes" class="nav-link" data-scroll-target="#dataframes">Dataframes</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task-0" id="toc-task-0" class="nav-link" data-scroll-target="#task-0">Task 0</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  <li><a href="#task-7" id="toc-task-7" class="nav-link" data-scroll-target="#task-7">Task 7</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/tenacity.html">Tenacity</a></li><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/ch02-scripts.html"><span class="chapter-title">Chapter 2: Scripts</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 2: Scripts</span></h1>
+<p class="subtitle lead">Document Your Learning Process</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In Chapter 2, you will move from one-off Console commands to scripts, which are the durable record of your work: what you ran, in what order, and why. You will practice writing code in the Source pane and running it into the Console (line-by-line or in blocks) using RStudio’s Run tools and shortcuts. You will also learn how to use comments as memos to document errors and your troubleshooting process (tenacity). You will practice this as you build vectors of several basic types, checks with <code>mode()</code> and <code>length()</code>, and a simple data frame.</p>
+<p>In Chapter Two you will learn how to:</p>
+<ul>
+<li><p>📝 Write and save R scripts.</p></li>
+<li><p>📍 Run code from a script or the console.</p></li>
+<li><p>💪 Practice resiliency through documenting tenacity on memos.</p></li>
+<li><p>🛠 Build numeric, integer, character and logical vectors using <code>c()</code> and <code>seq()</code></p></li>
+<li><p>🔍 Check the mode and length of any vector object.</p></li>
+<li><p>📊 Create a data frame from vectors.</p></li>
+</ul>
+<hr>
+</section>
+<section id="script-editor" class="level2">
+<h2 class="anchored" data-anchor-id="script-editor">Script Editor (Source)</h2>
+<p>Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with R Script, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand <em>how</em> and <em>why</em> you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio.</p>
+<section id="console-vs-script" class="level3">
+<h3 class="anchored" data-anchor-id="console-vs-script">Console vs Script Editor</h3>
+<p>The <span class="glossary-term" data-term="Console Pane">Console</span> is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. However, the Console does not save your commands after you close RStudio, so it is not suitable for documenting your work.</p>
+<p>An <span class="glossary-term" data-term="R Script">R Script</span> is a plain text file that contains a series of R commands. The script acts as a static record of the analysis. If the data or method change later, the original script preserves the logic used for your initial findings. The inclusion of comments (lines that begin with <code>#</code>) allows you to explain the <em>why</em> behind your code, detailing assumptions, data transformations, and the rationale for specific analytical choices.</p>
+<p>Think of programming like writing a recipe. Using the Console is like throwing ingredients into a pan on the fly. You might make something delicious (a great chart), but you didn’t write down how much salt you used or in what order you added the spices. If you close RStudio, your “cooking” session is gone forever. Using an R script is like writing down the recipe step-by-step. You can share it with others, and you (or anyone else) can follow the same steps later to recreate the dish exactly. Comments act as notes in the margins of your recipe card.</p>
+</section>
+<section id="create-script" class="level3">
+<h3 class="anchored" data-anchor-id="create-script">Create an R Script</h3>
+<p>There are two primary ways to create a new R script in RStudio. You can use either method.</p>
+<p>Method A. <span class="glossary-term" data-term="File Menu">File Menu</span></p>
+<ol type="1">
+<li><p>Go to the File menu at the top left of RStudio.</p></li>
+<li><p>Select New File and then R Script.</p></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch02-scripts/new_rscript.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/new_rscript.png" class="img-fluid figure-img" alt="Figure 1. The RStudio Script Editor pane with a script open."></a></p>
+<figcaption>Figure 1. The RStudio Script Editor pane with a script open.</figcaption>
+</figure>
+</div>
+<p>Method B. <strong>Keyboard Shortcut</strong></p>
+<ol type="1">
+<li>Use the keyboard shortcut Ctrl + Shift + N (or Cmd + Shift + N on a Mac).</li>
+</ol>
+<p>🎯 Open a new R Script.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new script </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 An empty script opens in the Script Editor (also called the Source pane).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>six <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>seven <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>eight <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>nine <span class="ot">&lt;-</span> <span class="dv">9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="run-code" class="level3">
+<h3 class="anchored" data-anchor-id="run-code">Run Code</h3>
+<p>🎯 Place your cursor on each line and click Run (or press Ctrl+Enter on Windows/Linux or Cmd+Return on macOS) to send that line to the Console where it executes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch02-scripts/run_script.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 5. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/run_script.png" class="img-fluid figure-img" alt="Figure 5. The RStudio Script Editor pane with a script open."></a></p>
+<figcaption>Figure 5. The RStudio Script Editor pane with a script open.</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run one line</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Select multiple lines to run them together.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch02-scripts/run_script2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter."><img src="images/ch02-scripts/run_script2.png" class="img-fluid figure-img" alt="Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter."></a></p>
+<figcaption>Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter.</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run multiple lines at the same time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 Click Source to run the entire script at once.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch02-scripts/run_source.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 3. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/run_source.png" class="img-fluid figure-img" alt="Figure 3. The RStudio Script Editor pane with a script open."></a></p>
+<figcaption>Figure 3. The RStudio Script Editor pane with a script open.</figcaption>
+</figure>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source the entire script</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="save-script" class="level3">
+<h3 class="anchored" data-anchor-id="save-script">Save Your Script</h3>
+<p>Saving your R script preserves the instructions (your code and comments), not the objects in your Environment. This matters because when you restart R or switch computers your Environment can disappear. Your script is a document of your work. A saved script lets anyone re-run your code and reproduce your results.</p>
+<p>Most assignments in this course will require that you submit file that contains code and memos. Early modules require you submit an R script file (<code>.R</code>). The .R extension helps RStudio (and your computer) recognize the file as an R script.</p>
+<p>There are two primary ways to save your script. You can use either method.</p>
+<p>Method A. <strong>Save icon</strong></p>
+<ol type="1">
+<li>Click the Save icon (floppy disk) in the toolbar of the Script Editor pane.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch02-scripts/save_icon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 4. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/save_icon.png" class="img-fluid figure-img" alt="Figure 4. The RStudio Script Editor pane with a script open."></a></p>
+<figcaption>Figure 4. The RStudio Script Editor pane with a script open.</figcaption>
+</figure>
+</div>
+<p>Method B. <strong>File Menu</strong></p>
+<ol type="1">
+<li><p>Go to the File menu at the top left of RStudio.</p></li>
+<li><p>Select Save As….</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save your script in your course folder (e.g., DATA-R155)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># File name: chapter2_notes</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save a type: R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> that the file extension <code>.R</code> is automatically added.</p>
+</blockquote>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify that `chapter2_notes.R` is in the right folder.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 <strong>Tip:</strong> “Working directory” controls where R looks for files when you use relative paths, but you can still accidentally save a script somewhere else if you choose the wrong folder in the Save dialog. For this course, always save scripts into your course folder so your files stay together and you can find them when it’s time to upload.</p>
+<p>💡 <strong>Tip:</strong> When your script is unsaved, RStudio typically shows an asterisk (*) in the script tab and the file name is red, which means you have changes that are not saved yet.</p>
+<hr>
+<p>📖 <strong>Review</strong></p>
+<p>Recall that objects are names that store elements in R. You can use objects in calculations just like you would use numbers.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The Incident: Why is 6 afraid?</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>seven_eight <span class="ot">&lt;-</span> seven <span class="sc">+</span> eight</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The Result:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>the_aftermath <span class="ot">&lt;-</span> seven_eight <span class="sc">-</span> nine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ What number should be scared?</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(the_aftermath)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p>🎯 Run in order from top to bottom so that objects exist before you use them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select and run in order</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🛠 <strong>Break Things!</strong> Order matters when editing and running code from a script.</p>
+<p>Pretend that you decided to change the name of <code>seven + eight</code> to <code>seven.eight</code>.</p>
+<p>🎯 Edit your script.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit the object name</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>seven.eight <span class="ot">&lt;-</span> seven <span class="sc">+</span> eight</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>the_aftermath <span class="ot">&lt;-</span> seven.eight <span class="sc">-</span> nine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Go back to your script and run ONLY <code>the_aftermath</code> line (without running the lines above it).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run only this line</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>the_aftermath <span class="ot">&lt;-</span> seven.eight <span class="sc">-</span> nine</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✍️ Error: object ‘seven.eight’ not found. 🗣 This is an error because <code>seven.eight</code> has not been created yet in this session.</p>
+<p>🚧 <span class="glossary-term" data-term="Error">Errors</span> prevent code from running.</p>
+<p>🤔 No Error? This example may not error if you already ran <code>seven.eight &lt;- seven + eight</code> before <code>the_aftermath &lt;- seven.eight - nine</code>. Another way you can produce the error is by clearing the Environment before testing. 🧹 Sweep your environment and run code out of order.</p>
+<p>💡 <strong>Tip:</strong> All scripts submissions must be able to run from top to bottom without errors. Regularly test your script by clicking Source to ensure that all lines run without errors.</p>
+<p>In R, an error message is not a judgment. It is the computer telling you exactly what it cannot do <em>yet</em>. Learning to read errors calmly and then adjusting your next step is a core part of learning to code.</p>
+<hr>
+<p>Next, you will learn how to use comments as memos to document when you encounter errors.</p>
+</section>
+</section>
+<section id="memos" class="level2">
+<h2 class="anchored" data-anchor-id="memos">Memo in R Scripts</h2>
+<p>To add comments in an R script, simply use the “#” symbol at the beginning of a line to indicate that the following text is a comment and should be ignored by the R interpreter.</p>
+<p>You can add a line break to a long comment by using the # symbol on each new line. This is necessary because R interprets everything on a single line after the first # as part of the comment. For example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a comment. Notice the "#" at the beginning of the line.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Comments often explain something about the code or your thinking.</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># You will create comments like this in R Script assignments to </span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  document your process.</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Break the comment into several lines to keep the message readable.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="explain-thinking" class="level3">
+<h3 class="anchored" data-anchor-id="explain-thinking">Explain Your Thinking</h3>
+<p>Researchers have found that typing self-explanations of code improves retention and deepens understanding (Rus et. al., 2021). As you work through exercises and assignments, document a running record of insights, hunches, hypotheses, discussions about the applications of the code.</p>
+<ol type="1">
+<li><p><strong>Forethought</strong> before action. Before running code, write a brief note about the 🎯 Goal of code should accomplish, 💬 Prediction of what you expect to happen, or identify your 🧠 motivational beliefs that support persistence.</p></li>
+<li><p><strong>Performance</strong> monitoring during action. ⚡ Compose the code and ✅ Check that the code worked. 🚀 Conduct Code trials, debugging issues, and ✍️ keep a record what you tried, even if it didn’t work.</p></li>
+<li><p><strong>Self-reflection</strong> after action. After getting the code to work, 🗣 Comment about what you learned, what surprised you, or what questions remain. 🪞 Reflect on learning process and what you will do next time.</p></li>
+</ol>
+<p>Icons for these strategies are provided in throughout each chapter to model the process. Mirror this process in all work you submit for the course. Each chapter will highlight specific memoing practices to focus on. This chapter focuses on documenting your tenacity.</p>
+<hr>
+<p>Now that you know how to write and run code in a script, you will likely encounter errors. Tenacity is the learning skill that helps you persist through those errors and learn from them.</p>
+</section>
+</section>
+<section id="tenacity" class="level2">
+<h2 class="anchored" data-anchor-id="tenacity">Tenacity</h2>
+<p>To successfully learn R programming, you will need to persist through difficulties, revise code, and know when to seek help after genuine effort. Tenacity is the learning skill that shows up when you persist through obstacles (confusion, errors, frustration), revise your approach, and know when to seek help after genuine effort rather than quitting too early or grinding aimlessly (King, 2021; Baehr, 2022). Tenacity is not “never give up.” It’s productive persistence.</p>
+<section id="why-r-challenging" class="level3">
+<h3 class="anchored" data-anchor-id="why-r-challenging">Why R is Challenging</h3>
+<p>R is not hard because it’s mysterious. It’s hard because it’s precise. Small mistakes (a missing parenthesis, a comma in the wrong place, a misspelled object name) produce errors, and those errors are not personal—they’re information.</p>
+<p>You may have already encountered friction in exactly the places beginners expect to be “simple”:</p>
+<ul>
+<li><p>Installing or updating R/RStudio</p></li>
+<li><p>Saving and submitting scripts and file to Canvas</p></li>
+<li><p>Creating objects and then getting object not found errors</p></li>
+</ul>
+<p>If you treat every error as evidence you “can’t code,” you will stall. Tenacity is what keeps you moving long enough for the patterns to become familiar (King, 2021).</p>
+</section>
+<section id="getting-stuck" class="level3">
+<h3 class="anchored" data-anchor-id="getting-stuck">Getting Stuck</h3>
+<p><strong>Two Ways of Getting Stuck</strong></p>
+<ol type="1">
+<li>Giving up too early (irresolution).</li>
+</ol>
+<p>This looks like skipping checks, continuing “halfway,” or abandoning the task the moment you feel lost (King, 2021). In R, that often becomes: running code you don’t understand, hoping it works, and stacking confusion.</p>
+<ol start="2" type="1">
+<li>Pushing too long (intransigence).</li>
+</ol>
+<p>This looks like repeating the same approach for too long even though it isn’t working, refusing to change strategy, and refusing help (King, 2021). In R, that often becomes: re-running the same broken line 30 times.</p>
+<p>Tenacity lives in the middle: persist, then recalibrate.</p>
+</section>
+<section id="document-tenacity" class="level3">
+<h3 class="anchored" data-anchor-id="document-tenacity">Document Tenacity</h3>
+<p>When you encounter a challenge, document your tenacity on a memo. Your memo will show a running log of what you tried and how you resolved the issue.</p>
+<section id="record-what-you-tried" class="level4">
+<h4 class="anchored" data-anchor-id="record-what-you-tried">✍️ Record what you tried</h4>
+<p>Prevent future duplication of errors, contextualizing successes, and exposes hidden discoveries (unanticipated effect) by recording your learning process on a memo in your R script.</p>
+<p>When you encounter an error:</p>
+<ol type="1">
+<li><p><strong>Comment out the code line(s) that produced the error</strong> by adding a <code>#</code> at the beginning of the line. This is really important. You want to keep the code visible for reference, but your script must not produce an error.</p></li>
+<li><p><strong>Copy and paste the error message</strong> below the commented line.</p></li>
+<li><p><strong>Comment out the error message</strong> by adding a <code>#</code> at the beginning of each line.</p></li>
+<li><p><strong>Add a brief comment explaining</strong> what you think caused the error or how you will resolve it. This can come from your own reasoning or from external resources you consulted (peers, instructors, online resources, AI tools, etc.). Be sure to cite any resources you used. See the <strong>Cite Your Resources</strong> section below for guidance.</p></li>
+<li><p>On a new line, compose the code that you believe will run without error. If the error is not yet resolved, repeat this listed process until you get the code to run without error.</p></li>
+</ol>
+<hr>
+<p>🧩 <strong>Memo Example</strong></p>
+<p>Below is a common beginner error along with memos documenting the tenacity process.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🧩 Example 1</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.008+7*24)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Error: unexpected ')' in "3.008+7*24)"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: This error is because the ) is a typo. </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fl">3.008</span><span class="sc">+</span><span class="dv">7</span><span class="sc">*</span><span class="dv">24</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> The student (1) ✍️ kept but commented out (<code>#</code>) the code with the error, (2) ✍️ copied and pasted the error from the console, (3) 🗣 composed a memo that recognized the unexpected parenthesis as a typo and (4) ⚡ composed new code that removed it to fix the error.</p>
+</blockquote>
+<p><em>Memo examples like this one are provided throughout the each chapter.</em></p>
+<hr>
+<p>💡 <strong>Tip:</strong> You can quickly comment/uncomment selected lines with Ctrl+Shift+C (Windows/Linux) or Cmd+Shift+C (macOS).</p>
+</section>
+</section>
+<section id="cite-resources" class="level3">
+<h3 class="anchored" data-anchor-id="cite-resources">👀 Cite Your Resources</h3>
+<p>R syntax can be challenging, unforgiving even. Students often spend hours debugging simple issues. Knowing how R interprets your code helps avoid mistakes. Errors are usually simple but hard to spot alone. That’s normal.</p>
+<p>Before you seek help, document three things in your script memo:</p>
+<ol type="1">
+<li><p>🎯 What you what you were trying to do,</p></li>
+<li><p>⚡ The attempts at writing the code️ even if it didn’t achieve the results you wanted.</p></li>
+<li><p>✍ State what you understand so far, and what you’re confused or curious about.</p></li>
+</ol>
+<p>Once you decide to seek help, choose a resource that fits the problem: a peer, your instructor, R’s help files, reputable online documentation, or an AI tool. No matter what you use, cite it in your memo so your learning is traceable and your work is honest.</p>
+<p>In your script, always include:</p>
+<ol type="1">
+<li><p><strong>Who/what helped you</strong> (person, website, help file, AI tool, etc.).</p></li>
+<li><p><strong>How it helped you</strong> (what you changed, what you learned, what you verified).</p></li>
+</ol>
+<p>Always write your own code; do not copy and paste from external sources. Use external help to understand and learn, not to complete assignments for you.</p>
+<p>💡 <strong>Tip:</strong> If you use generative AI to help you and it provides the answer, close the viewer and type the script yourself.</p>
+<p>🧩 <strong>Memo Example</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🧩 Example 2</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logicals2 &lt;- c( 1&gt;2, 3&lt;5, 4=4 )</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># error: Error: unexpected '=' in "logicals2 &lt;- c( 1&gt;2, 3&lt;5, 4="</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>logicals2 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">1</span><span class="sc">&gt;</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">&lt;</span><span class="dv">5</span>, <span class="dv">4</span><span class="sc">==</span><span class="dv">4</span> )</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I remember the instruction video but wanted to test what kind of error it would show.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I noticed that under value "logicals2" in the environment" it has answered whether or not my equations are true or false</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>logicals2</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: Here's what came back in the console! [1] FALSE  TRUE  TRUE</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: That means 1&gt;2 is false, 3&lt;5 is true, and 4=4 is true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> The student (1) ✍️ kept but commented out (<code>#</code>) the code with the errors, (2) ✍️ copied and pasted the error shown in the console, (3) 👀 cites a course video and the intent to 🛠 <strong>Break Things!</strong> to understand errors, (4) ⚡ revised the code to fix the errors, and 🗣 explained the final results.</p>
+</blockquote>
+<hr>
+<p>We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity on a memo whenever you encounter an error or do not fully understand.</p>
+</section>
+</section>
+<section id="vectors" class="level2">
+<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<p>So far, we have only stored single numbers in objects. These single-element numeric objects are often called <span class="glossary-term" data-term="Scalar">scalars</span>. R can also store collections of values in a single object.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>scalar <span class="ot">&lt;-</span> <span class="dv">42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>An <span class="glossary-term" data-term="Atomic Vector">atomic vector</span> is a one-dimensional object that stores an ordered collection of values (<span class="glossary-term" data-term="Element">elements</span>), all of the same basic type. For simplicity, I will simply use the word <span class="glossary-term" data-term="Vector">vector</span>. A vector is like a row in a spreadsheet: a single dimension of related values.</p>
+<p>Let’s use <code>c()</code>, <code>:</code>, and <code>seq()</code> to create vectors of different storage types: numeric, integer, and character.</p>
+<section id="numeric-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-vectors">Numeric Vectors with <code>c()</code></h3>
+<p><span class="glossary-term" data-term="Numeric Vector">Numeric vectors</span> are a list of numbers. So far, we have only stored single numbers in objects.</p>
+<p>Vector Method A. Use the <code>c()</code> function to combine (or “<span class="glossary-term" data-term="Concatenate">concatenate</span>) values into a single vector.</p>
+<p>🎯 Create a numeric vector named <code>numbers3</code> that contains three decimal point and negative numbers using the <code>c()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this (or something similar) in your R Script</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>numbers3  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="sc">-</span><span class="fl">3.5</span>)                <span class="co"># Numeric with decimals and negative</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check that numbers3 was created </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(numbers3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the three numbers stored in the <code>numbers3</code> vector.</p>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> You can see object details by looking at the Environment pane. The <code>numbers3</code> object shows as “num [1:3]” indicating it is a numeric vector with three elements. These numbers are “numeric” because they include decimal points. The placement of the numbers in the list is ordered exactly as you entered them.</p>
+</blockquote>
+</section>
+<section id="integer-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="integer-vectors">Integer Vectors with <code>c()</code></h3>
+<p><span class="glossary-term" data-term="Integer Vector">Integer vectors</span> are a list of whole numbers. In R, integers are typically written with an <code>L</code> suffix.</p>
+<p>🎯 Create a vector named <code>cursed_seq</code> that contains the integer values 4, 8, 15, 16, 23, and 42 using the <code>c()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cursed_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>L, <span class="dv">8</span>L, <span class="dv">15</span>L, <span class="dv">16</span>L, <span class="dv">23</span>L, <span class="dv">42</span>L)          <span class="co"># Integer via c()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check that cursed_seq was  created</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cursed_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the integer values stored in the <code>cursed_seq</code> vector. 🎬 Optional aside: Don’t get <em>Lost</em> with these numbers that aren’t a perfect mathematical progression.</p>
+</section>
+<section id="sequences" class="level3">
+<h3 class="anchored" data-anchor-id="sequences">Sequences with <code>:</code></h3>
+<p>“<code>:</code>” creates a simple sequence.</p>
+<p>🎯 Create a numeric vector named <code>combination</code> that contains the integer values from 1 to 5 using the <code>:</code> operator.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>combination <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>                             <span class="co"># integer via :</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check that combination contains 1, 2, 3, 4, and 5 in order.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combination)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows 1 2 3 4 5 in order. 🎬 Optional aside: 1, 2, 3, 4, 5? That’s amazing! I’ve got the same combination on my luggage. (Yes, it’s a famous movie joke. Ignore it if you don’t recognize it.)</p>
+<ol start="3" type="1">
+<li>Vector Method C. Use <code>seq()</code> for custom steps.</li>
+</ol>
+<p>📜 The SYNTAX (basic):</p>
+<p><code>seq(from = 1, to = 10, by = 1)</code></p>
+<p>🎯 Create a numeric vector named <code>travel_jumps</code> that contains the numbers from 1887 to 2052 with steps of 33 using the <code>seq()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>travel_jumps <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>)   <span class="co"># numeric via seq()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check that travel_jumps contains the correct sequence.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(travel_jumps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the sequence of numbers stored in the <code>travel_jumps</code> vector. 🎬 Optional aside: Everything is connected. Everything is built on the number 33. It’s Dark.</p>
+</section>
+<section id="character-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="character-vectors">Character Vectors with <code>c()</code></h3>
+<p><span class="glossary-term" data-term="Character Vector">Character vectors</span> store text strings, which are sequences of characters enclosed in quotes. Character vectors can include letters, numbers, symbols, and spaces. They are often used to represent names, labels, or any other textual data.</p>
+<p>Quotes are enclosed in either double quotes <code>"</code> or single quotes <code>'</code>. Both types of quotes function the same way in R, but it’s important to be consistent within a single string. The commas separate individual strings within the vector is outside the quotes.</p>
+<p>🎯 Create a character vector named <code>activation_code</code> that contains the following words: Longing, Rusted, Seventeen, Daybreak, Furnace, Nine, Benign, Homecoming, One, and Freight Car using the <code>c()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>activation_code <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Longing"</span>, <span class="st">"Rusted"</span>, <span class="st">"Seventeen"</span>, <span class="st">"Daybreak"</span>, <span class="st">"Furnace"</span>, <span class="st">"Nine"</span>, <span class="st">"Benign"</span>, <span class="st">"Homecoming"</span>, <span class="st">"One"</span>, <span class="st">"Freight Car"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the activation_code vector</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(activation_code)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the ten words stored in the <code>activation_code</code> character vector. 🎬 Optional aside: Ready to comply? Does this word-list makes the example memorable?</p>
+<p>R recognizes colors in character vectors.</p>
+<p>🎯 Create a character vector named <code>rainbow</code> that contains the color names of the rainbow using the <code>c()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>rainbow <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>, <span class="st">"yellow"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>,  <span class="st">"violet"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the rainbow vector</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rainbow)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the color names stored in the <code>rainbow</code> character vector.</p>
+</section>
+<section id="adding-elements" class="level3">
+<h3 class="anchored" data-anchor-id="adding-elements">Adding Elements to Vectors</h3>
+<p>You can add to the end of a vector using the <code>c()</code> function.</p>
+<p>🎯 Add the color “indigo” to the end of the existing <code>rainbow</code> vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>rainbow_plus <span class="ot">&lt;-</span> <span class="fu">c</span>(rainbow, <span class="st">"indigo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the rainbow_plus vector</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rainbow_plus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the new object <code>rainbow_plus</code> vector with “indigo” added to the end.</p>
+</section>
+<section id="logical-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="logical-vectors">Logical Vectors</h3>
+<p><strong>Logical vectors</strong> are used for conditions and comparisons. They contain TRUE or FALSE values.</p>
+<p>🎯 Create a logical vector named <code>logicals</code> that contains the values TRUE, FALSE, and NA using the <code>c()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>logicals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the logicals vector</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(logicals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the logical values stored in the <code>logicals</code> vector.</p>
+<hr>
+<p>In the next section, you will learn how to inspect vectors to confirm what they are before using them in your analysis.</p>
+</section>
+</section>
+<section id="inspecting-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="inspecting-vectors">Inspecting Vectors</h2>
+<p>Before using data, we need to confirm <em>what</em> it is.</p>
+<section id="mode-of-vector" class="level3">
+<h3 class="anchored" data-anchor-id="mode-of-vector">Mode of a Vector</h3>
+<p>The storage type of a vector tells R how to interpret the data inside it. The <span class="glossary-term" data-term="Mode">mode</span> function, <code>mode()</code>, tells you what kind of data the object is fundamentally made of. For typical vectors, the mode could be “numeric,” “character,” or “logical” to name a few.</p>
+<p><em>The function</em> <code>typeof()</code> <em>returns R’s internal storage type of an object. For a higher-level understanding of the data type, we use the</em> <code>mode()</code> <em>function.</em></p>
+<p>🎯 Use the <code>mode()</code> function to check the data type of the <code>activation_code</code> vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(activation_code)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows that the <code>activation_code</code> vector is of mode “character,” indicating it stores text.</p>
+<p>🚀 <strong>Explore and Play:</strong> Try checking the mode of other vectors you created, such as <code>numbers3</code>, <code>cursed_seq</code>, <code>combination</code>, <code>travel_jumps</code>, and <code>logicals</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the mode of other vectors in your R Script</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="length-of-vector" class="level3">
+<h3 class="anchored" data-anchor-id="length-of-vector">Length of a Vector</h3>
+<p>The <span class="glossary-term" data-term="Length">length</span> function, <code>length()</code>, counts elements.</p>
+<p>🎯 Use the <code>length()</code> function to find the number of elements in the <code>activation_code</code> vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(activation_code)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the number of elements in the <code>activation_code</code> vector, which is 10.</p>
+<p>🚀 <strong>Explore and Play:</strong> Try checking the length of other vectors you created, such as <code>numbers3</code>, <code>cursed_seq</code>, <code>combination</code>, <code>travel_jumps</code>, and <code>logicals</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the length of other vectors in your R Script</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="dataframes" class="level2">
+<h2 class="anchored" data-anchor-id="dataframes">Dataframes</h2>
+<p>A <span class="glossary-term" data-term="Data Frame">data frame</span> is a two-dimensional, tabular data structure in R that can store data of different types (numeric, character, logical, etc.) in each column. It is similar to a spreadsheet or SQL table and is widely used for data analysis and manipulation in R.</p>
+<p>We can create a data frame by combining multiple vectors of the <em>same length</em> using the <code>data.frame()</code> function.</p>
+<p>📜 The SYNTAX (basic):</p>
+<p><code>data.frame(column1 = c(...), column2 = c(...), ...)</code></p>
+<p>🎯 Use vectors created earlier to build a data frame. We’ll combine vectors in the global environment that have the length of 6 elements.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Review Vectors </span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rainbow)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(travel_jumps)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cursed_seq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Data Frame</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>spectrum_shift <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Vibe =</span> rainbow,</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Year =</span> travel_jumps,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Code =</span> cursed_seq</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the spectrum_shift Data Frame</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(spectrum_shift)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The output shows the <code>spectrum_shift</code> data frame with three columns: <code>Vibe</code>, <code>Year</code>, and <code>Code</code>. Each column corresponds to one of the vectors we combined.</p>
+<hr>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In Chapter 2, you learned how to work in an R script: create a new <code>.R</code> file in the Source pane, save it in the correct course folder, run code into the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.</p>
+<p>You built basic R objects, including numeric, integer, character, and logical vectors. You practiced creating vectors with <code>c()</code>, <code>:</code>, and <code>seq()</code>, adding an element to an existing vector, and checking objects with <code>mode()</code> and <code>length()</code> so you can confirm what kind of data an object contains and how many elements it stores.</p>
+<p>Finally, you combined same-length vectors into a simple data frame using <code>data.frame()</code>. By the end of this chapter, your main goal is not advanced analysis yet. Your goal is to build a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save the correct files for submission.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Atomic Vector</strong>: A one-dimensional R vector where all elements must be the same basic type (logical, integer, double/numeric, character, complex, or raw). If you combine different types, R will coerce them to a single type so the vector stays atomic.</p>
+<p><strong>Character Vector</strong>: A vector that stores text strings written in quotation marks, such as <code>"red"</code>, <code>"orange"</code>, or <code>"TARDIS Blue"</code>.</p>
+<p><strong>Concatenate</strong> <code>c()</code>: A function that combines values into a single vector. In this chapter, you use <code>c()</code> to create vectors and to add a new element to an existing vector.</p>
+<p><strong>Console Pane</strong>: The pane where R executes commands and prints output. Anything you type and run here is evaluated immediately, and messages, warnings, errors, and results appear here.</p>
+<p><strong>Data Frame</strong>: A rectangular table-like object in R. A data frame is made from columns, and each column is a vector. In this chapter, you create a simple data frame by combining vectors with the same length.</p>
+<p><strong>Element</strong>: One individual value stored inside a vector. For example, in <code>c("red", "blue", "green")</code>, each color name is an element.</p>
+<p><strong>Error</strong>: A message from R that means the command could not run successfully. Errors are useful information. They help you identify what R could not understand or complete.</p>
+<p><strong>File Menu</strong>: The menu in RStudio used to create, open, and save files. In this chapter, you use the File menu to create and save an R script.</p>
+<p><strong>Hexadecimal Color Code</strong>: A text code that represents a color, usually written with <code>#</code> followed by letters and numbers, such as <code>#FF0000</code> or <code>#003B6F</code>. In this chapter, hexadecimal color codes are stored as character values.</p>
+<p><strong>Integer Vector</strong>: A vector that stores whole numbers. In R, integers may be written with an <code>L</code> after the number, such as <code>4L</code> or <code>42L</code>.</p>
+<p><strong>Length</strong> <code>length()</code>: A function that counts how many elements are stored in an object. In this chapter, you use <code>length()</code> to check how many values are in a vector.</p>
+<p><strong>Logical Vector</strong>: A vector that stores logical values such as <code>TRUE</code>, <code>FALSE</code>, and sometimes <code>NA</code>.</p>
+<p><strong>Memo</strong>: A short comment in your script that explains your thinking, your goal, what the output shows, what went wrong, or what you tried to fix a problem.</p>
+<p><strong>Mode</strong> <code>mode()</code>: A function that reports the basic storage mode of an object, such as <code>"numeric"</code>, <code>"character"</code>, or <code>"logical"</code>. In this chapter, you use <code>mode()</code> to check what kind of values are stored in a vector.</p>
+<p><strong>Numeric Vector</strong>: A vector that stores numbers, including decimals and negative values.</p>
+<p><strong>R Script</strong>: A plain-text file with the <code>.R</code> extension that stores R code and comments. An R script gives you a reusable record of the code you wrote and the order it should run.</p>
+<p><strong>Scalar</strong>: A single-value object. In beginner terms, a scalar is one value stored in an object, such as <code>scalar &lt;- 42</code>.</p>
+<p><strong>Sequence Operator</strong> <code>:</code>: An operator that creates a sequence of values by ones, such as <code>1:5</code>.</p>
+<p><strong>Tenacity</strong>: The learning habit of staying with a coding problem productively. In this chapter, tenacity means documenting errors, trying a reasonable fix, checking the result, and knowing when to seek help.</p>
+<p><strong>Vector</strong>: A one-dimensional object that stores an ordered group of values. In this chapter, vectors are used to store numbers, text, and logical values.</p>
+<p><strong>Workspace</strong>: The collection of objects currently stored in your R Environment. In this chapter, you save the workspace as an <code>.RData</code> file for submission.</p>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>Fill in the blanks to complete the code in your R Script.</p>
+<p>Before you begin:</p>
+<ol type="1">
+<li>Create a new R Script in RStudio.</li>
+<li>Save it in your course folder as <code>chapter2_practice.R</code>.</li>
+<li>Complete all Practice Space tasks in that notebook.</li>
+<li>Save your <span class="glossary-term" data-term="Workspace">workspace</span> as <code>chapter2_practice.RData</code>.</li>
+</ol>
+<p>Required files to submit:</p>
+<ul>
+<li><code>chapter2_practice.R</code></li>
+<li><code>chapter2_practice.RData</code></li>
+</ul>
+<p>As you work, add short comments or memo notes explaining what your code is doing and what the output shows.</p>
+<p>If you encounter an error, document your <strong>tenacity</strong> by briefly noting what happened, what you tried, and how you fixed it or what still confuses you.</p>
+<p>Before submitting, clear your Environment and run the notebook from top to bottom. Objects need to be created in sequential order.</p>
+<p>All work must be hand-typed by you in your own voice. Do not copy and paste from AI. You make quote AI output anywhere (clear quotation marks or quote (<code>&gt;</code>) before the paragraph). Hand-type a explanation of why you’re including that quote.</p>
+<section id="task-0" class="level3">
+<h3 class="anchored" data-anchor-id="task-0">Task 0</h3>
+<p>Before you begin, make sure you have created a new R script in the Source pane. Additionally, sweep your environment before running the code. When you finish, be sure to source your entire script to ensure it runs without errors from top to bottom.</p>
+<p>Save your R script (<code>chapter2_practice.R</code>) and environment (<code>chapter2_practice.RData</code>) in your course folder.</p>
+<p>Remember to document your <strong>tenacity</strong> in a memo if you encounter any errors while completing the tasks.</p>
+<p>Save before closing RStudio. Submit to Canvas modules, as directed.</p>
+</section>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Build a numeric vector named `exponents` that contains the numbers between 0.5 and 10 using the `seq()` function.</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ </span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>exponents <span class="ot">&lt;-</span> <span class="fu">__</span>(<span class="at">from =</span> _, <span class="at">to =</span> __)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the exponents vector</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(_______)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(________)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Add Comment: "# The output shows length _ and mode ____."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a numeric vector using `:` called `list_numbers` that contains the **integer** values from 1 to 10.</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>________ <span class="ot">&lt;-</span> _ _ _</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the mode and length of the vector</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">____</span>(list_numbers)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(________)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Add Comment:  </span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The length is ___ elements (values).</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># The mode is ________.</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Add Comment: How does `mode()` report integers and decimals?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
+<p>R can store hexadecimal color codes in character vectors. <span class="glossary-term" data-term="Hexadecimal Color Code">Hexadecimal color codes</span> are six-digit codes that represent colors in web design and digital graphics.</p>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a character vector named `nerdy_palette` that contains the following hexadecimal color codes using the `c()` function.</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ </span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>______ __ <span class="fu">_</span>(<span class="st">"#7F00FF"</span>, <span class="st">"#003B6F"</span>, <span class="st">"#663399"</span>, <span class="st">"#4F97A3"</span>, <span class="st">"#FFF8E7"</span>, <span class="st">"#000000"</span>, <span class="st">"#03A062"</span>, <span class="st">"#FF00FF"</span>, <span class="st">"#CC0000"</span>)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Count the number of elements in the nerdy_palette vector </span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">______</span>(nerdy_palette)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows there are __ hexadecimal color code elements stored in the `nerdy_palette` vector.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Add "#4D9E68" to the end of the existing `nerdy_palette` vector.</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>nerdy_palette <span class="ot">&lt;-</span> <span class="fu">c</span>(____, ____)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of elements in the nerdy_palette vector</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(____)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows the updated `nerdy_palette` vector with __ elements added to the ___(beginning, middle, or end).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a vector named `color_names` that contains the following names: "Octarine," "TARDIS Blue," "Rebeccapurple," "Hooloovoo," "Cosmic Latte," "Vantablack," "Matrix Green," "Source Engine Magenta," "Command Red," and "Impossible Green." Use the `c()` function.</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ </span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>color_names __  <span class="fu">__</span>(_______ _______ _______ _______ _______ _______ _______ _______ _______ _______)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of elements in the color_names vector</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(________)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows the __ color names stored in the `color_names` character vector.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a vector named `origin` that contains "Discworld," "Doctor Who," "CSS/Web Development," "Hitchhiker's Guide to the Galaxy," "Astronomy," "Material Science," "The Matrix," "Video Gaming," "Star Trek," and "Visual Perception." Use the `c()` function.</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ </span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>______ __ c_<span class="st">"Discworld"</span>, <span class="st">"Doctor Who"</span>, <span class="st">"CSS/Web Development"</span>, <span class="st">"Hitchhiker's Guide to the Galaxy"</span>, <span class="st">"Astronomy"</span>, <span class="st">"Material Science"</span>, <span class="st">"The Matrix"</span>, <span class="st">"Video Gaming"</span>, <span class="st">"Star Trek"</span>, <span class="st">"Visual Perception"</span>_</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of elements in the origin vector</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(_______)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows the __ origins stored in the `origin` character vector.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-7" class="level3">
+<h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
+<p>Type this in your R Script, Fill in the blanks</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a data frame using `data.frame()` named `nerdy_df` that contains three columns: "Color" (`color_names`), "Hex" (`nerdy_palette`), and "Origin" (`origin`). </span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script, Fill in the blanks</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>nerdy_df <span class="ot">&lt;-</span> <span class="fu">______</span>(</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">______ =</span> color_names,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  Hex _ nerdy_palette,</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Origin =</span> ______</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script, Fill in the blanks</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(______)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows the `nerdy_df` data frame with three columns: ______, ______, and ______. </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Baehr, Jason. 2022. Deep in Thought: A Practical Guide to Teaching for Intellectual Virtues. Harvard Education Press.</p>
+<p>King, N. L. (2021). The excellent mind: Intellectual virtues for everyday life. Oxford University Press.</p>
+<p>Rus, V., Akhuseyinoglu, K., Chapagain, J., &amp; Tamang, L. J. (2021). Prompting for Free Self-Explanations Promotes Better Code Comprehension. (CSEDM workshop, EDM 2021).</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/01-tenacity/ch01-navigation.html" class="pagination-link" aria-label="Chapter 1: Navigation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 1: Navigation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/02-transparency/transparency.html" class="pagination-link" aria-label="Transparency">
+        <span class="nav-page-text">Transparency</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

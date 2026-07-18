@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 6: Missing Values – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/04-autonomy/autonomy.html" rel="next">
+<link href="../../chapters/03-courage/ch05-help-prompting.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/03-courage/courage.html">Courage</a></li><li class="breadcrumb-item"><a href="../../chapters/03-courage/ch06-missing-values.html"><span class="chapter-title">Chapter 6: Missing Values</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4:️ Structuers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help-prompting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help! Prompting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Openmindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#open-an-r-notebook" id="toc-open-an-r-notebook" class="nav-link" data-scroll-target="#open-an-r-notebook">Open an R Notebook</a></li>
+  <li><a href="#missing-values-workflow" id="toc-missing-values-workflow" class="nav-link" data-scroll-target="#missing-values-workflow">Missing Values Workflow</a>
+  <ul class="collapse">
+  <li><a href="#special-values" id="toc-special-values" class="nav-link" data-scroll-target="#special-values">Special Values</a></li>
+  <li><a href="#detecting-missing-values" id="toc-detecting-missing-values" class="nav-link" data-scroll-target="#detecting-missing-values">Detecting Missing Values</a></li>
+  <li><a href="#locating-missing-values" id="toc-locating-missing-values" class="nav-link" data-scroll-target="#locating-missing-values">Locating Missing Values</a></li>
+  <li><a href="#which-missing-value-function-should-i-use" id="toc-which-missing-value-function-should-i-use" class="nav-link" data-scroll-target="#which-missing-value-function-should-i-use">Which Missing-Value Function Should I Use?</a></li>
+  </ul></li>
+  <li><a href="#nesting-function-calls" id="toc-nesting-function-calls" class="nav-link" data-scroll-target="#nesting-function-calls">Nesting Function Calls</a>
+  <ul class="collapse">
+  <li><a href="#locating-missing-values-with-nesting" id="toc-locating-missing-values-with-nesting" class="nav-link" data-scroll-target="#locating-missing-values-with-nesting">Locating Missing Values with Nesting</a></li>
+  <li><a href="#summarizing-missingness" id="toc-summarizing-missingness" class="nav-link" data-scroll-target="#summarizing-missingness">Summarizing “Missingness”</a></li>
+  <li><a href="#imputation" id="toc-imputation" class="nav-link" data-scroll-target="#imputation">Imputation</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  <li><a href="#task-7" id="toc-task-7" class="nav-link" data-scroll-target="#task-7">Task 7</a></li>
+  <li><a href="#task-8" id="toc-task-8" class="nav-link" data-scroll-target="#task-8">Task 8</a></li>
+  <li><a href="#task-9" id="toc-task-9" class="nav-link" data-scroll-target="#task-9">Task 9</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/03-courage/courage.html">Courage</a></li><li class="breadcrumb-item"><a href="../../chapters/03-courage/ch06-missing-values.html"><span class="chapter-title">Chapter 6: Missing Values</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 6: Missing Values</span></h1>
+<p class="subtitle lead">Recognizing and Handling Missing Data in R</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In this chapter, you will practice R habits that help prevent your analysis from being quietly wrong. Code can run without producing a useful or trustworthy result. This chapter focuses on checking assumptions, understanding function defaults, and handling missing values deliberately.</p>
+<p>You will work with special values like <code>NA</code> and <code>NaN</code>, practice summary functions, detect and locate missing values, and compare two basic ways to handle missing data: removing missing values and replacing them with a simple summary value. You will also practice nesting functions, which means putting one function inside another to solve multi-step problems.</p>
+<p>In Chapter Six, you will practice how to:</p>
+<ul>
+<li><p>🕳️ Recognize <code>NA</code> as missing information and <code>NaN</code> as an undefined numeric result.</p></li>
+<li><p>🦠 Describe how missing values can affect calculations in R.</p></li>
+<li><p>⚙️ Recognize that many R functions have default arguments that affect results.</p></li>
+<li><p>🧹 Use <code>na.rm = TRUE</code> to tell summary functions to ignore missing values.</p></li>
+<li><p>🚨 Use <code>anyNA()</code> to check whether a vector contains missing values.</p></li>
+<li><p>🔍 Use <code>is.na()</code> and <code>which()</code> to identify where missing values are located.</p></li>
+<li><p>📋 Use <code>sum(is.na(x))</code> and <code>mean(is.na(x))</code> to summarize how much data is missing.</p></li>
+<li><p>🩹 Recognize the difference between removing missing values and imputing missing values with a summary value.</p></li>
+<li><p>🧅 Read nested function calls from the inside out.</p></li>
+<li><p>🕸️ Explain why compact code can be efficient but harder to read and debug.</p></li>
+</ul>
+</section>
+<section id="open-an-r-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="open-an-r-notebook">Open an R Notebook</h2>
+<p>Before you follow along with Chapter 6, set yourself up the same way you did in Chapter 5. Your work will be readable and helpful for you to study for review.</p>
+<p>🎯 Please open a new R Notebook in your course folder named <code>chapter6_notes.Rmd</code> and add a date to the YAML header. Use this document to take notes, practice the chapter content, and memo about what you are learning.</p>
+<p>The <strong>YAML header</strong> is the setup block at the very top of an R Notebook. It tells R Markdown the document title, author, date, and output type.</p>
+<ol type="1">
+<li><p>Open RStudio → File → New File → R Notebook.</p></li>
+<li><p>Save it in your course folder as: <code>chapter6_notes.Rmd</code>.</p></li>
+<li><p>In your YAML header at the top:</p></li>
+</ol>
+<ul>
+<li><p>Update the <code>title</code> to match this chapter.</p></li>
+<li><p>Include a <code>date</code> (hard-coded or dynamic, your choice).</p></li>
+<li><p>Add your name as the <code>author</code>.</p></li>
+</ul>
+<p>For example, your YAML header might look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 6 Notes"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"[Your Name]"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The date can be typed directly, such as “<code>2026-05-20</code>”, or it can be dynamic using <code>r Sys.Date()</code> so the document updates the date automatically when it renders.</p>
+<ol start="4" type="1">
+<li><p>Remove the default content.</p></li>
+<li><p>Use headings as you work. At minimum, create section headings that match the chapter structure (e.g., <code># Special Values</code>, <code># Built-in Functions</code>, <code># Missing Values Workflow</code>, <code># Nesting</code>). This creates a readable outline.</p></li>
+<li><p>Memo as you go.</p></li>
+</ol>
+<ul>
+<li><p>Inside chunks: use <code>#</code> for code comments (otherwise R tries to run the text as code).</p></li>
+<li><p>Outside chunks: write normal text without a <code>#</code>.</p>
+<ul>
+<li>If you hit an error, write a one-sentence note about what you changed to fix it. Learned something new? Write a one-sentence note about that too.</li>
+<li>Create these notes as a resource for you to review later.</li>
+</ul></li>
+</ul>
+<hr>
+<p>Next, you’ll focus on what NA means, how missing values “propagate” through calculations, and how to detect and locate missing values.</p>
+</section>
+<section id="missing-values-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values-workflow">Missing Values Workflow</h2>
+<p>The <code>na.rm</code> argument in the <code>mean()</code> function has a default value of <code>FALSE</code>, meaning that if you don’t specify it, the function will include <code>NA</code> values in its calculation.</p>
+<section id="special-values" class="level3">
+<h3 class="anchored" data-anchor-id="special-values">Special Values</h3>
+<p>In R, <span class="glossary-term" data-term="Missing Values">missing values</span> are represented by the <span class="glossary-term" data-term="Special Values">special value</span> symbol <code>NA</code>.</p>
+<p>R has several <span class="glossary-term" data-term="Special Values">special values</span> that represent non-standard data states.</p>
+<ul>
+<li><span class="glossary-term" data-term="NA">NA</span> (“Not Available”) signals <em>missing</em> information: the value simply was not recorded.</li>
+<li><span class="glossary-term" data-term="NaN">NaN</span> (“Not a Number”) signals an <em>undefined</em> numeric result, such as 0 divided by 0.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="sc">/</span> <span class="dv">0</span>      <span class="co"># Produces NaN – undefined arithmetic</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span>         <span class="co"># Built-in constant representing a missing value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 R prints <code>NA</code> and <code>NaN</code> in the Console so you can spot them quickly. Even though they look similar, they do not mean exactly the same thing.</p>
+<ul>
+<li><code>NA</code> means the value is absent or unknown.</li>
+<li><code>NaN</code> means the result is not a valid number, usually because the math operation is undefined.</li>
+</ul>
+<p>We will mostly focus on <code>NA</code> in this chapter because missing values are common in real datasets. Missing values can occur in datasets because of incomplete data entries such as non-responses in surveys, or when joining two datasets. R will do the operation, but the result becomes <code>NA</code> because the value is unknown; this is called <span class="glossary-term" data-term="Propagation">propagation</span>.</p>
+<p>📜 The SYNTAX (with na.rm default argument):</p>
+<p><code>mean(x, na.rm = FALSE)</code></p>
+<p>where <code>na.rm</code> is a logical argument that tells the function whether to remove <code>NA</code> values before calculating the mean.</p>
+<p>🎯 Add <code>NA</code> value(s) to the cursed sequence and calculate the mean while handling missing values.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cursed_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">23</span>, <span class="dv">42</span>, <span class="cn">NA</span>)  <span class="co"># includes a missing value</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cursed_seq &lt;- c(cursed_seq, NA, NA)    # uncomment to add more missing values</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cursed_seq)                       <span class="co"># default is na.rm = FALSE → returns NA</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cursed_seq, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)         <span class="co"># Change default to TRUE to ignore missing values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The first <code>mean()</code> call returns <code>NA</code> because the default behavior includes missing values in the calculation. The second call uses <code>na.rm = TRUE</code> to ignore the <code>NA</code> values, allowing the function to compute the mean of the remaining numbers.</p>
+<hr>
+<p>In many summary functions, any <code>NA</code> in the vector causes the result to be <code>NA</code> unless you tell R to remove missing values first.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 23%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sum()</code>, <code>prod()</code></td>
+<td>Sum/product</td>
+<td><code>sum(x, na.rm = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td><code>mean()</code>, <code>median()</code></td>
+<td>Central tendency</td>
+<td><code>mean(x, na.rm = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td><code>min()</code>, <code>max()</code>, <code>range()</code></td>
+<td>Extrema/range</td>
+<td><code>range(x, na.rm = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td><code>sd()</code>, <code>var()</code></td>
+<td>Spread</td>
+<td><code>sd(x, na.rm = TRUE)</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="detecting-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-missing-values">Detecting Missing Values</h3>
+<p>A quick yes/no check prevents surprises later in your workflow.</p>
+<ul>
+<li><code>anyNA(x)</code> returns <code>TRUE</code> if <em>any</em> element in <code>x</code> is <code>NA</code> or <code>NaN</code>.</li>
+</ul>
+<p>📜 The SYNTAX (basic):</p>
+<p><code>anyNA(x)</code></p>
+<p>where <code>x</code> is the vector you want to check for missing values.</p>
+<p>🎯 Use <code>anyNA()</code> to check if there are any missing values in a vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Vector_NA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">7</span>, <span class="cn">NA</span>, <span class="dv">12</span>)  <span class="co"># Our sample data – one value is missing</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(Vector_NA)              <span class="co"># TRUE means “Something is missing!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 If was my data and I saw <code>FALSE</code>, I could relax; the vector has no gaps. Seeing TRUE tells me to investigate further.</p>
+</section>
+<section id="locating-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="locating-missing-values">Locating Missing Values</h3>
+<p>There are two useful functions to find the exact positions of missing values in a vector:</p>
+<ul>
+<li><p><code>is.na(x)</code> returns a logical vector: <code>TRUE</code> wherever x is <code>NA</code> or <code>NaN</code>.</p></li>
+<li><p><code>which(logical_vec)</code> converts <code>TRUE</code> positions into numeric indices, which are handy for slicing or replacing values using <span class="glossary-term" data-term="Positional Indexing">positional indexing</span>.</p></li>
+</ul>
+<p>🎯 Use <code>is.na()</code> and <code>which()</code> to locate missing values in <code>Vector_NA</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(Vector_NA)          <span class="co"># Notice that it is TRUE at position 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>is.na()</code> function creates a logical vector indicating which elements are missing. The third element is TRUE, indicating that the third element in <code>Vector_NA</code> is <code>NA</code>.</p>
+<p>Vectors can be quite long, so it’s often more useful to get the numeric indices of missing values. Use <code>which()</code> to extract those indices.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>logical_NA <span class="ot">&lt;-</span> <span class="fu">is.na</span>(Vector_NA)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(logical_NA)   <span class="co"># Returns index 3 directly</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>is.na()</code> function creates a logical vector <code>logical_NA</code> indicating which elements are missing, while the <code>which()</code> function extracts the <em>indices</em> of those missing values (see <strong>Positional Indexing</strong>).</p>
+</section>
+<section id="which-missing-value-function-should-i-use" class="level3">
+<h3 class="anchored" data-anchor-id="which-missing-value-function-should-i-use">Which Missing-Value Function Should I Use?</h3>
+<p>Several functions help you work with missing values. They answer different questions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Function</th>
+<th>What it returns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Are there any missing values?</td>
+<td><code>anyNA(x)</code></td>
+<td>One <code>TRUE</code> or <code>FALSE</code> answer</td>
+</tr>
+<tr class="even">
+<td>Which values are missing?</td>
+<td><code>is.na(x)</code></td>
+<td>A logical vector</td>
+</tr>
+<tr class="odd">
+<td>What positions are missing?</td>
+<td><code>which(is.na(x))</code></td>
+<td>Numeric index positions</td>
+</tr>
+<tr class="even">
+<td>How many values are missing?</td>
+<td><code>sum(is.na(x))</code></td>
+<td>A count</td>
+</tr>
+<tr class="odd">
+<td>What proportion is missing?</td>
+<td><code>mean(is.na(x))</code></td>
+<td>A proportion</td>
+</tr>
+</tbody>
+</table>
+<p>The key is to choose the function that matches your question. If you only need a quick yes/no check, use <code>anyNA()</code>. If you need the exact positions, use <code>which(is.na())</code>.</p>
+</section>
+</section>
+<section id="nesting-function-calls" class="level2">
+<h2 class="anchored" data-anchor-id="nesting-function-calls">Nesting Function Calls</h2>
+<p><span class="glossary-term" data-term="Nesting Function Calls">Nesting function calls</span> means putting one function call inside another function call. The output of the inner function becomes an argument to the outer function. This works because functions return values. R can immediately pass a returned value into the next function.</p>
+<p>🎯 Use <code>sample()</code> to randomly select 5 numbers from the vector <code>travel_jumps</code>, then calculate the mean of those sampled numbers by nesting the <code>sample()</code> function inside the <code>mean()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create travel_jumps vector</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>travel_jumps <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>)   </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read nested code from the inside out</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(travel_jumps, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))  <span class="co"># sample then average</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>R reads this as:</p>
+<ol type="1">
+<li>Run <code>sample(travel_jumps, size = 5, replace = TRUE)</code> first.</li>
+<li>Return 5 sampled values.</li>
+<li>Pass those 5 values into <code>mean()</code>.</li>
+<li>Calculate the average.</li>
+</ol>
+<p>Nesting is the simplest form of function composition. It builds a multi-step transformation by combining small, single-purpose functions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nesting with three functions; creating the travel_jumps object</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The nesting example with three functions shows that the sequence is first calculated, then sampled, and finally, the sample mean is computed.</p>
+<hr>
+<p>Real work is rarely one step. Nesting is the base-R way to express that workflow without writing a ton of intermediate objects. However, nesting creates parentheses-heavy code that’s harder to read and debug. In later chapters, we will learn how to pipe multi-step workflows. For now, we’ll practice finding missing values with nesting functions.</p>
+<section id="locating-missing-values-with-nesting" class="level3">
+<h3 class="anchored" data-anchor-id="locating-missing-values-with-nesting">Locating Missing Values with Nesting</h3>
+<p>🎯 Create a large vector with some missing values using <code>sample()</code> and <code>c()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>LargeVec <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">10</span>)))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(LargeVec)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 We used the <code>c()</code> function in Chapter 2. Here we have nested <code>c()</code> inside of <code>sample()</code>. We also used the <code>rep()</code> function, which is covered in more detail in a later chapter.</p>
+<p>🎯 Use <code>which()</code> and <code>is.na()</code> to find the positions of missing values in a large vector by nesting the <code>is.na()</code> function inside the <code>which()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(LargeVec))                    <span class="co"># ▶ Where are the gaps?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The<code>is.na()</code> function creates a <em>logical</em> vector indicating which elements are missing, and the <code>which()</code> function determines the indices of those <code>TRUE</code> values. The numbers are the numeric indices (position) of the <code>NA</code> values.</p>
+</section>
+<section id="summarizing-missingness" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-missingness">Summarizing “Missingness”</h3>
+<p>As a researcher, knowing <em>how much</em> data is missing guides your next step.</p>
+<p>A single <code>NA</code> might be harmless. If half of your data is missing, that might be big problem.</p>
+<p>For example, if 1 out of 20 values is missing, then 5% of the vector is missing. If 10 out of 20 values are missing, then 50% of the vector is missing. Those situations should not be treated the same way. If and how you analyze this data depends on how much is missing.</p>
+<p>🎯 Use <code>sum()</code> and <code>mean()</code> with <code>is.na()</code> to summarize missing values in a large vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))    </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(LargeVec))   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>sum(is.na(LargeVec))</code> expression counts the total number of missing values in <code>LargeVec</code> by summing the <code>TRUE</code> values from <code>is.na()</code>. The <code>mean(is.na(LargeVec))</code> expression calculates the proportion of missing values by taking the mean of the logical vector returned by <code>is.na()</code>, where <code>TRUE</code> is treated as 1 and <code>FALSE</code> as 0. Fifty percent missing values yield a mean of 0.5.</p>
+</section>
+<section id="imputation" class="level3">
+<h3 class="anchored" data-anchor-id="imputation">Imputation</h3>
+<p>Now that you can <em>detect</em> and <em>locate</em> gaps, you have to decide what to do about them. There is no universal “best” choice because each option makes assumptions.</p>
+<p>In this chapter, we’ll use mean imputation is a practice method for learning replacement logic. It is not automatically the best choice in real research. Replacing missing values with the mean can make the data look more complete than it really is, and it can distort the distribution, especially the variance.</p>
+<p>If you do not know why values are missing, be cautious.</p>
+<ul>
+<li><p><strong>Option 1</strong>: Remove missing values (complete-case analysis). Simple and common, but you may drop a lot of data (and potentially bias results).</p></li>
+<li><p><strong>Option 2</strong>: Replace missing values with a summary value (simple imputation). Keeps the vector length the same, but it can distort the distribution (especially the variance).</p></li>
+</ul>
+<p>In this chapter we’re practicing on a single vector, so removing missing values often looks “safer.” In real analysis, though, values live in rows of a dataset (one row = one person/observation) with multiple columns. If you remove rows because one column is missing, you also throw away valid information in other columns. That can:</p>
+<ul>
+<li><p>shrink your sample size (less stable results),</p></li>
+<li><p>change which groups are represented (bias),</p></li>
+<li><p>break analyses that require the full row structure (plots, models, group summaries).</p></li>
+</ul>
+<hr>
+<p>🌳 Imagine a class dataset with <code>student_id</code>, <code>major</code>, <code>exam1</code>, and <code>exam2</code>. If <code>exam2</code> is missing for some students, removing those students from the analysis (rows) means we’d also lose their exam1 scores and their major. If our goal is “average Exam 1 by major,” dropping rows because Exam 2 is missing can silently change the story. This is especially true if missing Exam 2 happens more in one major than another.</p>
+<hr>
+<p>The bottom line is that there is no one-size-fits-all solution. If you only need a quick summary of one variable, removing <code>NA</code>s is often reasonable. If you need to keep rows aligned across variables, or you are comparing groups, you may consider imputation.</p>
+<p>Whatever you choose, you need to document that choice and explain why it made sense for your goal. This is one reason why writing memos around your analysis is so important.</p>
+<p>Next, you’ll practice both strategies on a vector so you can see the trade-off clearly. Later, you’ll apply the same decision logic to multi-column datasets.</p>
+<hr>
+<section id="option-1" class="level4">
+<h4 class="anchored" data-anchor-id="option-1">Option 1</h4>
+<p><strong>Remove missing values</strong></p>
+<p>🎯 Use indexing with !is.na() to keep only the observed (non-missing) values in LargeVec.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>clean_vec <span class="ot">&lt;-</span> LargeVec[<span class="sc">!</span><span class="fu">is.na</span>(LargeVec)]   <span class="co"># Keeps only observed values</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>clean_vec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <code>is.na(LargeVec)</code> returns a logical vector (<code>TRUE</code> for missing, <code>FALSE</code> for present). The <code>!</code> flips it (so <code>TRUE</code> means “keep this value”). The brackets <code>[...]</code> then use that logical vector to select only the elements you want.</p>
+<hr>
+</section>
+<section id="option-2" class="level4">
+<h4 class="anchored" data-anchor-id="option-2">Option 2</h4>
+<p><strong>Impute missing values (replace NA with the mean)</strong></p>
+<p>Now that you can detect and locate gaps, you have to decide what to do about them; one option is to <span class="glossary-term" data-term="Impute">impute</span> missing values by replacing them with a summary value. It means “fill in missing values.” A common simple imputation method is to replace missing values with the mean of the observed values.</p>
+<p>🎯 Make a copy of LargeVec, then replace only the missing values with the mean of the observed values.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>imputed <span class="ot">&lt;-</span> LargeVec     <span class="co"># Make a copy to preserve original</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The reason we make a copy is that we want to keep the original vector with its missing values intact for comparison. This way, we can see the effect of imputation without losing the original data.</p>
+<p>💡 <strong>Tip:</strong> Once we make a copy, we use that copy name everywhere in the imputation line. This new version of the vector is called <code>imputed</code>, and it is the version we will use next. <code>imputed</code> is the vector’s <em>name</em>. The name is descriptive of what the difference will be between it and the original <code>LargeVec</code> once we have replace only the missing values with the mean of the observed values. It is good practice to name objects in meaningful ways.</p>
+<p>We’re doing three actions on the same object (<code>imputed</code>):</p>
+<p>🎯 (1) identify missing positions, (2) compute a replacement value, and (3) write the replacements back.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>imputed[<span class="fu">is.na</span>(imputed)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(imputed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>imputed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <code>is.na(imputed)</code> identifies exactly where the gaps are, and <code>imputed[...] &lt;- ...</code> replaces only those positions. The <code>na.rm = TRUE</code> argument is required here. Without it, <code>mean(imputed)</code> would return <code>NA</code> because the input contains missing values.</p>
+<p>The object we are editing is on the left side: <strong><code>imputed[</code></strong><code>is.na(imputed)</code><strong><code>]</code></strong>.</p>
+<p>The object we are using to find the missing positions is inside brackets: <strong><code>is.na(imputed)</code></strong>.</p>
+<p><strong>The general replacement pattern is</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>object[positions_to_replace] <span class="ot">&lt;-</span> replacement_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> You might think, “The missing values came from <code>Large_Vec</code>, so I should check <code>Large_Vec</code>.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value (mean): <strong><code>mean(imputed, na.rm = TRUE)</code></strong></p>
+</blockquote>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> You might think, “mean of observed values” means “mean of the original” and want to use <code>LargeVec</code>. But <code>imputed</code> currently equals <code>Large_Vec</code>, so the mean is identical either way at that moment. As soon as you start changing imputed, mixing names can cause logic bugs. You might replace values in one object using positions or summaries computed from a different object.</p>
+</blockquote>
+<p>In summary, wherever a element in <code>imputed</code> is missing, we replace those spots with the mean of <code>imputed</code> <em>while ignoring missing values so it can calculate the mean</em>.</p>
+<p>✅ Confirm your result by comparing <code>sum(is.na(LargeVec))</code> versus <code>sum(is.na(imputed)).</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))      <span class="co"># Original vector – should print number 10</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(imputed))       <span class="co"># Imputed vector – should print 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The first <code>sum(is.na(LargeVec))</code> call counts the number of missing values in the original vector, which should be greater than 1. The second <code>sum(is.na(imputed))</code> call counts the missing values in the imputed vector, which should be 0, confirming that all missing values have been replaced.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this chapter, you strengthened your R workflow by learning how to recognize and handle special values in R. You practiced the difference between <code>NA</code>, which means information is missing, and <code>NaN</code>, which means a numeric result is undefined. You also learned that missing values can quietly affect your calculations because many R functions return <code>NA</code> unless you tell them how to handle missingness.</p>
+<p>You built a practical missing-values workflow. You practiced using <code>anyNA()</code> to check whether missing values exist, <code>is.na()</code> to identify which values are missing, <code>which()</code> to locate their positions, <code>sum(is.na(x))</code> to count missing values, and <code>mean(is.na(x))</code> to calculate the proportion missing. You also practiced using <code>na.rm = TRUE</code> so summary functions can calculate results while ignoring missing values.</p>
+<p>Finally, you practiced two basic strategies for handling missing values: removing missing values with logical indexing and replacing missing values with a simple imputed value. You also practiced nesting function calls so that one function’s result can be passed directly into another function. Your main takeaway is that strong R work depends on checking assumptions, understanding defaults, documenting your choices, and making sure your code is not only running, but producing results you can trust.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Impute</strong>: To replace missing or unusable values (e.g., <code>NA</code>) with substituted values—often a plausible estimate based on the observed data (such as mean/median imputation or model-based predictions)—so the dataset can be analyzed without dropping incomplete cases. Because imputed values are estimates, you should document what method you used and why.</p>
+<p><strong>Missing Values</strong>: Data values that are unknown or not recorded; in R they are represented by <code>NA</code> (“Not Available”). <code>NA</code> is a special missing-value indicator (with typed versions like <code>NA_integer_</code>, <code>NA_real_</code>, and <code>NA_character_</code>), and many calculations will return <code>NA</code> if any missing values are present unless you explicitly remove them (often via <code>na.rm = TRUE</code>, which defaults to <code>FALSE</code> in functions like <code>mean()</code>)</p>
+<p><strong>NA</strong>: A special constant that marks a missing value (“Not Available”)—meaning the data point is unknown or not recorded. R also provides typed missing values like <code>NA_integer_</code>, <code>NA_real_</code>, <code>NA_character_</code>, and <code>NA_complex_</code> to match the underlying data type.</p>
+<p><strong>NaN</strong>: A special numeric constant (“Not a Number”) that represents an undefined arithmetic result in floating-point math (for example, <code>0/0</code> or other invalid operations). <code>NaN</code> is non-finite (not a regular number).</p>
+<p><strong>Nesting Function Calls</strong>: Writing one function call inside another so the inner function runs first and its returned value becomes an argument to the outer function (for example, <code>mean(sample(x, 5))</code>). This works because a function call can appear anywhere an expression is allowed, and functions return a value that can be passed directly into the next call.</p>
+<p><strong>Positional Indexing</strong>: Indexing a vector using numeric positions (for example, <code>x[1]</code> for the first element or <code>x[c(1, 3)]</code> for the first and third). Positions are based on the current order of the vector.</p>
+<p><strong>Propagation</strong>: R’s default behavior where an unknown value “spreads” through a computation. If an expression includes <code>NA</code>, the result will usually be <code>NA</code> (e.g., <code>5 + NA</code> returns <code>NA</code>) because the outcome can’t be determined without the missing information. This is often called <strong>NA propagation</strong>, and it’s why many summary functions return <code>NA</code> unless you explicitly remove missing values (e.g., <code>na.rm = TRUE</code>).</p>
+<p><strong>Special Values</strong> (NA, NaN, Inf, -Inf, NULL): Reserved constants in R that represent non-standard values: <code>NA</code> for missing data, <code>NaN</code> for undefined numeric results, <code>Inf</code>/<code>-Inf</code> for positive/negative infinity, and <code>NULL</code> for “no value” (an empty/null object). In practice, use <code>is.na()</code> to detect <code>NA</code> and <code>NaN</code>, <code>is.nan()</code> to detect <code>NaN</code> specifically (not <code>NA</code>), <code>is.infinite()</code>/<code>is.finite()</code> to handle infinities and other non-finite values, and <code>is.null()</code> to test for <code>NULL</code>.</p>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>Fill in the blanks and answer the short prompts in your R Notebook. This Practice Space helps you check whether you can organize a notebook, read an R help page, use a function argument, and knit your work into an HTML report.</p>
+<p>Before you begin:</p>
+<ol type="1">
+<li>Create a new R Notebook in RStudio.</li>
+<li>Save it in your course folder as <code>chapter6_practice.Rmd</code>.</li>
+<li>Complete each task in order.</li>
+<li>Add short memo notes throughout your notebook. Your memo notes should explain what your code does, what output you expected, what surprised or confused you, and what you would check next if something did not work.</li>
+</ol>
+<p>In this Practice Space, you will see two kinds of memo prompts:</p>
+<ul>
+<li>🗣 <strong>Add Comments</strong> asks you to explain what the code or output shows.</li>
+<li>🪞 <strong>Reflect</strong> asks you to explain your thinking process, what confused you, what changed in your understanding, or what strategy you would use next.</li>
+</ul>
+<p>These are there to help you practice the habit of writing memos as you work. <strong>In each task, you can choose whether to answer one, two, or all memo prompts.</strong></p>
+<p>If you encounter an error, document your <strong>tenacity</strong> by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (<strong>transparency</strong>). Show <strong>courage</strong> by sharing your thinking process, even if it includes mistakes or confusion.</p>
+<p>You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using <code>&gt;</code>. Then hand-type your own explanation of why you are including that quote.</p>
+<p>Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.</p>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
+<p>🧭 <strong>Help-file scavenger hunt</strong> (required vs default)</p>
+<ol type="1">
+<li>🎯 Use <code>?sample</code> to learn about the <code>sample()</code> function.</li>
+</ol>
+<ul>
+<li>Focus first on the <code>sample()</code> Usage line, not the <code>sample.int()</code> line.</li>
+</ul>
+<ol start="2" type="1">
+<li><p>In one sentence, explain how you can tell required vs default arguments from the <strong>Usage</strong> line.</p></li>
+<li><p>Write the Usage lines exactly as they appear (copy/paste is fine), then label:</p></li>
+</ol>
+<ul>
+<li><p>TWO required arguments</p></li>
+<li><p>TWO default arguments for <code>sample()</code> exactly as they appear in the Usage section. How you can tell which arguments are required?</p></li>
+</ul>
+<p>🗣 Add Comments: Explain how the Usage line helped you decide which arguments were required and which had default values.</p>
+<p>🪞 Reflect: What part of the help page was easiest to interpret? What part was still confusing or too technical?</p>
+</section>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
+<p>🛠 <strong>Build a random data set</strong></p>
+<p>🎯 Create scores as 28 values. That means you will create 25 random integers from 60 through 100, then add 3 missing values (<code>NA</code>) at the end.</p>
+<ol type="1">
+<li>First, use <code>seq()</code> to create the possible score values from 60 through 100. Store that sequence as <code>pool</code>.</li>
+</ol>
+<p>💡 <strong>Tip:</strong> For this task, practice using <code>seq()</code> with separate inputs for the starting value and ending value. Do not use the : shortcut inside <code>seq()</code> here. If you are unsure what arguments <code>seq()</code> expects, look at <code>?seq</code> and focus on the Usage line.</p>
+<ol start="2" type="1">
+<li><p>Then use <code>sample()</code> to draw 25 values from pool, with replacement. Store those sampled values as scores_numbers.</p></li>
+<li><p>Finally, use <code>c()</code> to add three <code>NA</code> values to the end of <code>scores_numbers</code>. Store the full vector as scores.</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> ____                      <span class="co"># use seq() to create 60 through 100</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>scores_numbers <span class="ot">&lt;-</span> ____            <span class="co"># use sample() to draw 25 values (with replacement)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(____, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)     <span class="co"># add 3 `NA` to the end of `scores_numbers` using `c()`</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the length of scores</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">_____</span>(scores)                 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain why <code>scores</code> has 28 elements even though <code>sample()</code> only drew 25 values.</p>
+<p>🪞 Reflect: Which part of the code built the possible values, which part randomly selected values, and which part added missing values? How did checking <code>length(scores)</code> confirm your thinking?</p>
+</section>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
+<p>⚠️ <strong>Handle missing data</strong></p>
+<p>🎯 Using <code>scores</code> from Task 2:</p>
+<ol type="1">
+<li><p>Count missing values. Store as <code>n_missing</code>.</p></li>
+<li><p>Compute the mean with defaults. Store as <code>average_raw</code>.</p></li>
+<li><p>Compute the mean excluding <code>NA</code>s and store it as <code>average_score</code>.</p></li>
+<li><p>Explain why <code>average_raw</code> behaves the way it does (use the word “default”).</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n_missing <span class="ot">&lt;-</span> ____                 <span class="co"># hint: is.na() + sum()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of missing values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>____        <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>average_raw <span class="ot">&lt;-</span> <span class="fu">mean</span>(____)         <span class="co"># what happens?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>average_score <span class="ot">&lt;-</span> <span class="fu">mean</span>(____, ____)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ print the mean</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain why <code>average_raw</code> returns <code>NA</code>. Use the word <strong>default</strong> in your explanation.</p>
+<p>🪞 Reflect: Before you ran the code, did you expect R to ignore the missing values or return <code>NA</code>? How did this task change your understanding of how R handles missing values?</p>
+</section>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
+<p>🔎 <strong>Locate missing values</strong></p>
+<p>🎯 Using <code>scores</code> from Task 2:</p>
+<ol type="1">
+<li><p>Use <code>is.na()</code> to create a logical vector showing which elements of scores are missing; store it as <code>scores_is_missing</code>.</p></li>
+<li><p>Nest <code>is.na()</code> inside <code>which()</code> to find the positions (indices) of the missing values; store as <code>missing_positions</code>.</p></li>
+<li><p>Verify your result</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>scores_is_missing <span class="ot">&lt;-</span> <span class="fu">is.na</span>(____)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>missing_positions <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">____</span>(____))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print a logical vector</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print indices of missing values</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(____)       <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain the difference between the output of <code>is.na(scores)</code> and the output of <code>which(is.na(scores))</code>.</p>
+<p>🪞 Reflect: Which output would be more useful if you only wanted to know whether values were missing? Which output would be more useful if you needed to replace or inspect the exact missing positions?</p>
+</section>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
+<p>📦 <strong>Nesting functions</strong></p>
+<p>🎯 Compute the mean of 5 random draws from <code>scores</code> in one line, and make sure it still works even if the draw includes <code>NA</code>. 💡 <strong>Tip:</strong> Read the nested code from the inside out. <code>sample()</code> should happen first. Then <code>mean()</code> should summarize the sampled values. Use <code>na.rm = TRUE</code> inside <code>mean()</code> so the mean can still be calculated if the sample includes <code>NA</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>mean_of_five <span class="ot">&lt;-</span> ____   </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check  </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>mean_of_five</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain which function runs first in your nested code and why <code>na.rm = TRUE</code> is needed.</p>
+<p>🪞 Reflect: Was the nested version easier or harder to understand than writing the steps separately? If you were debugging this code, would you keep it nested or break it into smaller objects? Explain why.</p>
+</section>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
+<p>🕰 <strong>Quick time-stamp</strong></p>
+<p>🎯 Use <code>Sys.Date()</code> and <code>Sys.time()</code> to create two separate objects, <code>today_date</code> and <code>now_time</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>today_date <span class="ot">&lt;-</span> ____</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>now_time <span class="ot">&lt;-</span> ____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain the difference between the output of <code>Sys.Date()</code> and <code>Sys.time()</code>.</p>
+<p>🪞 Reflect: Why might a researcher want a report to include the date or time when the code was run? How could a time-stamp support reproducibility or transparency?</p>
+</section>
+<section id="task-7" class="level3">
+<h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
+<p>🧹 <strong>Handling Missing Values</strong></p>
+<p>🎯 Using scores from Task 2:</p>
+<p><strong>Part A</strong> — Remove <code>NA</code> values (“complete-case” for a vector)</p>
+<ol type="1">
+<li><p>Create <code>scores_clean</code> by keeping only the observed (non-missing) values in <code>scores</code>.</p></li>
+<li><p>Verify that <code>scores_clean</code> has 3 fewer values than <code>scores</code>.</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>scores_clean <span class="ot">&lt;-</span> scores[<span class="sc">!</span><span class="fu">______</span>(_________)]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)          <span class="co"># should print 28</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores_clean)    <span class="co"># should print 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain what <code>is.na(scores)</code> identifies, what <code>!is.na(scores)</code> changes, and how bracket indexing uses that result to create <code>scores_clean</code>.</p>
+<p>🪞 Reflect: Why is removing missing values simple for one vector but potentially risky in a larger dataset with many columns?</p>
+<p><strong>Part B</strong> — Impute: replace NA with the mean of present values</p>
+<ol type="1">
+<li><p>Make a copy of <code>scores</code> named <code>scores_imputed</code> (so you don’t overwrite the original).</p></li>
+<li><p>Replace the missing values in <code>scores_imputed</code> with the mean of the observed values.</p></li>
+<li><p>Verify there are <strong>0</strong> missing values after imputation.</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>scores_imputed <span class="ot">&lt;-</span> _________</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>scores_imputed[<span class="fu">____</span>(_)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(_____, <span class="at">na.rm =</span> ______)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scores_imputed))     <span class="co"># should print 0</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(scores_imputed)           <span class="co"># should print a number (not NA)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Add Comments: Explain why you made a copy named <code>scores_imputed</code> before replacing missing values.</p>
+<p>🪞 Reflect: What assumption are you making when you replace missing values with the mean? Why should this choice be documented instead of treated as automatic?</p>
+</section>
+<section id="task-8" class="level3">
+<h3 class="anchored" data-anchor-id="task-8">Task 8</h3>
+<p>🗣 <strong>Reflection</strong></p>
+<p>In one sentence, explain the difference between a <em>function object</em> such as <code>mean</code> and a <em>function call</em> such as <code>mean()</code>.</p>
+<p>🪞 Reflect: What kind of mistake might happen if you type a function name without parentheses when you meant to run the function?</p>
+</section>
+<section id="task-9" class="level3">
+<h3 class="anchored" data-anchor-id="task-9">Task 9</h3>
+<p>🎯 <strong>Step 1: Sweep your Environment (start clean).</strong><br>
+Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
+<p>🎯 <strong>Step 2: Run everything top-to-bottom.</strong><br>
+Use <strong>Run → Run All</strong> to execute every chunk in order.</p>
+<p>🎯 <strong>Step 3: Save and submit.</strong><br>
+After your notebook runs without errors, save your notebook (<code>.Rmd</code>) and knit to HTML (<code>.HTML</code>) for submission to Canvas, as directed.</p>
+<p>💡 <strong>Tip:</strong> After you knit, look in your course folder for two files with the same name. One file ends in .Rmd and one ends in .html. Upload the .html file. You can check which is which because one opens in R and the other usually opens in a web browser.</p>
+<hr>
+<p>🪞 Final Reflection: What was one place where your code did not behave the way you expected? What did you check or change before submitting? How much time did you spend completing the Practice Space? Did you complete the Guided Activity first?</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/03-courage/ch05-help-prompting.html" class="pagination-link" aria-label="Chapter 5 Help! Prompting">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 5 Help! Prompting</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/04-autonomy/autonomy.html" class="pagination-link" aria-label="Autonomy">
+        <span class="nav-page-text">Autonomy</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

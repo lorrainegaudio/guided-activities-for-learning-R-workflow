@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 5 Help! – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/03-courage/ch05-help-prompting.html" rel="next">
+<link href="../../chapters/03-courage/courage.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/03-courage/courage.html">Courage</a></li><li class="breadcrumb-item"><a href="../../chapters/03-courage/ch05-help.html"><span class="chapter-title">Chapter 5 Help!</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4:️ Structuers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help-prompting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help! Prompting</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Openmindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#notebook-html" id="toc-notebook-html" class="nav-link" data-scroll-target="#notebook-html">R Notebook -&gt; HTML Report</a>
+  <ul class="collapse">
+  <li><a href="#yaml-date" id="toc-yaml-date" class="nav-link" data-scroll-target="#yaml-date">YAML Date Field</a></li>
+  </ul></li>
+  <li><a href="#knit-html" id="toc-knit-html" class="nav-link" data-scroll-target="#knit-html">Knit to HTML</a></li>
+  <li><a href="#built-in-functions" id="toc-built-in-functions" class="nav-link" data-scroll-target="#built-in-functions">Built-in Functions</a>
+  <ul class="collapse">
+  <li><a href="#function-objects-vs-calls" id="toc-function-objects-vs-calls" class="nav-link" data-scroll-target="#function-objects-vs-calls">Function Objects vs.&nbsp;Function Calls</a></li>
+  </ul></li>
+  <li><a href="#help-files" id="toc-help-files" class="nav-link" data-scroll-target="#help-files">Help Files</a>
+  <ul class="collapse">
+  <li><a href="#no-required-arguments" id="toc-no-required-arguments" class="nav-link" data-scroll-target="#no-required-arguments">No Required Arguments</a></li>
+  <li><a href="#required-arguments" id="toc-required-arguments" class="nav-link" data-scroll-target="#required-arguments">Required Arguments</a></li>
+  <li><a href="#default-arguments" id="toc-default-arguments" class="nav-link" data-scroll-target="#default-arguments">Default Arguments</a></li>
+  </ul></li>
+  <li><a href="#reading-help-pages" id="toc-reading-help-pages" class="nav-link" data-scroll-target="#reading-help-pages">Reading R Help Pages</a>
+  <ul class="collapse">
+  <li><a href="#open-help-page" id="toc-open-help-page" class="nav-link" data-scroll-target="#open-help-page">Open Help Page</a></li>
+  <li><a href="#reading-order" id="toc-reading-order" class="nav-link" data-scroll-target="#reading-order">Reading Order</a></li>
+  <li><a href="#usage-section" id="toc-usage-section" class="nav-link" data-scroll-target="#usage-section">The Usage Section</a></li>
+  <li><a href="#use-help-to-solve" id="toc-use-help-to-solve" class="nav-link" data-scroll-target="#use-help-to-solve">Use the Help Page to Solve a Problem</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#unknown-function-name" id="toc-unknown-function-name" class="nav-link" data-scroll-target="#unknown-function-name">Unknown Function Name</a></li>
+  </ul></li>
+  <li><a href="#document-help" id="toc-document-help" class="nav-link" data-scroll-target="#document-help">Document Help</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#check-understanding" id="toc-check-understanding" class="nav-link" data-scroll-target="#check-understanding">Part 1: Check your understanding</a></li>
+  <li><a href="#troubleshoot-rmd" id="toc-troubleshoot-rmd" class="nav-link" data-scroll-target="#troubleshoot-rmd">Part 2: Troubleshoot a broken R Markdown file</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/03-courage/courage.html">Courage</a></li><li class="breadcrumb-item"><a href="../../chapters/03-courage/ch05-help.html"><span class="chapter-title">Chapter 5 Help!</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 5 Help!</span></h1>
+<p class="subtitle lead">Using R Help Files to Troubleshoot Knit Errors</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Chapter 5 focuses on making your R Notebook organized, reproducible, and shareable.</p>
+<p>You will learn how to use Markdown and YAML to structure your notebook, then knit it into an HTML report that someone else can read without opening RStudio. You will also practice using R help files to understand functions, arguments, and examples.</p>
+<p>The main goal of this chapter is to build confidence with the normal problem-solving process in R. Instead of trying to memorize everything, you will learn how to use help resources, and document what you learned in a shareable report.</p>
+<p>In Chapter Five, you will practice how to:</p>
+<ul>
+<li><p>#️⃣ Format your R Notebook using Markdown headings.</p></li>
+<li><p>🧾 Add basic document information in the YAML header.</p></li>
+<li><p>📤 Knit an R Notebook into a shareable HTML report.</p></li>
+<li><p>⚠️ Recognize common reasons a notebook fails to knit.</p></li>
+<li><p>🛠 Use error messages and help files to troubleshoot problems.</p></li>
+<li><p>🔎 Open and read R help pages for functions.</p></li>
+<li><p>🧮 Identify required arguments and default arguments.</p></li>
+<li><p>✅ Use help pages to solve a problem with missing values.</p></li>
+<li><p>✍️ Document the help you used and explain how it improved your code.</p></li>
+</ul>
+<hr>
+</section>
+<section id="notebook-html" class="level2">
+<h2 class="anchored" data-anchor-id="notebook-html">R Notebook -&gt; HTML Report</h2>
+<p>In this chapter, you will learn how to turn your R Notebook into a shareable <span class="glossary-term" data-term="HTML">HTML</span> report. Data analysis reports are not just for sharing results. They are also for sharing the process of getting to those results. In this course, your R reports are more than a place to type code. They are where you practice being brave enough to try, notice when something is wrong, and keep going instead of hiding the mess. Courage here means documenting where you got stuck, asking for help when needed, and showing the learning process that helped you move forward.</p>
+<p>🎯 Please open a new R Notebook and save it in your course folder named <code>chapter5_notes.Rmd</code>. Use this document to take notes and practice the chapter content.</p>
+<ol type="1">
+<li><p>Open RStudio → File → New File → R Notebook.</p></li>
+<li><p>Save it in your course folder as: <code>chapter5_notes.Rmd</code>.</p></li>
+<li><p>Remove the default content.</p></li>
+</ol>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> When a new R Notebook opens, RStudio automatically includes sample text and example code. Delete all of that default template content before you begin your own report.</p>
+</blockquote>
+<ol start="4" type="1">
+<li>In your <strong>YAML header</strong> at the top, make sure the title matches this chapter. More details about how to do that is next.</li>
+</ol>
+<section id="yaml-date" class="level3">
+<h3 class="anchored" data-anchor-id="yaml-date">YAML Date Field</h3>
+<p>The <span class="glossary-term" data-term="YAML Header">YAML header</span> is the metadata “label” for your notebook. It controls document settings like the title, date, and output format.</p>
+<p>Good document labels help future-you, your peers, collaborators, and <em>your instructor</em> understand what the file is, when it was created, and what kind of output RStudio should build. This is a small documentation habit, but it matters when you are trying to keep your work organized.</p>
+<p>A basic YAML header looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Untitled"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🎯 Add a date to your notebook by editing the YAML header to include a <code>date:</code> field.</p>
+<p>Method A. <strong>Hard Code</strong></p>
+<p>Manually type the date you created the notebook. Include quotation marks around the date.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"May 25, 2026"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Method B. <strong>Dynamic Date</strong></p>
+<p>Use R code to generate the current date automatically each time you knit the document. The <span class="glossary-term" data-term="Inline R">inline R</span> expression <code>`r Sys.Date()`</code> retrieves the current date from your computer’s operating system. This follows the syntax: backtick (<code>`</code>), then <code>r</code>, a space, <code>Sys.Date()</code>, and a closing backtick (<code>`</code>). The backtick is located above the Tab key on most keyboards.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <strong>Inline R</strong> works in YAML when written exactly as above. Notice the backticks around the letter <code>r</code> and the <code>Sys.Date()</code> function and that it is wrapped in quotes `“2026-07-17”`. You can learn more about inline R in the 📝 Notebook Advanced Activity, but for now, you can copy and paste the above YAML section to add a dynamic date to your YAML header. Each time you <span class="glossary-term" data-term="Knit">knit</span> the document, the date will update to the current date.</p>
+<hr>
+<p>You’ll learn how to <strong>knit</strong> soon, but first, you need a clear structure inside the document. That is where Markdown headings come in.</p>
+<section id="heading-levels" class="level5">
+<h5 class="anchored" data-anchor-id="heading-levels">Heading levels</h5>
+<p>Headings create the outline of your notebook. The number of <code>#</code> symbols controls the heading level.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Biggest heading</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Text here will be in paragraph font.</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Main section heading</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>Text here will be in paragraph font.</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Subsection heading</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Text here will be in paragraph font.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>All Chapter HTMLs in this course were created using RStudio. You can see how headings create a structured outline and how the font sizes change with heading level from “2.1 YAML Date Field” to “2.1.0.1 Heading levels.”</p>
+<p>🎯 Add headings to your Chapter 5 Notes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Notebook set up</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Add any memos or notes here to help you remember how to set up your notebook, such as how to add a date to the YAML header.</span><span class="co">]</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Markdown structure</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Add any memos or notes here to help you remember how to format and navigate your report in RStudio.</span><span class="co">]</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Knit to HTML</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Built-in Functions</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Help Files</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>🎯 Work to complete the sections under each heading as you go through the chapter content. You can also add more headings and subheadings as needed to organize your notes and code.</p>
+</section>
+<section id="outline-menu" class="level5">
+<h5 class="anchored" data-anchor-id="outline-menu">Outline Menu</h5>
+<p>The “outline pane” in RStudio uses your Markdown headings to create a clickable map of your document. This document outline or <span class="glossary-term" data-term="Outline Menu">outline menu</span> in the Source pane shows your headings/subheadings. They act as “Jump To” menus, helping you move between tasks without scrolling through the whole notebook.</p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch05-help/Memo_Example_heading.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1. Screenshot of R markdown formating"><img src="images/ch05-help/Memo_Example_heading.png" class="img-fluid figure-img" alt="Figure 1. Screenshot of R markdown formating"></a></p>
+<figcaption>Figure 1. Screenshot of R markdown formating</figcaption>
+</figure>
+</div>
+<hr>
+<p>Figure 1 shows a screenshot of an RStudio R Notebook showing a Markdown section heading (e.g., <code>## Markdown structure</code>) in the editor and the Outline menu on the right listing all headings. Markdown headings create a structured outline. The orange arrow points to the Outline button used to show/hide that heading-based outline. 💡 <strong>Tip:</strong> Clicking in the outline menu jumps you view in the report to that section.</p>
+<p>In the above example, the <code># Notebook set up</code> heading creates a main section heading. The outline menu on the right lists all headings in the document, allowing you to navigate quickly between sections.</p>
+</section>
+<section id="common-mistake" class="level4">
+<h4 class="anchored" data-anchor-id="common-mistake">The most common beginner mistake with <code>#</code></h4>
+<p>Put spacing between the <code>#</code> symbols and the heading text to paragraph text ensures heading formatting works correctly.</p>
+<p>For example, <code>##Task 1</code> will not format as a heading, but <code>## Task 1</code> will.</p>
+<p><strong>The <code>#</code> symbol means two different things depending on where you type it.</strong></p>
+<ol type="1">
+<li><strong>Outside a code chunk</strong>, <code>#</code> creates a Markdown heading.</li>
+</ol>
+<p>🎯 Type <code>### Task 1</code> under <code>## Markdown structure</code> to create a subsection heading.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Markdown structure</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Heading levels are controlled by the number of <span class="in">`#`</span> when used outside of code chunks. </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li><strong>Inside a code chunk</strong>, <code>#</code> creates an R comment. R ignores the comment when it runs the code.</li>
+</ol>
+<p>🎯 Type “<code># This is a comment inside a code chunk.</code>” inside a code chunk to create a comment. 💡 <strong>Tip:</strong> Click the Insert Chunk button in the toolbar (green C with plus sign) and choose R from the drop-down list.</p>
+<pre><code>## Markdown structure
+
+Heading levels are controlled by the number of `#` when used outside of code chunks.
+Compare the type with the image of the knit result.
+
+### Task 1
+
+🎯 Make a comment inside a code chunk
+
+```kgj
+# ⚡ This is a comment inside a code chunk.
+cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
+```
+
+🗣 The `#` symbol has two different meanings in R Notebooks.</code></pre>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> Write notes about your code, type <code>#</code> inside the code chunk. Write result memos and learning reflections outside the code chunk without <code>#</code>.</p>
+</blockquote>
+<hr>
+<p>Now that you have the basics of Markdown structure, you will test whether the whole notebook is ready to become an HTML report.</p>
+</section>
+</section>
+</section>
+<section id="knit-html" class="level2">
+<h2 class="anchored" data-anchor-id="knit-html">Knit to HTML</h2>
+<p>When you 🧶<strong>Knit</strong> to HTML, RStudio creates a shareable, static report that includes your formatted headings and text, your code, and the output produced when the code runs. The HTML is not a website and you cannot share it by sharing a URL. It is a file on your computer that you can open in a web browser and share with others by sharing the file itself.</p>
+<p>Knitting is not the same as “running a chunk.” Running a chunk uses your current R session. This means that running a code chunk can succeed even if you wrote code out of order or if objects used already exist in your Environment.</p>
+<p>Knitting is a stronger test. It runs the entire notebook from top to bottom in a <em>fresh</em> session, then builds an HTML report.</p>
+<section id="how-to-knit" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-knit">How to Knit</h4>
+<p>RStudio UI varies. Some of you will have a 🧶<span class="glossary-term" data-term="Knit Button">Knit button</span>, others will use <strong>Preview menu</strong> drop.</p>
+<p>Option 1: <strong>Knit button</strong></p>
+<p>In the Source pane, click the Knit button (it looks like a ball of yarn with a knitting needle 🧶).</p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch05-help/Memo_Example_knithtml3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 2. Screenshot of knit button"><img src="images/ch05-help/Memo_Example_knithtml3.png" class="img-fluid figure-img" alt="Figure 2. Screenshot of knit button"></a></p>
+<figcaption>Figure 2. Screenshot of knit button</figcaption>
+</figure>
+</div>
+<hr>
+<p>Figure 2 is a screenshot of RStudio showing the 🧶Knit button on the toolbar (highlighted by an orange arrow), which students can click to knit the R Notebook into an HTML document.</p>
+<p>Option 2: <strong>Preview menu</strong></p>
+<p>In the Source pane, click the the <strong>Preview menu</strong> drop down button and select Knit to HTML.</p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch05-help/Memo_Example_knithtml.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 3. Screenshot of Preview button"><img src="images/ch05-help/Memo_Example_knithtml.png" class="img-fluid figure-img" alt="Figure 3. Screenshot of Preview button"></a></p>
+<figcaption>Figure 3. Screenshot of Preview button</figcaption>
+</figure>
+</div>
+<hr>
+<p>Figure 3 is a screenshot of RStudio with the Preview menu opened; orange arrows highlight the Preview dropdown button and the Knit to HTML option, showing how to knit an R Notebook into a shareable HTML document (not just run a single code chunk).</p>
+<p>Below is the result you get after knitting to HTML</p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/ch05-help/Memo_Example_knithtml2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 4. Screenshot of resulting HTML report"><img src="images/ch05-help/Memo_Example_knithtml2.png" class="img-fluid figure-img" alt="Figure 4. Screenshot of resulting HTML report"></a></p>
+<figcaption>Figure 4. Screenshot of resulting HTML report</figcaption>
+</figure>
+</div>
+<hr>
+<p>Figure 4 is a screenshot of the knitted HTML output in a web browser showing the notebook title (“Chapter5 Notes”), the subsection heading (“Task 1”), memos as regular paragraph text, and an R code chunk, demonstrating what you get after you Knit to HTML.</p>
+<p>When you knit, RStudio automatically does three things:</p>
+<ol type="1">
+<li><p>Starts a fresh R session (your Environment does not count).</p></li>
+<li><p>Runs your notebook from top to bottom in order.</p></li>
+<li><p>Produces an HTML file you can view and share.</p></li>
+</ol>
+<p>This is why knitting is the real test of “does this notebook work?” If it knits, someone else (including future-you) can see the workflow and results without needing to open RStudio.</p>
+<p>🧭 Your notebook must create every object it uses in the notebook itself. Your Environment does not count. Knitting may reveal a code error you did not notice. That is useful information about the <em>first place</em> your workflow that needs attention.</p>
+<hr>
+</section>
+<section id="sharing-html" class="level4">
+<h4 class="anchored" data-anchor-id="sharing-html">Sharing the HTML File</h4>
+<p>The HTML file is automatically saved in the same folder as your R Notebook, with the same name but an <code>.html</code> extension instead of <code>.Rmd</code>. If you have not yet saved your R Notebook, RStudio will prompt you to do so before knitting.</p>
+<p>Example:</p>
+<ul>
+<li><p><code>chapter5_notes.Rmd</code></p></li>
+<li><p><code>chapter5_notes.html</code></p></li>
+</ul>
+<p>or</p>
+<ul>
+<li><code>chapter5_notes.nb.html</code></li>
+</ul>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> The HTML opens in your browser, but the browser address is a local file path on your computer. You <strong>cannot</strong> submit a browser link.</p>
+</blockquote>
+<p>When you open an HTML, it uses your web browser to display a nicely formatted version of your notebook, including code, output, and memos. You cannot share the HTML by sharing the web address (URL) in your browser because it is a local file on your computer.</p>
+<p>To share (e.g., submit), 📤 upload the <code>.html</code> file.</p>
+<p>💡 <strong>Tip:</strong> Check the HTML first to make sure it is correct and shows the correct formatting.</p>
+</section>
+<section id="knit-errors" class="level4">
+<h4 class="anchored" data-anchor-id="knit-errors">Knit Errors</h4>
+<p>When you select to knit, the bottom left pane shows progress messages in the <span class="glossary-term" data-term="Render Tab">Render tab</span> as R runs your notebook from top to bottom.</p>
+<p>A successful knit has three visible signs:</p>
+<ol type="1">
+<li><p>The Render tab shows the process finishing without an error message.</p></li>
+<li><p>A browser window opens (or Viewer in File Pane) showing your notebook as a formatted web page.</p></li>
+<li><p>An <code>.html</code> file appears in the same folder as your <code>.Rmd</code> file.</p></li>
+</ol>
+<p>If knitting fails, do not fear. This is an opportunity to discover where your notebook needs revision.</p>
+<ol type="1">
+<li>Read the error message in the Render tab.</li>
+<li>Find the line or chunk that caused it. The error usually names a chunk or shows a line number.</li>
+<li>Fix the first error you see. Many later errors are just “domino effects.”</li>
+<li>Knit again.</li>
+</ol>
+<p>🧭 A knit error is a “Not yet” signal. It shows where your notebook needs revision. What is the specific problem R is naming?</p>
+<p>Common reasons knitting fails:</p>
+<ul>
+<li>You wrote the code out of order, so an object exists in your Environment but is not created earlier in the notebook.</li>
+<li>You forgot to include setup code, such as creating objects, loading packages, or setting a working directory.</li>
+<li>A chunk contains an error you did not notice because you never ran that chunk.</li>
+</ul>
+<p>Some errors are tricky. If you get stuck, bring the error message, the chunk, and what you already tried to a peer, office hours, or another approved course resource.</p>
+<p>Next, you will shift from building the report to writing code inside it.</p>
+<p>💡 <strong>Tip:</strong> Knit after any meaningful formatting or code change. It is easier to find an error when it was caused by your most recent edit.</p>
+</section>
+</section>
+<section id="built-in-functions" class="level2">
+<h2 class="anchored" data-anchor-id="built-in-functions">Built-in Functions</h2>
+<p>Now that your notebook can become an HTML report, you need code worth documenting inside it.</p>
+<p>Many built-in summary functions take a whole vector as input and return one summary value, or a small set of values. These are summary functions because they reduce many values down to a smaller result.</p>
+<p>In this section, you will practice calling a function and noticing the difference between the stored function object and the function call that actually runs.</p>
+<section id="function-objects-vs-calls" class="level3">
+<h3 class="anchored" data-anchor-id="function-objects-vs-calls">Function Objects vs.&nbsp;Function Calls</h3>
+<p>A <span class="glossary-term" data-term="Function Object">function object</span> is the stored code that performs a task. For example, <code>mean</code> is a function object that calculates the average of a numeric vector. The stored code sums the values and divides by the number of values.</p>
+<p>🎯 Run <code>mean</code> in a code chunk to see the stored function object. Add the code chunk under <code># Built-in Functions</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type mean in your R Notebook inside a code chunk</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>function (x, ...) 
+UseMethod("mean")
+&lt;bytecode: 0x9918ca3f8&gt;
+&lt;environment: namespace:base&gt;</code></pre>
+</div>
+</div>
+<p>🗣 R prints the instructions stored inside <code>mean</code>. You do not need to read every detail yet. For now, notice that typing <code>mean</code> by itself shows the stored recipe R uses when you later call <code>mean()</code> on data.</p>
+<p>To make the function do its job, you have to <em>call it</em>. A <span class="glossary-term" data-term="Function Call">function call</span> runs the stored code. To call a function, you type the function name followed by parentheses <code>()</code>. Inside the parentheses, you must provide any <span class="glossary-term" data-term="Required Arguments">required arguments</span>. For example, to calculate the mean of a numeric vector, you call the <code>mean()</code> function and provide the vector as an argument. The vector is a <span class="glossary-term" data-term="Required Arguments">required argument</span> because the function needs it to perform the calculation.</p>
+<p>📜 The SYNTAX (basic):</p>
+<p><code>mean(x)</code></p>
+<p>where <code>x</code> is the numeric vector you want to summarize.</p>
+<p>🎯 Calculate the mean of the cursed sequence.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 📖 Review</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cursed_seq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">23</span>, <span class="dv">42</span>)  </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cursed_seq)                     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+</div>
+<p>🗣 The <code>mean()</code> function calculates the average of the numbers in the <code>cursed_seq</code> vector by summing them up and dividing by the count of numbers.</p>
+</section>
+</section>
+<section id="help-files" class="level2">
+<h2 class="anchored" data-anchor-id="help-files">Help Files</h2>
+<p>Nobody memorizes every function or every argument. Looking in help is one way you stay engaged when you do not already know what to do or you have a question. Skilled R users look things up.</p>
+<p><code>?[function_name]</code> opens the help file for that function. The Files pane usually contains several tabs, including the <span class="glossary-term" data-term="Help Tab">Help tab</span>, which displays documentation for R functions.</p>
+<p>🎯 Use <code>?mean</code> to open the help file for the <code>mean()</code> function. Add the code chunk under <code>## Help Files</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>💡 Test knit.</p>
+<p>🚀 <strong>Explore and Play:</strong> As we move through the remainder of the chapter, add meaningful headings and subheadings to your notebook to organize your notes and code as you wish.</p>
+<section id="no-required-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="no-required-arguments">No Required Arguments</h3>
+<p>Some functions do not have a required argument. For example, the <code>Sys.Date()</code> function returns the current date without needing any input.</p>
+<p>🎯 Call the <code>Sys.Date()</code> function to get the current date from your computer’s operating system.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2026-07-17"</code></pre>
+</div>
+</div>
+<p>🗣 The <code>Sys.Date()</code> function retrieves the current date from the system clock and returns it as a Date object.</p>
+<p>🎯 Open the help file for the <code>Sys.Date()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>?Sys.Date</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>Sys.Date</code> <span class="glossary-term" data-term="Help Page">help page</span> opens in the <span class="glossary-term" data-term="Help Tab">help tab</span> in the files pane. Note that <code>Sys.Date()</code> has no required arguments.</p>
+<p>Scroll through the help file to find information about the function’s usage, arguments, and examples.</p>
+<ul>
+<li><p><span class="glossary-term" data-term="Examples Section">Usage</span>: shows the function signature and defaults.</p></li>
+<li><p><span class="glossary-term" data-term="Arguments">Arguments</span>: what each argument does.</p></li>
+<li><p><span class="glossary-term" data-term="Examples Section">Examples</span>: copy/run examples to learn patterns.</p></li>
+</ul>
+<hr>
+<p><code>Sys.Date()</code> is a friendly first example because it does not require an input. Most functions you use for data analysis will need at least one argument. Next, you will compare this to <code>mean()</code>, which needs a vector to summarize.</p>
+</section>
+<section id="required-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="required-arguments">Required Arguments</h3>
+<p><span class="glossary-term" data-term="Required Arguments">Required argument</span> are what a function needs to do its job.</p>
+<p>🎯 Open the help file for the <code>mean()</code> function. Scroll through the help file to find information about the function’s usage, arguments, and examples.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>?mean   </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>mean</code> help page opens in the Help tab in the Files pane. <code>mean.default(x, trim = 0, na.rm = FALSE, …)</code> shows that <code>x</code> is a required argument, while <code>trim</code> and <code>na.rm</code> have default values.</p>
+</section>
+<section id="default-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="default-arguments">Default Arguments</h3>
+<p><span class="glossary-term" data-term="Default Arguments">Default arguments</span> are inputs that a function uses in situations when you did not provide that argument. For example, the <code>trim</code> argument in the <code>mean()</code> function allows you to exclude a certain percentage of the lowest and highest values before calculating the mean.</p>
+<p>The SYNTAX (with one default argument):</p>
+<p><code>mean(x, trim = 0)</code></p>
+<p>🎯 Calculate the trimmed mean of the cursed sequence, removing 20% of the lowest and highest values before computing the mean.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cursed_seq, <span class="at">trim =</span> <span class="fl">0.2</span>)  <span class="co"># drop 20% from each end first</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.5</code></pre>
+</div>
+</div>
+<p>🗣 The <code>mean()</code> function first removes 20% of the lowest and highest values from the <code>cursed_seq</code> vector, then calculates the mean of the remaining values. With 6 values and <code>trim = 0.2</code>, R trims 4 and 42, then averages 8, 15, 16, and 23.</p>
+<hr>
+<p>🧭 How can you tell which arguments are required?</p>
+<p>The main clue that <code>x</code> is required is that it has no <code>=</code> sign or default value next to it in the usage section. The other arguments have <code>=</code> signs, showing the default values that R will use if you don’t provide your own.</p>
+<p>Some functions use <code>...</code> (dot-dot-dot). That means “additional optional arguments may be allowed,” not required ones. For now, ignore <code>...</code> until you are more advanced.</p>
+<p>📜 Argument clue:</p>
+<ul>
+<li>no <code>=</code> → usually required</li>
+<li><code>=</code> → R has a default value</li>
+<li><code>...</code> → extra optional arguments may be allowed; ignore this for now</li>
+</ul>
+<hr>
+<p>This clue helps you read help pages faster. You do not need to understand the whole page before you can use one useful part of it.</p>
+</section>
+</section>
+<section id="reading-help-pages" class="level2">
+<h2 class="anchored" data-anchor-id="reading-help-pages">Reading R Help Pages</h2>
+<p>Help pages are useful, but they are not written like beginner tutorials. They are written like reference pages. That means your job is not to read every word. Your job is to know where to look first when you are trying to write, fix, or explain code. This section gives you a reading strategy for reading the help pages.</p>
+<section id="open-help-page" class="level3">
+<h3 class="anchored" data-anchor-id="open-help-page">Open Help Page</h3>
+<p>If you know the function name, type a question mark before the function name.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You can also use the <code>help()</code> function.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The help page usually opens in the help tab in the bottom-right area of RStudio. That area contains several tabs, such as Files, Plots, Packages, Help, and Viewer.</p>
+</section>
+<section id="reading-order" class="level3">
+<h3 class="anchored" data-anchor-id="reading-order">Reading Order</h3>
+<p>Help pages can look overwhelming. That is normal. This page is not readily accessible to beginners.</p>
+<p>When you open a help page, use this reading order:</p>
+<ol type="1">
+<li><strong>Description</strong>: What does this function do?</li>
+<li><strong>Usage</strong>: What does the function call look like?</li>
+<li><strong>Arguments</strong>: What goes inside the parentheses?</li>
+<li><strong>Examples</strong>: What is one working pattern I can test?</li>
+</ol>
+<p>For now, you may skim or skip sections like <strong>Details</strong>, <strong>Value</strong>, <strong>References</strong>, and <strong>See Also</strong>.</p>
+</section>
+<section id="usage-section" class="level3">
+<h3 class="anchored" data-anchor-id="usage-section">The Usage Section</h3>
+<p>The <strong>Usage</strong> section shows the basic recipe for writing the function call.</p>
+<p>Open the help page for <code>mean()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In the <strong>Usage</strong> section, you may see something like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Default S3 method:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Read the usage line like this:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mean()</code></td>
+<td>Required. This is the function name.</td>
+</tr>
+<tr class="even">
+<td><code>x</code></td>
+<td>Required. This is the object you want R to average.</td>
+</tr>
+<tr class="odd">
+<td><code>trim = 0</code></td>
+<td>Optional. R uses <code>0</code> unless you choose a different value.</td>
+</tr>
+<tr class="even">
+<td><code>na.rm = FALSE</code></td>
+<td>Optional. R keeps missing values unless you choose <code>TRUE</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>...</code></td>
+<td>Extra options may be allowed. Ignore this for now.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>In summary,</p>
+<ul>
+<li><p>a <span class="glossary-term" data-term="Required Arguments">required argument</span> is an input the function needs before it can do its job.</p></li>
+<li><p>a <span class="glossary-term" data-term="Default Arguments">default argument</span> is an input R already has a value for. You can use the default value, or you can replace it with your own value.</p></li>
+</ul>
+<p>📜 The basic rule:</p>
+<ul>
+<li>No <code>=</code> sign usually means the argument is required.</li>
+<li>An <code>=</code> sign means R has a default value.</li>
+<li>A default argument is optional, but it may still be important to consider for your task.</li>
+</ul>
+<p>🗣 In <code>mean(x, trim = 0, na.rm = FALSE, ...)</code>, the argument <code>x</code> is required because it does not have a default value. The arguments <code>trim</code> and <code>na.rm</code> are optional because R already has default values for them.</p>
+<hr>
+</section>
+<section id="use-help-to-solve" class="level3">
+<h3 class="anchored" data-anchor-id="use-help-to-solve">Use the Help Page to Solve a Problem</h3>
+<p>Let’s use the help page for a troubleshooting task. We’ll create a vector with a missing value, try a calculation, notice an issue with the result, and then use the help page to decide which argument needs to change.</p>
+<p>🎯 Create a vector with one missing value.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>messy_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  80  90  NA 100</code></pre>
+</div>
+</div>
+<p>🗣 The value <code>NA</code> means the data value is missing. It is not character or numeric value. It means the third entry is empty.</p>
+<p>🎯 Try to calculate the mean of <code>messy_scores</code> using only default arguments. 💬 Prediction: What do you think R will return?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>🗣 R returns <code>NA</code> because the vector contains a missing value. By default, <code>mean()</code> does not remove missing values before calculating the average.</p>
+<p>But we haven’t learned how that affects the calculation. This is the moment to use the help page.</p>
+<p>🎯 Open the help page for <code>mean()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ Check: In the <span class="glossary-term" data-term="Arguments">Arguments</span> section, find the argument named <code>na.rm</code>.</p>
+<p>Ask yourself:</p>
+<ul>
+<li>What does <code>na.rm</code> control?</li>
+<li>What default value does R use?</li>
+<li>What value should I use if I want R to remove missing values?</li>
+</ul>
+<p>🎯 Try the code again using <code>na.rm = TRUE</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 90</code></pre>
+</div>
+</div>
+<p>🗣 The argument <code>na.rm = TRUE</code> tells R to remove missing values before calculating the mean. This does not delete the missing value from your original vector. It only tells <code>mean()</code> how to handle the missing value during this calculation.</p>
+<hr>
+<p>Next, you will see how help-page examples can give you working patterns even when they are not your exact assignment answer.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>The <span class="glossary-term" data-term="Examples Section">Examples section</span> is often one of the most useful parts of a help page. Examples show working patterns. Your job is to adapt the pattern to your own object.</p>
+<p>You are using the example to understand a structure, then applying that structure to your own task.</p>
+<p>🎯 Run R’s built-in examples for <code>mean()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">example</span>(mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 The <code>example()</code> function runs examples from the help page. You do not need to understand every line.</p>
+<p>🧭 Look for one pattern that helps you understand how the trim argument is used in the <code>mean()</code> function.</p>
+</section>
+<section id="unknown-function-name" class="level3">
+<h3 class="anchored" data-anchor-id="unknown-function-name">Unknown Function Name</h3>
+<p>So far, we <em>knew</em> the function name: <code>mean()</code>.</p>
+<p>Sometimes you know the topic, but you do not know the function name. For example, you might know you need help with missing values, but you may not know which function or argument to search for. In that case, use <code>??</code> or <code>help.search()</code>.</p>
+<p>🎯 Search for help pages related to “missing values” using <code>??</code> and <code>help.search()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>??<span class="st">"missing values"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">"missing values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Use <code>?[function_name]</code> when you already know the function name. Use <code>??["search words"]</code> or <code>help.search(["search words"])</code> when you know the topic but not the exact function.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>What to type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I know the function name.</td>
+<td><code>?mean</code></td>
+</tr>
+<tr class="even">
+<td>I know the function name and want another option.</td>
+<td><code>help(mean)</code></td>
+</tr>
+<tr class="odd">
+<td>I know the topic but not the function name.</td>
+<td><code>??"missing values"</code></td>
+</tr>
+<tr class="even">
+<td>I want to search help pages for a phrase.</td>
+<td><code>help.search("missing values")</code></td>
+</tr>
+<tr class="odd">
+<td>I want to run built-in examples.</td>
+<td><code>example(mean)</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="document-help" class="level2">
+<h2 class="anchored" data-anchor-id="document-help">Document Help</h2>
+<p>In this course, troubleshooting is part of the work. Documenting your troubleshooting efforts is how you show that work. When you use a resource, digital or human, document where you went, why, and what you discovered.</p>
+<p>🎯 Add a short help note to your memo to your report.</p>
+<p>Type the resource note, check, and comment as regular Markdown text. Put only the runnable R code inside the code chunk.</p>
+<pre><code>
+I used `?mean` to read about the `na.rm` argument.
+
+The help page showed that `na.rm` defaults to `FALSE`.
+
+I changed `na.rm` to `TRUE` because my vector contained an `NA` value.</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>messy_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 90</code></pre>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>🗣 The result is <span class="in">`90`</span> because R averaged <span class="in">`80`</span>, <span class="in">`90`</span>, and <span class="in">`100`</span> after removing <span class="in">`NA`</span> from the calculation.</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>🗣I learned that a default argument can be optional but still important. In this case, <span class="in">`na.rm`</span> had a default value, but I needed to change it for my data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>💡 Test knit.</p>
+<hr>
+<p>This is transparent coding. A future reader can see what problem you had, what resource you used, what you changed, and why the change made sense.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this chapter, you strengthened your R Notebook habits by learning how to create a complete, shareable HTML report. You practiced editing the YAML header, using Markdown headings to organize your notebook, knitting your work to HTML, and submitting the actual <code>.html</code> file rather than a browser link.</p>
+<p>You also learned that knitting is the real test of whether your notebook works. Running a single chunk only checks part of the code in your current R session, but knitting runs the whole notebook from top to bottom in a fresh session. When knitting fails, the error message is feedback that helps you find what needs to be fixed next.</p>
+<p>Finally, you learned how to use built-in R functions and help files. You practiced the difference between a function object and a function call, identified required and default arguments, used <code>?function_name</code>, <code>help()</code>, <code>example()</code>, and <code>help.search()</code> to find information, and changed <code>na.rm = TRUE</code> to handle missing values in a calculation.</p>
+<p>Your main takeaway is that strong R work depends on organized notebooks, successful knitting, and the courage to use errors and help files as part of the coding process.</p>
+<hr>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Arguments</strong>: Inputs that you provide to functions to customize their behavior. Arguments are specified within the parentheses of a function call and can modify how the function operates or what data it processes.</p>
+<p><strong>Default Arguments</strong>: Inputs that already have a preset value in the function definition and are used automatically when you don’t provide your own (e.g., <code>mean(..., na.rm = FALSE)</code> by default).</p>
+<p><strong>Examples Section</strong>: The part of an R help page that shows runnable code examples for how a function is used in practice. This section is often the fastest place to learn because it shows the function in context: what inputs go inside the function call, what the code looks like, and what kind of output to expect. In R, many help-page examples can also be run with the <code>example()</code> function.</p>
+<p><strong>Function Call</strong>: The act of running a function by writing its name followed by parentheses, optionally supplying arguments inside (e.g., <code>mean(x)</code>).</p>
+<p><strong>Function Object</strong>: A function stored as an R object (functions are “first-class” in R, meaning you can assign them to names, pass them to other functions, and inspect them).</p>
+<p><strong>Help Page</strong>: Documentation for R functions and packages that provides information on usage, arguments, and examples. Accessed using <code>?function_name</code> or <code>help(function_name)</code>.</p>
+<p><strong>Help Tab</strong>: Located in the Files/Plots/Packages/Help pane, this tab provides access to R documentation, package vignettes, and search functionality to find help topics related to R functions and packages.</p>
+<p><strong>HTML</strong>: A web page file type (<code>.html</code>) written in <strong>HyperText Markup Language</strong> that a web browser can open and display as a formatted document. In this course, Preview/Knit/Render can create an HTML file (often <code>.html</code> or <code>.nb.html</code>) that shows your notebook’s text, code, and output in the browser; because it opens from your computer (a local <code>file://</code> path), you can’t submit it by copying the browser address. Upload the HTML file itself.</p>
+<p><strong>Inline Code</strong>: Code-style text placed within a sentence by surrounding the text with single backticks, such as <code>penguins</code>. In Quarto and Markdown, inline code is used to mark object names, function names, file names, or short code expressions so they appear in a monospace code font in the rendered report. This formatting signals to the reader, “treat this as code or a code-related name,” not as ordinary prose.</p>
+<p><strong>Inline R</strong>: A short R expression written inside backticks with the prefix <code>r</code> (for example, <code>`r Sys.Date()`</code>) that is evaluated when you knit/render the document and replaced with its result in the output. Inline R is used to insert dynamic values (dates, computed statistics, labels) directly into your narrative text, and it can also be used in YAML fields like <code>date: “`r Sys.Date()`”</code> when supported.</p>
+<p><strong>Knit</strong>: In RStudio, the action that renders an <code>.Rmd</code> (including an R Notebook) into a finished output file (such as HTML, PDF, or Word) by running the document’s code chunks, inserting their results, and converting the document to the chosen format. Clicking the Knit button typically calls <code>rmarkdown::render()</code> in a new, clean R session, so everything needed to reproduce the result must be created or loaded in the document itself, and the output file is saved alongside the <code>.Rmd</code>.</p>
+<p><strong>Knit Button</strong>: The toolbar button in RStudio that renders an R Markdown file (<code>.Rmd</code>) into a finished output (e.g., HTML, PDF, Word) by calling <code>rmarkdown::render()</code> and running the document’s code to generate results. The output file is saved next to the <code>.Rmd</code> (same base name), and the button’s drop-down lets you choose among available output formats (shortcut: Ctrl/Cmd + Shift + K).</p>
+<p><strong>Outline Menu</strong>: A navigation tool in RStudio that uses your Markdown headings to create a clickable map of an <code>.Rmd</code> or <code>.qmd</code> document. The outline shows the structure of the notebook by heading level, so you can jump between sections without scrolling through the whole file. In RStudio, open it from the Outline button/menu in the Source pane toolbar.</p>
+<p><strong>Render Tab</strong>: A temporary tab that appears in RStudio’s Console pane when you Knit/Render an R Markdown (<code>.Rmd</code>) or Quarto (<code>.qmd</code>) document. It shows the rendering log—progress messages, warnings, and errors—separately from your interactive Console, and typically includes a Stop control so you can interrupt a failed or long render.</p>
+<p><strong>Required Arguments</strong>: Inputs a function needs because they have no default value in the function definition; you must supply them in the call (or the function can’t do its job).</p>
+<p><strong>YAML Header</strong>: The metadata section at the top of an R Markdown or Quarto document, written between <code>---</code> lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.</p>
+<hr>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>This Practice Space has two parts.</p>
+<p>First, you will answer short multiple-choice questions that check whether you can organize an R Notebook, read an R help page, use a function argument, and explain why knitting is an important reproducibility check.</p>
+<p>Second, you will practice troubleshooting a broken R Markdown file. The goal is to see how code can appear to work in your RStudio Environment but still fail when you knit because knitting starts from a cleaner version of the workflow.</p>
+<section id="check-understanding" class="level3">
+<h3 class="anchored" data-anchor-id="check-understanding">Part 1: Check your understanding</h3>
+<p>Choose the best answer for each question in this section.</p>
+</section>
+<section id="troubleshoot-rmd" class="level3">
+<h3 class="anchored" data-anchor-id="troubleshoot-rmd">Part 2: Troubleshoot a broken R Markdown file</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Download the Chapter 5 practice files">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Download the Chapter 5 practice files
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download these two files and save them in the same course folder:</p>
+<ul>
+<li><a href="downloads/ch05-practice-space.Rmd" download="ch05-practice-space.Rmd">ch05-practice-space.Rmd</a></li>
+<li><a href="downloads/ch05-practice-space.RData" download="ch05-practice-space.RData">ch05-practice-space.RData</a></li>
+</ul>
+</div>
+</div>
+<p>Then complete the troubleshooting workflow:</p>
+<ol type="1">
+<li>Open <code>ch05-practice-space.Rmd</code> in RStudio.</li>
+<li>Load <code>ch05-practice-space.RData</code> into RStudio.</li>
+<li>Run the code chunks from top to bottom and notice what happens.</li>
+<li>Knit the R Markdown file to HTML.</li>
+<li>Use the Render/Knit error message to identify what needs to be fixed.</li>
+<li>Make one testable change at a time.</li>
+<li>Add a short memo near each place where you corrected code.</li>
+<li>Knit again after each meaningful correction so you know whether your edit fixed the problem.</li>
+</ol>
+<p>Optional support: Use the reading on troubleshooting knit errors with an LLM as a strategy example. Ask for help interpreting the error, identifying likely causes, or making a checklist of what to inspect. Do not ask the LLM to rewrite or complete the report for you.</p>
+<hr>
+</section>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
+<p>🧾 <strong>YAML header</strong></p>
+<p>Which YAML header is the best match for a Practice Space Notebook that should knit to an HTML notebook?</p>
+<ol type="A">
+<li></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="A">
+<li></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="at">title = "Chapter 5 Practice"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="at">date = Sys.Date()</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="at">output = html_notebook</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="A">
+<li></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="A">
+<li></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="at">html_notebook</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
+<p>#️⃣ <strong>Markdown headings</strong></p>
+<p>Which line correctly creates a level 2 Markdown heading called <code>Help Pages</code>?</p>
+<p>A. <code>##Help Pages</code></p>
+<p>B. <code>## Help Pages</code></p>
+<p>C. <code># # Help Pages</code></p>
+<p>D. <code>Help Pages ##</code></p>
+<hr>
+</section>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
+<p>💬 <strong>Markdown heading vs.&nbsp;R comment</strong></p>
+<p>Which statement correctly explains the difference between <code>#</code> outside a code chunk and <code>#</code> inside a code chunk?</p>
+<p>A. Outside a code chunk, <code>#</code> creates an R comment. Inside a code chunk, <code>#</code> creates a Markdown heading.</p>
+<p>B. Outside a code chunk, <code>#</code> creates a Markdown heading. Inside a code chunk, <code>#</code> creates an R comment.</p>
+<p>C. <code>#</code> always creates a Markdown heading no matter where it appears.</p>
+<p>D. <code>#</code> always causes an error in R Notebooks.</p>
+<hr>
+</section>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
+<p>🧩 <strong>Required arguments and default arguments</strong></p>
+<p>The <code>mean()</code> help page may show a usage line like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Which answer correctly identifies the required argument and one default argument?</p>
+<p>A. <code>x</code> is required; <code>na.rm = FALSE</code> is a default argument.</p>
+<p>B. <code>trim = 0</code> is required; <code>x</code> is a default argument.</p>
+<p>C. <code>...</code> is required; <code>x</code> should be ignored.</p>
+<p>D. <code>na.rm = FALSE</code> is required; <code>trim = 0</code> is not an argument.</p>
+<hr>
+</section>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
+<p>🧮 <strong>Use a help-page argument to handle missing values</strong></p>
+<p>You create this vector:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>daily_steps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">7500</span>, <span class="cn">NA</span>, <span class="dv">10000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then you run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(daily_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R returns <code>NA</code>.</p>
+<p>In the function <code>sum()</code>, which argument handles the missing value before adding the numbers?</p>
+<p>A. <code>sum(daily_steps, na.rm = TRUE)</code></p>
+<p>B. <code>sum(daily_steps, remove.NA = TRUE)</code></p>
+<p>C. <code>sum(daily_steps, missing = FALSE)</code></p>
+<p>D. <code>sum(daily_steps, delete = NA)</code></p>
+<hr>
+</section>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
+<p>📤 <strong>Reproducibility check</strong></p>
+<p>Which is a a stronger reproducibility check: knitting an R Notebook to HTML or running every code chunk?</p>
+<p>A. Running each code chunk is stronger because it checks only the selected code without rerunning earlier chunks.</p>
+<p>B. Knitting is stronger because it checks Markdown formatting and creates an HTML file, but it does not rerun the code.</p>
+<p>C. Knitting is stronger because it reruns the notebook from top to bottom in a clean session, so needed objects must be created in the document in the correct order.</p>
+<p>D. Running each code chunk is stronger because it uses the objects already saved in the Environment, so the final report shows the most recent results.</p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/03-courage/courage.html" class="pagination-link" aria-label="Courage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Courage</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/03-courage/ch05-help-prompting.html" class="pagination-link" aria-label="Chapter 5 Help! Prompting">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 5 Help! Prompting</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
