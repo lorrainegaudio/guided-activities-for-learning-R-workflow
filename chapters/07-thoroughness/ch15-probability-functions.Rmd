@@ -1,17 +1,11 @@
 ---
-title: "Chapter 15"
-subtitle: "🎲 Probability functions"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+title: "Chapter 15: Probability functions"
+subtitle: "Simulating Outcomes with R"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-
-# Overview 
+## Overview {#overview}
 
 Probability is easier to understand when you can build and inspect examples yourself. In this chapter, you will use R to simulate random outcomes, visualize those results, and decide whether the patterns you see are reasonable. You will work with coin flips, dice rolls, bell-shaped data, and repeated simulations so that probability feels concrete rather than abstract. These are the same kinds of tools analysts use when they need to study uncertainty, test assumptions, or estimate risk.
 
@@ -29,7 +23,7 @@ By the end of Chapter 15 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# Setting Up Your Notes
+## Setting Up Your Notes {#setup}
 
 To begin Chapter 15's guided activity, follow these steps:
 
@@ -49,11 +43,11 @@ Create a new Quarto document for Chapter 15 and save it with a chapter-specific 
 
 - Keep your work organized with headings. Since this chapter uses random simulation, run your document from top to bottom when you want reproducible results. 
 
-## 📦 Packages
+### 📦 Packages {#packages}
 
 No extra packages are needed today. We'll be using built-in stats functions.
 
-# Distribution of Sums 
+## Distribution of Sums {#distribution}
 
 🎯 Identify the "Shape of Data" (or "Distribution of data") is *optional reading*, but may help you answer questions in this chapter.
 
@@ -213,7 +207,7 @@ legend("center",
        bty = "o")
 ```
 
-# Warm‑Up
+## Warm‑Up {#warmup}
 
 A data analyst uses `set.seed()` to ensure that random processes like sampling or simulation produce the same results each time the code is run (from top to bottom). This **reproducibility** is crucial for debugging, collaboration, and verifying results, as it guarantees consistency across analyses and users.
 
@@ -224,11 +218,11 @@ set.seed(2025)  # 🎯 for reproducibility
 
 *If you re-run code more than once within your document, your values will not be the same. It is only the same when you run the code from top to bottom in one session.*
 
-# Simulating 
+## Simulating {#simulating}
 
 **Probability** is the study of random outcomes. To understand probability, we need to be able to **simulate** random outcomes and inspect those results. R provides powerful tools for simulating random data, which allows us to explore concepts like **sampling variability**, distributions, and the effects of bias.
 
-## 🪙 Coin Flips 
+### 🪙 Coin Flips {#coin-flips}
 
 In this first example, we'll simulate flipping a coin 1,000 times and counting how many times it lands on tails. This simple experiment helps us understand the concept of a sample space, the role of randomness, and how to verify our results.
 
@@ -275,7 +269,7 @@ sum(coins)
 
 🛠 Break Things! What happens if `replace = FALSE` keeping `size = 1000`? Memo: paste the error message and 1 sentence on why it occurs.
 
-## 🎲 Dice Rolls 
+### 🎲 Dice Rolls {#dice-rolls}
 
 🎯 Simulate 10,000 rolls of a fair 6‑sided die and plot the results.
 
@@ -290,7 +284,7 @@ dice <- sample(1:6, 10000, replace = TRUE)
 
 To investigate our hypothesis, we'll visualize the results with a histogram using base R.
 
-# 📊 Histograms
+## 📊 Histograms {#histograms}
 
 🎯 Use `hist()` to create a histogram of the dice rolls, showing the frequency of each face value.
 
@@ -349,7 +343,7 @@ barplot(table(dice),
 ```
 🗣 The table() function provides an alternative way to display the data accurately. 
 
-# 🎲🎲 Two Dice 
+## 🎲🎲 Two Dice {#two-dice}
 
 💬 Prediction: What histogram shape do you expect when summing the face value of two dice? Will the values be exactly equal? Have a normal distribution? Something else? Type your answer before working ahead. *Keep whatever you typed, even if you are wrong.*
 
@@ -379,7 +373,7 @@ colors()  # Lists all color names in R
 ___
 
 
-# ☯️ Symmetric Data
+## ☯️ Symmetric Data {#symmetric-data}
 
 The functions `rnorm()` generates a vector of random numbers that form a normal (bell-shaped) distribution.
 
@@ -428,7 +422,7 @@ Sample vs. Population Parameters: You might wonder, "Why aren't the sample mean 
 
 In summary, the function `rnorm()` generates random numbers from a normal distribution and is used for modeling normally distributed data using the parameters: number of values, mean, and standard deviation. This will only generate symmetric data.
 
-# 🔁 Repeating Simulation
+## 🔁 Repeating Simulation {#repeating-simulation}
 
 The function `replicate()` repeats an expression multiple times and collects the results. This control structure is like a loop is used to repeat sample estimate probabilities (simulations), resample data to estimate variability or confidence intervals (bootstrapping), model repeated trials of an experiment, generate synthetic data and more. This function is flexible as it can wrap any code, not just random generation.
 
@@ -481,7 +475,7 @@ hist(tails_100,
 🗣 The spread shows sampling variability around the theoretical 2,500.
 
 
-## Normal Data with `replicate()`
+### Normal Data with `replicate()` {#normal-data-with-replicate}
 
 💭 Scenario. Pretend that the university is considering making specifications grading standard practice. The provost's office says that if thirty percent or more of students oppose this, it would trigger a halt to the proposal. We want to know the risk of the proposal being halted.
 
@@ -495,7 +489,7 @@ We run a survey where student attitudes are measured on a continuous scale:
 
 We'll first run a random-sample survey of 50 students. Then we simulate many 50-student samples to see how much the number of opponents could vary. That variability informs the proposal planning.
 
-### Opinion Study
+#### Opinion Study {#opinion-study}
 
 🎯 Generate 50 random numbers, compare each to zero, and count how many are below zero. 
 
@@ -521,7 +515,7 @@ print(count)
 
 🗣 We generated 50 random numbers from a normal distribution with mean 2 and standard deviation 3. We then compared each number to zero, yielding a logical vector indicating which are below zero. Finally, we summed the logical vector to count the number of values below zero.
 
-### Many Samples Simulation
+#### Many Samples Simulation {#many-samples-simulation}
 
 Now simulate many realistic samples to understand how the count of opponents might bounce around.
 
@@ -599,7 +593,7 @@ legend("topright",
 
 🗣 Each bar shows how often a particular count of opponents appeared across the 200 samples. The center of the histogram is the typical count. The spread shows how much that count changes from sample to sample, even if the underlying social climate doesn’t change. About 1 in 4 samples hit the halt threshold (≥15).
 
-# ⚖️ Fair-Dice Check
+## ⚖️ Fair-Dice Check {#fair-dice-check}
 
 **Probability weights** in `sample()` let you simulate biased outcomes. Recall the syntax:
 
@@ -607,7 +601,7 @@ legend("topright",
 
 A **fair outcome** means that each outcome in the sample space has an equal chance of occurring. For example, a fair six-sided die has an equal probability of landing on any of its faces (1 through 6), which is 1/6 or approximately 0.1667 for each face.
 
-## Biased Die
+### Biased Die {#biased-die}
 
 A **biased outcome** means that some outcomes are more likely to occur than others. For example, a biased six-sided die might have a higher probability of landing on certain faces, such as 1 and 6, while other faces (like 2, 3, 4, and 5) have lower probabilities.
 
@@ -633,7 +627,7 @@ ___
 🛠 Break Things! What happens if the length of `prob` does not match the length of `x`? Paste the error message and 1 sentence on why it occurs. What happens if the `prob` values do not sum to 1? Can you have negative probabilities? You could try `sample(1:6, 10, replace = TRUE, prob = c(.5, .5))` and try `sample(1:6, 10, replace = TRUE, prob = c(.1, .2, 0.2, .05, .2, .05, .4))` and `sample(1:6, 1000, prob = c(.22,-.13,.07,.23,.22,.23), replace = TRUE)`. Explain what happens and what the rules are for the `prob` argument in `sample()`.
 ___
 
-## Fair vs. Unfair Dice
+### Fair vs. Unfair Dice {#fair-vs-unfair-dice}
 
 💭 Scenario. You are playing a dice game with a "friend" who claims their dice are fair. 🤔 Your "friend's" dice look suspiciously unfair. Compare it to our fair dice. We'll test the your friend's dice against your fair dice. 
 
@@ -679,12 +673,12 @@ legend("topright", legend = c("Loaded", "Fair"),
 
 🗣 Comment: What is the shape of the red bars compared with the blue?
 
-# Summary
+## Summary {#summary}
 
 In this chapter, you used R to study probability through simulation. You learned how `set.seed()` supports reproducibility, how `sample()` can simulate discrete outcomes such as coin flips and dice rolls, and how `hist()` helps you visualize the shape of simulated results. You also used `rnorm()` to generate bell-shaped data and `replicate()` to repeat simulations so you could examine variability across many runs. Finally, you used probability weights in `sample()` to compare fair and biased outcomes and to judge whether simulated results matched what you would expect from a fair process.
 
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Biased Outcome**: An outcome in a random process where some results are more likely than others, so the outcomes are not equally likely.
 
@@ -718,7 +712,7 @@ In this chapter, you used R to study probability through simulation. You learned
 
 **Uniform Distribution**: A distribution in which all possible outcomes in the range are equally likely.
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 In this Practice Space, you are expected to:
 
@@ -734,7 +728,7 @@ Replace every `____` placeholder and any TODO comment with working code or a sho
 
 You will submit your `chapter15_practice.qmd`, your rendered `chapter15_practice.html`(optional), and your `chapter15_practice.RData` workspace file.
 
-## Setup
+### Setup {#setup}
 
 1. Create a **new Quarto file** in your course folder and save it as `chapter15_practice.qmd`.
 
@@ -790,7 +784,7 @@ any(your_code)
 
 ___
 
-## Task 0
+### Task 0 {#task-0}
 
 **Make your simulation work reproducible.**
 
@@ -803,7 +797,7 @@ set.seed(2025)
 
 🗣 Explain how `set.seed()` supports reproducibility in your own words. Why does it need to be near the top of your document before any simulation code?
 
-## Task 1
+### Task 1 {#task-1}
 
 💭 Scenario. 🧙‍♂️🗡️📜 Your friend shows up to your DnD game with a big 3D printed 20-sided die and claims it is fair. You decide to test it. For practice, you will simulate what 300 rolls of a fair 20-sided die can look like, then check whether the results look roughly fair overall. [How to Make Fair DnD Dice from ANY Shape](https://www.youtube.com/watch?v=-gp7AbYD9NI)
 
@@ -823,11 +817,11 @@ mean(big_die == ___)
 
 🗣 Comment: Does this simulated die look roughly fair? Explain using the overall pattern of counts, not just whether a 20 appeared. A fair die should have counts that are similar but not exactly equal.
 
-## Task 2
+### Task 2 {#task-2}
 
 💭 Scenario. A game store is running a weekend probability demo and asks you to help analyze whether a 20-sided die behaves the way a fair die should over many rolls. Your job is to simulate many D20 rolls, check the results, and decide whether the pattern looks reasonable for a fair die.
 
-### Step 1
+#### Step 1 {#step-1}
 
 **D20 marathon**
 
@@ -840,7 +834,7 @@ boring_weekend <- sample(___, size = ___, replace = ___)
 
 💬 Prediction: What do you expect the frequency table for a fair D20 to look like? Should each face appear about the same number of times, or should some values be much more common than others? Explain your prediction before running the check. *Keep whatever you typed, even if you are wrong. That's the integrity of science!*
 
-### Step 2
+#### Step 2 {#step-2}
 
 ✅  **Quick frequency check**
 
@@ -858,7 +852,7 @@ print(d20_counts)
 
 🗣 Comment on how similar or different the counts are across the values in the table.
 
-### Step 3
+#### Step 3 {#step-3}
 
 **Hit rate**
 
@@ -875,11 +869,11 @@ abs(mean(boring_weekend == ___) - 0.05)
 
 💡 **Tip:** A fair die should have counts that are roughly even overall and a natural-20 rate close to 0.05, but not perfectly exact.
 
-## Task 3
+### Task 3 {#task-3}
 
 💭 Scenario. A hospital is considering ordering new blankets for newborns. They want to know how many blankets they should order in each size. The hospital has data on newborn lengths, which are normally distributed with a mean of 20 inches and a standard deviation of 0.9 inches. The hospital wants to know how many babies are likely to be longer than 23 inches, which would require larger blankets.
 
-### Step 1
+#### Step 1 {#step-1}
 
 **Baby-blanket test**
 
@@ -892,7 +886,7 @@ blanketed_babies <- rnorm(___, mean = ___, sd = ___)
 
 🗣 Comment: What do you expect the distribution of baby lengths to look like? Will the values be exactly equal? Have a normal distribution? Something else? Type your answer before working ahead. *Keep whatever you typed, even if you are wrong. That's the integrity of science!*
 
-### Step 2
+#### Step 2 {#step-2}
 
 **Too long?**
 
@@ -908,7 +902,7 @@ sum(________________)
 🗣 Comment: Yes or No — based on this simulation, does the hospital appear to need longer blankets?
 
 
-### Step 3
+#### Step 3 {#step-3}
 
 ⚠️  **Week-to-week risk**
 
@@ -928,7 +922,7 @@ max(weeks_too_long)
 
 🗣 Comment: In these 1000 simulated weeks, how often do you see at least one baby longer than 23 inches? What does that suggest about whether the hospital should keep some larger blankets available?
 
-## Task 4
+### Task 4 {#task-4}
 
 🤔 **Reflect**
 
@@ -937,7 +931,7 @@ max(weeks_too_long)
 ✍️ EXPLANATION: `"___"`
 
 
-## Save and Upload
+### Save and Upload {#save-and-upload}
 
 1. You will be submitting **both** the `chapter15_practice.qmd` Document **and** the workspace file (`.RData`). Submit the rendered `chapter15_practice.html` file if you successfully rendered it and want to share it, but it is optional. 
 

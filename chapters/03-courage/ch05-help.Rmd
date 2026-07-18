@@ -756,8 +756,8 @@ Choose the best answer for each question in this section.
 
 Download these two files and save them in the same course folder:
 
-- [ch05-practice-space.Rmd](downloads/ch05-practice-space.Rmd){download="ch05-practice-space.Rmd"}
-- [ch05-practice-space.RData](downloads/ch05-practice-space.RData){download="ch05-practice-space.RData"}
+- [ch05-practice-space.Rmd](downloads/ch05-help/ch05-practice-space.Rmd){download="ch05-practice-space.Rmd"}
+- [ch05-practice-space.RData](downloads/ch05-help/ch05-practice-space.RData){download="ch05-practice-space.RData"}
 
 :::
 

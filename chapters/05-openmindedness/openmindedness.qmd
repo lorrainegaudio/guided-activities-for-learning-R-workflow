@@ -12,7 +12,7 @@ Openmindedness is ...
 ::: {.section-card-grid}
 
 ::: {.section-card}
-### Chapter 9: Importing Data
+### Chapter 9: Git and GitHub
 
 blah blah blah
 

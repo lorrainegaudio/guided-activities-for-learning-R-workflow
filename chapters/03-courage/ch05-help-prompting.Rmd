@@ -27,7 +27,7 @@ The same Markdown you use in your R Notebook can also be used to structure promp
 
 Imagine you don't know that there is a missing backtick at the end of a code chunk. You try to knit to HTML, but it fails. You ask an LLM to help you find the error.
 
-![Figure 1. Screenshot of knit error](/assets/images/ch05-help/missing_back_tick_error.png)
+![Figure 1. Screenshot of knit error](images/ch05-help/missing_back_tick_error.png)
 
 Figure 1 shows the error message in the Render tab. The error says Error in `parse()`. You don’t understand what “parse” means, but you know it has something to do with the code in that chunk.
 

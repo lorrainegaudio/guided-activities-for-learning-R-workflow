@@ -1,0 +1,39 @@
+---
+toc: false
+---
+
+## Thoroughness
+
+<!-- Module introduction will be drafted later. -->
+
+## Chapters in this section
+
+::: {.section-card-grid}
+
+::: {.section-card}
+### Chapter 15: Probability Functions
+
+<!-- Chapter description will be drafted later. -->
+
+[Open Chapter 15](ch15-probability-functions.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 16: ggplot2
+
+<!-- Chapter description will be drafted later. -->
+
+[Open Chapter 16](ch16-ggplot2.html){.section-button}
+:::
+
+::: {.section-card}
+### Chapter 17: String Detection
+
+<!-- Chapter description will be drafted later. -->
+
+[Open Chapter 17](ch17-string-detect.html){.section-button}
+:::
+
+:::
+
+<!-- The "What to focus on" section will be drafted later. -->

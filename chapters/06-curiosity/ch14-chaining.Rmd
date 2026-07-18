@@ -1,15 +1,10 @@
 ---
 title: "Chapter 14: Chaining"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+subtitle: "Chaining dplyr Verbs"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# 📖 Welcome Back to R! 
+## Overview {#overview}
 
 In Chapters 11, 12, and 13, we explored several functions from `dplyr` (`select()`, `filter()`, `mutate()`, `case_when()`, `group_by` and `summarize()`). You now know the key dplyr verbs one at a time. This week, we'll be putting `dplyr` verbs together in  more complex pipelines. The real power comes from *chaining* them so data flows logically from raw to insight in a single readable statement.
 
@@ -37,7 +32,7 @@ By the end of Chapter 14 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# 📦 Packages
+## 📦 Packages {#packages}
 
 Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`
 
@@ -48,11 +43,11 @@ library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 ```
 
-# 🛠 Building a Pipeline 
+## 🛠 Building a Pipeline {#build-pipe}
 
 🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in `mtcars` that use greater than 8 L/100 km, broken down by transmission and cylinders.
 
-## Start with the data
+### Start with the data {#start-data}
 
 We'll use the built‑in `mtcars` dataset.
 
@@ -69,7 +64,7 @@ head(mtcars, 2)  # base R version, same output
 
 🗣 Data loaded correctly
 
-## Create a new variable with `mutate()`
+### Create a new variable with `mutate()` {#mutate}
 
 We'll calculate fuel consumption in liters per 100 kilometers (L/100 km). The formula is:
 
@@ -94,7 +89,7 @@ cor(mtcars$mpg, 235.215/mtcars$mpg) < 0
 
 🗣 The inverse units are verified.
 
-## Keep only cars using greater than 8 L/100 km
+### Keep only cars using greater than 8 L/100 km {#filter}
 
 We'll only keep cars that use *at least* 8 L/100 km. Use `filter()` to keep those rows.
 
@@ -108,7 +103,7 @@ mtcars %>%
   head()
 ```
 
-## Select relevant columns
+### Select relevant columns {#select}
 
 🎯 Goal. Keep `cyl`, `am`, and `l_100km` columns.
 
@@ -128,7 +123,7 @@ setequal(names(mtcars2 %>% select(cyl, am, l_100km)), c("cyl","am","l_100km"))
 
 🗣 Columns trimmed.
 
-## Group and summarize
+### Group and summarize {#group-summarize}
 
 Now we can group by `am` and `cyl`, then summarize to get the mean fuel consumption and count of cars in each group.
 
@@ -156,7 +151,7 @@ Order Matters in dplyr Pipelines. You can't `summarize` groups before you define
 
 - `.groups = "drop"` prevents grouping in the final output.
 
-## Recode transmission for readability
+### Recode transmission for readability {#recode}
 
 ❓ Question: How might you check which combination of `am` + `cyl` is least fuel‑efficient?
 
@@ -198,7 +193,7 @@ mtcars_summary
 
 🤔 Reflect: Explain why the highest mean_l_100km is the least fuel‑efficient combination. Create a memo to earn learning skill points. 
 
-## Readable Result
+### Readable Result {#result}
 
 🎯 Goal. Build one readable pipeline, then sort by the highest Mean l/100km (higher = less efficient) and keep the top row.
 
@@ -229,13 +224,13 @@ mtcars_summary
 Answer the ❓ Question: Which combination of `am` + `cyl` is least fuel‑efficient? 
 
 
-# Summary
+## Summary {#summary}
 
 
-# Chapter Terms
+## Chapter Terms {#terms}
 
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Run each section; be sure the requested objects appear in the Environment. When finished, save **BOTH** this script and your .RData workspace and upload to Canvas Assignment 11. Create detailed memos for yourself as you work through each task.
 
@@ -245,13 +240,13 @@ There are three tasks. **Task 2** is the main coding task. Drafting steps are *o
 
 When you’re done, your workspace should contain `Movie_Facts` that is created by one end-to-end pipeline.
 
-## Task 0
+### Task 0 {#task0}
 
 📦 Library it up!
 
 Make sure there is script in your document to load `dplyr` and `dslabs` packages so their functions / datasets load.
 
-## Task 1
+### Task 1 {#task1}
 
 🧠 Quick Recall
 
@@ -263,7 +258,7 @@ Explain how *three* `dplyr` verbs from Lessons 7-11 work.
 
 ✍️ EXPLANATION: "___"
 
-## Task 2
+### Task 2 {#task2}
 
 🛠 Pipeline
 
@@ -317,7 +312,7 @@ C. Ordering:
 
 🚀 Explore and Play: add style when you rename the columns in the final output to be more readable (e.g., `Mean Rating`, `Count`). Or add any other enhancements like more levels to `rating_label` such as "Excellent". Be sure to point it out in a memo. 
 
-### Task 2.0
+#### Task 2.0 {#task2.0}
 
 Load packages and confirm `movielens` has `rating` and `year`.
 
@@ -329,7 +324,7 @@ Load packages and confirm `movielens` has `rating` and `year`.
 
 ```
 
-### Task 2.1
+#### Task 2.1 {#task2.1}
 
 Keep only rows `rating` and `year` columns when both are non-missing (Hint: use `!is.na()` and `filter()`). Restrict to movies with non-missing rating and `year ≥ 1990`.
 
@@ -346,7 +341,7 @@ Keep only rows `rating` and `year` columns when both are non-missing (Hint: use 
 
 🗣/🪞
 
-### Task 2.2
+#### Task 2.2 {#task2.2}
 
 Add to the pipeline from Task 2.1, using `mutate`, use create the column `decade`
 
@@ -372,7 +367,7 @@ Add to the pipeline from Task 2.1, using `mutate`, use create the column `decade
 🗣/🪞
 
 
-### Task 2.3
+#### Task 2.3 {#task2.3}
 
 Continue the same pipeline from Task 2.2, but now add to `mutate()`
 
@@ -398,7 +393,7 @@ Continue the same pipeline from Task 2.2, but now add to `mutate()`
 🗣/🪞
 
 
-### Task 2.4
+#### Task 2.4 {#task2.4}
 
 Continue the same pipeline to create`mean_rating` (rounded to 2), 
 
@@ -421,7 +416,7 @@ Continue the same pipeline to create`mean_rating` (rounded to 2),
 
 🗣/🪞
 
-### Task 2.5
+#### Task 2.5 {#task2.5}
 
 Continue the same pipeline to create `n` (row count) (2.5)
 
@@ -443,7 +438,7 @@ Continue the same pipeline to create `n` (row count) (2.5)
 🗣/🪞
 
 
-### Task 2.6
+#### Task 2.6 {#task2.6}
 
 Finish the same pipeline with an arrange() step (choose to sort by mean_rating or by n). End by storing the result as Movie_Facts.
 
@@ -464,10 +459,7 @@ C. Ordering:
 
 🗣/🪞
 
-
-
-
-## Task 3
+### Task 3 {#task3}
 
 📝 Write a short paragraph reflecting on when might **separate objects** be clearer than a single long pipeline?
 
@@ -475,13 +467,11 @@ C. Ordering:
 
 **OR** 
 
-
 📝 Write a short paragraph reflecting on what `n` is counting in `Movie_Facts`. Is it individual movies or individual ratings? Explain. 
 
 ✍️ EXPLANATION: "___"
 
-
-# Save and Upload
+## Save and Upload {#save-upload}
 
 1. You will be submitting **both** the "your choice" Document and the workspace file. The workspace file saves all the objects in your environment that you created in this lesson. You can save the workspace by running the following command in a code chunk of the script document document:
 
@@ -495,13 +485,6 @@ Or you can click the "Save Workspace" button in the Environment pane.
 
 2. Find the assignment in this week's module in Canvas and upload **both** the file with your script and the workspace file.
 
-# Today you practiced:
-
-- Connected `dplyr` verbs with the pipe to form readable workflows.
-
-- Built a pipeline that mutated, filtered, selected, grouped, summarized, and recoded in one statement.
-
-- Reflected on the complexity of piping many steps
 
 
 

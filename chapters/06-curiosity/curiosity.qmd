@@ -27,7 +27,7 @@ blah blah blah
 :::
 
 ::: {.section-card}
-### Chapter 14: dplyr Subsetting
+### Chapter 14: Chaining
 
 blah blah blah
 

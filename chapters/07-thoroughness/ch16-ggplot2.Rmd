@@ -1,16 +1,10 @@
 ---
-title: "Chapter 16"
-subtitle: "📈 ggplot2"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+title: "Chapter 16: ggplot2"
+subtitle: "Visualizing Data"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# Overview
+## Overview {#overview}
 
 In earlier chapters, you practiced working with data frames, variables, and reproducible Quarto notes. In this chapter, you will use `ggplot2` to turn data into graphs that are easier to read and explain. You will build plots by combining a data frame, aesthetic mappings, and geometric layers.
 
@@ -28,11 +22,11 @@ By the end of Chapter 16 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# Setting Up Your Notes
+## Setting Up Your Notes {#setup}
 
 In Chapter 11, you learned how to create a Quarto file, keep the YAML header, use Markdown headings, write memos outside code chunks, and control chunks with `#|` options. In Chapter 12, you added a table of contents and section numbering. In Chapter 13, you continued using those Quarto skills in a reproducible workflow. In Chapter 16, you will keep practicing those same habits while learning `ggplot2`.
 
-## Create a Quarto File
+### Create a Quarto File {#create_quarto}
 
 For those of you who **have GitHub** and a course project, navigate to your course folder and open your course project. This will open RStudio. Click “Pull” in the Git pane to get the latest version of the course materials. After completing work, save, stage, commit, and push.
 
@@ -42,7 +36,7 @@ Open a new Quarto document in your course folder and save it as:
 `chapter16_notes.qmd`
 (`File > New File > Quarto Document`).
 
-## YAML Header
+### YAML Header {#yaml_header}
 
 Copy and paste this YAML header into your new Quarto document. Update the author field with your name.
 
@@ -66,7 +60,7 @@ format:
  Since this document can act as a resource for you to review later, set code-fold to `false` so that all code is visible by default.
 
 
-## Headings
+### Headings {#headings}
 
 Use the section headings in this file to structure your notes. You can copy and paste these into your new Quarto document:
 
@@ -91,7 +85,7 @@ Use the section headings in this file to structure your notes. You can copy and 
 
 Work through the sections under each heading. Render to HTML often to check both formatting and code output.
 
-# 📦 Packages
+## 📦 Packages {#packages}
 
 Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`
 
@@ -110,7 +104,7 @@ library(dplyr)   # Data manipulation package
 library(ggplot2) # Data visualization
 ```
 
-# What is ggplot2?
+## What is ggplot2? {#what-is-ggplot2}
 
 Open the help file for `ggplot()` to see its formal arguments and description.
 
@@ -124,7 +118,7 @@ Open the help file for `ggplot()` to see its formal arguments and description.
 
 The three core steps of **ggplot2** are: (1) supply a data frame, (2) map aesthetics with `aes()`, and (3) add geometric objects (geoms) with `geom_*()` functions.
 
-# The Blank Canvas
+## The Blank Canvas {#blank-canvas}
 
 We'll start building a plot step-by-step. First, we create a blank canvas with `ggplot()`. The data set we'll use is `divorce_margarine` from the `dslabs` package.
 
@@ -153,7 +147,7 @@ ggplot(data = divorce_margarine)
 
 R does not throw an error. 📝 Note that ggplot needs three main steps (data → `aes()` → `geom_*()`).
 
-# Mapping Aesthetics
+## Mapping Aesthetics {#mapping-aesthetics}
 
 **Aesthetic mapping** is the process of connecting variables in your data to visual properties of the plot, such as position, color, size, and shape. In `ggplot2`, this is done using the `aes()` function.
 
@@ -180,11 +174,11 @@ divorce_margarine %>%
 
 🪞 Reflection: The aesthetics describe the underlying structure of the plot, and the geoms are just different ways of rendering that structure. By setting `aes()` inside `ggplot()` we create a shared mapping that all later geoms can reuse, instead of repeating ourselves for each layer.
 
-# Adding Geometric Objects (Geoms)
+## Adding Geometric Objects (Geoms) {#adding-geoms}
 
 Geometric objects (**geoms**) are the actual shapes drawn on the plot: points, lines, bars, boxplots, etc. Each geom answers the question: *Given these aesthetics, how should the data be drawn?*
 
-## Scatterplot Example
+### Scatterplot Example {#scatterplot-example}
 
 **Scatterplots** are used to visualize the relationship between two numeric variables. Each point represents an observation in the data, with its position determined by the values of the two variables.
 
@@ -245,7 +239,7 @@ divorce_margarine %>%
 
 🚀 Explore and Play: Try adding any of the above aesthetics to `geom_point()`. How does it change the plot?
 
-## Layering geoms
+### Layering geoms {#layering-geoms}
 
 Different geoms tell different stories. Let's explore more geoms!
 
@@ -280,7 +274,7 @@ divorce_margarine %>%
 
 🗣 Comment: The trend line shows a positive linear relationship between divorce rate and margarine consumption.
 
-## Histogram Example
+### Histogram Example {#histogram-example}
 
 **Histograms** are used to visualize the distribution of a single numeric variable. They group values into bins and show the count (or density) of observations in each bin.
 
@@ -364,7 +358,7 @@ Tallness %>%
 
 🛠 Break Things! Test out your hand at adding aesthetics `geom_histogram()`  understands.
 
-## Density Plot
+### Density Plot {#density-plot}
 
 Now we’ll look at a smooth version of the height distribution using a density curve.
 
@@ -404,7 +398,7 @@ Tallness %>%
 
 - `linewidth` controls the thickness of the outline.
 
-## Overlaid Histograms
+### Overlaid Histograms {#overlaid-histograms}
 
 Let's compare the two height distributions by overlaying histograms and using `fill = Country` to distinguish groups. 
 
@@ -422,7 +416,7 @@ print(tall_compared_fig)
 
 🗣 Comment: `fill = Country` in the global `aes()` tells `ggplot()` to make a separate histogram for each country with different fill colors, and automatic a legend. By default, `geom_histogram()` stacks groups. The `position = "identity"` instead puts the bars in the same x-scale so they overlap. The `alpha = 06` makes bars transparent (0 = invisible, 1 = solid), so we can see where the two distributions overlap. 
 
-## Boxplot
+### Boxplot {#boxplot}
 
 **Boxplots** summarize distributions using five statistics: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. They are useful for comparing distributions across groups.
 
@@ -449,7 +443,7 @@ Tall_Box
 
 🗣 Comment: There are two boxes, one for each country, with USA maybe a bit higher median and wider spread. The countries appear on the x-axis and that each box shows median, IQR, and dots for each of the outliers.
 
-# Labels and Themes
+## Labels and Themes {#labels-themes}
 
 We can enhance our plots by adding axis labels and applying themes for better aesthetics.
 
@@ -476,14 +470,14 @@ Tall_Box
 
 🗣 Comment: `xlab()` and `ylab()` set axis labels. `ggplot2::theme_light()` applies light horizontal grid lines. (The `ggplot2::` prefix explicitly specifies that you're using the `theme_light()` function from the `ggplot2` package. This is useful when multiple packages have functions with the same name.)
 
-# Summary
+## Summary {#summary}
 
 In this chapter, you learned that `ggplot2` builds plots by combining a data frame, an aesthetic mapping in `aes()`, and one or more geometric layers such as `geom_point()`, `geom_histogram()`, and `geom_boxplot()`. You practiced starting with a blank canvas, mapping variables to visual properties, and then choosing a geom that fits the question you want to answer.
 
 You also improved plot readability by adding axis labels and applying themes. These are foundational data-storytelling skills in R. You will reuse them whenever you need to explore data or communicate a pattern to someone else.
 
 
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Aesthetic mapping**: A connection between a variable in the data and a visual property in the plot, such as position, color, or fill. In `ggplot2`, mappings are usually set inside `aes()`.
 
@@ -505,7 +499,7 @@ You also improved plot readability by adding axis labels and applying themes. Th
 
 
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 In this Practice Space, you are expected to:
 
@@ -521,7 +515,7 @@ Replace every `____` placeholder and any TODO comment with working code or a sho
 
 You will submit your `chapter16_practice.qmd`, your rendered `chapter16_practice.html` (optional), and your `chapter16_practice.RData` workspace file.
 
-## Setup
+### Setup {#setup}
 
 1. Create a **new Quarto file** in your course folder and save it as:
 
@@ -576,7 +570,7 @@ your_object
 
 ---
 
-## Task 0
+### Task 0 {#task-0}
 
 📦 **Packages**
 
@@ -590,7 +584,7 @@ library(dslabs)
 ```
 
 
-## Task 1
+### Task 1 {#task-1}
 
 🧠 **Quick Recall**
 
@@ -602,7 +596,7 @@ List the three core `ggplot2` steps and write a short explanation of each step.
 
 ✍️ EXPLANATION: "___"
 
-## Task 2
+### Task 2 {#task-2}
 
 **Scatterplot**
 
@@ -626,7 +620,7 @@ Pretty_Flowers
 
 🗣/🪞 What pattern do you notice in petal length across species?
 
-## Task 3
+### Task 3 {#task-3}
 
 **Boxplot: Group Comparison**
 
@@ -647,7 +641,7 @@ Petal_Spread
 
 🗣/🪞 Which species appears to have the widest petal-width distribution? What does the boxplot help you see that a table of values would not show as quickly?
 
-## Task 4
+### Task 4 {#task-4}
 
 **Density plot: split + transparency**
 
@@ -670,7 +664,7 @@ CO2_Graph
 
 🗣/🪞 What does the overlap between the density curves suggest about the two plant types?
 
-## Task 5
+### Task 5 {#task-5}
 
 ⚖️ **Histogram vs. Density**
 
@@ -705,7 +699,7 @@ nrow(heights)
 
 🗣/🪞 What does the density curve add to the histogram? Does the combined graph make the overall shape easier to describe?
 
-## Task 6
+### Task 6 {#task-6}
 
 🤔 **Reflect**: 
 
@@ -713,7 +707,7 @@ nrow(heights)
 
 ✍️ EXPLANATION: "___"
 
-## Save and Upload
+### Save and Upload {#save-upload}
 
 - Save your Quarto file as `chapter16_practice.qmd`.
 - Save your workspace as `chapter16_practice.RData`.

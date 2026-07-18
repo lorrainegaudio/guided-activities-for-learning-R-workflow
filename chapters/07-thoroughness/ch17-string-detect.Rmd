@@ -1,16 +1,10 @@
 ---
-title: "Chapter 17"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Lesson generated on', format(Sys.Date(), '%B %d, %Y'))`"
-
+title: "Chapter 17: String Detect"
+subtitle: "Thematic Coding and Data Filtering"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
-# Overview 
+## Overview {#overview}
 
 In Chapter 17, We explore thematic coding and data filtering. Many datasets include text—movie genres, country names, survey answers. You often need to *find* rows that mention certain words  or exact terms. Today you’ll learn to combine `str_detect()` with `dplyr::filter()` on both **row names** and **character columns**, using word boundaries (`\\b`) and alternation (`|`) so your patterns are precise.
 
@@ -37,7 +31,7 @@ By the end of Chapter 17 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# 📦 Packages
+## 📦 Packages {#packages}
 
 Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`; `install.packages("stringr")`
 
@@ -53,7 +47,7 @@ library(dplyr)   # Data manipulation package
 library(stringr) # For str_detect() function
 ```
 
-# Warm‑Up
+## Warm‑Up {#warmup}
 
 What is str_detect?
 
@@ -63,7 +57,7 @@ What is str_detect?
 
 👀 Check‑in: Why might `ignore_case = TRUE` be safer for text search?
 
-# Row‑name search
+## Row‑name search {#row-name-search}
 
 Start every plot by piping a data frame into `ggplot()`.
 
@@ -79,7 +73,7 @@ USArrests %>%
 
 👀 Check‑in: Which *New* states were found? Use row.names(New_states).
 
-# Column search
+## Column search {#column-search}
 
 ```{r , eval=FALSE}
 View(movielens)
@@ -98,7 +92,7 @@ nrow(Love_films)
 View(Love_films) 
 ```
 
-# Exact word match
+## Exact word match {#exact-word-match}
 
 `\\b` boundary  & `regex`
 
@@ -132,7 +126,7 @@ murders %>%
 
 🧩 Explanation:  `(A|B)` acts like A **OR** B inside a single `regex` pattern, matches either "North" OR "South" in one operation.
 
-# Count Matches Quickly
+## Count Matches Quickly {#count-matches-quickly}
 
 ```{r , eval=FALSE}
 match_counts <- c(
@@ -161,7 +155,7 @@ match_counts <- sapply(list(New_states, Love_films, South_states, NS_states), nr
 match_counts
 ```
 
-# Inspect the Corpus
+## Inspect the Corpus {#inspect-the-corpus}
 
 Download the Chapter corpus (Resnik & Elliott passages):
 
@@ -178,7 +172,7 @@ length(Science_Values)   # lines/pages in the article
 head(Science_Values)
 ```
 
-# Build a Keyword Index
+## Build a Keyword Index {#build-a-keyword-index}
 
 ```{r , eval=FALSE}
 ?lapply  # lapply() applies a function to each element of a list or vector
@@ -212,7 +206,7 @@ Index[["trust"]]
 
 👀 Check‑in: How many lines mention "trust"? Use length(Index[["trust"]])
 
-# Preview Context Lines
+## Preview Context Lines {#preview-context-lines}
 
 ```{r , eval=FALSE}
 Science_Values[Index[["transparency"]]][1:2]   # first two transparency hits
@@ -224,7 +218,7 @@ trust_sentences <- Science_Values[Index[["trust"]]]
 ```
 
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 🧠 Challenge:
 
@@ -245,13 +239,13 @@ b. Write a loop (`lapply`) that saves a separate data frame per word.
 
 Add at least one 👀 check‑in predicting the total rows you expect.
 
-# ➤ Assignment
+## ➤ Assignment
 
 Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Run each section; be sure the requested objects appear in the Environment. When finished, save **BOTH** this script and your .RData workspace and upload.
 
 When you’re done, your workspace should contain SIX new objects: `Merc_cars`, `United`, `Saint`, `Republics`, `Union_2000`, `Keyword_Counts`
 
-## Task 0
+### Task 0 {#task-0}
 
 📦 Packages
 
@@ -264,7 +258,7 @@ ____(____)
 load("Lesson_14_Workspace.RData")
 ```
 
-## Task 1
+### Task 1 {#task-1}
 
 Row-name search
 
@@ -275,13 +269,13 @@ Mazda_cars <- mtcars %>%
   _____(_____(row.names(mtcars), "Mazda"))
 ```
 
-## Task 2
+### Task 2 {#task-2}
 
 ⚡ Explain what Task 1’s pipeline does.
 
 ✍️ EXPLANATION: "___"
 
-## Task 3
+### Task 3 {#task-3}
 
 “United” countries
 
@@ -291,7 +285,7 @@ Use `gapminder` ➜ rows whose `country` contains `"United"`. Store as **`United
 ____ <- _____
 ```
 
-## Task 4
+### Task 4 {#task-4}
 
 Exact “St” countries
 
@@ -303,7 +297,7 @@ _____ <- _____
 
 ```
 
-## Task 5
+### Task 5 {#task-5}
 
 Republic OR Rep
 
@@ -313,7 +307,7 @@ Use `gapminder` ➜ rows whose `country` contains `"Republic"` OR exactly `"Rep"
 _____ <- _____
 ```
 
-## Task 6
+### Task 6 {#task-6}
 
 Year-specific filter + ignore_case
 
@@ -323,7 +317,7 @@ Use `gapminder` ➜ `year == 2000` AND `country` contains` "union"` (any case). 
 _____ <- _____
 ```
 
-## Task 7
+### Task 7 {#task-7}
 
 Build a keyword hit count
 
@@ -342,7 +336,7 @@ _____ <- _____
 print(Keyword_Counts)
 ```
 
-## Task 8
+### Task 8 {#task-8}
 
 🤔 Reflect: 
 
@@ -350,7 +344,7 @@ print(Keyword_Counts)
 
 ✍️ EXPLANATION: "___"
 
-# Save and Upload
+## Save and Upload {#save-and-upload}
 
 1. You will be submitting **both** the Quarto Document and the workspace file. The workspace file saves all the objects in your environment that you created in this lesson. You can save the workspace by running the following command in a code chunk of the Quarto Document document:
 
@@ -363,16 +357,6 @@ Or you can click the "Save Workspace" button in the Environment pane.
 💾 **Always save the R documents before closing.**
 
 2. Find the assignment in this week's module in Canvas and upload **both** the RMD and the workspace file.
-
-# Today you practiced:
-
-- Used word boundaries (`\\b`) and alternation (`|`) inside `regex` strings.
-
-- Combined `str_detect()` with `dplyr::filter()` for flexible row selection.
-
-- Searched both data-frame columns and row names.
-
-- Built a keyword index for qualitative reading.
 
 
 

@@ -20,6 +20,14 @@ blah blah blah
 :::
 
 ::: {.section-card}
+### Chapter 5 Extension: AI Prompting for Knit Errors
+
+Practice writing structured prompts that help an AI tool explain render errors, identify likely causes, and suggest what to inspect next.
+
+[Open the AI Prompting Activity](ch05-help-prompting.html){.section-button}
+:::
+
+::: {.section-card}
 ### Chapter 6: Missing Values
 
 blah blah blah

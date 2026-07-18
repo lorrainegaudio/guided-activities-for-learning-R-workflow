@@ -1,16 +1,10 @@
 ---
-title: "Chapter 13"
-subtitle: "🧺 Grouped Summaries"
-author: "by Lorraine Gaudio"
-date:   "`r paste('Version', format(Sys.Date(), '%B %d, %Y'))`"
-team: "Fall 2026"
+title: "Chapter 13: Grouped Summaries"
+subtitle: "group_by() and summarize()"
+toc: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-# Overview
+## Overview {#overview}
 
 In Chapters 11 and 12, you learned how to subset and transform data with `dplyr` using functions such as `select()`, `filter()`, `mutate()`, and `case_when()`. In this chapter, you will extend that workflow by learning how to organize data into groups and then calculate summaries for those groups. You will use `count()` to make frequency tables, `summarize()` to compute statistics such as mean and standard deviation, and `group_by()` to tell R which subgroups to analyze separately. You will also practice computing multiple statistics at once and working with more than one grouping variable.
 
@@ -46,11 +40,11 @@ By the end of Chapter 13 you will be able to:
 
 Keep these goals in mind as you move through each section.
 
-# Setting Up Your Notes
+## Setting Up Your Notes {#setup-notes}
 
 In Chapter 11, you learned how to create a Quarto file, keep the YAML header, use Markdown headings, write memos outside code chunks, and control chunks with `#|` options. In Chapter 12, you added a table of contents, section numbering, and inline R code inside your sentences. In Chapter 13, you will keep practicing those Quarto habits while learning how to count categories and summarize data by groups.
 
-## Create a Quarto File 
+### Create a Quarto File {#create-quarto}
 
 For those of you who **have GitHub** and a course project, navigate to your course folder and open your course project. This will open RStudio. Click "Pull" in the Git pane to get the latest version of the course materials. After completing work, save, stage, commit, and push. 
 
@@ -58,7 +52,7 @@ If you **don't have GitHub** or a course project, just open RStudio and set your
 
 Open a new Quarto document in your course folder and save it as: `chapter13_notes.qmd` (`File > New File > Quarto Document`).
 
-## YAML Header
+### YAML Header {#yaml-header}
 
 Copy and paste the YAML header from this file into your new Quarto document. Update the title, author, and date fields in the YAML header.
 
@@ -79,7 +73,7 @@ format:
 ```")
 ```
 
-## Headings
+### Headings {#headings}
 
 Use the section headings in this file to create the structure of your notes. You can copy and paste the section headings into your new Quarto document.
 
@@ -103,7 +97,7 @@ Use the section headings in this file to create the structure of your notes. You
 
 Work through the sections under each heading. 💡 **Tip:** Render to HTML often to see the results.
 
-## 📦 Packages
+### 📦 Packages {#packages}
 
 Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`
 
@@ -115,13 +109,13 @@ library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 ```
 
-# 📖  Counts, Center, and Spread
+## 📖  Counts, Center, and Spread {#counts-center-spread}
 
 Before using `summarize()` and `count()`, it helps to review a few data words you have likely seen before. You do **not** need to calculate these by hand in this chapter. You do need to understand what they mean so you can choose the right function and explain your results.
 
 🐱 Curiosity as an intellectual virtue means choosing where to spend your attention. If these review terms feel rusty, pause here and use this section to refresh them. If you already practiced these ideas (e.g., in the Data Understanding Notebook activity), you can skip this review section and [jump to dplyr's `count()`](#dplyr-count). Return if you need a reminder.
 
-## Data Terminology
+### Data Terminology {#data-terminology}
 
 A **numeric variable** stores numbers that can be measured or calculated, such as `mpg`, height, or test score.
 
@@ -129,7 +123,7 @@ A **categorical variable** stores labels or group names, such as state, disease,
 
 In this chapter, we often **group by a categorical variable** and then **summarize a numeric variable**.
 
-## Count
+### Count {#count}
 
 A **count** tells you how many observations there are.
 
@@ -139,11 +133,11 @@ A **count** tells you how many observations there are.
 
 If you want to know how many cars have 4 cylinders, 6 cylinders, or 8 cylinders, you are asking for a **count**.
 
-## Center
+### Center {#center}
 
 **Center** describes a typical value.
 
-### Mean
+#### Mean {#mean}
 
 The **mean** is the average.
 
@@ -151,17 +145,17 @@ It adds the values and divides by how many values there are.
 
 If the mean `mpg` for cars with 4 cylinders is higher than the mean `mpg` for cars with 8 cylinders, then the 4-cylinder cars are more fuel efficient on average.
 
-### Median
+#### Median {#median}
 
 The **median** is the middle value when the data are sorted.
 
 🪞 Median is useful when extreme values might pull the mean too high or too low.
 
-## Spread
+### Spread {#spread}
 
 **Spread** describes how much the values vary.
 
-### Standard Deviation
+#### Standard Deviation {#standard-deviation}
 
 The **standard deviation** tells you how far values tend to be from the mean.
 
@@ -171,7 +165,7 @@ The **standard deviation** tells you how far values tend to be from the mean.
 
 If one cylinder group has a much larger standard deviation for `mpg`, that group has more variability in fuel efficiency.
 
-### Range
+#### Range {#range}
 
 The **range** is the distance from the smallest value to the largest value.
 
@@ -193,7 +187,7 @@ The **range** is the distance from the smallest value to the largest value.
 
 We'll start with counting categories with `count()` because counts help you see what categories are present before you calculate more complex summaries.
 
-# dplyr's count() {#dplyr-count}
+## dplyr's count() {#dplyr-count}
 
 You can use `count()` to quickly count rows for each category or combination of categories.
 
@@ -209,7 +203,7 @@ Or, for more than one grouping variable:
 
 `data %>% count(variable1, variable2, ...)`
 
-## Count one variable
+### Count one variable {#count-one-variable}
 
 🎯 Count how many cars have each cylinder value.
 
@@ -225,13 +219,13 @@ mtcars %>%
 
 💡 **Test knit.** Does the table show one row for each cylinder value and a column named `n`?
 
-### count() versus length()
+#### count() versus length() {#count-vs-length}
 
 `length()` counts how many values are in a vector.
 
 `count()` counts rows in a data frame for each category or combination of categories.
 
-### count() with sorting
+#### count() with sorting {#count-with-sorting}
 
 Sometimes you want to see the biggest groups first.
 
@@ -245,7 +239,7 @@ mtcars %>%
 
 🗣 `sort = TRUE` arranges the result so the largest count appears first. The counts are the same as before; only the row order changed.
 
-## Count multiple variables
+### Count multiple variables {#count-multiple-variables}
 
 You can also count combinations of categories. 
 
@@ -269,7 +263,7 @@ This is useful when one grouping variable is not enough.
 
 If our question is only “How many rows are in each category?”, `count()` is enough. But what if our question asks about averages, maximums, spread, or other statistics? We'll need `summarize()`.
 
-# dplyr's summarize()
+## dplyr's summarize() {#summarize}
 
 You can use `summarize()` to compute summary statistics like the mean, median, etc.
 
@@ -310,7 +304,7 @@ mtcars %>%
 
 🤔 `summary()` is a base R function that gives a quick overall description of an object, such as basic statistics for each variable in a data frame. `summarize()` from `dplyr` is used to create your own summary results, usually after `group_by()`, such as the mean or count for each group.
 
-## count() versus summarize()
+### count() versus summarize() {#count-vs-summarize}
 
 You can often get the same result in two ways.
 
@@ -327,7 +321,7 @@ mtcars %>%
 
 Use `count()` when you mainly want frequencies. Use `group_by()` with `summarize()` when you want to calculate other statistics too, such as mean and standard deviation.
 
-# dplyr's group_by()
+## dplyr's group_by() {#group_by}
 
 `group_by()` changes the behavior of summary functions.
 
@@ -361,7 +355,7 @@ cyl_means
 
 🤔 Grouping cars by `cyl` is useful because cars with different numbers of cylinders often have different fuel efficiency, so one overall average mpg would hide those differences. By grouping first, you can compare the typical mpg for 4-, 6-, and 8-cylinder cars separately.
 
-## Explicit vs. Default Naming
+### Explicit vs. Default Naming {#explicit-vs-default-naming}
 
 If you do not give the summary column a name, **`dplyr` uses the summary expression itself as the column name** by default. So `summarize(mean(mpg))` creates a column named `mean(mpg)` instead of a cleaner name like `mean_mpg`.
 
@@ -382,7 +376,7 @@ mtcars %>%
 
 Now that you have seen how `group_by()` changes one summary calculation, you can ask for several summary statistics at the same time.
 
-# Multiple Statistics {#multiple-stats}
+## Multiple Statistics {#multiple-stats} 
 
 🎯 Create several summary columns in one `summarize()` call, separated by commas.
 
@@ -416,7 +410,7 @@ cyl_stats
 ---
 
 
-# Multiple Variables {#multiple-vars}
+## Multiple Variables {#multiple-vars}
 
 `group_by()` with one column creates one group for each unique value in that column. `group_by()` with two columns creates one group for each unique combination of values.
 
@@ -469,13 +463,13 @@ mtcars %>%
 
 If you see a message about grouped output, keep going. The next section explains what that message means.
 
-## ungroup()
+### ungroup() {#ungroup}
 
 When you summarize data that has more than one grouping variable, `dplyr` may keep part of the grouping structure in the result. That leftover grouping can affect later code, so it is important to check whether your summary table is still grouped.
 
 🐱 We are asking, “What did R keep behind the scenes, and could that affect my next step?”
 
-### A. Default behavior: keeps earlier groups
+#### A. Default behavior: keeps earlier groups {#default-keeps-earlier-groups}
 
 🎯 Show that with two grouping variables, `summarize()` keeps the earlier group by default.
 
@@ -502,7 +496,7 @@ is_grouped_df(cyl_gear_stats) # expect TRUE
 
 You’ll want to be explicit when you do not want any grouping left.
 
-### B. Make it explicit inside `summarize()`
+#### B. Make it explicit inside `summarize()` {#explicit-drop-groups}
 
 🎯 Return a plain, ungrouped table by telling `summarize()` to drop all groups.
 
@@ -530,7 +524,7 @@ is_grouped_df(cyl_gear_stats_drop) # expect FALSE
 
 💡 **Test knit.** Does `group_vars(cyl_gear_stats_drop)` return `character(0)` and does `is_grouped_df(cyl_gear_stats_drop)` return `FALSE`?
 
-### C. Alternative: drop groups after summarizing
+#### C. Alternative: drop groups after summarizing {#alternative-drop-groups}
 
 🎯 Achieve the same ungrouped result by using `ungroup()` after `summarize()`
 
@@ -566,9 +560,7 @@ Pick one method and use it consistently:
 
 Speaking of summarizing, we've made it to the end of the chapter. Let's review what you learned.
 
-# Summary
-
-# Summary
+## Summary {#summary}
 
 In this chapter, you learned how to describe data by groups using `dplyr`. You reviewed the basic ideas of count, center, and spread so you could interpret grouped results, then used `count()` to make frequency tables, `summarize()` to compute statistics, and `group_by()` to split a dataset into subgroups before summarizing. You also practiced calculating multiple statistics in one call, using `n()` inside `summarize()` to count rows within groups, and working with combinations of grouping variables.
 
@@ -596,9 +588,7 @@ Table 1. Functions for grouped summaries
 | `.groups = "drop"` | Removes grouping inside `summarize()` so the result is returned as an ungrouped table.                                     |
 | `ungroup()`        | Removes grouping after a grouped operation has already been created.                                                       |
 
-
-
-# Chapter Terms
+## Chapter Terms {#chapter-terms}
 
 **Categorical Data**: Data whose values place observations into groups or categories. The categories may have no natural order (nominal) or may have an order with uneven gaps between categories (ordinal). In R, categorical data are often stored as factors.
 
@@ -622,7 +612,7 @@ Table 1. Functions for grouped summaries
 
 **Standard Deviation**: A measure of spread that describes how far values typically vary from the mean. A small standard deviation means values are clustered close to the mean, while a large standard deviation means they are more spread out.
 
-# 📝 Practice Space
+## 📝 Practice Space {#practice-space}
 
 In this Practice Space, you will use grouped summaries to describe data in a reproducible report. You will practice `count()` for frequency tables, `group_by()` for creating groups, `summarize()` for calculating statistics, and `n()` for counting rows inside grouped summaries. You will also keep practicing Quarto as a reproducible workspace for code, output, checks, and memo notes.
 
@@ -662,7 +652,7 @@ For this assignment, submit the rendered `chapter13_practice.html` file.
 
 ---
 
-## Task 1
+### Task 1 {#task-1}
 
 🌟 **Single grouping**
 
@@ -707,7 +697,7 @@ is_grouped_df(twinkle_twinkle)
 
 ---
 
-## Task 2
+### Task 2 {#task-2}
 
 🫒 **Single grouping + three statistics**
 
@@ -764,7 +754,7 @@ is_grouped_df(Olive_Garden)
 
 ---
 
-## Task 3
+### Task 3 {#task-3}
 
 🧮 **Counting unique values**
 
@@ -819,13 +809,13 @@ Write this as normal text in your Quarto document, not as code. Replace the blan
 
 ---
 
-## Task 4
+### Task 4 {#task-4}
 
 💬 **Make and test a prediction**
 
 In this task, you will predict how many groups will be created when you group by both `state` and `disease`, then test your prediction with code.
 
-### Step 1
+#### Step 1 {#step-1}
 
 If there are 51 states in the dataset, and you assume every state has data for all 7 diseases, how many groups will `group_by(state, disease)` create?
 
@@ -841,7 +831,7 @@ E. $51^7$ groups
 
 💬 **Make a prediction:** Choose one answer and explain why you chose it before running the code.
 
-### Step 2
+#### Step 2 {#step-2}
 
 Test your prediction.
 
@@ -872,7 +862,7 @@ _____(categorical_counts)
 
 ---
 
-## Task 5
+### Task 5 {#task-5}
 
 🦠 **National mean counts by disease**
 
@@ -911,7 +901,8 @@ is_grouped_df(Infectious_Burden)
 
 ---
 
-## Task 6
+
+### Task 6 {#task-6}
 
 📝 **Final reflection**
 
@@ -926,7 +917,7 @@ Your paragraph should explain the difference between:
 
 🪞 **Reflect:** Include one sentence about curiosity in this chapter. What did curiosity help you notice, predict, check, or decide not to pursue?
 
-## Task 7
+### Task 7 {#task-7}
 
 🧹 **Self-check checklist**
 
