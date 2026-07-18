@@ -6,8 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="by Lorraine Gaudio">
-<meta name="dcterms.date" content="2026-07-17">
 
 <title>Chapter 14: Chaining – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
 <style>
@@ -70,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../chapters/07-thoroughness/thoroughness.html" rel="next">
 <link href="../../chapters/06-curiosity/ch13-grouped-summaries.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -142,7 +141,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -322,7 +321,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13</span></a>
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -332,37 +331,81 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/07-thoroughness/thoroughness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thoroughness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch15-probability-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 15: Probability functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 16: ggplot2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch17-string-detect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 17: String Detect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">📦 Packages</a></li>
+  <li><a href="#build-pipe" id="toc-build-pipe" class="nav-link" data-scroll-target="#build-pipe">🛠 Building a Pipeline</a>
+  <ul class="collapse">
+  <li><a href="#start-data" id="toc-start-data" class="nav-link" data-scroll-target="#start-data">Start with the data</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">Create a new variable with <code>mutate()</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Keep only cars using greater than 8 L/100 km</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">Select relevant columns</a></li>
+  <li><a href="#group-summarize" id="toc-group-summarize" class="nav-link" data-scroll-target="#group-summarize">Group and summarize</a></li>
+  <li><a href="#recode" id="toc-recode" class="nav-link" data-scroll-target="#recode">Recode transmission for readability</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Readable Result</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#terms" id="toc-terms" class="nav-link" data-scroll-target="#terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task0" id="toc-task0" class="nav-link" data-scroll-target="#task0">Task 0</a></li>
+  <li><a href="#task1" id="toc-task1" class="nav-link" data-scroll-target="#task1">Task 1</a></li>
+  <li><a href="#task2" id="toc-task2" class="nav-link" data-scroll-target="#task2">Task 2</a></li>
+  <li><a href="#task3" id="toc-task3" class="nav-link" data-scroll-target="#task3">Task 3</a></li>
+  </ul></li>
+  <li><a href="#save-upload" id="toc-save-upload" class="nav-link" data-scroll-target="#save-upload">Save and Upload</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch14-chaining.html"><span class="chapter-title">Chapter 14: Chaining</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Chapter 14: Chaining</span></h1>
+<p class="subtitle lead">Chaining dplyr Verbs</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>by Lorraine Gaudio </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 17, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -372,8 +415,8 @@ window.Quarto = {
 </header>
 
 
-<section id="welcome-back-to-r" class="level1">
-<h1>📖 Welcome Back to R!</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>In Chapters 11, 12, and 13, we explored several functions from <code>dplyr</code> (<code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>case_when()</code>, <code>group_by</code> and <code>summarize()</code>). You now know the key dplyr verbs one at a time. This week, we’ll be putting <code>dplyr</code> verbs together in more complex pipelines. The real power comes from <em>chaining</em> them so data flows logically from raw to insight in a single readable statement.</p>
 <p>To begin Lesson 11, follow these steps:</p>
 <ol type="1">
@@ -392,8 +435,8 @@ window.Quarto = {
 </ol>
 <p>Keep these goals in mind as you move through each section.</p>
 </section>
-<section id="packages" class="level1">
-<h1>📦 Packages</h1>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
 <p>Install once (if needed): <code>install.packages("dplyr")</code>; <code>install.packages("dslabs")</code></p>
 <p>Load the packages at the start of every session:</p>
 <div class="cell">
@@ -401,11 +444,11 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="building-a-pipeline" class="level1">
-<h1>🛠 Building a Pipeline</h1>
+<section id="build-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="build-pipe">🛠 Building a Pipeline</h2>
 <p>🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in <code>mtcars</code> that use greater than 8 L/100 km, broken down by transmission and cylinders.</p>
-<section id="start-with-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="start-with-the-data">Start with the data</h2>
+<section id="start-data" class="level3">
+<h3 class="anchored" data-anchor-id="start-data">Start with the data</h3>
 <p>We’ll use the built‑in <code>mtcars</code> dataset.</p>
 <p>🎯 Goal. Load mtcars and confirm shape.</p>
 <div class="cell">
@@ -418,8 +461,8 @@ window.Quarto = {
 </div>
 <p>🗣 Data loaded correctly</p>
 </section>
-<section id="create-a-new-variable-with-mutate" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-new-variable-with-mutate">Create a new variable with <code>mutate()</code></h2>
+<section id="mutate" class="level3">
+<h3 class="anchored" data-anchor-id="mutate">Create a new variable with <code>mutate()</code></h3>
 <p>We’ll calculate fuel consumption in liters per 100 kilometers (L/100 km). The formula is:</p>
 <p><span class="math display">\[\frac{\text{L}}{100\text{ km}} = \frac{235.215}{\text{MPG}}\]</span></p>
 <p>🎯 Goal. Add <code>l_100km</code> using the equation 235.215/<code>mpg</code> and round the value to one digit.</p>
@@ -439,8 +482,8 @@ window.Quarto = {
 </div>
 <p>🗣 The inverse units are verified.</p>
 </section>
-<section id="keep-only-cars-using-greater-than-8-l100-km" class="level2">
-<h2 class="anchored" data-anchor-id="keep-only-cars-using-greater-than-8-l100-km">Keep only cars using greater than 8 L/100 km</h2>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter">Keep only cars using greater than 8 L/100 km</h3>
 <p>We’ll only keep cars that use <em>at least</em> 8 L/100 km. Use <code>filter()</code> to keep those rows.</p>
 <p>🎯 Goal. Keep <code>l_100km &gt;= 8</code>.</p>
 <div class="cell">
@@ -451,8 +494,8 @@ window.Quarto = {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="select-relevant-columns" class="level2">
-<h2 class="anchored" data-anchor-id="select-relevant-columns">Select relevant columns</h2>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select">Select relevant columns</h3>
 <p>🎯 Goal. Keep <code>cyl</code>, <code>am</code>, and <code>l_100km</code> columns.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
@@ -468,8 +511,8 @@ window.Quarto = {
 </div>
 <p>🗣 Columns trimmed.</p>
 </section>
-<section id="group-and-summarize" class="level2">
-<h2 class="anchored" data-anchor-id="group-and-summarize">Group and summarize</h2>
+<section id="group-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="group-summarize">Group and summarize</h3>
 <p>Now we can group by <code>am</code> and <code>cyl</code>, then summarize to get the mean fuel consumption and count of cars in each group.</p>
 <p>🎯 Goal. Mean <code>l_100km</code> and <code>n</code> by <code>am</code>, <code>cyl</code>.</p>
 <div class="cell">
@@ -491,8 +534,8 @@ window.Quarto = {
 <li><p><code>.groups = "drop"</code> prevents grouping in the final output.</p></li>
 </ul>
 </section>
-<section id="recode-transmission-for-readability" class="level2">
-<h2 class="anchored" data-anchor-id="recode-transmission-for-readability">Recode transmission for readability</h2>
+<section id="recode" class="level3">
+<h3 class="anchored" data-anchor-id="recode">Recode transmission for readability</h3>
 <p>❓ Question: How might you check which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
 <p>🎯 Goal. Label <code>am</code> as “Automatic/Manual” in a column “Transmission” and make it a factor with level order.</p>
 <div class="cell">
@@ -524,8 +567,8 @@ window.Quarto = {
 </div>
 <p>🤔 Reflect: Explain why the highest mean_l_100km is the least fuel‑efficient combination. Create a memo to earn learning skill points.</p>
 </section>
-<section id="readable-result" class="level2">
-<h2 class="anchored" data-anchor-id="readable-result">Readable Result</h2>
+<section id="result" class="level3">
+<h3 class="anchored" data-anchor-id="result">Readable Result</h3>
 <p>🎯 Goal. Build one readable pipeline, then sort by the highest Mean l/100km (higher = less efficient) and keep the top row.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
@@ -551,33 +594,33 @@ window.Quarto = {
 <p>Answer the ❓ Question: Which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
 </section>
 </section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 </section>
-<section id="chapter-terms" class="level1">
-<h1>Chapter Terms</h1>
+<section id="terms" class="level2">
+<h2 class="anchored" data-anchor-id="terms">Chapter Terms</h2>
 </section>
-<section id="practice-space" class="level1">
-<h1>📝 Practice Space</h1>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
 <p>Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Run each section; be sure the requested objects appear in the Environment. When finished, save <strong>BOTH</strong> this script and your .RData workspace and upload to Canvas Assignment 11. Create detailed memos for yourself as you work through each task.</p>
 <p>Dataset: <code>dslabs::movielens</code></p>
 <p>There are three tasks. <strong>Task 2</strong> is the main coding task. Drafting steps are <em>optional</em> but recommended to help you build the final pipeline and earn <strong>learning skill</strong> points on your process (🎯/❓ Goal → Prediction → ⚡ Code → ✅ Checks → 🗣/🪞 Reflection). In Task 2, only <code>Movie_Facts</code> is graded for <strong>technical points</strong>. Create a memo about any 👀 Resources you used. 📝 Format your document with section headings, in line text font, and add a date. If you run into issues, ✍️ Keep a record of what you tried and portray a 🧠 Growth mindset through tenacity and curiosity. Make a 💬Prediction on what you think the results will be. All these activites demonstrate learning skills.</p>
 <p>When you’re done, your workspace should contain <code>Movie_Facts</code> that is created by one end-to-end pipeline.</p>
-<section id="task-0" class="level2">
-<h2 class="anchored" data-anchor-id="task-0">Task 0</h2>
+<section id="task0" class="level3">
+<h3 class="anchored" data-anchor-id="task0">Task 0</h3>
 <p>📦 Library it up!</p>
 <p>Make sure there is script in your document to load <code>dplyr</code> and <code>dslabs</code> packages so their functions / datasets load.</p>
 </section>
-<section id="task-1" class="level2">
-<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
+<section id="task1" class="level3">
+<h3 class="anchored" data-anchor-id="task1">Task 1</h3>
 <p>🧠 Quick Recall</p>
 <p>Explain how <em>three</em> <code>dplyr</code> verbs from Lessons 7-11 work.</p>
 <p>✍️ EXPLANATION: “___”</p>
 <p>✍️ EXPLANATION: “___”</p>
 <p>✍️ EXPLANATION: “___”</p>
 </section>
-<section id="task-2" class="level2">
-<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<section id="task2" class="level3">
+<h3 class="anchored" data-anchor-id="task2">Task 2</h3>
 <p>🛠 Pipeline</p>
 <p><strong>Use a single pipeline.</strong></p>
 <p>Option to draft it in steps outlined below. Only final pipeline is evaluated for <strong>technical skills</strong>.</p>
@@ -626,8 +669,8 @@ window.Quarto = {
 <li>Store as <code>Movie_Facts</code>.</li>
 </ul>
 <p>🚀 Explore and Play: add style when you rename the columns in the final output to be more readable (e.g., <code>Mean Rating</code>, <code>Count</code>). Or add any other enhancements like more levels to <code>rating_label</code> such as “Excellent”. Be sure to point it out in a memo.</p>
-<section id="task-2.0" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.0">Task 2.0</h3>
+<section id="task2.0" class="level4">
+<h4 class="anchored" data-anchor-id="task2.0">Task 2.0</h4>
 <p>Load packages and confirm <code>movielens</code> has <code>rating</code> and <code>year</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
@@ -636,8 +679,8 @@ window.Quarto = {
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="task-2.1" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.1">Task 2.1</h3>
+<section id="task2.1" class="level4">
+<h4 class="anchored" data-anchor-id="task2.1">Task 2.1</h4>
 <p>Keep only rows <code>rating</code> and <code>year</code> columns when both are non-missing (Hint: use <code>!is.na()</code> and <code>filter()</code>). Restrict to movies with non-missing rating and <code>year ≥ 1990</code>.</p>
 <p>🎯</p>
 <div class="cell">
@@ -648,8 +691,8 @@ window.Quarto = {
 </div>
 <p>🗣/🪞</p>
 </section>
-<section id="task-2.2" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.2">Task 2.2</h3>
+<section id="task2.2" class="level4">
+<h4 class="anchored" data-anchor-id="task2.2">Task 2.2</h4>
 <p>Add to the pipeline from Task 2.1, using <code>mutate</code>, use create the column <code>decade</code></p>
 <ol type="a">
 <li><p>Calculate the <code>year</code> into decades with decimals (e.g., 1994 → 199.4). Hint: use the equation <code>year</code>/10.</p></li>
@@ -665,8 +708,8 @@ window.Quarto = {
 </div>
 <p>🗣/🪞</p>
 </section>
-<section id="task-2.3" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.3">Task 2.3</h3>
+<section id="task2.3" class="level4">
+<h4 class="anchored" data-anchor-id="task2.3">Task 2.3</h4>
 <p>Continue the same pipeline from Task 2.2, but now add to <code>mutate()</code></p>
 <ol type="a">
 <li><p>Use <code>case_when()</code> to create a new column <code>rating_label</code> that labels ratings less than 3 as “Bad” and ratings 3 or greater as “Good”.</p></li>
@@ -681,8 +724,8 @@ window.Quarto = {
 </div>
 <p>🗣/🪞</p>
 </section>
-<section id="task-2.4" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.4">Task 2.4</h3>
+<section id="task2.4" class="level4">
+<h4 class="anchored" data-anchor-id="task2.4">Task 2.4</h4>
 <p>Continue the same pipeline to create<code>mean_rating</code> (rounded to 2),</p>
 <ol type="a">
 <li><p>Group by <code>decade</code> and <code>rating_label</code></p></li>
@@ -697,8 +740,8 @@ window.Quarto = {
 </div>
 <p>🗣/🪞</p>
 </section>
-<section id="task-2.5" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.5">Task 2.5</h3>
+<section id="task2.5" class="level4">
+<h4 class="anchored" data-anchor-id="task2.5">Task 2.5</h4>
 <p>Continue the same pipeline to create <code>n</code> (row count) (2.5)</p>
 <ol type="a">
 <li><p>Count of movies in each group (<code>decade</code> and <code>rating_label</code>)</p></li>
@@ -713,8 +756,8 @@ window.Quarto = {
 </div>
 <p>🗣/🪞</p>
 </section>
-<section id="task-2.6" class="level3">
-<h3 class="anchored" data-anchor-id="task-2.6">Task 2.6</h3>
+<section id="task2.6" class="level4">
+<h4 class="anchored" data-anchor-id="task2.6">Task 2.6</h4>
 <p>Finish the same pipeline with an arrange() step (choose to sort by mean_rating or by n). End by storing the result as Movie_Facts.</p>
 <p>C. Ordering:</p>
 <ol type="1">
@@ -730,8 +773,8 @@ window.Quarto = {
 <p>🗣/🪞</p>
 </section>
 </section>
-<section id="task-3" class="level2">
-<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
+<section id="task3" class="level3">
+<h3 class="anchored" data-anchor-id="task3">Task 3</h3>
 <p>📝 Write a short paragraph reflecting on when might <strong>separate objects</strong> be clearer than a single long pipeline?</p>
 <p>✍️ EXPLANATION: “___”</p>
 <p><strong>OR</strong></p>
@@ -739,8 +782,8 @@ window.Quarto = {
 <p>✍️ EXPLANATION: “___”</p>
 </section>
 </section>
-<section id="save-and-upload" class="level1">
-<h1>Save and Upload</h1>
+<section id="save-upload" class="level2">
+<h2 class="anchored" data-anchor-id="save-upload">Save and Upload</h2>
 <ol type="1">
 <li>You will be submitting <strong>both</strong> the “your choice” Document and the workspace file. The workspace file saves all the objects in your environment that you created in this lesson. You can save the workspace by running the following command in a code chunk of the script document document:</li>
 </ol>
@@ -752,14 +795,6 @@ window.Quarto = {
 <ol start="2" type="1">
 <li>Find the assignment in this week’s module in Canvas and upload <strong>both</strong> the file with your script and the workspace file.</li>
 </ol>
-</section>
-<section id="today-you-practiced" class="level1">
-<h1>Today you practiced:</h1>
-<ul>
-<li><p>Connected <code>dplyr</code> verbs with the pipe to form readable workflows.</p></li>
-<li><p>Built a pipeline that mutated, filtered, selected, grouped, summarized, and recoded in one statement.</p></li>
-<li><p>Reflected on the complexity of piping many steps</p></li>
-</ul>
 
 
 </section>
@@ -1172,11 +1207,14 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="pagination-link" aria-label="Chapter 13">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 13</span></span>
+      <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="pagination-link" aria-label="Chapter 13: Grouped Summaries">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 13: Grouped Summaries</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../chapters/07-thoroughness/thoroughness.html" class="pagination-link" aria-label="Thoroughness">
+        <span class="nav-page-text">Thoroughness</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

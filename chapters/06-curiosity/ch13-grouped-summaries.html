@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="by Lorraine Gaudio">
-<meta name="dcterms.date" content="2026-07-17">
 
-<title>Chapter 13 – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<title>Chapter 13: Grouped Summaries – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -143,7 +141,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -152,7 +150,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch13-grouped-summaries.html"><span class="chapter-title">Chapter 13</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch13-grouped-summaries.html"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -323,7 +321,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 13</span></a>
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -333,38 +331,104 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/07-thoroughness/thoroughness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thoroughness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch15-probability-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 15: Probability functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 16: ggplot2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch17-string-detect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 17: String Detect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#setup-notes" id="toc-setup-notes" class="nav-link" data-scroll-target="#setup-notes">Setting Up Your Notes</a>
+  <ul class="collapse">
+  <li><a href="#create-quarto" id="toc-create-quarto" class="nav-link" data-scroll-target="#create-quarto">Create a Quarto File</a></li>
+  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header">YAML Header</a></li>
+  <li><a href="#headings" id="toc-headings" class="nav-link" data-scroll-target="#headings">Headings</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">📦 Packages</a></li>
+  </ul></li>
+  <li><a href="#counts-center-spread" id="toc-counts-center-spread" class="nav-link" data-scroll-target="#counts-center-spread">📖 Counts, Center, and Spread</a>
+  <ul class="collapse">
+  <li><a href="#data-terminology" id="toc-data-terminology" class="nav-link" data-scroll-target="#data-terminology">Data Terminology</a></li>
+  <li><a href="#count" id="toc-count" class="nav-link" data-scroll-target="#count">Count</a></li>
+  <li><a href="#center" id="toc-center" class="nav-link" data-scroll-target="#center">Center</a></li>
+  <li><a href="#spread" id="toc-spread" class="nav-link" data-scroll-target="#spread">Spread</a></li>
+  </ul></li>
+  <li><a href="#dplyr-count" id="toc-dplyr-count" class="nav-link" data-scroll-target="#dplyr-count">dplyr’s count()</a>
+  <ul class="collapse">
+  <li><a href="#count-one-variable" id="toc-count-one-variable" class="nav-link" data-scroll-target="#count-one-variable">Count one variable</a></li>
+  <li><a href="#count-multiple-variables" id="toc-count-multiple-variables" class="nav-link" data-scroll-target="#count-multiple-variables">Count multiple variables</a></li>
+  </ul></li>
+  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize">dplyr’s summarize()</a>
+  <ul class="collapse">
+  <li><a href="#count-vs-summarize" id="toc-count-vs-summarize" class="nav-link" data-scroll-target="#count-vs-summarize">count() versus summarize()</a></li>
+  </ul></li>
+  <li><a href="#group_by" id="toc-group_by" class="nav-link" data-scroll-target="#group_by">dplyr’s group_by()</a>
+  <ul class="collapse">
+  <li><a href="#explicit-vs-default-naming" id="toc-explicit-vs-default-naming" class="nav-link" data-scroll-target="#explicit-vs-default-naming">Explicit vs.&nbsp;Default Naming</a></li>
+  </ul></li>
+  <li><a href="#multiple-stats" id="toc-multiple-stats" class="nav-link" data-scroll-target="#multiple-stats">Multiple Statistics</a></li>
+  <li><a href="#multiple-vars" id="toc-multiple-vars" class="nav-link" data-scroll-target="#multiple-vars">Multiple Variables</a>
+  <ul class="collapse">
+  <li><a href="#ungroup" id="toc-ungroup" class="nav-link" data-scroll-target="#ungroup">ungroup()</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  <li><a href="#task-7" id="toc-task-7" class="nav-link" data-scroll-target="#task-7">Task 7</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch13-grouped-summaries.html"><span class="chapter-title">Chapter 13</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch13-grouped-summaries.html"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Chapter 13</span></h1>
-<p class="subtitle lead">🧺 Grouped Summaries</p>
+<h1 class="title"><span class="chapter-title">Chapter 13: Grouped Summaries</span></h1>
+<p class="subtitle lead">group_by() and summarize()</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>by Lorraine Gaudio </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 17, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -374,8 +438,8 @@ window.Quarto = {
 </header>
 
 
-<section id="overview" class="level1">
-<h1>Overview</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>In Chapters 11 and 12, you learned how to subset and transform data with <code>dplyr</code> using functions such as <code>select()</code>, <code>filter()</code>, <code>mutate()</code>, and <code>case_when()</code>. In this chapter, you will extend that workflow by learning how to organize data into groups and then calculate summaries for those groups. You will use <code>count()</code> to make frequency tables, <code>summarize()</code> to compute statistics such as mean and standard deviation, and <code>group_by()</code> to tell R which subgroups to analyze separately. You will also practice computing multiple statistics at once and working with more than one grouping variable.</p>
 <p>This chapter is about learning when and how to ask R for grouped summaries, and then explaining what those summaries mean. You will also practice curiosity as a learning skill. Curiosity helps you pause before running code, predict what the output might show, check whether the result matches your question, and decide when a side question is worth exploring or when it is better to stay focused on the chapter goal.</p>
 <p>At the same time, you will continue building reproducible workflow habits in Quarto by using headings, rendering often, checking your output, and memoing what your code is doing and what you learned from it.</p>
@@ -396,17 +460,17 @@ window.Quarto = {
 </ul>
 <p>Keep these goals in mind as you move through each section.</p>
 </section>
-<section id="setting-up-your-notes" class="level1">
-<h1>Setting Up Your Notes</h1>
+<section id="setup-notes" class="level2">
+<h2 class="anchored" data-anchor-id="setup-notes">Setting Up Your Notes</h2>
 <p>In Chapter 11, you learned how to create a Quarto file, keep the YAML header, use Markdown headings, write memos outside code chunks, and control chunks with <code>#|</code> options. In Chapter 12, you added a table of contents, section numbering, and inline R code inside your sentences. In Chapter 13, you will keep practicing those Quarto habits while learning how to count categories and summarize data by groups.</p>
-<section id="create-a-quarto-file" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-quarto-file">Create a Quarto File</h2>
+<section id="create-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="create-quarto">Create a Quarto File</h3>
 <p>For those of you who <strong>have GitHub</strong> and a course project, navigate to your course folder and open your course project. This will open RStudio. Click “Pull” in the Git pane to get the latest version of the course materials. After completing work, save, stage, commit, and push.</p>
 <p>If you <strong>don’t have GitHub</strong> or a course project, just open RStudio and set your working directory to your course folder.</p>
 <p>Open a new Quarto document in your course folder and save it as: <code>chapter13_notes.qmd</code> (<code>File &gt; New File &gt; Quarto Document</code>).</p>
 </section>
-<section id="yaml-header" class="level2">
-<h2 class="anchored" data-anchor-id="yaml-header">YAML Header</h2>
+<section id="yaml-header" class="level3">
+<h3 class="anchored" data-anchor-id="yaml-header">YAML Header</h3>
 <p>Copy and paste the YAML header from this file into your new Quarto document. Update the title, author, and date fields in the YAML header.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 13 Notes"</span></span>
@@ -421,8 +485,8 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="headings" class="level2">
-<h2 class="anchored" data-anchor-id="headings">Headings</h2>
+<section id="headings" class="level3">
+<h3 class="anchored" data-anchor-id="headings">Headings</h3>
 <p>Use the section headings in this file to create the structure of your notes. You can copy and paste the section headings into your new Quarto document.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># Loading Packages</span></span>
@@ -440,8 +504,8 @@ window.Quarto = {
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu"># Multiple Variables</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Work through the sections under each heading. 💡 <strong>Tip:</strong> Render to HTML often to see the results.</p>
 </section>
-<section id="packages" class="level2">
-<h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
+<section id="packages" class="level3">
+<h3 class="anchored" data-anchor-id="packages">📦 Packages</h3>
 <p>Install once (if needed): <code>install.packages("dplyr")</code>; <code>install.packages("dslabs")</code></p>
 <p>🎯 Load the packages</p>
 <div class="cell">
@@ -451,18 +515,18 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="counts-center-and-spread" class="level1">
-<h1>📖 Counts, Center, and Spread</h1>
+<section id="counts-center-spread" class="level2">
+<h2 class="anchored" data-anchor-id="counts-center-spread">📖 Counts, Center, and Spread</h2>
 <p>Before using <code>summarize()</code> and <code>count()</code>, it helps to review a few data words you have likely seen before. You do <strong>not</strong> need to calculate these by hand in this chapter. You do need to understand what they mean so you can choose the right function and explain your results.</p>
 <p>🐱 Curiosity as an intellectual virtue means choosing where to spend your attention. If these review terms feel rusty, pause here and use this section to refresh them. If you already practiced these ideas (e.g., in the Data Understanding Notebook activity), you can skip this review section and <a href="#dplyr-count">jump to dplyr’s <code>count()</code></a>. Return if you need a reminder.</p>
-<section id="data-terminology" class="level2">
-<h2 class="anchored" data-anchor-id="data-terminology">Data Terminology</h2>
+<section id="data-terminology" class="level3">
+<h3 class="anchored" data-anchor-id="data-terminology">Data Terminology</h3>
 <p>A <strong>numeric variable</strong> stores numbers that can be measured or calculated, such as <code>mpg</code>, height, or test score.</p>
 <p>A <strong>categorical variable</strong> stores labels or group names, such as state, disease, or cylinder count.</p>
 <p>In this chapter, we often <strong>group by a categorical variable</strong> and then <strong>summarize a numeric variable</strong>.</p>
 </section>
-<section id="count" class="level2">
-<h2 class="anchored" data-anchor-id="count">Count</h2>
+<section id="count" class="level3">
+<h3 class="anchored" data-anchor-id="count">Count</h3>
 <p>A <strong>count</strong> tells you how many observations there are.</p>
 <ul>
 <li><p>For a whole dataset, count means the total number of rows.</p></li>
@@ -470,26 +534,26 @@ window.Quarto = {
 </ul>
 <p>If you want to know how many cars have 4 cylinders, 6 cylinders, or 8 cylinders, you are asking for a <strong>count</strong>.</p>
 </section>
-<section id="center" class="level2">
-<h2 class="anchored" data-anchor-id="center">Center</h2>
+<section id="center" class="level3">
+<h3 class="anchored" data-anchor-id="center">Center</h3>
 <p><strong>Center</strong> describes a typical value.</p>
-<section id="mean" class="level3">
-<h3 class="anchored" data-anchor-id="mean">Mean</h3>
+<section id="mean" class="level4">
+<h4 class="anchored" data-anchor-id="mean">Mean</h4>
 <p>The <strong>mean</strong> is the average.</p>
 <p>It adds the values and divides by how many values there are.</p>
 <p>If the mean <code>mpg</code> for cars with 4 cylinders is higher than the mean <code>mpg</code> for cars with 8 cylinders, then the 4-cylinder cars are more fuel efficient on average.</p>
 </section>
-<section id="median" class="level3">
-<h3 class="anchored" data-anchor-id="median">Median</h3>
+<section id="median" class="level4">
+<h4 class="anchored" data-anchor-id="median">Median</h4>
 <p>The <strong>median</strong> is the middle value when the data are sorted.</p>
 <p>🪞 Median is useful when extreme values might pull the mean too high or too low.</p>
 </section>
 </section>
-<section id="spread" class="level2">
-<h2 class="anchored" data-anchor-id="spread">Spread</h2>
+<section id="spread" class="level3">
+<h3 class="anchored" data-anchor-id="spread">Spread</h3>
 <p><strong>Spread</strong> describes how much the values vary.</p>
-<section id="standard-deviation" class="level3">
-<h3 class="anchored" data-anchor-id="standard-deviation">Standard Deviation</h3>
+<section id="standard-deviation" class="level4">
+<h4 class="anchored" data-anchor-id="standard-deviation">Standard Deviation</h4>
 <p>The <strong>standard deviation</strong> tells you how far values tend to be from the mean.</p>
 <ul>
 <li><p>A <strong>small</strong> standard deviation means the values are packed closely together.</p></li>
@@ -497,8 +561,8 @@ window.Quarto = {
 </ul>
 <p>If one cylinder group has a much larger standard deviation for <code>mpg</code>, that group has more variability in fuel efficiency.</p>
 </section>
-<section id="range" class="level3">
-<h3 class="anchored" data-anchor-id="range">Range</h3>
+<section id="range" class="level4">
+<h4 class="anchored" data-anchor-id="range">Range</h4>
 <p>The <strong>range</strong> is the distance from the smallest value to the largest value.</p>
 <p>🪞 Range gives a quick sense of spread, but it only uses the minimum and maximum values.</p>
 <hr>
@@ -514,8 +578,8 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="dplyr-count" class="level1">
-<h1>dplyr’s count()</h1>
+<section id="dplyr-count" class="level2">
+<h2 class="anchored" data-anchor-id="dplyr-count">dplyr’s count()</h2>
 <p>You can use <code>count()</code> to quickly count rows for each category or combination of categories.</p>
 <p><code>count()</code> is especially useful when you want a <strong>frequency table</strong>.</p>
 <p><code>?count</code></p>
@@ -523,8 +587,8 @@ window.Quarto = {
 <p><code>data %&gt;% count(variable_name)</code></p>
 <p>Or, for more than one grouping variable:</p>
 <p><code>data %&gt;% count(variable1, variable2, ...)</code></p>
-<section id="count-one-variable" class="level2">
-<h2 class="anchored" data-anchor-id="count-one-variable">Count one variable</h2>
+<section id="count-one-variable" class="level3">
+<h3 class="anchored" data-anchor-id="count-one-variable">Count one variable</h3>
 <p>🎯 Count how many cars have each cylinder value.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
@@ -540,13 +604,13 @@ window.Quarto = {
 <p>🗣 The code above counts how many rows fall into each value of <code>cyl</code>. The result is a new table with one row per cylinder value and a column named <code>n</code> that stores the counts.</p>
 <p>🐱 This is the curiosity move here: before I compare or explain anything, I want to know what categories are in the data and how many rows belong to each one. This step helps me understand the data before I ask a bigger data question.</p>
 <p>💡 <strong>Test knit.</strong> Does the table show one row for each cylinder value and a column named <code>n</code>?</p>
-<section id="count-versus-length" class="level3">
-<h3 class="anchored" data-anchor-id="count-versus-length">count() versus length()</h3>
+<section id="count-vs-length" class="level4">
+<h4 class="anchored" data-anchor-id="count-vs-length">count() versus length()</h4>
 <p><code>length()</code> counts how many values are in a vector.</p>
 <p><code>count()</code> counts rows in a data frame for each category or combination of categories.</p>
 </section>
-<section id="count-with-sorting" class="level3">
-<h3 class="anchored" data-anchor-id="count-with-sorting">count() with sorting</h3>
+<section id="count-with-sorting" class="level4">
+<h4 class="anchored" data-anchor-id="count-with-sorting">count() with sorting</h4>
 <p>Sometimes you want to see the biggest groups first.</p>
 <p>🎯 Count cars by cylinder and sort from largest count to smallest count.</p>
 <div class="cell">
@@ -563,8 +627,8 @@ window.Quarto = {
 <p>🗣 <code>sort = TRUE</code> arranges the result so the largest count appears first. The counts are the same as before; only the row order changed.</p>
 </section>
 </section>
-<section id="count-multiple-variables" class="level2">
-<h2 class="anchored" data-anchor-id="count-multiple-variables">Count multiple variables</h2>
+<section id="count-multiple-variables" class="level3">
+<h3 class="anchored" data-anchor-id="count-multiple-variables">Count multiple variables</h3>
 <p>You can also count combinations of categories.</p>
 <p>🐱 This is a good time to indulge curiosity a little further. Counting one variable told us how many cars had each cylinder value. Counting two variables lets us ask a more specific question: how are cylinder values distributed across transmission types?</p>
 <p>🎯 Count how many cars fall into each combination of cylinder count and transmission type.</p>
@@ -591,8 +655,8 @@ window.Quarto = {
 <p>If our question is only “How many rows are in each category?”, <code>count()</code> is enough. But what if our question asks about averages, maximums, spread, or other statistics? We’ll need <code>summarize()</code>.</p>
 </section>
 </section>
-<section id="dplyrs-summarize" class="level1">
-<h1>dplyr’s summarize()</h1>
+<section id="summarize" class="level2">
+<h2 class="anchored" data-anchor-id="summarize">dplyr’s summarize()</h2>
 <p>You can use <code>summarize()</code> to compute summary statistics like the mean, median, etc.</p>
 <p><code>?summarize</code></p>
 <p>📜 The SYNTAX</p>
@@ -627,8 +691,8 @@ window.Quarto = {
 <p>💡 <strong>Test knit.</strong> Does the output show one row with three summary columns: <code>mean_mpg</code>, <code>max_mpg</code>, and <code>count</code>?</p>
 <hr>
 <p>🤔 <code>summary()</code> is a base R function that gives a quick overall description of an object, such as basic statistics for each variable in a data frame. <code>summarize()</code> from <code>dplyr</code> is used to create your own summary results, usually after <code>group_by()</code>, such as the mean or count for each group.</p>
-<section id="count-versus-summarize" class="level2">
-<h2 class="anchored" data-anchor-id="count-versus-summarize">count() versus summarize()</h2>
+<section id="count-vs-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="count-vs-summarize">count() versus summarize()</h3>
 <p>You can often get the same result in two ways.</p>
 <p>🎯 Use group_by() and summarize() to produce the same counts by cylinder.</p>
 <div class="cell">
@@ -649,8 +713,8 @@ window.Quarto = {
 <p>Use <code>count()</code> when you mainly want frequencies. Use <code>group_by()</code> with <code>summarize()</code> when you want to calculate other statistics too, such as mean and standard deviation.</p>
 </section>
 </section>
-<section id="dplyrs-group_by" class="level1">
-<h1>dplyr’s group_by()</h1>
+<section id="group_by" class="level2">
+<h2 class="anchored" data-anchor-id="group_by">dplyr’s group_by()</h2>
 <p><code>group_by()</code> changes the behavior of summary functions.</p>
 <p>📜 The SYNTAX</p>
 <p><code>data %&gt;%</code> <code>group_by(variable1, variable2, ...) %&gt;%</code> <code>some_operation()</code></p>
@@ -680,8 +744,8 @@ window.Quarto = {
 <p>🐱 This is the main curiosity move in Chapter 13. We are no longer asking, “What is the overall mean?” We’re asking, “Does the mean change across groups?” Grouping helps us ask a sharper question without leaving the learning goal.</p>
 <p>💡 <strong>Test knit</strong>. Does cyl_means print as a small table with one row per cylinder value?</p>
 <p>🤔 Grouping cars by <code>cyl</code> is useful because cars with different numbers of cylinders often have different fuel efficiency, so one overall average mpg would hide those differences. By grouping first, you can compare the typical mpg for 4-, 6-, and 8-cylinder cars separately.</p>
-<section id="explicit-vs.-default-naming" class="level2">
-<h2 class="anchored" data-anchor-id="explicit-vs.-default-naming">Explicit vs.&nbsp;Default Naming</h2>
+<section id="explicit-vs-default-naming" class="level3">
+<h3 class="anchored" data-anchor-id="explicit-vs-default-naming">Explicit vs.&nbsp;Default Naming</h3>
 <p>If you do not give the summary column a name, <strong><code>dplyr</code> uses the summary expression itself as the column name</strong> by default. So <code>summarize(mean(mpg))</code> creates a column named <code>mean(mpg)</code> instead of a cleaner name like <code>mean_mpg</code>.</p>
 <p>🎯 Find the mean mpg for each cylinder count without naming the summary column.</p>
 <div class="cell">
@@ -704,8 +768,8 @@ window.Quarto = {
 <p>Now that you have seen how <code>group_by()</code> changes one summary calculation, you can ask for several summary statistics at the same time.</p>
 </section>
 </section>
-<section id="multiple-stats" class="level1">
-<h1>Multiple Statistics</h1>
+<section id="multiple-stats" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-stats">Multiple Statistics</h2>
 <p>🎯 Create several summary columns in one <code>summarize()</code> call, separated by commas.</p>
 <p>🐱 This is useful curiosity: one statistic rarely tells the whole story. A mean tells me the center, a standard deviation tells me about spread, and <code>n()</code> tells me how many rows were used for each group.</p>
 <p><em>Use <code>?n</code> to learn about the <code>n()</code> function.</em></p>
@@ -737,8 +801,8 @@ window.Quarto = {
 <p>💡 <strong>Test knit.</strong> Does the output show one row for each cylinder value and three summary columns: <code>mean_mpg</code>, <code>sd_mpg</code>, and <code>n</code>?</p>
 <hr>
 </section>
-<section id="multiple-vars" class="level1">
-<h1>Multiple Variables</h1>
+<section id="multiple-vars" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-vars">Multiple Variables</h2>
 <p><code>group_by()</code> with one column creates one group for each unique value in that column. <code>group_by()</code> with two columns creates one group for each unique combination of values.</p>
 <p>🐱 This is a good moment to make a prediction before running the code. Curiosity is pausing long enough to make a reasonable guess, then checking that guess against the output.</p>
 <p>❓ How many groups will <code>group_by(cyl, am)</code> create?</p>
@@ -792,12 +856,12 @@ window.Quarto = {
 <p>💡 <strong>Test knit.</strong> Does the output show one row for each <code>cyl</code> and <code>am</code> combination?</p>
 <hr>
 <p>If you see a message about grouped output, keep going. The next section explains what that message means.</p>
-<section id="ungroup" class="level2">
-<h2 class="anchored" data-anchor-id="ungroup">ungroup()</h2>
+<section id="ungroup" class="level3">
+<h3 class="anchored" data-anchor-id="ungroup">ungroup()</h3>
 <p>When you summarize data that has more than one grouping variable, <code>dplyr</code> may keep part of the grouping structure in the result. That leftover grouping can affect later code, so it is important to check whether your summary table is still grouped.</p>
 <p>🐱 We are asking, “What did R keep behind the scenes, and could that affect my next step?”</p>
-<section id="a.-default-behavior-keeps-earlier-groups" class="level3">
-<h3 class="anchored" data-anchor-id="a.-default-behavior-keeps-earlier-groups">A. Default behavior: keeps earlier groups</h3>
+<section id="default-keeps-earlier-groups" class="level4">
+<h4 class="anchored" data-anchor-id="default-keeps-earlier-groups">A. Default behavior: keeps earlier groups</h4>
 <p>🎯 Show that with two grouping variables, <code>summarize()</code> keeps the earlier group by default.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
@@ -831,8 +895,8 @@ window.Quarto = {
 <p>🗣 The default behavior is <code>.groups = "drop_last"</code>. That means <code>summarize()</code> drops the last grouping variable, <code>gear</code>, but keeps the earlier grouping variable, <code>cyl</code>.</p>
 <p>You’ll want to be explicit when you do not want any grouping left.</p>
 </section>
-<section id="b.-make-it-explicit-inside-summarize" class="level3">
-<h3 class="anchored" data-anchor-id="b.-make-it-explicit-inside-summarize">B. Make it explicit inside <code>summarize()</code></h3>
+<section id="explicit-drop-groups" class="level4">
+<h4 class="anchored" data-anchor-id="explicit-drop-groups">B. Make it explicit inside <code>summarize()</code></h4>
 <p>🎯 Return a plain, ungrouped table by telling <code>summarize()</code> to drop all groups.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
@@ -859,8 +923,8 @@ window.Quarto = {
 <p>🗣 Using <code>.groups = "drop"</code> tells <code>summarize()</code> to remove all grouping after the summary operation, resulting in a plain data frame without any grouping structure.</p>
 <p>💡 <strong>Test knit.</strong> Does <code>group_vars(cyl_gear_stats_drop)</code> return <code>character(0)</code> and does <code>is_grouped_df(cyl_gear_stats_drop)</code> return <code>FALSE</code>?</p>
 </section>
-<section id="c.-alternative-drop-groups-after-summarizing" class="level3">
-<h3 class="anchored" data-anchor-id="c.-alternative-drop-groups-after-summarizing">C. Alternative: drop groups after summarizing</h3>
+<section id="alternative-drop-groups" class="level4">
+<h4 class="anchored" data-anchor-id="alternative-drop-groups">C. Alternative: drop groups after summarizing</h4>
 <p>🎯 Achieve the same ungrouped result by using <code>ungroup()</code> after <code>summarize()</code></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk:</span></span>
@@ -900,11 +964,8 @@ window.Quarto = {
 </section>
 </section>
 </section>
-<section id="summary" class="level1">
-<h1>Summary</h1>
-</section>
-<section id="summary-1" class="level1">
-<h1>Summary</h1>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>In this chapter, you learned how to describe data by groups using <code>dplyr</code>. You reviewed the basic ideas of count, center, and spread so you could interpret grouped results, then used <code>count()</code> to make frequency tables, <code>summarize()</code> to compute statistics, and <code>group_by()</code> to split a dataset into subgroups before summarizing. You also practiced calculating multiple statistics in one call, using <code>n()</code> inside <code>summarize()</code> to count rows within groups, and working with combinations of grouping variables.</p>
 <p>Most importantly, you learned that grouping changes what a summary means. Instead of one result for the whole dataset, you can produce separate results for each category or combination of categories. This is a core skill for later data analysis because analysts often need to compare subgroups, not just describe an entire dataset with one number.</p>
 <p>🐱 You also practiced curiosity as part of your workflow. In this chapter, curiosity meant pausing to ask what a summary is actually showing, predicting how many groups R might create, checking whether the output matched your expectation, and deciding when to investigate further versus when to stay focused on the current learning goal.</p>
@@ -970,8 +1031,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="chapter-terms" class="level1">
-<h1>Chapter Terms</h1>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
 <p><strong>Categorical Data</strong>: Data whose values place observations into groups or categories. The categories may have no natural order (nominal) or may have an order with uneven gaps between categories (ordinal). In R, categorical data are often stored as factors.</p>
 <p><strong>Center</strong>: The middle or typical location of a dataset. Measures of center, such as the mean and median, summarize where values tend to cluster.</p>
 <p><strong>Count</strong>: The number of observations or values in a dataset, group, or category. In introductory statistics, count tells you how many cases are present.</p>
@@ -984,8 +1045,8 @@ window.Quarto = {
 <p><strong>Spread</strong>: How much the values in a dataset vary or scatter rather than cluster tightly together. Common measures of spread include range, interquartile range (IQR), variance, and standard deviation.</p>
 <p><strong>Standard Deviation</strong>: A measure of spread that describes how far values typically vary from the mean. A small standard deviation means values are clustered close to the mean, while a large standard deviation means they are more spread out.</p>
 </section>
-<section id="practice-space" class="level1">
-<h1>📝 Practice Space</h1>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
 <p>In this Practice Space, you will use grouped summaries to describe data in a reproducible report. You will practice <code>count()</code> for frequency tables, <code>group_by()</code> for creating groups, <code>summarize()</code> for calculating statistics, and <code>n()</code> for counting rows inside grouped summaries. You will also keep practicing Quarto as a reproducible workspace for code, output, checks, and memo notes.</p>
 <p>Create a new Quarto document and save it in your course folder as:</p>
 <p><code>chapter13_practice.qmd</code></p>
@@ -1014,8 +1075,8 @@ window.Quarto = {
 <p>Before you submit, clear your Environment and render the <code>.qmd</code> from top to bottom. Your file should render without errors and show your code, output, checks, and memo notes.</p>
 <p>For this assignment, submit the rendered <code>chapter13_practice.html</code> file.</p>
 <hr>
-<section id="task-1" class="level2">
-<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
 <p>🌟 <strong>Single grouping</strong></p>
 <p>Using the <code>stars</code> dataset, compute <code>mean_temperature</code> and <code>mean_magnitude</code> for each star <code>type</code>. Name the result <code>twinkle_twinkle</code>.</p>
 <p>🐱 This is a good place to practice focused curiosity. If you are curious about the star types, use <code>?stars</code> or <code>unique(stars$type)</code> to understand what groups exist. Then stay focused on the main task: checking whether <code>group_by()</code> created one summary row for each group.</p>
@@ -1048,8 +1109,8 @@ window.Quarto = {
 <p><strong>💡 Test knit.</strong></p>
 <hr>
 </section>
-<section id="task-2" class="level2">
-<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
 <p>🫒 <strong>Single grouping + three statistics</strong></p>
 <p>Pick one numeric fatty acid in the <code>olive</code> dataset, such as <code>palmitic</code>, <code>oleic</code>, or another fatty-acid variable. Group by <code>region</code>, then calculate:</p>
 <ul>
@@ -1095,8 +1156,8 @@ window.Quarto = {
 <p><strong>💡 Test knit.</strong></p>
 <hr>
 </section>
-<section id="task-3" class="level2">
-<h2 class="anchored" data-anchor-id="task-3">Task 3</h2>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
 <p>🧮 <strong>Counting unique values</strong></p>
 <p>Use <code>unique()</code> and <code>length()</code> to determine how many distinct values appear in a column.</p>
 <p>For the <code>us_contagious_diseases</code> dataset from <code>dslabs</code>, determine the number of unique diseases in the column <code>disease</code>.</p>
@@ -1135,12 +1196,12 @@ window.Quarto = {
 <p><strong>💡 Test knit.</strong></p>
 <hr>
 </section>
-<section id="task-4" class="level2">
-<h2 class="anchored" data-anchor-id="task-4">Task 4</h2>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
 <p>💬 <strong>Make and test a prediction</strong></p>
 <p>In this task, you will predict how many groups will be created when you group by both <code>state</code> and <code>disease</code>, then test your prediction with code.</p>
-<section id="step-1" class="level3">
-<h3 class="anchored" data-anchor-id="step-1">Step 1</h3>
+<section id="step-1" class="level4">
+<h4 class="anchored" data-anchor-id="step-1">Step 1</h4>
 <p>If there are 51 states in the dataset, and you assume every state has data for all 7 diseases, how many groups will <code>group_by(state, disease)</code> create?</p>
 <p>A. <span class="math inline">\(51 + 7 = 58\)</span> groups</p>
 <p>B. <span class="math inline">\(51 \times 7 = 357\)</span> groups</p>
@@ -1149,8 +1210,8 @@ window.Quarto = {
 <p>E. <span class="math inline">\(51^7\)</span> groups</p>
 <p>💬 <strong>Make a prediction:</strong> Choose one answer and explain why you chose it before running the code.</p>
 </section>
-<section id="step-2" class="level3">
-<h3 class="anchored" data-anchor-id="step-2">Step 2</h3>
+<section id="step-2" class="level4">
+<h4 class="anchored" data-anchor-id="step-2">Step 2</h4>
 <p>Test your prediction.</p>
 <p>Use <code>group_by()</code> with both <code>state</code> and <code>disease</code>, then use <code>count()</code> to count the number of rows for each state-and-disease combination. Store the result as <code>categorical_counts</code>.</p>
 <p>🎯 <strong>Write the goal:</strong> Restate the goal of this task in your own words.</p>
@@ -1172,8 +1233,8 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-<section id="task-5" class="level2">
-<h2 class="anchored" data-anchor-id="task-5">Task 5</h2>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
 <p>🦠 <strong>National mean counts by disease</strong></p>
 <p>From <code>us_contagious_diseases</code>, calculate the national mean of <code>count</code> for each <code>disease</code>. Then keep only the three diseases with the highest national_mean_count. Store the result as <code>Infectious_Burden</code>.</p>
 <p>💡 <strong>Tip:</strong> Arrange the diseases by their national mean and keep the top three.</p>
@@ -1201,8 +1262,8 @@ window.Quarto = {
 <p><strong>💡 Test knit.</strong></p>
 <hr>
 </section>
-<section id="task-6" class="level2">
-<h2 class="anchored" data-anchor-id="task-6">Task 6</h2>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
 <p>📝 <strong>Final reflection</strong></p>
 <p>Write a short paragraph explaining why <code>group_by()</code> needs to come before <code>summarize()</code> when you want separate results for each group.</p>
 <p>Your paragraph should explain the difference between:</p>
@@ -1214,8 +1275,8 @@ window.Quarto = {
 </ul>
 <p>🪞 <strong>Reflect:</strong> Include one sentence about curiosity in this chapter. What did curiosity help you notice, predict, check, or decide not to pursue?</p>
 </section>
-<section id="task-7" class="level2">
-<h2 class="anchored" data-anchor-id="task-7">Task 7</h2>
+<section id="task-7" class="level3">
+<h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
 <p>🧹 <strong>Self-check checklist</strong></p>
 <p>For the file submission, make sure your <code>.qmd</code> renders to HTML without errors and that your report shows the required objects, checks, and memo notes:</p>
 <ul>
