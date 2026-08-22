@@ -2,12 +2,11 @@
 .Rhistory
 .RData
 .Ruserdata
-
 .quarto/
 _book/
 _freeze/
-
 .DS_Store
 Thumbs.db
 /.quarto/
 **/*.quarto_ipynb
+.Rapp.history

@@ -23,55 +23,60 @@ By the end of this activity, you will
 
 - 🐙 know where to go to find Git and GitHub support on Campus.
 
-### Step up Order {#setup-order}
+### Setup Order {#setup-order}
 
-GitHub setup challenges novice coders because **skipping one small step can break the set up**. Just like when you are writing R code, GitHub setup includes verification steps. **Verify each action** was successful before moving on. **Do not skip ahead.** If you complete tasks out of order, you may have to start over! 
+Git and GitHub setup can feel challenging because several tools must connect correctly. This activity includes verification steps so you can confirm that each part works before moving forward. Complete the sections in order, pause when a verification step does not match what you see, and use support when you need it.
 
 🎯 In this guided activity, you will:
 
-1. Learn how [GitHub, Git, and RStudio](#github-git-and-rstudio) work together.
-2. [Update R and RStudio](#update-r-and-rstudio) if needed.
-3. Check that RStudio can find [Git](#git).
-4. [Install Git](#install-git) or verify you have Git.
-5. [Configure your Git identity](#configure-git-identity).
-6. Create a GitHub account and log into [GitHub](#github).
-7. [Configure SSH keys](#configure-ssh-keys).
-8. [Create a GitHub repository](#make-github-repo) and [clone that repository into RStudio](#clone-github-via-rstudio).
-9. Practice [local changes](#local-changes) and the full [workflow](#workflow)
-10. Review your [final repository structure](#final-repository-structure).
-11. Create a `.gitignore` file to support [data privacy and organization](#data-privacy-and-organization).
-
+1. Learn how [GitHub, Git, RStudio, and an RStudio Project](#github-git-and-rstudio) work together.
+2. Check whether your current versions of [R and RStudio](#update-r-and-rstudio) meet the course requirements and update them only if needed.
+3. Check whether RStudio can find [Git](#git).
+4. [Install Git](#install-git), if needed, and verify that it works.
+5. Create or access your [GitHub account](#github) and review what will be public.
+6. Choose and [configure your Git commit identity](#configure-git-identity), including GitHub’s `noreply` email option if you prefer.
+7. Check for existing SSH keys and [connect to GitHub safely with SSH](#configure-ssh-keys).
+8. [Create the public practice repository](#make-github-repo) and [clone it into RStudio](#clone-github-via-rstudio).
+9. Practice the complete [Open Project → Pull → Edit → Save → Stage → Commit → Push workflow](#workflow).
+10. Create and test a `.gitignore` file for [data privacy and organization](#data-privacy-and-organization).
+11. [Verify the final public repository](#final-repository-structure), review its commit history, and copy its regular browser URL for Canvas.
 
 💡 **Tip**: If something does not work, and you're stuck, use the course support options to get help. You can do hard things!
 
 ---
 
-## GitHub, Git, and RStudio {#github-git-and-rstudio}
+## GitHub, Git, RStudio, and RStudio Projects {#github-git-and-rstudio}
 
-[GitHub]{.glossary-term data-term="GitHub"} is the online place where your [repository]{.glossary-term data-term="Repository"} lives. [Git]{.glossary-term data-term="Git"} is the [version control]{.glossary-term data-term="Version Control"} tool that tracks changes. RStudio is where you will edit your files and use the [Git pane]{.glossary-term data-term="Git Pane"} to commit and push your work.
+Git, GitHub, RStudio, and an RStudio Project have different roles in a version-control workflow.
 
-You are using three connected locations:
+| Part | What it is | What it does in the workflow |
+|---|---|---|
+| [Git]{.glossary-term data-term="Git"} | A version-control tool installed on your computer | Tracks changes and records checkpoints called commits |
+| [GitHub]{.glossary-term data-term="GitHub"} | A website that hosts remote Git repositories | Stores the tracked files and commit history that you push from your computer |
+| RStudio | An application for working with R and project files | Lets you edit files and use Git through its built-in [Git pane]{.glossary-term data-term="Git Pane"} |
+| RStudio Project | A project-specific RStudio workspace connected to a folder on your computer | Helps RStudio open in the correct folder and recognize the Git repository stored there |
 
-| Place           | What it means                                | What you do there                            |
-| --------------- | -------------------------------------------- | -------------------------------------------- |
-| GitHub.com      | The online copy of your project              | Create the repository and verify pushed work |
-| Your computer   | The local copy of your project folder        | Store and organize files                     |
-| RStudio Project | The R working space connected to that folder | Edit files, commit changes, pull, and push   |
+A Git [repository]{.glossary-term data-term="Repository"} can exist in more than one location. The **local repository** is the project folder and Git history on your computer. The **remote repository** is the corresponding repository hosted on GitHub.
 
+When you **push**, you send local commits to the remote repository. When you **pull**, you bring remote commits into your local repository.
 
-> GitHub is the online copy. Your computer has the local copy. RStudio helps you work inside the local project folder.
+[Version control]{.glossary-term data-term="Version Control"} tracks changes to files over time. A [commit]{.glossary-term data-term="Commit"} is a meaningful checkpoint that records a selected set of changes. You can compare commits or return to an earlier committed version when necessary.
 
-[Version control]{.glossary-term data-term="Version Control"} means tracking changes to files over time. It is like save checkpoints in a video game. Git lets you save meaningful checkpoints called [commits]{.glossary-term data-term="Commit"}. As you make progress, you create checkpoints you can return to if something breaks or you want to try a different path.  
+Only tracked and committed work becomes part of Git history, and only commits that have been pushed appear in the remote repository on GitHub. Untracked, ignored, uncommitted, or unpushed files are not stored there.
 
-Version control is basically a time machine for files. You can rewind to earlier versions, compare changes over time, or restore something that was accidentally deleted. Commits let you safely experiment without losing earlier work. 
+> Git tracks the history. GitHub hosts the remote repository. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.
+
+GitHub provides a useful remote copy and version history for tracked files, but it is not a complete backup of your project or computer.
 
 ---
 
 ## Update R and RStudio {#update-r-and-rstudio}
 
-R and RStudio are updated frequently. From time to time, when you open RStudio, you will be notified in a pop up window that you need to download the latest versions installed. Having the most up-to-date version will ensure compatibility with Git and GitHub. 
+R and RStudio are separate programs that are updated on different schedules. You do not need to update either one simply because a newer version is available. If your current installation works and RStudio can find Git, continue with the activity.
 
-💡 **Tip**: It is good practice to always update R or RStudio when prompted. Outdated versions of R can result is incompatibilities with downloaded packages, Git and GitHub. 
+Update R or RStudio when your course requires a particular version, when you need a feature that your installed version does not provide, or when a version-related problem has been identified. If you use a managed computer, follow your institution’s software-update process.
+
+💡 **Tip:** Updating R is different from updating RStudio. Updating one does not automatically update the other.
 
 [Download R and RStudio at https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/){target="_blank" rel="noopener noreferrer"}
 
@@ -405,78 +410,11 @@ You should see a Git version number.
 
 ---
 
-Now that we all have Git installed, we need to configure our Git identity.
-
-## Configure Git Identity {#configure-git-identity}
-
-Your [Git Identity]{.glossary-term data-term="Git Identity"} means the name and email Git attaches to your commits. This labels your work.
-
-### Step 1 {#step-1-configure-git-identity}
-
-🎯 Click the Terminal tab in the bottom left pane (next to the Console). 
-
-If you do not see the Terminal tab, go to:
-
-```text
-Tools > Terminal > New Terminal
-```
-
----
-
-### Checkpoint: RStudio Terminal Check {#rstudio-terminal-check-2}
-
-🎯 In RStudio, go to the Terminal tab and type:
-
-```bash
-git --version
-```
-
-✅ Verify you see a Git version number. See Figure 4 for more details. If you see a version number, Git is installed. If you see an error, Git is not installed correctly yet or RStudio cannot find it. 
-
-💡**Tip:** After installing Git, you may need to restart RStudio before RStudio recognizes it.
-
-Without Git installed, you cannot progress forward with the activity. Reach out for help. You can use the activity support options to get help with Git installation.
-
----
-
-### Step 2 {#step-2-configure-git-identity}
-
-**"Introduce" yourself to Git** 
-
-In the Terminal, type in the following commands, replacing the name and email with your own. 
-
-💡**Tip:** Use the email associated with your GitHub account. 
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "example@u.boisestate.edu"
-```
-
-✅ Verify you see your `user.name `and `user.email.`
-
-```bash    
-git config --global --list
-```
-
-🗣 This tells Git who is making the commits on your computer.
-
-![Figure 5. screenshot of a Git introduction.](images/ch09-github/git_identity.png)
-
-In Figure 5, the Terminal tab in RStudio shows the commands used to set the Git identity. The command `git config --global user.name "Your Name"` sets the user name for Git commits, and `git config --global user.email "example@u.boisestate.edu"` sets the email address. The command `git config --global --list` displays the current Git configuration, confirming that the user name and email have been set correctly. The output shows the user name and email that will be associated with Git commits made from your computer. 
-
-The `init.defaultBranch` is also shown, which indicates the default branch name for new Git repositories which is often set to `main` or `master` depending on the Git version and configuration. In this example, `windows.appendatomically=false` is also shown, which is a Git configuration specific to Windows that controls how Git handles file updates on Windows systems. 
-
-You do not need to worry about the `init.defaultBranch` or `windows.appendatomically` settings for this activity. The key is that your user name and email are correctly set in the Git configuration.
-
----
-
-Now that Git is installed, your Git identity is configured, and RStudio is ready, we can connect your local R workflow to GitHub.
-
 ## GitHub {#github}
 
 [GitHub]{.glossary-term data-term="GitHub"} is the website that will host your online repository. A repository is a project folder that Git can track. In this course, you will use GitHub so your RStudio project can have an online copy.
 
-Before you continue, make sure Git is installed, your Git identity is configured, and RStudio can find Git.
+Before you continue, make sure Git is installed and RStudio can find it. You will configure your Git identity after you create or access your GitHub account.
 
 ### Step 1 {#step-1-github}
 
@@ -558,43 +496,181 @@ lastname-data
 
 ✅ Verify that you can see your GitHub dashboard or profile menu.
 
-🗣 If you can log in and see your GitHub account, you are just about ready to configure SSH keys.
+🗣 If you can log in and see your GitHub account, you are ready to choose your commit email and configure your Git identity.
 
 ### Step 6 {#step-6-github}
 
+**Review what will be public**
+
+This activity uses a public practice repository. A public repository may display:
+
+- the repository’s files and other contents;
+- its commit history and commit messages;
+- your GitHub username;
+- the author name attached to each commit; and
+- the commit email you choose.
+
+Use this repository only for practice material. Do not include confidential research data, student records, passwords, tokens, private SSH keys, or other sensitive information.
+
+### Step 7 {#step-7-github}
+
+**Choose your commit email**
+
+The email used to create or access your GitHub account and the email attached to your Git commits have different purposes. If you prefer not to display a personal or institutional email in future public commits, you can use the `noreply` email address GitHub provides for your account.
+
+🎯 In GitHub:
+
+1. Click your profile picture.
+2. Click **Settings**.
+3. In the **Access** section of the sidebar, click **Emails**.
+4. Find the **Keep my email addresses private** setting.
+5. If you want to use GitHub’s email-privacy option, select this setting—or leave it selected if it is already enabled.
+6. Copy the exact `noreply` email address GitHub displays in your settings.
+
+Do not invent the address or copy one from an example. GitHub supplies the correct address for your account.
+
+✅ Verify that you have either:
+
+- copied your exact GitHub-provided `noreply` address; or
+- deliberately chosen another verified email address that you are willing to associate with future public commits.
+
+🗣 GitHub’s email setting controls the identity used for work completed on the GitHub website. You will configure Git separately in the next section for commits created on your computer.
+
+Changing your commit email affects future commits. It does not rewrite commits you made earlier.
+
+[GitHub instructions for setting your commit email address](https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address){target="_blank" rel="noopener noreferrer"}
+
+### Step 8 {#step-8-github}
+
 **Keep your GitHub information available**
 
-🎯 Write down or save your GitHub username somewhere safe.
+🎯 Keep your GitHub username and chosen commit email available for the next section.
 
-✅ Verify that you know your GitHub username.
+✅ Verify that you know your GitHub username and which commit email you selected.
 
-🗣 You will need your GitHub username later when you create and submit your repository link.
+🗣 You will use your GitHub username later when you create and verify your repository URL.
 
-💡 **Tip:** Set up dual authentication to keep your account secure. 
+💡 **Tip:** Two-factor authentication protects access to your GitHub account. It is separate from your Git commit email and from the SSH-key passphrase introduced later in this chapter.
 
 ---
 
+Now that Git is installed and you can access your GitHub account, you are ready to configure your Git identity.
+
+## Configure Git Identity {#configure-git-identity}
+
+Your [Git Identity]{.glossary-term data-term="Git Identity"} means the name and email Git attaches to your commits. This labels your work.
+
+### Step 1 {#step-1-configure-git-identity}
+
+🎯 Click the Terminal tab in the bottom left pane (next to the Console). 
+
+If you do not see the Terminal tab, go to:
+
+```text
+Tools > Terminal > New Terminal
+```
+
+---
+
+### Checkpoint: RStudio Terminal Check {#rstudio-terminal-check-2}
+
+🎯 In RStudio, go to the Terminal tab and type:
+
+```bash
+git --version
+```
+
+✅ Verify you see a Git version number. See Figure 4 for more details. If you see a version number, Git is installed. If you see an error, Git is not installed correctly yet or RStudio cannot find it. 
+
+💡 **Tip:** After installing Git, you may need to restart RStudio before RStudio recognizes it.
+
+Continue only after RStudio displays a Git version number.
+
+---
+
+### Step 2 {#step-2-configure-git-identity}
+
+**Check your current Git identity**
+
+Before changing any settings, run these commands one at a time:
+
+```bash
+git config --global user.name
+```
+
+```bash
+git config --global user.email
+```
+
+If the commands display the author name and commit email you selected, you do not need to set them again. Continue to the checkpoint below.
+
+If a command returns no value, that setting has not been configured. If the displayed identity is not the one you intend to use, continue with the configuration commands.
+
+If you are using a shared or managed computer and do not recognize the existing identity, do not replace it.
+
+**Set your Git identity if needed**
+
+The `--global` option makes these values the default author identity for future commits made through your user account on this computer. A particular repository can use different identity settings later.
+
+Replace the placeholders below with your chosen author name and the exact commit email you selected in the previous section:
+
+```bash
+git config --global user.name "YOUR COMMIT AUTHOR NAME"
+git config --global user.email "PASTE YOUR CHOSEN COMMIT EMAIL"
+```
+
+If you chose GitHub’s private email option, paste the exact `noreply` address GitHub provided. Do not construct or guess the address.
+
+### Checkpoint: Git Identity Check {#git-identity-check}
+
+🎯 Run these commands again:
+
+```bash
+git config --global user.name
+```
+
+```bash
+git config --global user.email
+```
+
+✅ Verify that the results show the author name and exact commit email you intended to use.
+
+🗣 The displayed values are Git’s default author name and commit email for future commits made through this computer account.
+
+💡 **Tip:** Changing these settings affects future commits. It does not change the identity recorded in earlier commits.
+
+![Figure 5. Windows-style Terminal showing Git identity configuration commands and the resulting global settings.](images/ch09-github/git_identity.png)
+
+Figure 5 shows an example of Git identity configuration in a Windows-style Terminal. Your Terminal prompt and additional settings may look different. For this activity, use the two focused commands in the checkpoint above to verify your author name and commit email.
+
+---
+
+Now that Git is installed, your Git identity is configured, and you can access GitHub, you are ready to connect with SSH.
 
 ## Configure SSH Keys {#configure-ssh-keys}
 
-[SSH keys]{.glossary-term data-term="SSH Key"} help your computer prove to GitHub that it is allowed to connect to your account. This lets RStudio and GitHub communicate without asking for your GitHub password every time.
+[SSH keys]{.glossary-term data-term="SSH Key"} allow your computer to authenticate with GitHub. After SSH is configured, RStudio can communicate with GitHub without asking for your GitHub password during every Git operation.
 
-An SSH key setup creates two related files on your computer:
+An SSH setup uses a matching pair of files:
 
-| Key file | What it does | Should you share it? |
+| Key file | What it does | How to handle it |
 |---|---|---|
-| Private key | Stays on your computer and proves your identity | No. Never share it. |
-| Public key | Gets copied into GitHub | Yes. This is the one GitHub needs. |
+| Private key | Stays on your computer and proves that the connection is yours | Keep it private. Never copy, upload, or share it. |
+| Public key | Allows GitHub to recognize the matching private key on your computer | This is the key you may add to your GitHub account. |
 
-🗣 The public key is like a lock you give to GitHub. The private key is like the matching key that stays on your computer.
+A public-key filename normally ends in `.pub`. Its matching private-key filename does not end in `.pub`.
 
-💡 **Tip:** Never paste your private key into Canvas, email, a discussion board, ChatGPT, or a shared document.
+🗣 The public key can be added to GitHub, while the matching private key stays on the computer and proves the connection is authorized.
+
+💡 **Tip:** Never paste, upload, email, or include your private key in a screenshot. When these directions tell you to copy a key, verify that the filename ends in `.pub`.
 
 Official GitHub reference pages:
 
-- [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent){target="_blank" rel="noopener noreferrer"}
-- [Add a new SSH key to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account){target="_blank" rel="noopener noreferrer"}
-- [Test your SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection){target="_blank" rel="noopener noreferrer"}
+- [Check for existing SSH keys](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/checking-for-existing-ssh-keys){target="_blank" rel="noopener noreferrer"}
+- [Generate a new SSH key and use the SSH agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent){target="_blank" rel="noopener noreferrer"}
+- [Add a public SSH key to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account){target="_blank" rel="noopener noreferrer"}
+- [Test an SSH connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection){target="_blank" rel="noopener noreferrer"}
+- [Verify GitHub’s SSH host fingerprints](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints){target="_blank" rel="noopener noreferrer"}
 
 ---
 
@@ -620,111 +696,221 @@ For this step, use a terminal that can run Git and SSH commands.
 
 ### Step 2 {#step-2-configure-ssh-keys}
 
-**Check whether you already have an SSH key**
+**Check whether an SSH key already exists**
 
-Before creating a new key, check whether your computer already has one.
+Before generating a new key, check the `.ssh` folder on your computer.
 
-🎯 In the terminal, type:
+🎯 In the Terminal, run:
 
 ```bash
 ls -al ~/.ssh
 ```
-✅ Look for files with names like: `id_rsa` and `id_rsa.pub` or `id_ed25519` and `id_ed25519.pub`.
 
-🗣 Files ending in .pub are public keys. Files without .pub are private keys.
+If the Terminal reports that the `.ssh` folder does not exist, no SSH key is stored in the default location. Follow the **new-key route** below.
 
-If you already see `id_ed25519` and `id_ed25519.pub`, you may already have an SSH key. You can still continue carefully, but do not delete existing keys.
+If the folder exists, look for a matching public- and private-key pair. Common supported pairs include:
+
+```text
+id_ed25519     and id_ed25519.pub
+id_ecdsa       and id_ecdsa.pub
+id_rsa         and id_rsa.pub
+```
+
+The two filenames in a pair have the same base name. The public key ends in `.pub`; the private key does not.
+
+### Checkpoint: Choose Your SSH Route {#checkpoint-choose-ssh-route}
+
+✅ **Existing-key route:** If you recognize a complete key pair as yours and are authorized to use it, do not generate another key. Keep track of the public-key filename and skip Steps 3–5.
+
+✅ **New-key route:** If the `.ssh` folder does not exist or contains no existing key pair, continue to Step 3.
+
+If an existing key is unfamiliar, belongs to a shared or managed computer, or appears to be missing its matching file, stop here. Do not delete, rename, overwrite, display, or copy any of the files until you have confirmed how they should be handled.
+
+🗣 Checking for an existing key first prevents an SSH key from being replaced accidentally.
+
+💡 **Tip:** Finding a file that ends in `.pub` does not reveal the matching private key. Never open or share the file with the same name that does not end in `.pub`.
 
 ### Step 3 {#step-3-configure-ssh-keys}
 
-**Generate a new SSH key**
+**Generate an Ed25519 key—new-key route only**
 
-🎯 In the terminal, type the command below. Replace the email address with the email you used for your GitHub account.
+If you selected the **existing-key route** in Step 2, do not run this command. Skip Steps 3–5 and continue to Step 6.
 
-
-```bash
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-
-If your computer says `Ed25519` is not supported, use this backup command instead:
+If you selected the **new-key route**, replace the placeholder below with the exact commit email you selected earlier:
 
 ```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+ssh-keygen -t ed25519 -C "PASTE YOUR CHOSEN COMMIT EMAIL"
 ```
 
-✅ Verify that the command starts the key creation process.
+The email after `-C` becomes a label attached to the key. It does not replace your Git identity or your GitHub login information.
 
-🗣 Git is creating a public/private key pair on your computer.
+✅ Verify that the Terminal reports that it is generating an Ed25519 public/private key pair.
+
+🗣 The `ssh-keygen` command creates two matching files: a public key and a private key.
+
+If the Terminal reports that Ed25519 is unsupported, stop here. This activity uses Ed25519 throughout its remaining directions. Do not substitute another command or key type without checking current guidance for your system.
 
 ### Step 4 {#step-4-configure-ssh-keys}
 
-**Accept the default file location**
+**Confirm the file location without overwriting an existing key**
 
-When you run the `ssh-keygen` command, it will ask where to save the key files.
-
-After you run the command, Terminal will ask where to save the key.
-
-You will see something like:
+The Terminal will ask where to save the new key. The exact beginning of the path will depend on your computer, but the prompt should end with:
 
 ```text
-Enter file in which to save the key (/Users/yourname/.ssh/id_ed25519):
+.ssh/id_ed25519
 ```
 
-or on Windows: 
+If Step 2 confirmed that no `id_ed25519` key pair exists, press `Enter` to accept the default location.
+
+The private and public keys will be saved using these matching filenames:
 
 ```text
-Enter file in which to save the key (/c/Users/yourname/.ssh/id_ed25519):
+id_ed25519
+id_ed25519.pub
 ```
 
-🎯 Press `Enter` to accept the default location.
+If the Terminal reports that the file already exists or asks a question such as:
 
-✅ Verify that you did not type a new file name.
+```text
+Overwrite (y/n)?
+```
 
-💡 **Tip**: The default location is the easiest choice. Do not rename the file unless you already know what you are doing.
+🎯 Type `n`, press `Enter`, and stop.
+
+Do not type `y`. Do not overwrite, delete, or rename the existing key.
+
+✅ Continue only if the Terminal advances to the passphrase prompt without displaying an overwrite question.
+
+🗣 Accepting the available default location gives the matching key files consistent names without replacing another key.
 
 ### Step 5 {#step-5-configure-ssh-keys}
 
-**Choose a passphrase**
+**Protect the private key with a passphrase**
 
-Terminal may ask for a passphrase.
-
-You may see:
+The Terminal will display a prompt similar to:
 
 ```text
 Enter passphrase (empty for no passphrase):
 ```
-🎯 Choose one option:
 
-For stronger security, type a passphrase you can remember.
-For fewer setup complications in this beginner activity, press Enter to leave it empty.
+🎯 Type a secure passphrase and press `Enter`.
 
-If you type a passphrase, Terminal will ask you to type it again.
+The Terminal will not display letters, dots, or other characters while you type. This is normal.
 
-✅ Verify that the SSH key was created.
+When prompted, type the same passphrase again and press `Enter`.
 
-🗣 If the key was created successfully, you should see a message that includes the file location and a fingerprint.
+Do not use your GitHub password as the SSH-key passphrase. Keep the passphrase private and store it securely.
 
-💡 **Tip**: If you type a passphrase, you may need to enter it again later when using Git. That is normal.
+### Checkpoint: New SSH Key Created {#checkpoint-new-ssh-key-created}
+
+✅ If you followed the new-key route, continue only after confirming that:
+
+- the key was created without overwriting another file;
+- the private-key filename is `id_ed25519`;
+- the public-key filename is `id_ed25519.pub`; and
+- the Terminal displays a fingerprint for the newly created key.
+
+🗣 The SSH-key passphrase protects the private key. It is separate from the GitHub password and GitHub two-factor authentication.
+
+💡 **Tip:** The next step uses an SSH agent so that the protected key can be used without entering its passphrase for every Git operation.
 
 ### Step 6 {#step-6-configure-ssh-keys}
 
-**Copy the public key**
+**Prepare the selected SSH key**
 
-You need to copy the public key. The public key file ends in `.pub`.
+In this step, you will:
 
-Use the command for your operating system.
+1. add the selected private key to the SSH agent on your computer; and
+2. copy the matching public key so you can add it to GitHub.
+
+| Route | Private-key filename | Public-key filename |
+|---|---|---|
+| New-key route | `id_ed25519` | `id_ed25519.pub` |
+| Existing-key route | The selected filename without `.pub` | The matching filename ending in `.pub` |
+
+#### Start the SSH agent
+
+In the same Terminal you have been using, run:
+
+```bash
+eval "$(ssh-agent -s)"
+```
+
+✅ Verify that the Terminal displays an agent process number similar to:
+
+```text
+Agent pid 12345
+```
+
+#### Add the private key to the SSH agent
+
+This is a local operation. It does not display or upload the private key.
+
+**Windows using Git Bash or Linux—new-key route**
+
+```bash
+ssh-add ~/.ssh/id_ed25519
+```
+
+**Windows using Git Bash or Linux—existing-key route**
+
+Replace the placeholder with the private-key filename you selected in Step 2:
+
+```bash
+ssh-add ~/.ssh/YOUR_PRIVATE_KEY_FILENAME
+```
+
+**macOS—new-key route**
+
+```bash
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+```
+
+**macOS—existing-key route**
+
+If the existing key has a passphrase, replace the placeholder with its private-key filename:
+
+```bash
+ssh-add --apple-use-keychain ~/.ssh/YOUR_PRIVATE_KEY_FILENAME
+```
+
+If the existing key does not have a passphrase, use:
+
+```bash
+ssh-add ~/.ssh/YOUR_PRIVATE_KEY_FILENAME
+```
+
+If prompted, enter the SSH-key passphrase. The Terminal will not display characters while you type.
+
+🎯 Check the keys currently loaded in the SSH agent:
+
+```bash
+ssh-add -l
+```
+
+✅ Verify that the agent lists the selected key. If you followed the new-key route, the displayed fingerprint should match the fingerprint created in Step 5.
+
+🗣 The SSH agent can use the private key without displaying or uploading it. The private-key file remains on the computer.
+
+#### Copy the matching public key
+
+If you followed the existing-key route, replace `id_ed25519.pub` in the command with the public-key filename you selected in Step 2.
 
 **Windows using Git Bash**
 
-🎯 Type:
+```bash
+clip < ~/.ssh/id_ed25519.pub
+```
+
+If `clip` does not work, display the public key:
 
 ```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
-**macOS**
+Then carefully select and copy the entire line.
 
-🎯 Type:
+**macOS**
 
 ```bash
 pbcopy < ~/.ssh/id_ed25519.pub
@@ -732,109 +918,189 @@ pbcopy < ~/.ssh/id_ed25519.pub
 
 **Linux**
 
-🎯 Type:
-
 ```bash
 cat ~/.ssh/id_ed25519.pub
 ```
-Then carefully highlight and copy the full output.
 
-✅ Verify that you copied the public key, not the private key.
+Carefully select and copy the entire line.
 
-🗣 The public key usually starts with ssh-ed25519 and ends with your email address.
+The public key should appear as one long line. It begins with a key type, contains a long encoded value, and may end with a label.
 
-💡 **Tip**: Copy the whole public key as one long line. Do not add spaces, line breaks, or extra text.
+### Checkpoint: SSH Key Ready for GitHub {#checkpoint-ssh-key-ready}
+
+✅ Continue only after confirming that:
+
+- the SSH agent lists the selected key;
+- you copied the matching file whose name ends in `.pub`;
+- you did not display, copy, or upload the private-key file; and
+- the copied public key remains one complete line.
+
+🗣 The SSH agent uses the private key locally, while the copied public key is the part that can be added to GitHub.
+
+💡 **Tip:** The SSH agent remembers the unlocked key for the current session. Depending on your operating system and configuration, you may need to add the key to the agent again after restarting your computer.
 
 ### Step 7 {#step-7-configure-ssh-keys}
 
-**Open GitHub SSH key settings**
+**Open GitHub SSH settings and check for a matching key**
 
-🎯 In your browser, go to [GitHub](https://github.com/login){target="_blank" rel="noopener noreferrer"}
+First, display the SHA-256 fingerprints of the keys loaded in your SSH agent:
 
-🎯 Make sure you are logged in.
+```bash
+ssh-add -l -E sha256
+```
 
-🎯 Click your profile picture or icon in the top-right corner.
+Keep the Terminal open so you can compare the selected key’s fingerprint with GitHub.
 
-🎯 Click Settings.
+🎯 In your browser:
 
-🎯 In the left menu, click SSH and GPG keys.
+1. Sign in to [GitHub](https://github.com/login){target="_blank" rel="noopener noreferrer"}.
+2. Click your profile picture.
+3. Click **Settings**.
+4. In the **Access** section of the sidebar, click **SSH and GPG keys**.
+5. Review the keys listed under **SSH keys**.
 
-✅ Verify that you are on the SSH and GPG keys page.
+Compare the SHA-256 fingerprint shown for the selected key in the Terminal with the fingerprints listed in GitHub.
+
+### Checkpoint: Does GitHub Already Have This Key? {#checkpoint-existing-github-key}
+
+✅ **Matching key found:** If the same fingerprint already appears in your GitHub account, do not add the key again. Skip Step 8 and continue to Step 9.
+
+✅ **No matching key found:** If the selected fingerprint does not appear in your GitHub account, continue to Step 8.
+
+If GitHub shows a key that you do not recognize, pause this setup and review your account security before making changes. Do not delete a key merely because its title is unfamiliar; first compare its fingerprint and determine whether it belongs to another computer you use.
+
+🗣 Matching fingerprints show that GitHub already has the public key associated with the selected private key on the computer.
 
 ### Step 8 {#step-8-configure-ssh-keys}
 
-**Add the SSH key to GitHub**
+**Add the public key to GitHub if needed**
 
-🎯 Click `New SSH key`.
+Complete this step only if Step 7 found no matching fingerprint.
 
-🎯 In the `Title` box, type a name that helps you recognize this computer.
+🎯 On the **SSH and GPG keys** page:
 
-Examples: 
+1. Click **New SSH key** or **Add SSH key**.
+2. In the **Title** box, enter a neutral description that will help you recognize the computer later.
+
+Examples:
 
 ```text
-My laptop
+Personal laptop
+Home desktop
 Windows laptop
-MacBook for DATA-R155
-Home computer
-Purple Rhino  # This is the name of my computer
+Mac laptop
 ```
-🎯 For Key type, choose `Authentication Key`.
 
-🎯 In the Key box, paste the public key you copied.
+3. For **Key type**, select **Authentication Key**.
+4. In the **Key** box, paste the public key copied in Step 6.
+5. Verify that you pasted one complete line beginning with a key type such as `ssh-ed25519`.
+6. Click **Add SSH key**.
+7. Authenticate to your GitHub account if GitHub asks you to confirm the action.
 
-🎯 Click Add SSH key.
+Never paste the private key into GitHub. Only the public-key filename ending in `.pub` belongs in the **Key** box.
 
-GitHub may ask you to confirm your password.
+If GitHub reports `Key is already in use`, stop. Do not delete or regenerate the key. This message means the public key is already attached to another GitHub account or repository and must be identified before you continue.
 
-✅ Verify that the new key appears in your SSH keys list.
+### Checkpoint: Public Key Connected to GitHub {#checkpoint-public-key-connected}
 
-🗣 GitHub now recognizes your computer’s SSH public key.
+✅ Verify that the selected key now appears in your GitHub SSH-key list.
+
+✅ Compare its SHA-256 fingerprint with the result from:
+
+```bash
+ssh-add -l -E sha256
+```
+
+Continue only when the fingerprints match.
+
+🗣 GitHub now has the selected public key, while the matching private key remains on the computer.
+
+💡 **Tip:** The title is only a label to help you recognize the device. It does not change the key or its security.
 
 ### Step 9 {#step-9-configure-ssh-keys}
 
 **Test the SSH connection**
 
-Now test whether your computer can authenticate with GitHub.
+Return to the same Terminal you used to start the SSH agent in Step 6.
 
-🎯 Return to your RStudio terminal.
-
-🎯 Type:
+🎯 Run:
 
 ```bash
 ssh -T git@github.com
 ```
 
-The first time, you may see a message like this:
+Use `git@github.com` exactly as written. Do not replace `git` with your GitHub username.
+
+#### Verify GitHub’s host fingerprint if prompted
+
+The first time this computer connects to GitHub, the Terminal may display a message similar to:
 
 ```text
+The authenticity of host 'github.com' can't be established.
+KEY-TYPE key fingerprint is SHA256:...
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 ```
 
-🎯 Type: `yes` then press `Enter`.
+This is GitHub’s **server fingerprint**. It is different from the personal SSH-key fingerprint you compared in Steps 7–8.
 
-✅ Verify that you see a success message like this:
+Before typing `yes`:
+
+1. Open GitHub’s current [SSH host fingerprints](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints){target="_blank" rel="noopener noreferrer"}.
+2. Find the fingerprint for the key type displayed in your Terminal.
+3. Compare the entire SHA-256 fingerprint.
+
+✅ If the fingerprints match exactly, type:
 
 ```text
-Hi USERNAME! You've successfully authenticated, but GitHub does not provide shell access.
+yes
 ```
 
-🗣 This message means your SSH connection works. The phrase “does not provide shell access” is normal. 
+Then press `Enter`.
 
-💡 **Tip**: If you see Permission denied (publickey), GitHub did not accept your SSH key. Check that you copied the `.pub` public key and added it to the correct GitHub account.
+If the fingerprints do not match—or you cannot verify them—type `no` or cancel the command. Do not accept the connection.
+
+If the Terminal does not display a host-fingerprint prompt, this computer may have connected to GitHub previously. Continue to the authentication result.
+
+#### Verify the authentication result
+
+If prompted, enter the SSH-key passphrase. The Terminal will not display characters while you type.
+
+A successful result looks like:
+
+```text
+Hi YOUR-USERNAME! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+✅ Verify that the message contains the GitHub username you intend to use.
+
+The phrase `GitHub does not provide shell access` is normal. GitHub uses this SSH connection for Git operations, not for an interactive server session.
+
+💡 **Tip:** A successful test may still end with status code `1`. For this particular command, the authentication message—not the status code—confirms success.
+
+If the message contains a different GitHub username, stop. The selected key is associated with a different account.
+
+If you see `Permission denied (publickey)`, do not delete or regenerate any keys. Check that:
+
+- the command uses `git@github.com`;
+- `ssh-add -l -E sha256` lists the selected key; and
+- the same fingerprint appears in the intended GitHub account.
+
+If those checks do not resolve the problem, stop and use GitHub’s current [Permission denied troubleshooting](https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey){target="_blank" rel="noopener noreferrer"} before changing any keys.
 
 ---
 
 ### Checkpoint: SSH Setup Complete {#checkpoint-ssh-setup-complete}
 
-✅ You have completed this section if:
+✅ You have completed the SSH setup when:
 
-- You created or found an SSH key on your computer.
-- You copied the public key, not the private key.
-- You added the public key to GitHub.
-- You tested the connection with `ssh -T git@github.com`.
-- You saw the message: `You've successfully authenticated`.
+- you selected a recognized and authorized key pair or safely created a new one;
+- the private key remained private;
+- the selected private key was loaded into the SSH agent;
+- the matching public-key fingerprint appears in the intended GitHub account;
+- you verified GitHub’s host fingerprint if the first-connection prompt appeared; and
+- `ssh -T git@github.com` reported successful authentication for the correct GitHub username.
 
-🗣 Your computer can now authenticate with GitHub using SSH.
+🗣 The successful authentication message confirms that this computer can use the selected SSH key to connect to the intended GitHub account.
 
 ---
 
@@ -877,41 +1143,39 @@ If you do not see the green `New` button:
 
 **Name the repository**
 
-🎯 In the `Repository name` box, type:
+🎯 In the **Repository name** box, type:
 
 ```text
 data-r155-github-practice
 ```
 
-> 🧐 **Notice:** GitHub repository names should not contain spaces.
+✅ Verify that the repository name is exactly `data-r155-github-practice`.
 
-✅ Verify that your repository name is exactly `data-r155-github-practice`.
+🗣 This name identifies the repository as the practice project used in this activity.
 
-🗣 This name tells you, GitHub, and me (grading) what the repository is for.
-
-💡 **Tip**: In the future, when selecting a repo name, use lowercase letters and hyphens. That keeps the name easy to read and easy to type.
+💡 **Tip:** Lowercase letters and hyphens make repository names easy to read, remember, and type.
 
 ### Step 4 {#step-4-make-github-repo}
 
 **Add a short description**
 
-🎯 In the Description box, type:
+🎯 In the **Description** box, type:
 
 ```text
-GitHub practice for DATA-R155
+Practice repository for learning Git, GitHub, and RStudio
 ```
 
-🗣 The description is a short note explaining the purpose of the repository.
+🗣 The description briefly explains the purpose of the repository.
 
 ### Step 5 {#step-5-make-github-repo}
 
 **Choose repository visibility**
 
-🎯 Choose Public.
+🎯 Choose **Public**.
 
-🗣 Public means the repository can be viewed online. For this activity, public is useful because I need to check that your GitHub workflow is working.
+🗣 Public means that the repository’s contents and commit history can be viewed online. This allows the completed workflow to be reviewed through a regular browser link.
 
-💡 **Tip**: Do not put private data, passwords, tokens, or sensitive files in a public repository. More on that later.
+💡 **Tip:** Use this repository only for practice material. Do not include private data, passwords, tokens, private keys, or sensitive files.
 
 ### Step 6 {#step-6-make-github-repo}
 
@@ -992,7 +1256,7 @@ git@github.com:YOUR-USERNAME/data-r155-github-practice.git
 
 🗣 You are now ready to clone this GitHub repository into RStudio.
 
-# Clone GitHub via RStudio {#clone-github-via-rstudio}
+## Clone GitHub via RStudio {#clone-github-via-rstudio}
 
 [Clone]{.glossary-term data-term="Clone"} means copy a GitHub repository onto your computer. RStudio will create a new project folder from the GitHub repository.
 
@@ -1030,7 +1294,7 @@ Git
 
 🎯 In the `Repository URL` box, paste the SSH link you copied from GitHub.
 
-> 🧐 **Notice:** This is the link we copied in [Copy the SSH Repository  Link](#copy-ssh-repo-link) section. If you did not copy the SSH link, go back and copy it now.
+> 🧐 **Notice:** This is the link copied in [Copy the SSH Repository Link](#copy-ssh-repo-link). If you did not copy the SSH link, return to that section and copy it now.
 
 ### Step 3 {#step-3-clone-github-via-rstudio}
 
@@ -1048,24 +1312,33 @@ data-r155-github-practice
 
 ### Step 4 {#step-4-clone-github-via-rstudio}
 
-**Choose where to save the project folder**
+**Choose the parent folder**
 
-This is important. You are choosing where the cloned project folder will live on your computer.
+The **Create project as subdirectory of** field asks where RStudio should place the cloned project folder.
 
-🎯 🎯 Create the project as a [subdirectory]{.glossary-term data-term="Subdirectory"} by selecting choose your course folder. For example: `DATA-R155/`
-
-Your final folder structure should look something like this:
+🎯 Select a stable parent folder where you keep course or R projects. For example:
 
 ```text
-DATA-R155/
+Course-Projects/
+```
+
+RStudio will create the repository folder inside that parent folder:
+
+```text
+Course-Projects/
   data-r155-github-practice/
 ```
 
-✅ Verify that you are not saving the project randomly in Downloads or another random location on your computer.
+Do not create or select a second folder named `data-r155-github-practice`. RStudio creates that folder when it clones the repository.
 
-🗣 RStudio will create the `data-r155-github-practice/` folder for you!
+✅ Verify that:
 
-💡 **Tip**: Folder organization matters. A lot of Git and RStudio confusion comes from saving projects in random places.
+- the project directory name is still `data-r155-github-practice`; and
+- the selected parent folder is a location you can find again.
+
+🗣 RStudio will clone the repository into a new `data-r155-github-practice` folder inside the selected parent folder.
+
+💡 **Tip:** A consistent project location makes it easier to reopen the correct RStudio Project later.
 
 ### Step 5 {#step-5-clone-github-via-rstudio}
 
@@ -1096,11 +1369,22 @@ README.md
 data-r155-github-practice.Rproj
 ```
 
-You may also see hidden Git files, depending on your settings.
+The `README.md` file came from the GitHub repository. RStudio created the `.Rproj` file when it created the local project.
 
-🗣 The `README.md` file came from GitHub. The `.Rproj` file was created by RStudio.
+The `.Rproj` file stores project settings and allows the project to be reopened directly in RStudio. For this practice repository, you will include it in the first local commit.
 
-📸 Screenshot showing the RStudio Files pane with README.md and the `.Rproj` file.
+You may also see the `.Rproj` file listed as untracked in the Git pane. That is expected. Hidden Git files may also exist, but you do not need to open or change them.
+
+### Checkpoint: Repository Cloned into RStudio {#checkpoint-repository-cloned}
+
+✅ Continue only after confirming that:
+
+- RStudio displays `data-r155-github-practice` as the active project;
+- `README.md` appears in the Files pane;
+- `data-r155-github-practice.Rproj` appears in the Files pane; and
+- the Git pane is available.
+
+🗣 The GitHub repository has been cloned into a local RStudio Project, and the local project remains connected to the remote repository.
 
 ---
 
@@ -1138,7 +1422,7 @@ A line I wrote in RStudio.
 
 **Open the Git pane**
 
-🎯 Find the [Git pane]{.glossary-term data-term="Git Pane"}** in RStudio.
+🎯 Find the [Git pane]{.glossary-term data-term="Git Pane"} in RStudio.
 
 It is usually near the Environment, History, Connections, and Tutorial panes in the upper right area.
 
@@ -1178,7 +1462,7 @@ First Commit from RStudio
 
 ✅ Verify that the Commit window does not show a red error message and instead reports that the commit completed successfully.
 
-💡 **Tip:** If you see a red error message, do not keep clicking Commit or Push repeatedly. Read the first error line carefully. Errors like `Permission denied (publickey)` usually mean there is a GitHub SSH setup problem, while authentication errors may mean GitHub cannot verify your account. Take a screenshot of the error and use the module's support options.
+💡 **Tip:** If Commit shows a red error message, do not keep clicking Commit. Read the first error line. A commit is created on your computer, so SSH and GitHub authentication errors occur during Push, not Commit. Check that at least one file is staged and that Git has a commit name and email configured before trying again.
 
 ### Step 6 {#step-6-local-changes}
 
@@ -1192,7 +1476,7 @@ You can find the Push button in the Git pane's menu bar, usually near the Commit
 
 ✅ Verify that the push finishes without an error.
 
-💡 **Tip:** Push errors are a very common issue. One reason they happen is when your local repository is “behind” GitHub. This usually means the GitHub version changed after you cloned or last pulled. If you see a message about `fetch first`, `non-fast-forward`, or being “behind,” stop and use the [Pull]{.glossary-term} button in RStudio before trying Push again. To prevent Push errors, always follow the [workflow](#workflow) explained in the next section.
+💡 **Tip:** If Push reports `fetch first`, `non-fast-forward`, or that your repository is “behind,” stop and do not keep clicking Push. Pull once. If Pull completes without a conflict, try Push again. If RStudio reports a merge conflict, do not Push again until the conflict is resolved and the resolution is committed.
 
 ### Step 7 {#step-7-local-changes}
 
@@ -1220,7 +1504,7 @@ Now let's talk about how to make this workflow a regular part of your work proce
 
 A [Git workflow]{.glossary-term data-term="Git Workflow"} is the repeatable order you follow when you sit down to work on a project connected to GitHub.
 
-For this course, your workflow is:
+A useful Git workflow is:
 
 ```text
 Open Project → Pull → Edit → Save → Stage → Commit → Push
@@ -1232,15 +1516,13 @@ This order matters. Pulling first checks whether GitHub has changes that your lo
 
 **Open file system**
 
-When you turn on your computer to start working, you'll want to start by opening finder/file explorer and navigating to your project folder (e.g, `DATA-R155/data-r155-github-practice/data-r155-github-practice.Rproj`).
-
 With RStudio closed, open your file system (Finder on Mac, File Explorer on Windows) and navigate to the folder where you saved your RStudio project. You should see a file with the extension `.Rproj` in that folder.
 
 ### Step 2 {#step-2-workflow}
 
 **Open the project**
 
-open the project by double-clicking the `.Rproj` file in **Finder/File Explorer**. That is the most beginner-friendly because it ensures the correct project folder. You can also open RStudio session and then open your project inthe file tab, if it is not already open. Personally, I prefer to open the project from the file system because it guarantees I am in the right place.
+🎯 Open the project by double-clicking the `.Rproj` file in Finder or File Explorer. This helps ensure that RStudio opens in the correct project folder. You can also open RStudio and select `File > Open Project...`.
 
 🗣 RStudio opens with the project name in the top-right corner. 
 
@@ -1324,7 +1606,7 @@ Recall that [stage]{.glossary-term data-term="Stage"} means selecting the file o
 github_practice.Rmd
 ```
 
-💡 **Tip**: Only stage files you want to record version control. Be careful not to stage protected data or propitiatory information.
+💡 **Tip:** Stage only the files you want to record in version control. Before committing, verify that you have not staged private, protected, restricted, or proprietary information.
 
 ### Step 7 {#step-7-workflow}
 
@@ -1337,7 +1619,7 @@ github_practice.Rmd
 🎯 In the commit message box, type:
 
 ```text
-Add GitHub practice R Markdown file
+Add GitHub practice file
 ```
 
 🎯 Click Commit.
@@ -1346,7 +1628,7 @@ Add GitHub practice R Markdown file
 
 🗣 The commit saved a checkpoint in your local Git history.
 
-💡 **Tip**: If you see a red error message, do not keep clicking Commit. Read the first error line, take a screenshot, and use the module's support options.
+💡 **Tip:** If Commit shows a red error message, do not keep clicking Commit. Read the first error line. A commit is created on your computer, so SSH and GitHub authentication errors occur during Push, not Commit. Check that at least one file is staged and that Git has a commit name and email configured before trying again.
 
 ### Step 8 {#step-8-workflow}
 
@@ -1360,7 +1642,7 @@ Add GitHub practice R Markdown file
 
 🗣 Push sends your committed work from your computer to GitHub.
 
-💡 Tip: Push errors can happen if your local repository is behind GitHub. If you see a message about `fetch first`, `non-fast-forward`, or being “behind,” stop and use the Pull button before trying Push again. If you get stuck here, take a screenshot and contact the module's support options.
+💡 **Tip:** If Push reports `fetch first`, `non-fast-forward`, or that your repository is “behind,” stop and do not keep clicking Push. Pull once. If Pull completes without a conflict, try Push again. If RStudio reports a merge conflict, do not Push again until the conflict is resolved and the resolution is committed.
 
 ### Step 9 {#step-9-workflow}
 
@@ -1414,7 +1696,25 @@ In this section, you will learn how to keep the `data/` folder on your local com
 
 🎯 Name the folder: "data"
 
-✅ Verify that the `data/ `folder appears in your Files pane.
+✅ Verify that the `data/` folder appears in your Files pane.
+
+> 🧐 **Notice:** Use only harmless practice text for this test. Do not use personal, private, restricted, or research data.
+
+🎯 Open the `data/` folder.
+
+🎯 Create a new text file and enter this practice sentence:
+
+```text
+This harmless practice file tests the data folder ignore rule.
+```
+
+🎯 Save the file inside the `data/` folder with this name:
+
+```text
+ignore-check.txt
+```
+
+✅ Verify that `ignore-check.txt` appears inside your local `data/` folder.
 
 ### Step 3 {#step-3-data-privacy-and-organization}
 
@@ -1468,12 +1768,16 @@ data/
 
 You can use R to check what files and folders are visible from the project.
 
-🎯 In `github_practice.Rmd`, add this code chunk:
+🎯 In `github_practice.Rmd`, add and run this code chunk:
 
 ```{r eval=FALSE}
 list.files()
 list.files("data")
 ```
+
+✅ Verify that the first command lists the `data` folder and the second command lists `ignore-check.txt`.
+
+🗣 This confirms that the harmless test file exists on your computer. The next step checks whether Git is correctly ignoring it.
 
 🎯 Add a short memo below the code chunk:
 
@@ -1500,17 +1804,23 @@ github_practice.Rmd
 .gitignore
 ```
 
-✅ Verify that `.gitignore` and `github_practice.Rmd` are staged.
+✅ Verify that `.gitignore` and your `github_practice.Rmd` or `github_practice.qmd` file are staged.
 
-✅ Verify that `data/` is not shown in the Git pane as an option to be staged.
+✅ Verify that neither `data/` nor `data/ignore-check.txt` appears as available to stage.
 
-🗣 By staging `.gitignore`, you are committing the rule that tells Git not to track the `data/` folder.
+🗣 The test file exists on your computer but is unavailable to stage. This confirms that the `data/` rule is working for an untracked file.
 
-💡 **Tip:** If `data/` appears in the Git pane after you saved `.gitignore`, go back and check three things:
+💡 **Tip:** If `data/ignore-check.txt` appears in the Git pane, do not stage it. Check that:
 
-- `.gitignore` is saved in the main project folder.
-- The file name is exactly `.gitignore`.
-- The file includes this line exactly: `data/`
+- `.gitignore` is saved in the main project folder;
+- the filename is exactly `.gitignore`; and
+- the file includes this line exactly:
+
+```text
+data/
+```
+
+> 🧐 **Notice:** `.gitignore` helps prevent untracked files from being added to Git. It does not erase a file that was already committed. If sensitive information was committed, stop before making additional commits or pushes. Deleting the visible file may not remove it from the repository’s history. An exposed password or token must also be revoked or changed.
 
 ### Step 6 {#step-6-data-privacy-and-organization}
 
@@ -1528,7 +1838,7 @@ Add data folder ignore rule
 
 ✅ Verify that the commit completes successfully.
 
-🗣 This commit records your data privacy and organization rule on GitHub.
+🗣 This commit records the data privacy and organization rule in your local Git history. The next step pushes that commit to GitHub.
 
 ### Step 7 {#step-7-data-privacy-and-organization}
 
@@ -1552,10 +1862,23 @@ Add data folder ignore rule
 
 ```text
 README.md
-github_practice.Rmd
 .gitignore
+github_practice.Rmd
 ```
-✅ Verify that GitHub does not show: `data/`
+
+If you chose Quarto, verify that GitHub shows `github_practice.qmd` instead of `github_practice.Rmd`.
+
+✅ Verify that GitHub does not show `data/` or `ignore-check.txt`.
+
+🎯 Open the repository’s commit history.
+
+✅ Verify that the commit history includes the commits you created during this activity.
+
+🎯 Return to the repository’s main page and copy the URL from your browser’s address bar.
+
+✅ Verify that the URL begins with `https://github.com/` and includes `data-r155-github-practice`. Do not use the SSH clone address beginning with `git@github.com:`.
+
+🗣 The regular browser URL opens the public repository for another reader. Use this URL whenever you are asked to share or submit the repository.
 
 ---
 
