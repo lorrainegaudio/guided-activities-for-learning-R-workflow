@@ -464,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <strong>Inline R</strong> works in YAML when written exactly as above. Notice the backticks around the letter <code>r</code> and the <code>Sys.Date()</code> function and that it is wrapped in quotes `“2026-07-17”`. You can learn more about inline R in the 📝 Notebook Advanced Activity, but for now, you can copy and paste the above YAML section to add a dynamic date to your YAML header. Each time you <span class="glossary-term" data-term="Knit">knit</span> the document, the date will update to the current date.</p>
+<p>The <strong>Inline R</strong> works in YAML when written exactly as above. Notice the backticks around the letter <code>r</code> and the <code>Sys.Date()</code> function and that it is wrapped in quotes `“2026-08-22”`. You can learn more about inline R in the 📝 Notebook Advanced Activity, but for now, you can copy and paste the above YAML section to add a dynamic date to your YAML header. Each time you <span class="glossary-term" data-term="Knit">knit</span> the document, the date will update to the current date.</p>
 <hr>
 <p>You’ll learn how to <strong>knit</strong> soon, but first, you need a clear structure inside the document. That is where Markdown headings come in.</p>
 <section id="heading-levels" class="level5">
@@ -539,7 +539,7 @@ Compare the type with the image of the knit result.
 
 🎯 Make a comment inside a code chunk
 
-```lbo
+```qgw
 # ⚡ This is a comment inside a code chunk.
 cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 ```
@@ -665,7 +665,7 @@ cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, ...) 
 UseMethod("mean")
-&lt;bytecode: 0x9e971c3f8&gt;
+&lt;bytecode: 0x88e30a430&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>
@@ -706,7 +706,7 @@ UseMethod("mean")
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-07-17"</code></pre>
+<pre><code>[1] "2026-08-22"</code></pre>
 </div>
 </div>
 <p>🗣 The <code>Sys.Date()</code> function retrieves the current date from the system clock and returns it as a Date object.</p>
