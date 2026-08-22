@@ -39,39 +39,39 @@ book:
         - chapters/01-tenacity/ch01-navigation.Rmd
         - chapters/01-tenacity/ch02-scripts.Rmd
         
-    - part: chapters/02-transparency/transparency.qmd
-      chapters:
-        - chapters/02-transparency/ch03-vectors.Rmd
-        - chapters/02-transparency/ch04-structures.Rmd
+    # - part: chapters/02-transparency/transparency.qmd
+    #   chapters:
+    #     - chapters/02-transparency/ch03-vectors.Rmd
+    #     - chapters/02-transparency/ch04-structures.Rmd
         
-    - part: chapters/03-courage/courage.qmd
-      chapters:
-        - chapters/03-courage/ch05-help.Rmd
-        - chapters/03-courage/ch05-help-prompting.Rmd
-        - chapters/03-courage/ch06-missing-values.Rmd   
+    # - part: chapters/03-courage/courage.qmd
+    #   chapters:
+    #     - chapters/03-courage/ch05-help.Rmd
+    #     - chapters/03-courage/ch05-help-prompting.Rmd
+    #     - chapters/03-courage/ch06-missing-values.Rmd   
         
-    - part: chapters/04-autonomy/autonomy.qmd
-      chapters:
-        - chapters/04-autonomy/ch07-importing-data.Rmd
-        - chapters/04-autonomy/ch08-indexing.Rmd
+    # - part: chapters/04-autonomy/autonomy.qmd
+    #   chapters:
+    #     - chapters/04-autonomy/ch07-importing-data.Rmd
+    #     - chapters/04-autonomy/ch08-indexing.Rmd
         
-    - part: chapters/05-openmindedness/openmindedness.qmd
-      chapters:
-        - chapters/05-openmindedness/ch09-github.Rmd
-        - chapters/05-openmindedness/ch10-and-or-in.Rmd        
-        - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd  
+    # - part: chapters/05-openmindedness/openmindedness.qmd
+    #   chapters:
+    #     - chapters/05-openmindedness/ch09-github.Rmd
+    #     - chapters/05-openmindedness/ch10-and-or-in.Rmd        
+    #     - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd  
         
-    - part: chapters/06-curiosity/curiosity.qmd
-      chapters:
-        - chapters/06-curiosity/ch12-recoding.Rmd
-        - chapters/06-curiosity/ch13-grouped-summaries.Rmd #Start editing here: terms
-        - chapters/06-curiosity/ch14-chaining.Rmd
+    # - part: chapters/06-curiosity/curiosity.qmd
+    #   chapters:
+    #     - chapters/06-curiosity/ch12-recoding.Rmd
+    #     - chapters/06-curiosity/ch13-grouped-summaries.Rmd
+    #     - chapters/06-curiosity/ch14-chaining.Rmd
 
-    - part: chapters/07-thoroughness/thoroughness.qmd
-      chapters:
-        - chapters/07-thoroughness/ch15-probability-functions.Rmd
-        - chapters/07-thoroughness/ch16-ggplot2.Rmd
-        - chapters/07-thoroughness/ch17-string-detect.Rmd
+    # - part: chapters/07-thoroughness/thoroughness.qmd
+    #   chapters:
+    #     - chapters/07-thoroughness/ch15-probability-functions.Rmd
+    #     - chapters/07-thoroughness/ch16-ggplot2.Rmd
+    #     - chapters/07-thoroughness/ch17-string-detect.Rmd
       
 format:
   html:
