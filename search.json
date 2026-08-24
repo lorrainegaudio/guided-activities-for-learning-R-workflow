@@ -1,62 +1,72 @@
 [
   {
-    "objectID": "index.html#guided-activities-for-learning-r-workflow",
-    "href": "index.html#guided-activities-for-learning-r-workflow",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "Guided activities for learning R workflow",
-    "text": "Guided activities for learning R workflow\nThis book contains the guided activities for Introduction to R Programming. These activities help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.\nYou are not expected to know this before you begin. The goal is not perfect code on the first try. The goal is to build a reliable workflow for noticing, checking, and improving your work.",
+    "section": "",
+    "text": "Introduction to R Programming\nGoal, Code, Verify, Reflect",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
     ]
   },
   {
-    "objectID": "index.html#what-this-book-is",
-    "href": "index.html#what-this-book-is",
+    "objectID": "index.html#learn-r-through-a-visible-research-workflow",
+    "href": "index.html#learn-r-through-a-visible-research-workflow",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "What this book is",
-    "text": "What this book is\nThis book is a working collection of guided R activities. Each chapter introduces course concepts, models R workflow, gives you code to type in RStudio, and prompts you to document what you are learning.\nThe guided activities are instructional support. They help you learn the material before, during, and after class.",
+    "section": "Learn R through a visible research workflow",
+    "text": "Learn R through a visible research workflow\nR programming can make the decisions behind an analysis visible. Code records the operations performed on data. Memos record the goals, predictions, checks, questions, and interpretations that shaped the work. Together, code and memos create a traceable account of how an analysis developed.\nA traceable record helps you return to your work and understand what you did, why you did it, and what you understood at the time. It also allows other people to inspect the process and attempt to reproduce the computational steps. This ability to account for your methods, decisions, and results is part of your explanatory power as a researcher.\nThese practices support research integrity. They are especially important when generative AI can produce plausible code quickly. You remain responsible for understanding the code you use, checking its behavior, interpreting its results, and explaining the decisions you make.\nYou can begin this book without prior programming experience. The guided activities tell you what to do, what to notice, and how to check your work as you learn R.",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
     ]
   },
   {
-    "objectID": "index.html#what-this-book-is-not",
-    "href": "index.html#what-this-book-is-not",
+    "objectID": "index.html#a-repeated-learning-workflow",
+    "href": "index.html#a-repeated-learning-workflow",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "What this book is not",
-    "text": "What this book is not\nThis book is not the same thing as the Practice Space assignment you submit for evaluation.\nThe guided activity helps you learn. The Practice Space is where you show evidence of what you learned. Some chapters include a Practice Space section so you can see how the guided work connects to the submitted work, but you should always follow the Canvas assignment directions for what to submit.",
+    "section": "A repeated learning workflow",
+    "text": "A repeated learning workflow\nThe design of this book draws on self-regulated learning. Learning develops through a cycle of planning, working and monitoring, then evaluating and adapting. Four recurring prompts make that cycle visible.\n\n\n🎯 Goal\nIdentify what you are trying to accomplish before you begin. When prompted, make a prediction about what you expect the code to do.\n\n\n⚡ Code\nWrite and run code that moves you toward the goal. Test ideas deliberately, make changes, and keep a record of useful trials.\n\n\n✅ Verify\nInspect the output, objects, files, warnings, and errors produced by your code. Compare what happened with your goal and prediction.\n\n\n🪞 Reflect\nExplain what happened and what you learned. Identify what changed in your understanding, what remains uncertain, and what you will try next.\n\n\nYou will repeat this workflow throughout the book. The cycle helps you develop code that you can inspect, rerun, explain, and revise.",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
     ]
   },
   {
-    "objectID": "index.html#how-to-use-this-book",
-    "href": "index.html#how-to-use-this-book",
+    "objectID": "index.html#seven-learning-skill-themes",
+    "href": "index.html#seven-learning-skill-themes",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "How to use this book",
-    "text": "How to use this book\nKeep this book open next to RStudio.\nUse each chapter to:\n\nread the overview,\ntype the code yourself,\ncheck what happened,\nwrite down what worked,\nnotice what confused you,\nand use the summary and chapter terms when you review.",
+    "section": "Seven learning skill themes",
+    "text": "Seven learning skill themes\nProgramming draws on skills such as persisting through confusion, asking questions, considering alternatives, documenting decisions, and checking details. This book organizes those practices into seven learning skill themes.\nEach part of the book highlights one theme. The guided activities show what the skill can look like while learning R and conducting research. You will also encounter prompts that invite you to practice and document the skill yourself.\n\n\n💪 Tenacity\nTenacity means continuing toward understanding with attention and good judgment. In R, it may look like reading an error carefully, trying an informed change, checking the result, or pausing to ask for help.\n\n\n✍️ Transparency\nMake your goals, code, checks, reasoning, and decisions visible so that you and others can follow the development of your work.\n\n\n🦁 Courage\nTry unfamiliar tasks, examine errors, ask questions, and share uncertainty while your understanding is still developing.\n\n\n🧭 Autonomy\nMake informed choices, monitor your progress, and take responsibility for understanding and explaining the work you produce.\n\n\n🤔 Open-mindedness\nConsider alternative explanations and approaches. Use evidence from your checks to decide whether your thinking or code needs to change.\n\n\n🐱 Curiosity\nAsk questions, investigate patterns, explore possibilities, and use unexpected results as invitations to learn more.\n\n\n✔️ Thoroughness\nAttend to details, complete important checks, and examine the available evidence before drawing conclusions.",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
     ]
   },
   {
-    "objectID": "index.html#when-something-does-not-work",
-    "href": "index.html#when-something-does-not-work",
+    "objectID": "index.html#how-to-read-the-symbols",
+    "href": "index.html#how-to-read-the-symbols",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "When something does not work",
-    "text": "When something does not work\nConfusion is not a sign that you are failing. It is information you can use to decide what to check next.\nWhen code does not work, slow down and ask:\n\nWhat was my goal?\nWhat did I type?\nWhat happened?\nWhat did I expect to happen?\nWhat can I check next?",
+    "section": "How to read the symbols",
+    "text": "How to read the symbols\nThe symbols in this book provide consistent cues. They help you recognize what kind of thinking or action a passage is asking you to practice.\n\n\n\n\n\n\n\nSymbol\nWhat it asks you to do\n\n\n\n\n🎯\nGoal: State what you are trying to accomplish.\n\n\n⚡\nCode: Write, run, or deliberately test code.\n\n\n✅\nVerify: Check what happened and compare it with what you expected.\n\n\n🗣\nComment: Explain your code, output, reasoning, or current understanding.\n\n\n🪞\nReflect: Evaluate your learning process and consider future usefulness of content.\n\n\n💡\nTip: Consider a strategy that may make the work clearer or more manageable.\n\n\n🛠\nBreak Things!: Change something deliberately and observe how R responds.\n\n\n📖\nReview: Return to an earlier idea.\n\n\n🧐\nNotice: Inspect a detail that affects the code, interpretation, or document formatting.\n\n\n👀\nCite: Identify a resource that helped you and explain how you used it.\n\n\n⚠️\nCommon Pain Point: Watch for a place where learners frequently encounter confusion.\n\n\n🛟\nHelp: Pause and use an appropriate source of support.\n\n\n🧶\nKnit: Create or update the rendered output from an R Markdown document.\n\n\n\nThe symbols accompany written labels, so you do not need to memorize them before you begin. Their meanings will become familiar as you work through the activities.",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
     ]
   },
   {
-    "objectID": "index.html#start-here",
-    "href": "index.html#start-here",
+    "objectID": "index.html#what-to-expect-in-each-chapter",
+    "href": "index.html#what-to-expect-in-each-chapter",
     "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
-    "section": "Start here",
-    "text": "Start here\nBegin with the Preface, then move into the first guided activity in Tenacity.\n\nStart with the Preface Open Chapter 1",
+    "section": "What to expect in each chapter",
+    "text": "What to expect in each chapter\nMost chapters follow a consistent sequence:\n\nRead the overview to identify the purpose of the chapter.\nKeep the book open next to RStudio.\nComplete the guided steps in order.\nType and run the code when prompted.\nPause at the Goal, Verify, Comment, and Reflect prompts.\nKeep useful records of errors, code trials, resources, and revisions.\nUse the summary and chapter terms when you review.\n\nSome chapters include a Practice Space with additional opportunities to apply the chapter’s ideas. If you are using this book as part of a course, your instructor will provide any requirements, deadlines, or submission directions separately.",
     "crumbs": [
-      "Welcome"
+      "Introduction to R Programming"
+    ]
+  },
+  {
+    "objectID": "index.html#begin-reading",
+    "href": "index.html#begin-reading",
+    "title": "Introduction to R Programming: Goal, Code, Verify, Reflect",
+    "section": "Begin reading",
+    "text": "Begin reading\nStart with the Preface for an introduction to R, RStudio, and the ideas that guide this book. Then enter Tenacity, the first learning skill theme.\n\nRead the Preface Explore Tenacity",
+    "crumbs": [
+      "Introduction to R Programming"
     ]
   },
   {
@@ -114,7 +124,7 @@
     "href": "chapters/01-tenacity/tenacity.html",
     "title": "Tenacity",
     "section": "",
-    "text": "Chapters in this section\nTenacity is the first guided activity group in this book. These chapters help you get oriented to RStudio, practice moving between instructions and software, and begin building a reliable workflow for learning R.\nIn this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.",
+    "text": "Chapters in this section\nLearning R often begins with friction. Installing software, locating files, remembering syntax, and interpreting error messages can take more effort than expected. Early difficulty gives you an opportunity to develop ways of working that will support every later analysis. Your ability grows through practice, feedback, revision, and questions.\nTenacity is purposeful persistence in the pursuit of understanding. When you struggle, return to your goal, examine what happened, and choose an informed next step. You might correct a small syntax error, test a different idea, review an example, or ask someone for help. When repeated attempts stop producing useful information, pause and reconsider your approach. Another perspective may be the next step that moves your learning forward.\nThis is why Tenacity begins the book. The first chapters help you work through early uncertainty while developing habits you will use throughout your work with R. Stay engaged, pay attention to evidence, adjust your strategy, and keep a record of what you learn. These actions turn persistence into an intelligent learning practice (Baehr, 2022; King, 2021).\nIn this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.",
     "crumbs": [
       "Tenacity"
     ]

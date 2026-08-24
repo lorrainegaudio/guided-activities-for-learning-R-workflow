@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Lorraine Gaudio">
-<meta name="dcterms.date" content="2026-08-22">
+<meta name="dcterms.date" content="2026-08-23">
 
 <title>Introduction to R Programming: Goal, Code, Verify, Reflect</title>
 <style>
@@ -87,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction to R Programming</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Welcome</span></a>
+ <span class="menu-text">Introduction to R Programming</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -177,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 22, 2026</p>
+      <p class="date">August 23, 2026</p>
     </div>
   </div>
   
@@ -189,59 +189,169 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="book-home">
-<p><img src="assets/images/data-r-155-banner.png" class="home-banner-strip" alt="DATA-R 155 Introduction to R Programming course banner."></p>
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<section id="guided-activities-for-learning-r-workflow" class="level2 home-intro-card">
-<h2 class="anchored" data-anchor-id="guided-activities-for-learning-r-workflow">Guided activities for learning R workflow</h2>
-<p>This book contains the guided activities for <strong>Introduction to R Programming</strong>. These activities help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.</p>
-<p>You are not expected to know this before you begin. The goal is not perfect code on the first try. The goal is to build a reliable workflow for noticing, checking, and improving your work.</p>
+<section id="introduction-to-r-programming" class="level1 unnumbered book-home">
+<h1 class="unnumbered">Introduction to R Programming</h1>
+<p class="chapter-subtitle">
+Goal, Code, Verify, Reflect
+</p>
+<section id="learn-r-through-a-visible-research-workflow" class="level2 home-intro-card">
+<h2 class="anchored" data-anchor-id="learn-r-through-a-visible-research-workflow">Learn R through a visible research workflow</h2>
+<p>R programming can make the decisions behind an analysis visible. Code records the operations performed on data. Memos record the goals, predictions, checks, questions, and interpretations that shaped the work. Together, code and memos create a traceable account of how an analysis developed.</p>
+<p>A traceable record helps you return to your work and understand what you did, why you did it, and what you understood at the time. It also allows other people to inspect the process and attempt to reproduce the computational steps. This ability to account for your methods, decisions, and results is part of your explanatory power as a researcher.</p>
+<p>These practices support research integrity. They are especially important when generative AI can produce plausible code quickly. You remain responsible for understanding the code you use, checking its behavior, interpreting its results, and explaining the decisions you make.</p>
+<p>You can begin this book without prior programming experience. The guided activities tell you what to do, what to notice, and how to check your work as you learn R.</p>
 </section>
-<section id="what-this-book-is" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-book-is">What this book is</h2>
-<p>This book is a working collection of guided R activities. Each chapter introduces course concepts, models R workflow, gives you code to type in RStudio, and prompts you to document what you are learning.</p>
-<p>The guided activities are instructional support. They help you learn the material before, during, and after class.</p>
+<section id="a-repeated-learning-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="a-repeated-learning-workflow">A repeated learning workflow</h2>
+<p>The design of this book draws on self-regulated learning. Learning develops through a cycle of planning, working and monitoring, then evaluating and adapting. Four recurring prompts make that cycle visible.</p>
+<div class="section-card-grid">
+<section id="goal" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="goal">🎯 Goal</h3>
+<p>Identify what you are trying to accomplish before you begin. When prompted, make a prediction about what you expect the code to do.</p>
 </section>
-<section id="what-this-book-is-not" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-book-is-not">What this book is not</h2>
-<p>This book is not the same thing as the <strong>Practice Space</strong> assignment you submit for evaluation.</p>
-<p>The guided activity helps you learn. The Practice Space is where you show evidence of what you learned. Some chapters include a Practice Space section so you can see how the guided work connects to the submitted work, but you should always follow the Canvas assignment directions for what to submit.</p>
+<section id="code" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="code">⚡ Code</h3>
+<p>Write and run code that moves you toward the goal. Test ideas deliberately, make changes, and keep a record of useful trials.</p>
 </section>
-<section id="how-to-use-this-book" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-this-book">How to use this book</h2>
-<p>Keep this book open next to RStudio.</p>
-<p>Use each chapter to:</p>
-<ul>
-<li>read the overview,</li>
-<li>type the code yourself,</li>
-<li>check what happened,</li>
-<li>write down what worked,</li>
-<li>notice what confused you,</li>
-<li>and use the summary and chapter terms when you review.</li>
-</ul>
+<section id="verify" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="verify">✅ Verify</h3>
+<p>Inspect the output, objects, files, warnings, and errors produced by your code. Compare what happened with your goal and prediction.</p>
 </section>
-<section id="when-something-does-not-work" class="level2">
-<h2 class="anchored" data-anchor-id="when-something-does-not-work">When something does not work</h2>
-<p>Confusion is not a sign that you are failing. It is information you can use to decide what to check next.</p>
-<p>When code does not work, slow down and ask:</p>
-<ul>
-<li>What was my goal?</li>
-<li>What did I type?</li>
-<li>What happened?</li>
-<li>What did I expect to happen?</li>
-<li>What can I check next?</li>
-</ul>
+<section id="reflect" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="reflect">🪞 Reflect</h3>
+<p>Explain what happened and what you learned. Identify what changed in your understanding, what remains uncertain, and what you will try next.</p>
 </section>
-<section id="start-here" class="level2">
-<h2 class="anchored" data-anchor-id="start-here">Start here</h2>
-<p>Begin with the <strong>Preface</strong>, then move into the first guided activity in <strong>Tenacity</strong>.</p>
+</div>
+<p>You will repeat this workflow throughout the book. The cycle helps you develop code that you can inspect, rerun, explain, and revise.</p>
+</section>
+<section id="seven-learning-skill-themes" class="level2">
+<h2 class="anchored" data-anchor-id="seven-learning-skill-themes">Seven learning skill themes</h2>
+<p>Programming draws on skills such as persisting through confusion, asking questions, considering alternatives, documenting decisions, and checking details. This book organizes those practices into seven learning skill themes.</p>
+<p>Each part of the book highlights one theme. The guided activities show what the skill can look like while learning R and conducting research. You will also encounter prompts that invite you to practice and document the skill yourself.</p>
+<div class="section-card-grid">
+<section id="tenacity" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="tenacity">💪 Tenacity</h3>
+<p>Tenacity means continuing toward understanding with attention and good judgment. In R, it may look like reading an error carefully, trying an informed change, checking the result, or pausing to ask for help.</p>
+</section>
+<section id="transparency" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="transparency">✍️ Transparency</h3>
+<p>Make your goals, code, checks, reasoning, and decisions visible so that you and others can follow the development of your work.</p>
+</section>
+<section id="courage" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="courage">🦁 Courage</h3>
+<p>Try unfamiliar tasks, examine errors, ask questions, and share uncertainty while your understanding is still developing.</p>
+</section>
+<section id="autonomy" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="autonomy">🧭 Autonomy</h3>
+<p>Make informed choices, monitor your progress, and take responsibility for understanding and explaining the work you produce.</p>
+</section>
+<section id="open-mindedness" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="open-mindedness">🤔 Open-mindedness</h3>
+<p>Consider alternative explanations and approaches. Use evidence from your checks to decide whether your thinking or code needs to change.</p>
+</section>
+<section id="curiosity" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="curiosity">🐱 Curiosity</h3>
+<p>Ask questions, investigate patterns, explore possibilities, and use unexpected results as invitations to learn more.</p>
+</section>
+<section id="thoroughness" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="thoroughness">✔️ Thoroughness</h3>
+<p>Attend to details, complete important checks, and examine the available evidence before drawing conclusions.</p>
+</section>
+</div>
+</section>
+<section id="how-to-read-the-symbols" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-the-symbols">How to read the symbols</h2>
+<p>The symbols in this book provide consistent cues. They help you recognize what kind of thinking or action a passage is asking you to practice.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 62%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Symbol</th>
+<th>What it asks you to do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">🎯</td>
+<td><strong>Goal:</strong> State what you are trying to accomplish.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">⚡</td>
+<td><strong>Code:</strong> Write, run, or deliberately test code.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">✅</td>
+<td><strong>Verify:</strong> Check what happened and compare it with what you expected.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">🗣</td>
+<td><strong>Comment:</strong> Explain your code, output, reasoning, or current understanding.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">🪞</td>
+<td><strong>Reflect:</strong> Evaluate your learning process and consider future usefulness of content.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">💡</td>
+<td><strong>Tip:</strong> Consider a strategy that may make the work clearer or more manageable.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">🛠</td>
+<td><strong>Break Things!:</strong> Change something deliberately and observe how R responds.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">📖</td>
+<td><strong>Review:</strong> Return to an earlier idea.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">🧐</td>
+<td><strong>Notice:</strong> Inspect a detail that affects the code, interpretation, or document formatting.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">👀</td>
+<td><strong>Cite:</strong> Identify a resource that helped you and explain how you used it.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">⚠️</td>
+<td><strong>Common Pain Point:</strong> Watch for a place where learners frequently encounter confusion.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">🛟</td>
+<td><strong>Help:</strong> Pause and use an appropriate source of support.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">🧶</td>
+<td><strong>Knit:</strong> Create or update the rendered output from an R Markdown document.</td>
+</tr>
+</tbody>
+</table>
+<p>The symbols accompany written labels, so you do not need to memorize them before you begin. Their meanings will become familiar as you work through the activities.</p>
+</section>
+<section id="what-to-expect-in-each-chapter" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-expect-in-each-chapter">What to expect in each chapter</h2>
+<p>Most chapters follow a consistent sequence:</p>
+<ol type="1">
+<li>Read the overview to identify the purpose of the chapter.</li>
+<li>Keep the book open next to RStudio.</li>
+<li>Complete the guided steps in order.</li>
+<li>Type and run the code when prompted.</li>
+<li>Pause at the Goal, Verify, Comment, and Reflect prompts.</li>
+<li>Keep useful records of errors, code trials, resources, and revisions.</li>
+<li>Use the summary and chapter terms when you review.</li>
+</ol>
+<p>Some chapters include a <strong>Practice Space</strong> with additional opportunities to apply the chapter’s ideas. If you are using this book as part of a course, your instructor will provide any requirements, deadlines, or submission directions separately.</p>
+</section>
+<section id="begin-reading" class="level2">
+<h2 class="anchored" data-anchor-id="begin-reading">Begin reading</h2>
+<p>Start with the <strong>Preface</strong> for an introduction to R, RStudio, and the ideas that guide this book. Then enter <strong>Tenacity</strong>, the first learning skill theme.</p>
 <div class="home-button-row">
-<p><a class="home-button-primary" href="front-matter/preface.html">Start with the Preface</a> <a class="home-button-secondary" href="chapters/01-tenacity/ch01-navigation.html">Open Chapter 1</a></p>
+<p><a class="home-button-primary" href="front-matter/preface.html">Read the Preface</a> <a class="home-button-secondary" href="chapters/01-tenacity/tenacity.html">Explore Tenacity</a></p>
 </div>
 </section>
 </section>
-</div>
 
 
 
