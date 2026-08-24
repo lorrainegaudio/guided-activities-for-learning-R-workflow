@@ -4,7 +4,11 @@ toc: false
 
 # Tenacity {.unnumbered}
 
-Tenacity is the first guided activity group in this book. These chapters help you get oriented to RStudio, practice moving between instructions and software, and begin building a reliable workflow for learning R.
+Learning R often begins with friction. Installing software, locating files, remembering syntax, and interpreting error messages can take more effort than expected. Early difficulty gives you an opportunity to develop ways of working that will support every later analysis. Your ability grows through practice, feedback, revision, and questions.
+
+Tenacity is purposeful persistence in the pursuit of understanding. When you struggle, return to your goal, examine what happened, and choose an informed next step. You might correct a small syntax error, test a different idea, review an example, or ask someone for help. When repeated attempts stop producing useful information, pause and reconsider your approach. Another perspective may be the next step that moves your learning forward.
+
+This is why Tenacity begins the book. The first chapters help you work through early uncertainty while developing habits you will use throughout your work with R. Stay engaged, pay attention to evidence, adjust your strategy, and keep a record of what you learn. These actions turn persistence into an intelligent learning practice (Baehr, 2022; King, 2021).
 
 In this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.
 

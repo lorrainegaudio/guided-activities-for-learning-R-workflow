@@ -3,64 +3,153 @@ toc: false
 page-layout: full
 ---
 
-::: {.book-home}
+::::: {.book-home}
 
-<img src="assets/images/data-r-155-banner.png" class="home-banner-strip" alt="DATA-R 155 Introduction to R Programming course banner.">
+# Introduction to R Programming {.unnumbered}
 
-# Welcome {.unnumbered}
+<p class="chapter-subtitle">Goal, Code, Verify, Reflect</p>
 
 ::: {.home-intro-card}
-## Guided activities for learning R workflow
+## Learn R through a visible research workflow
 
-This book contains the guided activities for **Introduction to R Programming**. These activities help you move between reading instructions, typing code in RStudio, checking what happened, and reflecting on what you are learning.
+R programming can make the decisions behind an analysis visible. Code records the operations performed on data. Memos record the goals, predictions, checks, questions, and interpretations that shaped the work. Together, code and memos create a traceable account of how an analysis developed.
 
-You are not expected to know this before you begin. The goal is not perfect code on the first try. The goal is to build a reliable workflow for noticing, checking, and improving your work.
+A traceable record helps you return to your work and understand what you did, why you did it, and what you understood at the time. It also allows other people to inspect the process and attempt to reproduce the computational steps. This ability to account for your methods, decisions, and results is part of your explanatory power as a researcher.
+
+These practices support research integrity. They are especially important when generative AI can produce plausible code quickly. You remain responsible for understanding the code you use, checking its behavior, interpreting its results, and explaining the decisions you make.
+
+You can begin this book without prior programming experience. The guided activities tell you what to do, what to notice, and how to check your work as you learn R.
 :::
 
-## What this book is
+## A repeated learning workflow
 
-This book is a working collection of guided R activities. Each chapter introduces course concepts, models R workflow, gives you code to type in RStudio, and prompts you to document what you are learning.
+The design of this book draws on self-regulated learning. Learning develops through a cycle of planning, working and monitoring, then evaluating and adapting. Four recurring prompts make that cycle visible.
 
-The guided activities are instructional support. They help you learn the material before, during, and after class.
+:::: {.section-card-grid}
 
-## What this book is not
+::: {.section-card}
+### 🎯 Goal
 
-This book is not the same thing as the **Practice Space** assignment you submit for evaluation.
+Identify what you are trying to accomplish before you begin. When prompted, make a prediction about what you expect the code to do.
+:::
 
-The guided activity helps you learn. The Practice Space is where you show evidence of what you learned. Some chapters include a Practice Space section so you can see how the guided work connects to the submitted work, but you should always follow the Canvas assignment directions for what to submit.
+::: {.section-card}
+### ⚡ Code
 
-## How to use this book
+Write and run code that moves you toward the goal. Test ideas deliberately, make changes, and keep a record of useful trials.
+:::
 
-Keep this book open next to RStudio.
+::: {.section-card}
+### ✅ Verify
 
-Use each chapter to:
+Inspect the output, objects, files, warnings, and errors produced by your code. Compare what happened with your goal and prediction.
+:::
 
-- read the overview,
-- type the code yourself,
-- check what happened,
-- write down what worked,
-- notice what confused you,
-- and use the summary and chapter terms when you review.
+::: {.section-card}
+### 🪞 Reflect
 
-## When something does not work
+Explain what happened and what you learned. Identify what changed in your understanding, what remains uncertain, and what you will try next.
+:::
 
-Confusion is not a sign that you are failing. It is information you can use to decide what to check next.
+::::
 
-When code does not work, slow down and ask:
+You will repeat this workflow throughout the book. The cycle helps you develop code that you can inspect, rerun, explain, and revise.
 
-- What was my goal?
-- What did I type?
-- What happened?
-- What did I expect to happen?
-- What can I check next?
+## Seven learning skill themes
 
-## Start here
+Programming draws on skills such as persisting through confusion, asking questions, considering alternatives, documenting decisions, and checking details. This book organizes those practices into seven learning skill themes.
 
-Begin with the **Preface**, then move into the first guided activity in **Tenacity**.
+Each part of the book highlights one theme. The guided activities show what the skill can look like while learning R and conducting research. You will also encounter prompts that invite you to practice and document the skill yourself.
+
+:::: {.section-card-grid}
+
+::: {.section-card}
+### 💪 Tenacity
+
+Tenacity means continuing toward understanding with attention and good judgment. In R, it may look like reading an error carefully, trying an informed change, checking the result, or pausing to ask for help.
+:::
+
+::: {.section-card}
+### ✍️ Transparency
+
+Make your goals, code, checks, reasoning, and decisions visible so that you and others can follow the development of your work.
+:::
+
+::: {.section-card}
+### 🦁 Courage
+
+Try unfamiliar tasks, examine errors, ask questions, and share uncertainty while your understanding is still developing.
+:::
+
+::: {.section-card}
+### 🧭 Autonomy
+
+Make informed choices, monitor your progress, and take responsibility for understanding and explaining the work you produce.
+:::
+
+::: {.section-card}
+### 🤔 Open-mindedness
+
+Consider alternative explanations and approaches. Use evidence from your checks to decide whether your thinking or code needs to change.
+:::
+
+::: {.section-card}
+### 🐱 Curiosity
+
+Ask questions, investigate patterns, explore possibilities, and use unexpected results as invitations to learn more.
+:::
+
+::: {.section-card}
+### ✔️ Thoroughness
+
+Attend to details, complete important checks, and examine the available evidence before drawing conclusions.
+:::
+
+::::
+
+## How to read the symbols
+
+The symbols in this book provide consistent cues. They help you recognize what kind of thinking or action a passage is asking you to practice.
+
+| Symbol | What it asks you to do |
+|:---:|---|
+| 🎯 | **Goal:** State what you are trying to accomplish. |
+| ⚡ | **Code:** Write, run, or deliberately test code. |
+| ✅ | **Verify:** Check what happened and compare it with what you expected. |
+| 🗣 | **Comment:** Explain your code, output, reasoning, or current understanding. |
+| 🪞 | **Reflect:** Evaluate your learning process and consider future usefulness of content. |
+| 💡 | **Tip:** Consider a strategy that may make the work clearer or more manageable. |
+| 🛠 | **Break Things!:** Change something deliberately and observe how R responds. |
+| 📖 | **Review:** Return to an earlier idea. |
+| 🧐 | **Notice:** Inspect a detail that affects the code, interpretation, or document formatting. |
+| 👀 | **Cite:** Identify a resource that helped you and explain how you used it. |
+| ⚠️ | **Common Pain Point:** Watch for a place where learners frequently encounter confusion. |
+| 🛟 | **Help:** Pause and use an appropriate source of support. |
+| 🧶 | **Knit:** Create or update the rendered output from an R Markdown document. |
+
+The symbols accompany written labels, so you do not need to memorize them before you begin. Their meanings will become familiar as you work through the activities.
+
+## What to expect in each chapter
+
+Most chapters follow a consistent sequence:
+
+1. Read the overview to identify the purpose of the chapter.
+2. Keep the book open next to RStudio.
+3. Complete the guided steps in order.
+4. Type and run the code when prompted.
+5. Pause at the Goal, Verify, Comment, and Reflect prompts.
+6. Keep useful records of errors, code trials, resources, and revisions.
+7. Use the summary and chapter terms when you review.
+
+Some chapters include a **Practice Space** with additional opportunities to apply the chapter’s ideas. If you are using this book as part of a course, your instructor will provide any requirements, deadlines, or submission directions separately.
+
+## Begin reading
+
+Start with the **Preface** for an introduction to R, RStudio, and the ideas that guide this book. Then enter **Tenacity**, the first learning skill theme.
 
 <div class="home-button-row">
-  <a class="home-button-primary" href="front-matter/preface.html">Start with the Preface</a>
-  <a class="home-button-secondary" href="chapters/01-tenacity/ch01-navigation.html">Open Chapter 1</a>
+  <a class="home-button-primary" href="front-matter/preface.html">Read the Preface</a>
+  <a class="home-button-secondary" href="chapters/01-tenacity/tenacity.html">Explore Tenacity</a>
 </div>
 
-:::
+:::::
