@@ -46,7 +46,7 @@ Inspect the output, objects, files, warnings, and errors produced by your code. 
 :::
 
 ::: {.section-card}
-### 🪞 Reflect
+### 🗣 Reflect
 
 Explain what happened and what you learned. Identify what changed in your understanding, what remains uncertain, and what you will try next.
 :::
@@ -66,7 +66,7 @@ Each part of the book highlights one theme. The guided activities show what the 
 ::: {.section-card}
 ### 💪 Tenacity
 
-Tenacity means continuing toward understanding with attention and good judgment. In R, it may look like reading an error carefully, trying an informed change, checking the result, or pausing to ask for help.
+Stay with challenging work productively. Try a reasonable next step, adjust your approach when needed, and seek help when you reach the limit of what you can resolve alone.
 :::
 
 ::: {.section-card}

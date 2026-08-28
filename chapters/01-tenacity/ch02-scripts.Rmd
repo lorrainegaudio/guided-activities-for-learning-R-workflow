@@ -14,7 +14,7 @@ In Chapter Two you will learn how to:
 
 - 📍 Run code from a script or the console.
 
-- 💪 Practice resiliency through documenting tenacity on memos.
+- 💪 Practice tenacity by documenting challenges, what you tried, and what you learned in memos.
 
 - 🛠 Build numeric, integer, character and logical vectors using `c()` and `seq()`
 
@@ -26,15 +26,15 @@ In Chapter Two you will learn how to:
 
 ## Script Editor (Source) {#script-editor}
 
-Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with R Script, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand *how* and *why* you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio. 
+Documenting your work allows you and others to understand how you came to your results. This book introduces R scripts, R Markdown documents, and Quarto documents as ways to document an analysis. These files preserve your code and comments, creating a record of how and why you arrived at your results. You can create, edit, and run these files in the Script Editor, also called the Source pane, in RStudio.
 
 ### Console vs Script Editor {#console-vs-script}
 
-The [Console]{.glossary-term data-term="Console Pane"} is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. However, the Console does not save your commands after you close RStudio, so it is not suitable for documenting your work. 
+The [Console]{.glossary-term data-term="Console Pane"} is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. RStudio may retain a history of Console commands, but that history is not an organized record of the analysis or the reasons behind your decisions.
 
 An [R Script]{.glossary-term data-term="R Script"} is a plain text file that contains a series of R commands. The script acts as a static record of the analysis. If the data or method change later, the original script preserves the logic used for your initial findings. The inclusion of comments (lines that begin with `#`) allows you to explain the *why* behind your code, detailing assumptions, data transformations, and the rationale for specific analytical choices. 
 
-Think of programming like writing a recipe. Using the Console is like throwing ingredients into a pan on the fly. You might make something delicious (a great chart), but you didn't write down how much salt you used or in what order you added the spices. If you close RStudio, your "cooking" session is gone forever. Using an R script is like writing down the recipe step-by-step. You can share it with others, and you (or anyone else) can follow the same steps later to recreate the dish exactly. Comments act as notes in the margins of your recipe card.
+Think of programming like writing a recipe. Using the Console is like adding ingredients on the fly without recording the steps. Using an R script is like writing the recipe step by step so you can return to it, revise it, and share the recorded process with others. Comments act as notes in the margins of the recipe card.
 
 ### Create an R Script {#create-script}
 
@@ -46,7 +46,7 @@ Method A. [File Menu]{.glossary-term data-term="File Menu"}
 
 2. Select New File and then R Script. 
 
-![Figure 1. The RStudio Script Editor pane with a script open.](images/ch02-scripts/new_rscript.png)
+![Figure 1. The RStudio File menu with New File open and R Script selected.](images/ch02-scripts/new_rscript.png)
 
 Method B. **Keyboard Shortcut**
 
@@ -72,7 +72,7 @@ nine <- 9
 
 🎯 Place your cursor on each line and click Run (or press Ctrl+Enter on Windows/Linux or Cmd+Return on macOS) to send that line to the Console where it executes.
 
-![Figure 5. The RStudio Script Editor pane with a script open.](images/ch02-scripts/run_script.png)
+![Figure 2. The Run button sends the current line from the Script Editor to the Console.](images/ch02-scripts/run_script.png)
 
 ```{r, eval=FALSE}
 # Run one line
@@ -80,7 +80,7 @@ nine <- 9
 
 🎯 Select multiple lines to run them together.
 
-![Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter.](images/ch02-scripts/run_script2.png)
+![Figure 3. Two lines selected in the Script Editor and run together in the Console.](images/ch02-scripts/run_script2.png)
 
 
 ```{r, eval=FALSE}
@@ -89,7 +89,7 @@ nine <- 9
 
 🎯 Click Source to run the entire script at once.
 
-![Figure 3. The RStudio Script Editor pane with a script open.](images/ch02-scripts/run_source.png)
+![Figure 4. The Run and Source buttons in the RStudio Script Editor.](images/ch02-scripts/run_source.png)
 
 ```{r, eval=FALSE}
 # Source the entire script
@@ -97,9 +97,9 @@ nine <- 9
 
 ### Save Your Script {#save-script}
 
-Saving your R script preserves the instructions (your code and comments), not the objects in your Environment. This matters because when you restart R or switch computers your Environment can disappear. Your script is a document of your work. A saved script lets anyone re-run your code and reproduce your results.
+Saving your R script preserves the instructions (your code and comments), not the objects in your Environment. This matters because when you restart R or switch computers your Environment can disappear. Your script is a document of your work. A saved script preserves the code and comments needed to inspect and rerun the recorded steps.
 
-Most assignments in this course will require that you submit file that contains code and memos. Early modules require you submit an R script file (`.R`). The .R extension helps RStudio (and your computer) recognize the file as an R script. 
+R scripts use the `.R` file extension. This extension helps RStudio and your computer recognize the file as an R script.
 
 There are two primary ways to save your script. You can use either method.
 
@@ -107,7 +107,7 @@ Method A. **Save icon**
 
 1. Click the Save icon (floppy disk) in the toolbar of the Script Editor pane.
 
-![Figure 4. The RStudio Script Editor pane with a script open.](images/ch02-scripts/save_icon.png)
+![Figure 5. The Save icon in the RStudio Script Editor is circled.](images/ch02-scripts/save_icon.png)
 
 Method B. **File Menu**
 
@@ -121,13 +121,13 @@ Method B. **File Menu**
 # Save a type: R
 ```
 
-> 🧐 **Notice:** that the file extension `.R` is automatically added.
+> 🧐 **Notice:** The `.R` file extension identifies the file as an R script.
 
 ```{r eval=FALSE}
 # ✅ Verify that `chapter2_notes.R` is in the right folder.
 ```
 
-💡 **Tip:** “Working directory” controls where R looks for files when you use relative paths, but you can still accidentally save a script somewhere else if you choose the wrong folder in the Save dialog. For this course, always save scripts into your course folder so your files stay together and you can find them when it’s time to upload.
+💡 **Tip:** “Working directory” controls where R looks for files when you use relative paths, but you can still accidentally save a script somewhere else if you choose the wrong folder in the Save dialog. Keep files for the same project together so you can find and rerun your work.
 
 💡 **Tip:** When your script is unsaved, RStudio typically shows an asterisk (*) in the script tab and the file name is red, which means you have changes that are not saved yet. 
 
@@ -184,7 +184,7 @@ the_aftermath <- seven.eight - nine
 
 🤔 No Error? This example may not error if you already ran `seven.eight <- seven + eight` before `the_aftermath <- seven.eight - nine`. Another way you can produce the error is by clearing the Environment before testing. 🧹 Sweep your environment and run code out of order.
 
-💡 **Tip:** All scripts submissions must be able to run from top to bottom without errors. Regularly test your script by clicking Source to ensure that all lines run without errors.
+💡 **Tip:** A reliable script should run from top to bottom without unexpected errors. Regularly test your script by clicking Source to confirm that each object is created before it is used.
 
 In R, an error message is not a judgment. It is the computer telling you exactly what it cannot do *yet*. Learning to read errors calmly and then adjusting your next step is a core part of learning to code. 
 
@@ -202,23 +202,22 @@ You can add a line break to a long comment by using the # symbol on each new lin
 # This is a comment. Notice the "#" at the beginning of the line.
 
 # Comments often explain something about the code or your thinking.
-# You will create comments like this in R Script assignments to 
-#  document your process.
+# Use comments like these to document your process.
 
 # Break the comment into several lines to keep the message readable.
 ```
 
 ### Explain Your Thinking {#explain-thinking}
 
-Researchers have found that typing self-explanations of code improves retention and deepens understanding (Rus et. al., 2021). As you work through exercises and assignments, document a running record of insights, hunches, hypotheses, discussions about the applications of the code. 
+A study of students reading Java code examples found that those prompted to type self-explanations performed better on a code-comprehension task than those prompted only to read the code and predict its output (Rus et al., 2021). As you work through examples, document insights, hunches, hypotheses, and questions about how the code works. 
 
-1. **Forethought** before action. Before running code, write a brief note about the 🎯 Goal of code should accomplish, 💬 Prediction of what you expect to happen, or identify your 🧠 motivational beliefs that support persistence. 
+1. **Forethought** before action. Before running code, write a brief note about the 🎯 Goal the code should accomplish, make a 💬 Prediction about what you expect to happen, or identify a 🧠 motivational belief that supports persistence.
 
-2. **Performance** monitoring during action. ⚡ Compose the code and ✅ Check that the code worked. 🚀 Conduct Code trials, debugging issues, and ✍️ keep a record what you tried, even if it didn't work. 
+2. **Performance** monitoring during action. ⚡ Compose and run the code, then ✅ Check what happened. Use 🚀 code trials while debugging, and ✍️ keep a record of what you tried, even when it did not work.
 
-3. **Self-reflection** after action. After getting the code to work, 🗣 Comment about what you learned, what surprised you, or what questions remain. 🪞 Reflect on learning process and what you will do next time. 
+3. **Self-reflection** after action. After getting the code to work, 🗣 Comment on what you learned, what surprised you, or what questions remain. 🪞 Reflect on your learning process and what you will do next time. 
 
-Icons for these strategies are provided in throughout each chapter to model the process. Mirror this process in all work you submit for the course. Each chapter will highlight specific memoing practices to focus on. This chapter focuses on documenting your tenacity.
+Icons for these strategies appear throughout the chapters to model the process. Each chapter highlights particular memoing practices. This chapter focuses on documenting tenacity.
 
 ---
 
@@ -230,13 +229,13 @@ To successfully learn R programming, you will need to persist through difficulti
 
 ### Why R is Challenging {#why-r-challenging}
 
-R is not hard because it’s mysterious. It’s hard because it’s precise. Small mistakes (a missing parenthesis, a comma in the wrong place, a misspelled object name) produce errors, and those errors are not personal—they’re information.
+R requires precise syntax. Small mistakes, such as a missing parenthesis, a comma in the wrong place, or a misspelled object name, can produce errors. Those errors provide information about what R could not interpret or complete.
 
 You may have already encountered friction in exactly the places beginners expect to be “simple”:
 
 - Installing or updating R/RStudio
 
-- Saving and submitting scripts and file to Canvas 
+- Saving scripts in the intended folder and finding them again
 
 - Creating objects and then getting object not found errors
 
@@ -258,11 +257,11 @@ Tenacity lives in the middle: persist, then recalibrate.
 
 ### Document Tenacity {#document-tenacity}
 
-When you encounter a challenge, document your tenacity on a memo. Your memo will show a running log of what you tried and how you resolved the issue. 
+When you encounter a challenge, document your tenacity in a memo. Your memo will show a running log of what you tried and how you resolved the issue.
 
 #### ✍️ Record what you tried {#record-what-you-tried}
 
-Prevent future duplication of errors, contextualizing successes, and exposes hidden discoveries (unanticipated effect) by recording your learning process on a memo in your R script.
+Recording your learning process in a memo can help you avoid repeating unsuccessful attempts, understand why a solution worked, and preserve discoveries you did not anticipate.
 
 When you encounter an error: 
 
@@ -274,7 +273,7 @@ When you encounter an error:
 
 4. **Add a brief comment explaining** what you think caused the error or how you will resolve it. This can come from your own reasoning or from external resources you consulted (peers, instructors, online resources, AI tools, etc.). Be sure to cite any resources you used. See the **Cite Your Resources** section below for guidance.
 
-5. On a new line, compose the code that you believe will run without error. If the error is not yet resolved, repeat this listed process until you get the code to run without error.
+5. On a new line, compose the code that you believe will run without error. If the error is not resolved, repeat these steps with a different approach or decide that it is time to seek help.
 
 ___
 
@@ -292,7 +291,7 @@ Below is a common beginner error along with memos documenting the tenacity proce
 
 > 🧐 **Notice:** The student (1) ✍️ kept but commented out (`#`) the code with the error, (2) ✍️ copied and pasted the error from the console, (3) 🗣 composed a memo that recognized the unexpected parenthesis as a typo and (4) ⚡ composed new code that removed it to fix the error.
 
-*Memo examples like this one are provided throughout the each chapter.* 
+*Memo examples like this one are provided throughout the chapters.* 
 
 ___
 
@@ -304,11 +303,11 @@ R syntax can be challenging, unforgiving even. Students often spend hours debugg
 
 Before you seek help, document three things in your script memo:
 
-1. 🎯 What you what you were trying to do, 
+1. 🎯 State what you were trying to do.
 
-2. ⚡ The attempts at writing the code️ even if it didn't achieve the results you wanted. 
+2. ⚡ Preserve the code you tried, even if it did not produce the result you wanted. 
 
-3. ✍ State what you understand so far, and what you’re confused or curious about.
+3. ✍️ State what you understand so far and what you are confused or curious about.
 
 Once you decide to seek help, choose a resource that fits the problem: a peer, your instructor, R’s help files, reputable online documentation, or an AI tool. No matter what you use, cite it in your memo so your learning is traceable and your work is honest.
 
@@ -318,9 +317,7 @@ In your script, always include:
 
 2. **How it helped you** (what you changed, what you learned, what you verified).
 
-Always write your own code; do not copy and paste from external sources. Use external help to understand and learn, not to complete assignments for you.
-
-💡 **Tip:** If you use generative AI to help you and it provides the answer, close the viewer and type the script yourself. 
+Use external help to understand and learn. Follow your instructor’s guidelines for permitted assistance. When a resource suggests code, inspect it, type and test it yourself, and document how the resource helped you.
 
 🧩 **Memo Example**
 
@@ -329,19 +326,18 @@ Always write your own code; do not copy and paste from external sources. Use ext
 # logicals2 <- c( 1>2, 3<5, 4=4 )
 # error: Error: unexpected '=' in "logicals2 <- c( 1>2, 3<5, 4="
 logicals2 <- c( 1>2, 3<5, 4==4 )
-# memo: I remember the instruction video but wanted to test what kind of error it would show.
-# memo: I noticed that under value "logicals2" in the environment" it has answered whether or not my equations are true or false
+# memo: I wanted to compare 4 and 4, but I used = instead of ==.
+# memo: I changed = to == because == compares two values.
 logicals2
-# memo: Here's what came back in the console! [1] FALSE  TRUE  TRUE
-# memo: That means 1>2 is false, 3<5 is true, and 4=4 is true
+# memo: The Console returned [1] FALSE TRUE TRUE.
+# memo: This means 1 > 2 is false, 3 < 5 is true, and 4 == 4 is true.
 ```
 
-> 🧐 **Notice:** The student (1) ✍️ kept but commented out (`#`) the code with the errors, (2) ✍️ copied and pasted the error shown in the console, (3) 👀 cites a course video and the intent to 🛠 **Break Things!** to understand errors, (4) ⚡ revised the code to fix the errors, and 🗣 explained the final results.
+> 🧐 **Notice:** The student (1) ✍️ kept but commented out the code that produced the error, (2) ✍️ recorded the error message, (3) 🗣 explained what caused the error, (4) ⚡ revised the code, and (5) ✅ checked and explained the result.
 
 ___
 
-
-We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity on a memo whenever you encounter an error or do not fully understand.
+We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity in a memo whenever you encounter an error or do not fully understand.
 
 ## Vectors {#vectors}
 
@@ -358,11 +354,11 @@ Let's use `c()`, `:`, and `seq()` to create vectors of different storage types: 
 
 ### Numeric Vectors with `c()` {#numeric-vectors}
 
-[Numeric vectors]{.glossary-term data-term="Numeric Vector"} are a list of numbers. So far, we have only stored single numbers in objects. 
+[Numeric vectors]{.glossary-term data-term="Numeric Vector"} store an ordered collection of numbers. So far, we have only stored single numbers in objects. 
 
 Vector Method A. Use the `c()` function to combine (or "[concatenate]{.glossary-term data-term="Concatenate"}) values into a single vector.
 
-🎯 Create a numeric vector named `numbers3` that contains three decimal point and negative numbers using the `c()` function.
+🎯 Create a numeric vector named `numbers3` that contains three values, including decimals and a negative number, using the `c()` function.
 
 ```{r , eval=FALSE}
 # ⚡ Type this (or something similar) in your R Script
@@ -375,11 +371,11 @@ print(numbers3)
 
 🗣 The output shows the three numbers stored in the `numbers3` vector.
 
-> 🧐 **Notice:** You can see object details by looking at the Environment pane. The `numbers3` object shows as "num [1:3]" indicating it is a numeric vector with three elements. These numbers are "numeric" because they include decimal points. The placement of the numbers in the list is ordered exactly as you entered them. 
+> 🧐 **Notice:** The Environment pane displays `numbers3` as `num [1:3]`. `num` indicates that it is a numeric vector, and `[1:3]` indicates that it contains three elements. The elements appear in the order in which you entered them.
 
 ### Integer Vectors with `c()` {#integer-vectors}
 
-[Integer vectors]{.glossary-term data-term="Integer Vector"} are a list of whole numbers. In R, integers are typically written with an `L` suffix.
+[Integer vectors]{.glossary-term data-term="Integer Vector"} store an ordered collection of whole numbers. In R, integers are typically written with an `L` suffix.
 
 🎯 Create a vector named `cursed_seq` that contains the integer values 4, 8, 15, 16, 23, and 42 using the `c()` function.
 
@@ -397,7 +393,7 @@ print(cursed_seq)
 
 ### Sequences with `:` {#sequences}
 
-"`:`" creates a simple sequence.
+Vector Method B. Use `:` to create a simple sequence that changes by 1.
 
 🎯 Create a numeric vector named `combination` that contains the integer values from 1 to 5 using the `:` operator.
 
@@ -412,7 +408,7 @@ print(combination)
 
 🗣 The output shows 1 2 3 4 5 in order. 🎬 Optional aside: 1, 2, 3, 4, 5? That's amazing! I've got the same combination on my luggage. (Yes, it’s a famous movie joke. Ignore it if you don’t recognize it.)
 
-3. Vector Method C. Use `seq()` for custom steps.
+Vector Method C. Use `seq()` for custom steps.
 
 📜 The SYNTAX (basic): 
 
@@ -437,7 +433,7 @@ print(travel_jumps)
 
 [Character vectors]{.glossary-term data-term="Character Vector"} store text strings, which are sequences of characters enclosed in quotes. Character vectors can include letters, numbers, symbols, and spaces. They are often used to represent names, labels, or any other textual data.
 
-Quotes are enclosed in either double quotes `"` or single quotes `'`. Both types of quotes function the same way in R, but it's important to be consistent within a single string. The commas separate individual strings within the vector is outside the quotes.
+Character values can be enclosed in double quotation marks `"` or single quotation marks `'`. Use matching quotation marks around each value. Commas that separate the vector’s elements belong outside the quotation marks.
 
 🎯 Create a character vector named `activation_code` that contains the following words: Longing, Rusted, Seventeen, Daybreak, Furnace, Nine, Benign, Homecoming, One, and Freight Car using the `c()` function.
 
@@ -451,11 +447,11 @@ activation_code <- c("Longing", "Rusted", "Seventeen", "Daybreak", "Furnace", "N
 print(activation_code)
 ```
 
-🗣 The output shows the ten words stored in the `activation_code` character vector. 🎬 Optional aside: Ready to comply? Does this word-list makes the example memorable?
+🗣 The output shows the ten words stored in the `activation_code` character vector. 🎬 Optional aside: Ready to comply? Does this word list make the example memorable?
 
-R recognizes colors in character vectors.
+R can use recognized color names stored as character values when specifying colors in plots and graphics.
 
-🎯 Create a character vector named `rainbow` that contains the color names of the rainbow using the `c()` function.
+🎯 Create a character vector named `rainbow` that contains six color names using the `c()` function.
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Script
@@ -483,16 +479,16 @@ rainbow_plus <- c(rainbow, "indigo")
 print(rainbow_plus)
 ```
 
-🗣 The output shows the new object `rainbow_plus` vector with "indigo" added to the end.
+🗣 The output shows the new `rainbow_plus` vector with `"indigo"` added to the end.
 
 ### Logical Vectors {#logical-vectors}
 
-**Logical vectors** are used for conditions and comparisons. They contain TRUE or FALSE values.
+**Logical vectors** are used for conditions and comparisons. They can contain `TRUE`, `FALSE`, and missing values represented by `NA`.
 
 🎯 Create a logical vector named `logicals` that contains the values TRUE, FALSE, and NA using the `c()` function.
 
 ```{r , eval=FALSE}
-# ⚡ Type this in your R Notebook
+# ⚡ Type this in your R Script
 logicals <- c(FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, NA)
 ```
 ```{r , eval=FALSE}
@@ -512,9 +508,8 @@ Before using data, we need to confirm *what* it is.
 
 ### Mode of a Vector {#mode-of-vector}
 
-The storage type of a vector tells R how to interpret the data inside it. The [mode]{.glossary-term data-term="Mode"} function, `mode()`, tells you what kind of data the object is fundamentally made of. For typical vectors, the mode could be "numeric," "character," or "logical" to name a few.
-
-*The function* `typeof()` *returns R's internal storage type of an object. For a higher-level understanding of the data type, we use the* `mode()` *function.*
+The [mode]{.glossary-term data-term="Mode"} function, `mode()`, reports a broad category such as `"numeric"`, `"character"`, or `"logical"`. Both integer vectors and vectors containing decimal values have the mode `"numeric"`.
+The `typeof()` function reports R’s internal storage type. It distinguishes integer values from double-precision numeric values.
 
 🎯 Use the `mode()` function to check the data type of the `activation_code` vector.
 
@@ -550,9 +545,9 @@ length(activation_code)
 # Check the length of other vectors in your R Script
 ```
 
-## Dataframes {#dataframes}
+## Data frames {#dataframes}
 
-A [data frame]{.glossary-term data-term="Data Frame"} is a two-dimensional, tabular data structure in R that can store data of different types (numeric, character, logical, etc.) in each column. It is similar to a spreadsheet or SQL table and is widely used for data analysis and manipulation in R.
+A [data frame]{.glossary-term data-term="Data Frame"} is a two-dimensional table made of rows and columns. Each column is a vector with one underlying type, while different columns can contain different types of values.
 
 We can create a data frame by combining multiple vectors of the *same length* using the `data.frame()` function.
 
@@ -560,7 +555,7 @@ We can create a data frame by combining multiple vectors of the *same length* us
 
 `data.frame(column1 = c(...), column2 = c(...), ...)`
 
-🎯 Use vectors created earlier to build a data frame. We'll combine vectors in the global environment that have the length of 6 elements.
+🎯 Use three vectors created earlier to build a data frame. Each vector contains six elements, so each can become a column with six rows.
 
 ```{r , eval=FALSE}
 # ✅  Review Vectors 
@@ -590,11 +585,11 @@ print(spectrum_shift)
 
 ## Summary {#summary}
 
-In Chapter 2, you learned how to work in an R script: create a new `.R` file in the Source pane, save it in the correct course folder, run code into the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.
+In Chapter 2, you learned how to work in an R script: create a new `.R` file in the Source pane, save it in the intended folder, run code in the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.
 
 You built basic R objects, including numeric, integer, character, and logical vectors. You practiced creating vectors with `c()`, `:`, and `seq()`, adding an element to an existing vector, and checking objects with `mode()` and `length()` so you can confirm what kind of data an object contains and how many elements it stores.
 
-Finally, you combined same-length vectors into a simple data frame using `data.frame()`. By the end of this chapter, your main goal is not advanced analysis yet. Your goal is to build a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save the correct files for submission.
+Finally, you combined same-length vectors into a simple data frame using `data.frame()`. These skills support a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save your work so you can inspect and rerun it later.
 
 ## Chapter Terms {#chapter-terms}
 
@@ -638,7 +633,7 @@ Finally, you combined same-length vectors into a simple data frame using `data.f
 
 **Vector**: A one-dimensional object that stores an ordered group of values. In this chapter, vectors are used to store numbers, text, and logical values.
 
-**Workspace**: The collection of objects currently stored in your R Environment. In this chapter, you save the workspace as an `.RData` file for submission.
+**Workspace**: The collection of objects currently stored in your R Environment. 
 
 ## 📝 Practice Space {#practice-space}
 
@@ -648,10 +643,10 @@ Before you begin:
 
 1. Create a new R Script in RStudio.
 2. Save it in your course folder as `chapter2_practice.R`.
-3. Complete all Practice Space tasks in that notebook.
+3. Complete all Practice Space tasks in that script.
 4. Save your [workspace]{.glossary-term data-term="Workspace"} as `chapter2_practice.RData`.
 
-Required files to submit:
+Files you should save:
 
 - `chapter2_practice.R`
 - `chapter2_practice.RData`
@@ -660,23 +655,21 @@ As you work, add short comments or memo notes explaining what your code is doing
 
 If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you.
 
-Before submitting, clear your Environment and run the notebook from top to bottom. Objects need to be created in sequential order.
+Before you finish, clear your Environment and run the script from top to bottom. Objects need to be created in sequential order.
 
-All work must be hand-typed by you in your own voice. Do not copy and paste from AI. You make quote AI output anywhere (clear quotation marks or quote (`>`) before the paragraph). Hand-type a explanation of why you're including that quote.
+Follow your course’s guidelines for permitted AI use. If you use an AI tool, document how it helped you, inspect any suggested code, and verify that the code does what you intend. Type the final code into your script so you practice the syntax and can explain your work.
 
 ### Task 0 {#task-0}
 
-Before you begin, make sure you have created a new R script in the Source pane. Additionally, sweep your environment before running the code. When you finish, be sure to source your entire script to ensure it runs without errors from top to bottom.
+Make sure you have created and saved a new R script in the Source pane. Clear the Environment before running the code. When you finish, source the complete script to confirm that it runs from top to bottom without unexpected errors.
 
-Save your R script (`chapter2_practice.R`) and environment (`chapter2_practice.RData`) in your course folder. 
+Remember to document your **tenacity** in a memo if you encounter errors while completing the tasks.
 
-Remember to document your **tenacity** in a memo if you encounter any errors while completing the tasks. 
-
-Save before closing RStudio. Submit to Canvas modules, as directed.
+Save your script before closing RStudio.
 
 ### Task 1 {#task-1}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 
@@ -693,9 +686,11 @@ mode(________)
 # 🗣 Add Comment: "# The output shows length _ and mode ____."
 ```
 
+> 🧐 **Notice:** The sequence ends at 9.5 instead of 10. Because `by` is not specified, `seq()` uses a step of 1. After 9.5, the next value would be 10.5, which is beyond the `to = 10` limit.
+
 ### Task 2 {#task-2}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 # 🎯 Create a numeric vector using `:` called `list_numbers` that contains the **integer** values from 1 to 10.
@@ -721,7 +716,7 @@ length(________)
 
 R can store hexadecimal color codes in character vectors. [Hexadecimal color codes ]{.glossary-term data-term="Hexadecimal Color Code"} are six-digit codes that represent colors in web design and digital graphics.
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 # 🎯 Create a character vector named `nerdy_palette` that contains the following hexadecimal color codes using the `c()` function.
@@ -738,7 +733,7 @@ ______(nerdy_palette)
 
 ### Task 4 {#task-4}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 # 🎯 Add "#4D9E68" to the end of the existing `nerdy_palette` vector.
@@ -752,12 +747,12 @@ length(____)
 print(____)
 
 
-# 🗣 Comment: The output shows the updated `nerdy_palette` vector with __ elements added to the ___(beginning, middle, or end).
+# 🗣 Comment: The updated `nerdy_palette` vector contains __ elements. The new element was added to the ___ (beginning, middle, or end).
 ```
 
 ### Task 5 {#task-5}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 # 🎯 Create a vector named `color_names` that contains the following names: "Octarine," "TARDIS Blue," "Rebeccapurple," "Hooloovoo," "Cosmic Latte," "Vantablack," "Matrix Green," "Source Engine Magenta," "Command Red," and "Impossible Green." Use the `c()` function.
@@ -774,7 +769,7 @@ length(________)
 
 ### Task 6 {#task-6}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r , eval=FALSE}
 # 🎯 Create a vector named `origin` that contains "Discworld," "Doctor Who," "CSS/Web Development," "Hitchhiker's Guide to the Galaxy," "Astronomy," "Material Science," "The Matrix," "Video Gaming," "Star Trek," and "Visual Perception." Use the `c()` function.
@@ -790,12 +785,12 @@ length(_______)
 
 ### Task 7 {#task-7}
 
-Type this in your R Script, Fill in the blanks
+Type this in your R Script. Fill in the blanks.
 
 ```{r eval=FALSE}
 # 🎯 Create a data frame using `data.frame()` named `nerdy_df` that contains three columns: "Color" (`color_names`), "Hex" (`nerdy_palette`), and "Origin" (`origin`). 
 
-# ⚡ Type this in your R Script, Fill in the blanks
+# ⚡ Type this in your R Script. Fill in the blanks.
 nerdy_df <- ______(
   ______ = color_names,
   Hex _ nerdy_palette,
@@ -816,4 +811,4 @@ Baehr, Jason. 2022. Deep in Thought: A Practical Guide to Teaching for Intellect
 
 King, N. L. (2021). The excellent mind: Intellectual virtues for everyday life. Oxford University Press.
 
-Rus, V., Akhuseyinoglu, K., Chapagain, J., & Tamang, L. J. (2021). Prompting for Free Self-Explanations Promotes Better Code Comprehension. (CSEDM workshop, EDM 2021).
+Rus, V., Akhuseyinoglu, K., Chapagain, J., Tamang, L., & Brusilovsky, P. (2021). Prompting for free self-explanations promotes better code comprehension. In Joint Proceedings of the Workshops at the International Conference on Educational Data Mining 2021 (CEUR Workshop Proceedings, Vol. 3051).
