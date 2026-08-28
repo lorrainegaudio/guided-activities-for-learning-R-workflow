@@ -227,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mode-of-vector" id="toc-mode-of-vector" class="nav-link" data-scroll-target="#mode-of-vector">Mode of a Vector</a></li>
   <li><a href="#length-of-vector" id="toc-length-of-vector" class="nav-link" data-scroll-target="#length-of-vector">Length of a Vector</a></li>
   </ul></li>
-  <li><a href="#dataframes" id="toc-dataframes" class="nav-link" data-scroll-target="#dataframes">Dataframes</a></li>
+  <li><a href="#dataframes" id="toc-dataframes" class="nav-link" data-scroll-target="#dataframes">Data frames</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
   <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
@@ -275,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>📝 Write and save R scripts.</p></li>
 <li><p>📍 Run code from a script or the console.</p></li>
-<li><p>💪 Practice resiliency through documenting tenacity on memos.</p></li>
+<li><p>💪 Practice tenacity by documenting challenges, what you tried, and what you learned in memos.</p></li>
 <li><p>🛠 Build numeric, integer, character and logical vectors using <code>c()</code> and <code>seq()</code></p></li>
 <li><p>🔍 Check the mode and length of any vector object.</p></li>
 <li><p>📊 Create a data frame from vectors.</p></li>
@@ -284,12 +284,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="script-editor" class="level2">
 <h2 class="anchored" data-anchor-id="script-editor">Script Editor (Source)</h2>
-<p>Documenting your work allows you and others to understand how you came to your results. This course will introduce you to documenting your analysis with R Script, R Markdown, and Quarto files. These files preserve your code, comments, so that you (or anyone else) can re-run your analysis and understand <em>how</em> and <em>why</em> you arrived at your results. You can create, edit, and run these files in the Script Editor (also called the Source pane) in RStudio.</p>
+<p>Documenting your work allows you and others to understand how you came to your results. This book introduces R scripts, R Markdown documents, and Quarto documents as ways to document an analysis. These files preserve your code and comments, creating a record of how and why you arrived at your results. You can create, edit, and run these files in the Script Editor, also called the Source pane, in RStudio.</p>
 <section id="console-vs-script" class="level3">
 <h3 class="anchored" data-anchor-id="console-vs-script">Console vs Script Editor</h3>
-<p>The <span class="glossary-term" data-term="Console Pane">Console</span> is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. However, the Console does not save your commands after you close RStudio, so it is not suitable for documenting your work.</p>
+<p>The <span class="glossary-term" data-term="Console Pane">Console</span> is where you can type and run R commands one at a time. It is useful for quick calculations, testing small pieces of code, and exploring data interactively. RStudio may retain a history of Console commands, but that history is not an organized record of the analysis or the reasons behind your decisions.</p>
 <p>An <span class="glossary-term" data-term="R Script">R Script</span> is a plain text file that contains a series of R commands. The script acts as a static record of the analysis. If the data or method change later, the original script preserves the logic used for your initial findings. The inclusion of comments (lines that begin with <code>#</code>) allows you to explain the <em>why</em> behind your code, detailing assumptions, data transformations, and the rationale for specific analytical choices.</p>
-<p>Think of programming like writing a recipe. Using the Console is like throwing ingredients into a pan on the fly. You might make something delicious (a great chart), but you didn’t write down how much salt you used or in what order you added the spices. If you close RStudio, your “cooking” session is gone forever. Using an R script is like writing down the recipe step-by-step. You can share it with others, and you (or anyone else) can follow the same steps later to recreate the dish exactly. Comments act as notes in the margins of your recipe card.</p>
+<p>Think of programming like writing a recipe. Using the Console is like adding ingredients on the fly without recording the steps. Using an R script is like writing the recipe step by step so you can return to it, revise it, and share the recorded process with others. Comments act as notes in the margins of the recipe card.</p>
 </section>
 <section id="create-script" class="level3">
 <h3 class="anchored" data-anchor-id="create-script">Create an R Script</h3>
@@ -301,8 +301,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/ch02-scripts/new_rscript.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/new_rscript.png" class="img-fluid figure-img" alt="Figure 1. The RStudio Script Editor pane with a script open."></a></p>
-<figcaption>Figure 1. The RStudio Script Editor pane with a script open.</figcaption>
+<p><a href="images/ch02-scripts/new_rscript.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure 1. The RStudio File menu with New File open and R Script selected."><img src="images/ch02-scripts/new_rscript.png" class="img-fluid figure-img" alt="Figure 1. The RStudio File menu with New File open and R Script selected."></a></p>
+<figcaption>Figure 1. The RStudio File menu with New File open and R Script selected.</figcaption>
 </figure>
 </div>
 <p>Method B. <strong>Keyboard Shortcut</strong></p>
@@ -327,8 +327,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Place your cursor on each line and click Run (or press Ctrl+Enter on Windows/Linux or Cmd+Return on macOS) to send that line to the Console where it executes.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/ch02-scripts/run_script.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 5. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/run_script.png" class="img-fluid figure-img" alt="Figure 5. The RStudio Script Editor pane with a script open."></a></p>
-<figcaption>Figure 5. The RStudio Script Editor pane with a script open.</figcaption>
+<p><a href="images/ch02-scripts/run_script.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 2. The Run button sends the current line from the Script Editor to the Console."><img src="images/ch02-scripts/run_script.png" class="img-fluid figure-img" alt="Figure 2. The Run button sends the current line from the Script Editor to the Console."></a></p>
+<figcaption>Figure 2. The Run button sends the current line from the Script Editor to the Console.</figcaption>
 </figure>
 </div>
 <div class="cell">
@@ -337,8 +337,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Select multiple lines to run them together.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/ch02-scripts/run_script2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter."><img src="images/ch02-scripts/run_script2.png" class="img-fluid figure-img" alt="Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter."></a></p>
-<figcaption>Figure 2. The RStudio Script Editor pane with a script open. Two lines are highlighted and both were run in the console using Ctrl+Enter.</figcaption>
+<p><a href="images/ch02-scripts/run_script2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure 3. Two lines selected in the Script Editor and run together in the Console."><img src="images/ch02-scripts/run_script2.png" class="img-fluid figure-img" alt="Figure 3. Two lines selected in the Script Editor and run together in the Console."></a></p>
+<figcaption>Figure 3. Two lines selected in the Script Editor and run together in the Console.</figcaption>
 </figure>
 </div>
 <div class="cell">
@@ -347,8 +347,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Click Source to run the entire script at once.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/ch02-scripts/run_source.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 3. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/run_source.png" class="img-fluid figure-img" alt="Figure 3. The RStudio Script Editor pane with a script open."></a></p>
-<figcaption>Figure 3. The RStudio Script Editor pane with a script open.</figcaption>
+<p><a href="images/ch02-scripts/run_source.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure 4. The Run and Source buttons in the RStudio Script Editor."><img src="images/ch02-scripts/run_source.png" class="img-fluid figure-img" alt="Figure 4. The Run and Source buttons in the RStudio Script Editor."></a></p>
+<figcaption>Figure 4. The Run and Source buttons in the RStudio Script Editor.</figcaption>
 </figure>
 </div>
 <div class="cell">
@@ -357,8 +357,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="save-script" class="level3">
 <h3 class="anchored" data-anchor-id="save-script">Save Your Script</h3>
-<p>Saving your R script preserves the instructions (your code and comments), not the objects in your Environment. This matters because when you restart R or switch computers your Environment can disappear. Your script is a document of your work. A saved script lets anyone re-run your code and reproduce your results.</p>
-<p>Most assignments in this course will require that you submit file that contains code and memos. Early modules require you submit an R script file (<code>.R</code>). The .R extension helps RStudio (and your computer) recognize the file as an R script.</p>
+<p>Saving your R script preserves the instructions (your code and comments), not the objects in your Environment. This matters because when you restart R or switch computers your Environment can disappear. Your script is a document of your work. A saved script preserves the code and comments needed to inspect and rerun the recorded steps.</p>
+<p>R scripts use the <code>.R</code> file extension. This extension helps RStudio and your computer recognize the file as an R script.</p>
 <p>There are two primary ways to save your script. You can use either method.</p>
 <p>Method A. <strong>Save icon</strong></p>
 <ol type="1">
@@ -366,8 +366,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/ch02-scripts/save_icon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 4. The RStudio Script Editor pane with a script open."><img src="images/ch02-scripts/save_icon.png" class="img-fluid figure-img" alt="Figure 4. The RStudio Script Editor pane with a script open."></a></p>
-<figcaption>Figure 4. The RStudio Script Editor pane with a script open.</figcaption>
+<p><a href="images/ch02-scripts/save_icon.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure 5. The Save icon in the RStudio Script Editor is circled."><img src="images/ch02-scripts/save_icon.png" class="img-fluid figure-img" alt="Figure 5. The Save icon in the RStudio Script Editor is circled."></a></p>
+<figcaption>Figure 5. The Save icon in the RStudio Script Editor is circled.</figcaption>
 </figure>
 </div>
 <p>Method B. <strong>File Menu</strong></p>
@@ -381,12 +381,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Save a type: R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
-<p>🧐 <strong>Notice:</strong> that the file extension <code>.R</code> is automatically added.</p>
+<p>🧐 <strong>Notice:</strong> The <code>.R</code> file extension identifies the file as an R script.</p>
 </blockquote>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify that `chapter2_notes.R` is in the right folder.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>💡 <strong>Tip:</strong> “Working directory” controls where R looks for files when you use relative paths, but you can still accidentally save a script somewhere else if you choose the wrong folder in the Save dialog. For this course, always save scripts into your course folder so your files stay together and you can find them when it’s time to upload.</p>
+<p>💡 <strong>Tip:</strong> “Working directory” controls where R looks for files when you use relative paths, but you can still accidentally save a script somewhere else if you choose the wrong folder in the Save dialog. Keep files for the same project together so you can find and rerun your work.</p>
 <p>💡 <strong>Tip:</strong> When your script is unsaved, RStudio typically shows an asterisk (*) in the script tab and the file name is red, which means you have changes that are not saved yet.</p>
 <hr>
 <p>📖 <strong>Review</strong></p>
@@ -424,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>✍️ Error: object ‘seven.eight’ not found. 🗣 This is an error because <code>seven.eight</code> has not been created yet in this session.</p>
 <p>🚧 <span class="glossary-term" data-term="Error">Errors</span> prevent code from running.</p>
 <p>🤔 No Error? This example may not error if you already ran <code>seven.eight &lt;- seven + eight</code> before <code>the_aftermath &lt;- seven.eight - nine</code>. Another way you can produce the error is by clearing the Environment before testing. 🧹 Sweep your environment and run code out of order.</p>
-<p>💡 <strong>Tip:</strong> All scripts submissions must be able to run from top to bottom without errors. Regularly test your script by clicking Source to ensure that all lines run without errors.</p>
+<p>💡 <strong>Tip:</strong> A reliable script should run from top to bottom without unexpected errors. Regularly test your script by clicking Source to confirm that each object is created before it is used.</p>
 <p>In R, an error message is not a judgment. It is the computer telling you exactly what it cannot do <em>yet</em>. Learning to read errors calmly and then adjusting your next step is a core part of learning to code.</p>
 <hr>
 <p>Next, you will learn how to use comments as memos to document when you encounter errors.</p>
@@ -438,20 +438,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a comment. Notice the "#" at the beginning of the line.</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Comments often explain something about the code or your thinking.</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># You will create comments like this in R Script assignments to </span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  document your process.</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Break the comment into several lines to keep the message readable.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use comments like these to document your process.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Break the comment into several lines to keep the message readable.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="explain-thinking" class="level3">
 <h3 class="anchored" data-anchor-id="explain-thinking">Explain Your Thinking</h3>
-<p>Researchers have found that typing self-explanations of code improves retention and deepens understanding (Rus et. al., 2021). As you work through exercises and assignments, document a running record of insights, hunches, hypotheses, discussions about the applications of the code.</p>
+<p>A study of students reading Java code examples found that those prompted to type self-explanations performed better on a code-comprehension task than those prompted only to read the code and predict its output (Rus et al., 2021). As you work through examples, document insights, hunches, hypotheses, and questions about how the code works.</p>
 <ol type="1">
-<li><p><strong>Forethought</strong> before action. Before running code, write a brief note about the 🎯 Goal of code should accomplish, 💬 Prediction of what you expect to happen, or identify your 🧠 motivational beliefs that support persistence.</p></li>
-<li><p><strong>Performance</strong> monitoring during action. ⚡ Compose the code and ✅ Check that the code worked. 🚀 Conduct Code trials, debugging issues, and ✍️ keep a record what you tried, even if it didn’t work.</p></li>
-<li><p><strong>Self-reflection</strong> after action. After getting the code to work, 🗣 Comment about what you learned, what surprised you, or what questions remain. 🪞 Reflect on learning process and what you will do next time.</p></li>
+<li><p><strong>Forethought</strong> before action. Before running code, write a brief note about the 🎯 Goal the code should accomplish, make a 💬 Prediction about what you expect to happen, or identify a 🧠 motivational belief that supports persistence.</p></li>
+<li><p><strong>Performance</strong> monitoring during action. ⚡ Compose and run the code, then ✅ Check what happened. Use 🚀 code trials while debugging, and ✍️ keep a record of what you tried, even when it did not work.</p></li>
+<li><p><strong>Self-reflection</strong> after action. After getting the code to work, 🗣 Comment on what you learned, what surprised you, or what questions remain. 🪞 Reflect on your learning process and what you will do next time.</p></li>
 </ol>
-<p>Icons for these strategies are provided in throughout each chapter to model the process. Mirror this process in all work you submit for the course. Each chapter will highlight specific memoing practices to focus on. This chapter focuses on documenting your tenacity.</p>
+<p>Icons for these strategies appear throughout the chapters to model the process. Each chapter highlights particular memoing practices. This chapter focuses on documenting tenacity.</p>
 <hr>
 <p>Now that you know how to write and run code in a script, you will likely encounter errors. Tenacity is the learning skill that helps you persist through those errors and learn from them.</p>
 </section>
@@ -461,11 +460,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To successfully learn R programming, you will need to persist through difficulties, revise code, and know when to seek help after genuine effort. Tenacity is the learning skill that shows up when you persist through obstacles (confusion, errors, frustration), revise your approach, and know when to seek help after genuine effort rather than quitting too early or grinding aimlessly (King, 2021; Baehr, 2022). Tenacity is not “never give up.” It’s productive persistence.</p>
 <section id="why-r-challenging" class="level3">
 <h3 class="anchored" data-anchor-id="why-r-challenging">Why R is Challenging</h3>
-<p>R is not hard because it’s mysterious. It’s hard because it’s precise. Small mistakes (a missing parenthesis, a comma in the wrong place, a misspelled object name) produce errors, and those errors are not personal—they’re information.</p>
+<p>R requires precise syntax. Small mistakes, such as a missing parenthesis, a comma in the wrong place, or a misspelled object name, can produce errors. Those errors provide information about what R could not interpret or complete.</p>
 <p>You may have already encountered friction in exactly the places beginners expect to be “simple”:</p>
 <ul>
 <li><p>Installing or updating R/RStudio</p></li>
-<li><p>Saving and submitting scripts and file to Canvas</p></li>
+<li><p>Saving scripts in the intended folder and finding them again</p></li>
 <li><p>Creating objects and then getting object not found errors</p></li>
 </ul>
 <p>If you treat every error as evidence you “can’t code,” you will stall. Tenacity is what keeps you moving long enough for the patterns to become familiar (King, 2021).</p>
@@ -485,17 +484,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="document-tenacity" class="level3">
 <h3 class="anchored" data-anchor-id="document-tenacity">Document Tenacity</h3>
-<p>When you encounter a challenge, document your tenacity on a memo. Your memo will show a running log of what you tried and how you resolved the issue.</p>
+<p>When you encounter a challenge, document your tenacity in a memo. Your memo will show a running log of what you tried and how you resolved the issue.</p>
 <section id="record-what-you-tried" class="level4">
 <h4 class="anchored" data-anchor-id="record-what-you-tried">✍️ Record what you tried</h4>
-<p>Prevent future duplication of errors, contextualizing successes, and exposes hidden discoveries (unanticipated effect) by recording your learning process on a memo in your R script.</p>
+<p>Recording your learning process in a memo can help you avoid repeating unsuccessful attempts, understand why a solution worked, and preserve discoveries you did not anticipate.</p>
 <p>When you encounter an error:</p>
 <ol type="1">
 <li><p><strong>Comment out the code line(s) that produced the error</strong> by adding a <code>#</code> at the beginning of the line. This is really important. You want to keep the code visible for reference, but your script must not produce an error.</p></li>
 <li><p><strong>Copy and paste the error message</strong> below the commented line.</p></li>
 <li><p><strong>Comment out the error message</strong> by adding a <code>#</code> at the beginning of each line.</p></li>
 <li><p><strong>Add a brief comment explaining</strong> what you think caused the error or how you will resolve it. This can come from your own reasoning or from external resources you consulted (peers, instructors, online resources, AI tools, etc.). Be sure to cite any resources you used. See the <strong>Cite Your Resources</strong> section below for guidance.</p></li>
-<li><p>On a new line, compose the code that you believe will run without error. If the error is not yet resolved, repeat this listed process until you get the code to run without error.</p></li>
+<li><p>On a new line, compose the code that you believe will run without error. If the error is not resolved, repeat these steps with a different approach or decide that it is time to seek help.</p></li>
 </ol>
 <hr>
 <p>🧩 <strong>Memo Example</strong></p>
@@ -510,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>🧐 <strong>Notice:</strong> The student (1) ✍️ kept but commented out (<code>#</code>) the code with the error, (2) ✍️ copied and pasted the error from the console, (3) 🗣 composed a memo that recognized the unexpected parenthesis as a typo and (4) ⚡ composed new code that removed it to fix the error.</p>
 </blockquote>
-<p><em>Memo examples like this one are provided throughout the each chapter.</em></p>
+<p><em>Memo examples like this one are provided throughout the chapters.</em></p>
 <hr>
 <p>💡 <strong>Tip:</strong> You can quickly comment/uncomment selected lines with Ctrl+Shift+C (Windows/Linux) or Cmd+Shift+C (macOS).</p>
 </section>
@@ -520,9 +519,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>R syntax can be challenging, unforgiving even. Students often spend hours debugging simple issues. Knowing how R interprets your code helps avoid mistakes. Errors are usually simple but hard to spot alone. That’s normal.</p>
 <p>Before you seek help, document three things in your script memo:</p>
 <ol type="1">
-<li><p>🎯 What you what you were trying to do,</p></li>
-<li><p>⚡ The attempts at writing the code️ even if it didn’t achieve the results you wanted.</p></li>
-<li><p>✍ State what you understand so far, and what you’re confused or curious about.</p></li>
+<li><p>🎯 State what you were trying to do.</p></li>
+<li><p>⚡ Preserve the code you tried, even if it did not produce the result you wanted.</p></li>
+<li><p>✍️ State what you understand so far and what you are confused or curious about.</p></li>
 </ol>
 <p>Once you decide to seek help, choose a resource that fits the problem: a peer, your instructor, R’s help files, reputable online documentation, or an AI tool. No matter what you use, cite it in your memo so your learning is traceable and your work is honest.</p>
 <p>In your script, always include:</p>
@@ -530,25 +529,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Who/what helped you</strong> (person, website, help file, AI tool, etc.).</p></li>
 <li><p><strong>How it helped you</strong> (what you changed, what you learned, what you verified).</p></li>
 </ol>
-<p>Always write your own code; do not copy and paste from external sources. Use external help to understand and learn, not to complete assignments for you.</p>
-<p>💡 <strong>Tip:</strong> If you use generative AI to help you and it provides the answer, close the viewer and type the script yourself.</p>
+<p>Use external help to understand and learn. Follow your instructor’s guidelines for permitted assistance. When a resource suggests code, inspect it, type and test it yourself, and document how the resource helped you.</p>
 <p>🧩 <strong>Memo Example</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🧩 Example 2</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># logicals2 &lt;- c( 1&gt;2, 3&lt;5, 4=4 )</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># error: Error: unexpected '=' in "logicals2 &lt;- c( 1&gt;2, 3&lt;5, 4="</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>logicals2 <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">1</span><span class="sc">&gt;</span><span class="dv">2</span>, <span class="dv">3</span><span class="sc">&lt;</span><span class="dv">5</span>, <span class="dv">4</span><span class="sc">==</span><span class="dv">4</span> )</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I remember the instruction video but wanted to test what kind of error it would show.</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I noticed that under value "logicals2" in the environment" it has answered whether or not my equations are true or false</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I wanted to compare 4 and 4, but I used = instead of ==.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: I changed = to == because == compares two values.</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>logicals2</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: Here's what came back in the console! [1] FALSE  TRUE  TRUE</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: That means 1&gt;2 is false, 3&lt;5 is true, and 4=4 is true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: The Console returned [1] FALSE TRUE TRUE.</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># memo: This means 1 &gt; 2 is false, 3 &lt; 5 is true, and 4 == 4 is true.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <blockquote class="blockquote">
-<p>🧐 <strong>Notice:</strong> The student (1) ✍️ kept but commented out (<code>#</code>) the code with the errors, (2) ✍️ copied and pasted the error shown in the console, (3) 👀 cites a course video and the intent to 🛠 <strong>Break Things!</strong> to understand errors, (4) ⚡ revised the code to fix the errors, and 🗣 explained the final results.</p>
+<p>🧐 <strong>Notice:</strong> The student (1) ✍️ kept but commented out the code that produced the error, (2) ✍️ recorded the error message, (3) 🗣 explained what caused the error, (4) ⚡ revised the code, and (5) ✅ checked and explained the result.</p>
 </blockquote>
 <hr>
-<p>We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity on a memo whenever you encounter an error or do not fully understand.</p>
+<p>We turn to building basic objects next. As you work through the exercises, practice documenting your tenacity in a memo whenever you encounter an error or do not fully understand.</p>
 </section>
 </section>
 <section id="vectors" class="level2">
@@ -562,9 +560,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s use <code>c()</code>, <code>:</code>, and <code>seq()</code> to create vectors of different storage types: numeric, integer, and character.</p>
 <section id="numeric-vectors" class="level3">
 <h3 class="anchored" data-anchor-id="numeric-vectors">Numeric Vectors with <code>c()</code></h3>
-<p><span class="glossary-term" data-term="Numeric Vector">Numeric vectors</span> are a list of numbers. So far, we have only stored single numbers in objects.</p>
+<p><span class="glossary-term" data-term="Numeric Vector">Numeric vectors</span> store an ordered collection of numbers. So far, we have only stored single numbers in objects.</p>
 <p>Vector Method A. Use the <code>c()</code> function to combine (or “<span class="glossary-term" data-term="Concatenate">concatenate</span>) values into a single vector.</p>
-<p>🎯 Create a numeric vector named <code>numbers3</code> that contains three decimal point and negative numbers using the <code>c()</code> function.</p>
+<p>🎯 Create a numeric vector named <code>numbers3</code> that contains three values, including decimals and a negative number, using the <code>c()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this (or something similar) in your R Script</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>numbers3  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="sc">-</span><span class="fl">3.5</span>)                <span class="co"># Numeric with decimals and negative</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -575,12 +573,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>🗣 The output shows the three numbers stored in the <code>numbers3</code> vector.</p>
 <blockquote class="blockquote">
-<p>🧐 <strong>Notice:</strong> You can see object details by looking at the Environment pane. The <code>numbers3</code> object shows as “num [1:3]” indicating it is a numeric vector with three elements. These numbers are “numeric” because they include decimal points. The placement of the numbers in the list is ordered exactly as you entered them.</p>
+<p>🧐 <strong>Notice:</strong> The Environment pane displays <code>numbers3</code> as <code>num [1:3]</code>. <code>num</code> indicates that it is a numeric vector, and <code>[1:3]</code> indicates that it contains three elements. The elements appear in the order in which you entered them.</p>
 </blockquote>
 </section>
 <section id="integer-vectors" class="level3">
 <h3 class="anchored" data-anchor-id="integer-vectors">Integer Vectors with <code>c()</code></h3>
-<p><span class="glossary-term" data-term="Integer Vector">Integer vectors</span> are a list of whole numbers. In R, integers are typically written with an <code>L</code> suffix.</p>
+<p><span class="glossary-term" data-term="Integer Vector">Integer vectors</span> store an ordered collection of whole numbers. In R, integers are typically written with an <code>L</code> suffix.</p>
 <p>🎯 Create a vector named <code>cursed_seq</code> that contains the integer values 4, 8, 15, 16, 23, and 42 using the <code>c()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
@@ -594,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sequences" class="level3">
 <h3 class="anchored" data-anchor-id="sequences">Sequences with <code>:</code></h3>
-<p>“<code>:</code>” creates a simple sequence.</p>
+<p>Vector Method B. Use <code>:</code> to create a simple sequence that changes by 1.</p>
 <p>🎯 Create a numeric vector named <code>combination</code> that contains the integer values from 1 to 5 using the <code>:</code> operator.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
@@ -605,9 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combination)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The output shows 1 2 3 4 5 in order. 🎬 Optional aside: 1, 2, 3, 4, 5? That’s amazing! I’ve got the same combination on my luggage. (Yes, it’s a famous movie joke. Ignore it if you don’t recognize it.)</p>
-<ol start="3" type="1">
-<li>Vector Method C. Use <code>seq()</code> for custom steps.</li>
-</ol>
+<p>Vector Method C. Use <code>seq()</code> for custom steps.</p>
 <p>📜 The SYNTAX (basic):</p>
 <p><code>seq(from = 1, to = 10, by = 1)</code></p>
 <p>🎯 Create a numeric vector named <code>travel_jumps</code> that contains the numbers from 1887 to 2052 with steps of 33 using the <code>seq()</code> function.</p>
@@ -624,7 +620,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="character-vectors" class="level3">
 <h3 class="anchored" data-anchor-id="character-vectors">Character Vectors with <code>c()</code></h3>
 <p><span class="glossary-term" data-term="Character Vector">Character vectors</span> store text strings, which are sequences of characters enclosed in quotes. Character vectors can include letters, numbers, symbols, and spaces. They are often used to represent names, labels, or any other textual data.</p>
-<p>Quotes are enclosed in either double quotes <code>"</code> or single quotes <code>'</code>. Both types of quotes function the same way in R, but it’s important to be consistent within a single string. The commas separate individual strings within the vector is outside the quotes.</p>
+<p>Character values can be enclosed in double quotation marks <code>"</code> or single quotation marks <code>'</code>. Use matching quotation marks around each value. Commas that separate the vector’s elements belong outside the quotation marks.</p>
 <p>🎯 Create a character vector named <code>activation_code</code> that contains the following words: Longing, Rusted, Seventeen, Daybreak, Furnace, Nine, Benign, Homecoming, One, and Freight Car using the <code>c()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
@@ -634,9 +630,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the activation_code vector</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(activation_code)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🗣 The output shows the ten words stored in the <code>activation_code</code> character vector. 🎬 Optional aside: Ready to comply? Does this word-list makes the example memorable?</p>
-<p>R recognizes colors in character vectors.</p>
-<p>🎯 Create a character vector named <code>rainbow</code> that contains the color names of the rainbow using the <code>c()</code> function.</p>
+<p>🗣 The output shows the ten words stored in the <code>activation_code</code> character vector. 🎬 Optional aside: Ready to comply? Does this word list make the example memorable?</p>
+<p>R can use recognized color names stored as character values when specifying colors in plots and graphics.</p>
+<p>🎯 Create a character vector named <code>rainbow</code> that contains six color names using the <code>c()</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>rainbow <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"orange"</span>, <span class="st">"yellow"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>,  <span class="st">"violet"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -659,14 +655,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the rainbow_plus vector</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rainbow_plus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🗣 The output shows the new object <code>rainbow_plus</code> vector with “indigo” added to the end.</p>
+<p>🗣 The output shows the new <code>rainbow_plus</code> vector with <code>"indigo"</code> added to the end.</p>
 </section>
 <section id="logical-vectors" class="level3">
 <h3 class="anchored" data-anchor-id="logical-vectors">Logical Vectors</h3>
-<p><strong>Logical vectors</strong> are used for conditions and comparisons. They contain TRUE or FALSE values.</p>
+<p><strong>Logical vectors</strong> are used for conditions and comparisons. They can contain <code>TRUE</code>, <code>FALSE</code>, and missing values represented by <code>NA</code>.</p>
 <p>🎯 Create a logical vector named <code>logicals</code> that contains the values TRUE, FALSE, and NA using the <code>c()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>logicals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">NA</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
@@ -683,8 +679,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before using data, we need to confirm <em>what</em> it is.</p>
 <section id="mode-of-vector" class="level3">
 <h3 class="anchored" data-anchor-id="mode-of-vector">Mode of a Vector</h3>
-<p>The storage type of a vector tells R how to interpret the data inside it. The <span class="glossary-term" data-term="Mode">mode</span> function, <code>mode()</code>, tells you what kind of data the object is fundamentally made of. For typical vectors, the mode could be “numeric,” “character,” or “logical” to name a few.</p>
-<p><em>The function</em> <code>typeof()</code> <em>returns R’s internal storage type of an object. For a higher-level understanding of the data type, we use the</em> <code>mode()</code> <em>function.</em></p>
+<p>The <span class="glossary-term" data-term="Mode">mode</span> function, <code>mode()</code>, reports a broad category such as <code>"numeric"</code>, <code>"character"</code>, or <code>"logical"</code>. Both integer vectors and vectors containing decimal values have the mode <code>"numeric"</code>. The <code>typeof()</code> function reports R’s internal storage type. It distinguishes integer values from double-precision numeric values.</p>
 <p>🎯 Use the <code>mode()</code> function to check the data type of the <code>activation_code</code> vector.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script</span></span>
@@ -712,12 +707,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="dataframes" class="level2">
-<h2 class="anchored" data-anchor-id="dataframes">Dataframes</h2>
-<p>A <span class="glossary-term" data-term="Data Frame">data frame</span> is a two-dimensional, tabular data structure in R that can store data of different types (numeric, character, logical, etc.) in each column. It is similar to a spreadsheet or SQL table and is widely used for data analysis and manipulation in R.</p>
+<h2 class="anchored" data-anchor-id="dataframes">Data frames</h2>
+<p>A <span class="glossary-term" data-term="Data Frame">data frame</span> is a two-dimensional table made of rows and columns. Each column is a vector with one underlying type, while different columns can contain different types of values.</p>
 <p>We can create a data frame by combining multiple vectors of the <em>same length</em> using the <code>data.frame()</code> function.</p>
 <p>📜 The SYNTAX (basic):</p>
 <p><code>data.frame(column1 = c(...), column2 = c(...), ...)</code></p>
-<p>🎯 Use vectors created earlier to build a data frame. We’ll combine vectors in the global environment that have the length of 6 elements.</p>
+<p>🎯 Use three vectors created earlier to build a data frame. Each vector contains six elements, so each can become a column with six rows.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Review Vectors </span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rainbow)</span>
@@ -742,9 +737,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>In Chapter 2, you learned how to work in an R script: create a new <code>.R</code> file in the Source pane, save it in the correct course folder, run code into the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.</p>
+<p>In Chapter 2, you learned how to work in an R script: create a new <code>.R</code> file in the Source pane, save it in the intended folder, run code in the Console, and use RStudio’s Run tools and shortcuts. You also practiced using comments as memos so your script documents what you tried, what went wrong, and how you responded when you encountered an error.</p>
 <p>You built basic R objects, including numeric, integer, character, and logical vectors. You practiced creating vectors with <code>c()</code>, <code>:</code>, and <code>seq()</code>, adding an element to an existing vector, and checking objects with <code>mode()</code> and <code>length()</code> so you can confirm what kind of data an object contains and how many elements it stores.</p>
-<p>Finally, you combined same-length vectors into a simple data frame using <code>data.frame()</code>. By the end of this chapter, your main goal is not advanced analysis yet. Your goal is to build a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save the correct files for submission.</p>
+<p>Finally, you combined same-length vectors into a simple data frame using <code>data.frame()</code>. These skills support a reliable script-based workflow: write code, run it in order, check your objects, document your thinking, and save your work so you can inspect and rerun it later.</p>
 </section>
 <section id="chapter-terms" class="level2">
 <h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
@@ -768,7 +763,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Sequence Operator</strong> <code>:</code>: An operator that creates a sequence of values by ones, such as <code>1:5</code>.</p>
 <p><strong>Tenacity</strong>: The learning habit of staying with a coding problem productively. In this chapter, tenacity means documenting errors, trying a reasonable fix, checking the result, and knowing when to seek help.</p>
 <p><strong>Vector</strong>: A one-dimensional object that stores an ordered group of values. In this chapter, vectors are used to store numbers, text, and logical values.</p>
-<p><strong>Workspace</strong>: The collection of objects currently stored in your R Environment. In this chapter, you save the workspace as an <code>.RData</code> file for submission.</p>
+<p><strong>Workspace</strong>: The collection of objects currently stored in your R Environment.</p>
 </section>
 <section id="practice-space" class="level2">
 <h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
@@ -777,28 +772,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Create a new R Script in RStudio.</li>
 <li>Save it in your course folder as <code>chapter2_practice.R</code>.</li>
-<li>Complete all Practice Space tasks in that notebook.</li>
+<li>Complete all Practice Space tasks in that script.</li>
 <li>Save your <span class="glossary-term" data-term="Workspace">workspace</span> as <code>chapter2_practice.RData</code>.</li>
 </ol>
-<p>Required files to submit:</p>
+<p>Files you should save:</p>
 <ul>
 <li><code>chapter2_practice.R</code></li>
 <li><code>chapter2_practice.RData</code></li>
 </ul>
 <p>As you work, add short comments or memo notes explaining what your code is doing and what the output shows.</p>
 <p>If you encounter an error, document your <strong>tenacity</strong> by briefly noting what happened, what you tried, and how you fixed it or what still confuses you.</p>
-<p>Before submitting, clear your Environment and run the notebook from top to bottom. Objects need to be created in sequential order.</p>
-<p>All work must be hand-typed by you in your own voice. Do not copy and paste from AI. You make quote AI output anywhere (clear quotation marks or quote (<code>&gt;</code>) before the paragraph). Hand-type a explanation of why you’re including that quote.</p>
+<p>Before you finish, clear your Environment and run the script from top to bottom. Objects need to be created in sequential order.</p>
+<p>Follow your course’s guidelines for permitted AI use. If you use an AI tool, document how it helped you, inspect any suggested code, and verify that the code does what you intend. Type the final code into your script so you practice the syntax and can explain your work.</p>
 <section id="task-0" class="level3">
 <h3 class="anchored" data-anchor-id="task-0">Task 0</h3>
-<p>Before you begin, make sure you have created a new R script in the Source pane. Additionally, sweep your environment before running the code. When you finish, be sure to source your entire script to ensure it runs without errors from top to bottom.</p>
-<p>Save your R script (<code>chapter2_practice.R</code>) and environment (<code>chapter2_practice.RData</code>) in your course folder.</p>
-<p>Remember to document your <strong>tenacity</strong> in a memo if you encounter any errors while completing the tasks.</p>
-<p>Save before closing RStudio. Submit to Canvas modules, as directed.</p>
+<p>Make sure you have created and saved a new R script in the Source pane. Clear the Environment before running the code. When you finish, source the complete script to confirm that it runs from top to bottom without unexpected errors.</p>
+<p>Remember to document your <strong>tenacity</strong> in a memo if you encounter errors while completing the tasks.</p>
+<p>Save your script before closing RStudio.</p>
 </section>
 <section id="task-1" class="level3">
 <h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Build a numeric vector named `exponents` that contains the numbers between 0.5 and 10 using the `seq()` function.</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -812,10 +806,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Add Comment: "# The output shows length _ and mode ____."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<blockquote class="blockquote">
+<p>🧐 <strong>Notice:</strong> The sequence ends at 9.5 instead of 10. Because <code>by</code> is not specified, <code>seq()</code> uses a step of 1. After 9.5, the next value would be 10.5, which is beyond the <code>to = 10</code> limit.</p>
+</blockquote>
 </section>
 <section id="task-2" class="level3">
 <h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a numeric vector using `:` called `list_numbers` that contains the **integer** values from 1 to 10.</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -838,7 +835,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="task-3" class="level3">
 <h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
 <p>R can store hexadecimal color codes in character vectors. <span class="glossary-term" data-term="Hexadecimal Color Code">Hexadecimal color codes</span> are six-digit codes that represent colors in web design and digital graphics.</p>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a character vector named `nerdy_palette` that contains the following hexadecimal color codes using the `c()` function.</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -854,7 +851,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="task-4" class="level3">
 <h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Add "#4D9E68" to the end of the existing `nerdy_palette` vector.</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -867,12 +864,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)</span>
 <span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The output shows the updated `nerdy_palette` vector with __ elements added to the ___(beginning, middle, or end).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 🗣 Comment: The updated `nerdy_palette` vector contains __ elements. The new element was added to the ___ (beginning, middle, or end).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="task-5" class="level3">
 <h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a vector named `color_names` that contains the following names: "Octarine," "TARDIS Blue," "Rebeccapurple," "Hooloovoo," "Cosmic Latte," "Vantablack," "Matrix Green," "Source Engine Magenta," "Command Red," and "Impossible Green." Use the `c()` function.</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -888,7 +885,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="task-6" class="level3">
 <h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a vector named `origin` that contains "Discworld," "Doctor Who," "CSS/Web Development," "Hitchhiker's Guide to the Galaxy," "Astronomy," "Material Science," "The Matrix," "Video Gaming," "Star Trek," and "Visual Perception." Use the `c()` function.</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -903,11 +900,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="task-7" class="level3">
 <h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
-<p>Type this in your R Script, Fill in the blanks</p>
+<p>Type this in your R Script. Fill in the blanks.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Create a data frame using `data.frame()` named `nerdy_df` that contains three columns: "Color" (`color_names`), "Hex" (`nerdy_palette`), and "Origin" (`origin`). </span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script, Fill in the blanks</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Script. Fill in the blanks.</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>nerdy_df <span class="ot">&lt;-</span> <span class="fu">______</span>(</span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">______ =</span> color_names,</span>
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  Hex _ nerdy_palette,</span>
@@ -926,7 +923,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>Baehr, Jason. 2022. Deep in Thought: A Practical Guide to Teaching for Intellectual Virtues. Harvard Education Press.</p>
 <p>King, N. L. (2021). The excellent mind: Intellectual virtues for everyday life. Oxford University Press.</p>
-<p>Rus, V., Akhuseyinoglu, K., Chapagain, J., &amp; Tamang, L. J. (2021). Prompting for Free Self-Explanations Promotes Better Code Comprehension. (CSEDM workshop, EDM 2021).</p>
+<p>Rus, V., Akhuseyinoglu, K., Chapagain, J., Tamang, L., &amp; Brusilovsky, P. (2021). Prompting for free self-explanations promotes better code comprehension. In Joint Proceedings of the Workshops at the International Conference on Educational Data Mining 2021 (CEUR Workshop Proceedings, Vol. 3051).</p>
 
 
 </section>
