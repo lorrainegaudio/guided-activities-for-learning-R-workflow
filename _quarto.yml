@@ -39,10 +39,10 @@ book:
         - chapters/01-tenacity/ch01-navigation.Rmd
         - chapters/01-tenacity/ch02-scripts.Rmd
         
-    # - part: chapters/02-transparency/transparency.qmd
-    #   chapters:
-    #     - chapters/02-transparency/ch03-vectors.Rmd
-    #     - chapters/02-transparency/ch04-structures.Rmd
+    - part: chapters/02-transparency/transparency.qmd
+      chapters:
+        - chapters/02-transparency/ch03-vectors.Rmd
+        - chapters/02-transparency/ch04-structures.Rmd
         
     # - part: chapters/03-courage/courage.qmd
     #   chapters:

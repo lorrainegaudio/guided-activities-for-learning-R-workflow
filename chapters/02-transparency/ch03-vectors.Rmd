@@ -1,74 +1,72 @@
 ---
-title: "Chapter 3: Vector"
-subtitle: "Vectorization and Memoing in R Notebooks"
+title: "Chapter 3: Vectors"
+subtitle: "Vectorization, Vector Types, and Memoing in R Notebooks"
 toc: true
 ---
 
-
 ## Overview {#overview}
 
-Up to this point, you’ve been writing code in the Console and saving your work in R Scripts. In this chapter, you switch into an R Notebook (`.Rmd`): one document that combines your writing, your code, and the output produced by that code. This matters for research because the goal is not just to “get an answer,” but to leave a record that another person, or future-you, can follow, audit, and rerun. In other words, the notebook is your first step toward reproducible work.
+Up to this point, you have been writing code in the Console and saving your work in R Scripts. In this chapter, you begin working in an R Notebook (`.Rmd`). An R Notebook keeps your writing and code together and lets you view the output alongside them. This record helps another person, or your future self, follow, check, and rerun your work.
 
-You’ll also learn what “good memoing” looks like in a notebook. Instead of burying all of your thinking in # comments, you can write short notes near your code that explain what your code is doing and what the output shows. This is a research skill: it makes your work easier to check, easier to debug, and easier to explain.
+You will practice transparency by writing short memos near your code. These memos explain your goal, what the code does, what the output shows, what you checked, and what you are still working to understand. The notebook becomes a record of both your analysis and your learning.
 
-The coding focus in this chapter is numeric vectors. You will build vectors, check their length, use arithmetic operators, create sequences, and practice vectorized math. These skills matter because vectors are one of the basic building blocks of R. Before working with larger datasets, you need to understand how R stores and works with groups of values.
+The coding focus is vectors. You will build numeric vectors, perform vectorized arithmetic, create sequences, and work with exponents. You will then examine how `mode()`, `typeof()`, and `class()` describe R objects. Dates, character vectors, factors, and coercion show how an object’s type and class affect the way R stores, prints, and works with its values.
 
-By the end of Chapter 3, you should be able to start a notebook correctly, write short memos, build numeric vectors, perform vector arithmetic, run your notebook from top to bottom, and save the correct files for submission.
+By the end of the chapter, you should be able to create and rerun an R Notebook, document your work with short memos, work with several kinds of vectors, and use checks to explain how R is storing and interpreting your objects.
 
-In Chapter Three, you will learn how to:
+In this chapter, you will learn how to:
 
 - 📝 Create, rename, and save an R Notebook (`.Rmd`).
 
 - 📍 Run R code from code chunks.
 
-- 🗣 Write short memo notes that explain what your code does and what the output shows.
+- ✍️ Practice transparency with 🗣 **Comment**, 🪞 **Reflect**, and 👀 **Cite** memos that make your code, output, checks, learning, and resource use visible.
 
-- 🛠 Build numeric vectors using `c()`.
+- 🛠 Build numeric vectors with `c()` and check them with `length()`.
 
-- 📏 Check the length of a vector using `length()`.
+- 🧮 Use arithmetic operators, sequences, and exponents with numeric vectors.
 
-- 🧮 Perform arithmetic operations on numeric vectors.
+- 📈 Explain vectorization and recognize when R recycles a shorter vector.
 
-- 🔢 Create numeric sequences using `:` and `seq()`.
+- 🔎 Use `mode()`, `typeof()`, and `class()` to inspect how R stores and interprets objects.
 
-- 📈 Use vectorized math to create new objects from existing vectors.
+- 🔤 Create and combine character vectors.
 
-- ✨ Use exponents with numeric vectors.
+- 🏷️ Create factors and inspect their levels.
 
-- 🧹 Clear your Environment and run your notebook from top to bottom.
+- 🔄 Explain coercion and use conversion functions to change an object’s type.
 
-- 💾 Save and submit the correct `.Rmd` and `.RData` files.
+- 🧹 Clear your Environment, run your notebook from top to bottom, and knit it to HTML to verify that the notebook works in order.
 
 ----
 
 ## R Notebooks—Part 1 {#r-notebooks-part-1}
 
-An [R Notebook]{.glossary-term data-term="R Notebook"} is an [R Markdown]{.glossary-term data-term="R Markdown"} (`.Rmd`) document where you can run code in [code chunks]{.glossary-term data-term="Code Chunks"} and immediately see the output *directly below the chunk*.
+An [R Notebook]{.glossary-term data-term="R Notebook"} is an [R Markdown]{.glossary-term data-term="R Markdown"} (`.Rmd`) document that combines Markdown writing with R code organized in [code chunks]{.glossary-term data-term="Code Chunks"}. You can run the code interactively and keep your code, output, and explanatory text together in one document.
 
 The utility is reproducible thinking: your code, your results, and your memo-style notes live in one place, in order, so someone else (including future-you) can follow what happened.
 
 R Notebooks are similar to R Scripts but offer additional features such as:
 
-- **Interactive Code Execution**: You can run code chunks individually and see the output immediately below the chunk.
+- **Interactive Code Execution**: You can run individual lines, selected lines, or complete code chunks.
 
 - **Rich Text Formatting**: You can use Markdown to format text, add headings, lists, links, and images.
 
-- **Output Display**: The output of code chunks, including plots and tables, is displayed directly in the notebook.
+- **Output Display**: Depending on your RStudio settings, output can appear below the chunk or in the Console, Plots, Viewer, or another relevant pane.
 
 - **Reproducibility**: R Notebooks support reproducible research by allowing you to combine code and narrative in a single document.
 
 ### R Script vs R Notebook {#r-script-vs-r-notebook}
 
-In this course, the key advantage of an R Notebook over an R Script is memoing. A script can hold code + `#` comments, but an R Notebook is built for writing full memos (regular text) between code chunks without turning everything into comments. This supports a reproducible workflow (Course Objective CLO1).
+An R Notebook provides more room for memoing than an R Script. A script can hold code and short `#` comments. An R Notebook also allows full Markdown memos between code chunks. This supports an inspectable and reproducible workflow.
 
-
-| Feature                     | R Script                          | R Notebook                        |
-|-----------------------------|----------------------------------|-----------------------------------|
-| File Extension              | .R                               | .Rmd                              |
-| Code Execution              | Run entire script or line-by-line| Run individual code chunks        |
-| Output Display              | Console only                     | Output displayed below code chunks|
-| Text Formatting             | Comments only (`#`)              | Full Markdown support             |
-| Memoing                     | Limited to comments              | Full memos with text and code     |
+| Feature | R Script | R Notebook |
+|---|---|---|
+| File Extension | `.R` | `.Rmd` |
+| Code Execution | Run individual lines, selected lines, or the entire script | Run individual lines, selected lines, or complete chunks |
+| Output Display | Console, Plots, Viewer, or another relevant RStudio pane | Below code chunks or in another RStudio pane, depending on settings |
+| Explanatory Writing | `#` comments inside the script | Markdown prose between chunks and `#` comments inside chunks |
+| Memoing | Short comments placed near code | Formatted memos placed alongside code and output |
 
 ### Open a New R Notebook {#open-a-new-r-notebook}
 
@@ -78,9 +76,9 @@ To open an R Notebook, you will need to install the `rmarkdown` package and then
 
 To use R Notebooks, you need the `rmarkdown` [package]{.glossary-term data-term="Package"} and then create a new R Notebook file in RStudio. A package is an installable bundle of tools—functions, documentation, and sometimes data—that extends what R can do. Most packages are downloaded from CRAN (the main public repository for R packages).
 
-Method A. **Pane with Files tab**
+Method A. **Packages Tab**
 
-1. In RStudio, go to the `Packages` tab in the bottom-right pane.
+1. In RStudio, go to the `Packages` tab in the bottom-right pane. It is in the same area as the `Files` tab.
 
 2. Click on 📥 `Install`.
 
@@ -90,7 +88,7 @@ Method A. **Pane with Files tab**
 
 5. Click `Install`.
 
-🗣 If installation succeeds, you should see messages in the Console showing what was installed.
+✅ **Check:** If installation succeeds, you should see messages in the Console showing what was installed.
 
 Method B. **Console Pane**
 
@@ -107,7 +105,7 @@ install.packages("rmarkdown")
 packageVersion("rmarkdown")
 ```
 
-After installing, please comment out (`#`) the `install.packages()` function. The reason for this will be explained in later chapters. 
+> 🧐 **Notice:** `install.packages()` is a setup command. Run it in the Console when the package is not installed. Do not add it to code that runs whenever the notebook runs.
 
 ```{r , eval=FALSE}
 # install.packages("rmarkdown")
@@ -122,7 +120,6 @@ To create an R Notebook in RStudio:
 2. An .Rmd file opens in the Source pane.
 
 💡 **Tip:** If your RStudio version does not show “R Notebook,” choose R Markdown. Select HTML Notebook as the output format. The end result is still an R Notebook stored as an `.Rmd` file. 
-
 
 ### The YAML Header {#the-yaml-header}
 
@@ -139,11 +136,11 @@ This is called the [YAML header]{.glossary-term data-term="YAML Header"} (pronou
 
 #### Renaming the Notebook {#renaming-the-notebook}
 
-🎯 Edit the title of the notebook to match the assignment
+🎯 Edit the title so it describes the work in this notebook.
 
 ```yaml
 ---
-title: "Chapter 3 Practice"
+title: "Chapter 3 Guided Activity"
 output: html_notebook
 ---
 ```
@@ -154,18 +151,17 @@ output: html_notebook
 
 1. Go to `File` > `Save As...`.
 
-2. Choose your course folder (e.g., `Data-R155`)
+2. Choose a folder where you keep your R work (e.g., `Data-R155`).
 
 3. Name the file `chapter3_notes`.
 
 4. Note that the file extension is `.Rmd`.
 
-✅ Verify you can see `chapter3_notes.Rmd` in the **Files** pane.
+✅ **Check:** Confirm that `chapter3_notes.Rmd` appears in the **Files** pane.
 
 ### Code Chunks {#code-chunks}
 
 A [code chunk]{.glossary-term data-term="Code Chunks"} is a fenced block where R code runs. It begins with three [backticks]{.glossary-term data-term="Backtick"} plus `{r}` and ends with three backticks: <code>&#96;&#96;&#96;{r}</code> … <code>&#96;&#96;&#96;</code>.
-
 
 <code>&#96;&#96;&#96;{r}</code>
 
@@ -173,7 +169,7 @@ A [code chunk]{.glossary-term data-term="Code Chunks"} is a fenced block where R
 
 <code>&#96;&#96;&#96;</code>
 
-🗣 Code chunks the runnable R code sections inside an R Notebook. Put your code inside of the code chunks, and when you run the chunk, the output will appear directly below it. 
+Code chunks are the sections of an R Notebook that contain runnable R code. Put R code inside a chunk. When you run the chunk, RStudio displays the result in the notebook or in another relevant pane, depending on your output settings.
 
 Memos are the notes you write to explain your code and results. In an R Notebook, write memos as regular text between code chunks, without needing to comment them out with `#`. This allows you to keep your code, results, and memos together in one document. 
 
@@ -222,11 +218,11 @@ Click the green play button (▶) at the top-right of the chunk.
 
 Method C. **Keyboard Shortcut**
 
-Placing your cursor inside the chunk and pressing `Ctrl + Shift + Enter` (Windows/Linux) or `Cmd + Shift + Enter` (macOS).
+Place your cursor inside the chunk and press `Ctrl + Shift + Enter` (Windows/Linux) or `Cmd + Shift + Enter` (macOS).
 
 #### Example: Vector Arithmetic {#vector-arithmetic}
 
-[Vectorization]{.glossary-term data-term="Vectorization"} is when R applies an operation to each [element]{.glossary-term data-term="Element Names"} of a vector.
+[Vectorization]{.glossary-term data-term="Vectorization"} allows an operation to work directly with a vector instead of requiring you to process one element at a time. In the arithmetic examples below, R applies the operation element by element.
 
 🎯 Insert a code chunk then type and run the following R code to do vector arithmetic. 
 
@@ -241,7 +237,7 @@ x + y     # We should see three values: 3, 7, and 11
 
 🎯 Click the green play button in the chunk (top-right of the chunk), or use the Run menu to run the current chunk / all chunks.
 
-🗣 There is an output in the code chunk that shows the result of adding the two vectors element-wise: (2 + 1 = **3**; 4 + 3 = **7**; 6 + 5 = **11**).
+🗣 **Modeled Comment:** The output shows the result of adding the two vectors element by element: 2 + 1 = **3**, 4 + 3 = **7**, and 6 + 5 = **11**.
 
 ```{r eval=FALSE}
 #  ⚡ Type this in your R Notebook
@@ -254,7 +250,7 @@ x / y
 [1] 2.000000 1.333333 1.200000
 ```
 
-🗣 When including two calculations in the same code chunk, both results are shown in order, below the code chunk. 
+🗣 **Modeled Comment:** The code chunk contains two calculations, and the results appear in the same order as the calculations.
 
 🎯 Try creating a sequence of powers of 3 using the exponent operator `^`. Create a vector named `small_exponents` that contains the integers from 0 to 4, then create a new vector named `powers_of_three` that raises 3 to the power of each element in `small_exponents`.
 
@@ -267,11 +263,9 @@ powers_of_three
 length(powers_of_three)
 ```
 
-🗣 R reads `3 ^ small_exponents` as “raise 3 to each value stored in `small_exponents`.” The vector `small_exponents` tells R which exponents to use. The length tells us how many powers were created, not how large the biggest value is.
+🗣 **Modeled Comment:** R reads `3 ^ small_exponents` as “raise 3 to each value stored in `small_exponents`.” The vector `small_exponents` tells R which exponents to use. The length tells us how many powers were created, not how large the biggest value is.
 
-
-As you practice R programming in the R Notebook, please keep a record of your learning process. Memoing is a lot easier in R Notebooks than in R Scripts! 🥳
-
+✍️ **Transparency:** Keep a visible record of your learning as you work. The examples below model 🗣 **Comment**, 🪞 **Reflect**, and 👀 **Cite** memos in Markdown outside code chunks.
 
 ## Memoing in R Notebooks {#memoing-in-r-notebooks}
 
@@ -279,33 +273,39 @@ The code chunk is like a mini R Script. Inside a code chunk, memo text must star
 
 > 🧐 **Notice:** Text outside code chunks does not have `#` because it is regular paragraph writing. R will not try to run it as code.
 
-We use [Markdown]{.glossary-term data-term="Markdown"} in this course so you can write memos as readable paragraphs instead of a wall of `#` comments. Markdown is a simple formatting syntax that allows you to create headings, lists, links, and more in plain text. In R Notebooks, you will write Markdown text **between** code chunks to explain your thought process, document your findings, and provide context for your code.
+A 🗣 **Comment** prompt asks for a Markdown memo **outside** the code chunk unless the instructions say otherwise. This differs from an R code comment, which begins with `#` inside a chunk.
 
-🎯 Click on a blank line outside the chunk and type something like:
+[Markdown]{.glossary-term data-term="Markdown"} lets you write memos as readable paragraphs instead of a wall of `#` comments. Markdown is a simple formatting syntax for creating headings, lists, links, and other structured text. In R Notebooks, you can write Markdown text **between** code chunks to explain your thought process, document your findings, and provide context for your code.
 
-- 🎯 Goal: Practice creating vectors and doing arithmetic.
+Click on a blank line outside the chunk and type a short memo like this:
 
-- ✅ Verify: I should see three outputs: `x + y`, `x * 2`, and `x - y`.
+✍️ **Transparency memo**
 
-- ✍ Memo: Document your learning process. What did you discover? What challenges did you run into?
+- 🎯 **Goal:** Practice creating vectors and doing arithmetic.
 
-- 🗣 Explain: Vector math happens element-by-element, so the first result adds the first elements together, then the second, then the third.
+- ✅ **Check:** I should see three outputs: `x + y`, `x * 2`, and `x / y`.
+
+- 🗣 **Comment:** The three outputs each contain one result for every position in `x`. R added `x` and `y` element by element, multiplied each value in `x` by 2, and divided each value in `x` by the matching value in `y`.
+
+- 🪞 **Reflect:** I initially expected `x + y` to produce one total. Seeing three values helped me understand that vector arithmetic works position by position.
+
+If a resource helped you understand or troubleshoot the example, add a 👀 **Cite** memo that identifies the resource and explains what it contributed.
 
 ___
 
 💬 What does this look like in practice?
 
-🧩 **Memo Example**
+✍️ **Transparency Memo Example**
 
 ![R Notebook showing arithmetic code with commented-out error lines, pasted console errors (“unexpected ‘,’” and “object not found”), memos identifying the typo, missing object, and case sensitivity, and corrected code printing the ratio.](images/ch03-vector/Memo_Example.png)
 
-> 🧐 **Notice:** The student (1) ✍️ kept but commented out (`#`) the code with the errors, (2) ✍️ copied the error message and saved it in the notebook as a memo so the troubleshooting process was easily documented, (3) 🗣 composed memos that identified the issues (a typo with a comma, using an object before it was created, and case sensitivity), and (4) ⚡ revised the code to fix the errors. 
+> 🧐 **Notice:** This is a ✍️ transparent record because the student kept the unsuccessful code and error messages visible, wrote memos explaining what caused the errors, revised the code, used ✅ **Check** to run the corrected code, and added a 🗣 **Comment** explaining the final result.
 
 ___
 
 Now that you can write code in code chunks and memos in regular text, practice recycling vectors while keeping a transparent [research journal]{.glossary-term data-term="Research Journal"}.
 
-#### Example: Recycling Vectors {#recycling-vectors}
+### Example: Recycling Vectors {#recycling-vectors}
 
 When you perform arithmetic on two vectors of different lengths, R will [recycle]{.glossary-term data-term="Recycling"} the shorter one to match the longer one.
 
@@ -318,119 +318,106 @@ combination <- c(1, 2, 3, 4, 5)   # length of 5 elements
 recycled_result <- numbers3 + combination
 ```
 
-⚠️ A **Warning** message may appear indicating that the longer vector length is not a multiple of the shorter vector length. This warning is expected in this example because the longer vector length is not a multiple of the shorter vector length. The code still runs, but in real data analysis this warning is often a sign that you should stop and check whether the vector lengths are what you intended.
+⚠️ A **Warning** message appears because the longer vector length is not a multiple of the shorter vector length. R still completes the calculation by recycling the shorter vector, but the warning tells you to stop and verify that both vector lengths are what you intended.
 
 ```{r}
 # ✅ Check the recycled_result vector
 print(recycled_result)
 ```
 
-🗣 R recycles `numbers3` by repeating it as needed: `1.5, 2.5, -3.5, 1.5, 2.5`. Then R adds element-by-element: `1 + 1.5`, `2 + 2.5`, `3 + -3.5`, `4 + 1.5`, and `5 + 2.5`.
+🗣 **Modeled Comment:** R recycles `numbers3` by repeating it as needed: `1.5, 2.5, -3.5, 1.5, 2.5`. Then R adds element-by-element: `1 + 1.5`, `2 + 2.5`, `3 + -3.5`, `4 + 1.5`, and `5 + 2.5`.
 
 ___
 
-🧩 **Memo Example**
+✍️ **Transparency Memo Example**
 
 ![R Notebook chunk subtracting vectors of different lengths, output showing the recycled subtraction results, and a memo explaining that R repeats the shorter vector to match the longer one (with the AI tool credited).](images/ch03-vector/Memo_Example2.png) 
 
-> 🧐 **Notice:** The student 👀 cited the specific AI tool used to help her deepen her understanding and 🗣 explained the final results in her own words.
+> 🧐 **Notice:** The student used 🪞 **Reflect** to identify what was confusing, used 👀 **Cite** to name ChatGPT and explain how it helped, and then added a 🗣 **Comment** explaining in her own words how R recycled the shorter vector.
 
 ___
 
-Learning to use an AI tool is part of becoming a modern researcher. However, it is essential to use these tools ethically and [transparently]{.glossary-term data-term="Transparency"}, as discussed in more detail in the next chapter.
-
 ---
 
-Next, let's explore how R uses metadata to determine how to treat different types of vectors.
+Next, examine how R describes an object’s underlying storage and how its class affects the way R prints and works with it.
 
 ## Vector Types and Classes {#vector-types-and-classes}
 
 In this section you will learn how [class]{.glossary-term data-term="Class"} affects how R interprets an object and decides how it should behave.
 
-### Class and behavior {#class-and-behavior}
+### Class and Behavior {#class-and-behavior}
 
-Recall from chapter 2 that [vectors]{.glossary-term data-term="Vector"} are collections of elements *of one underlying type*. Some vectors also carry a class attribute that changes how R treats them. Classes are built on top of types. `class()` reports the attribute that controls *how* R treats an object and which methods to use when functions are applied to it. It is the semantic type of the object, what the vector is considered to be. The class of an object affects printing, method selection, and how many functions behave. 
+Recall from Chapter 2 that an atomic vector contains elements of one underlying type. R can describe an object at different levels. `typeof()` reports its specific internal storage type, `mode()` reports a broader storage category, and `class()` reports how R interprets the object and selects methods for it. Some objects, such as dates and factors, have a class that adds meaning to their underlying storage.
 
-For example, an object created with `as.Date()` has the class "Date," which tells R to treat it as a date, even though its underlying mode is numeric.
+For example, an object created with `as.Date()` has class `"Date"`, underlying type `"double"`, and mode `"numeric"`. The `"Date"` class tells R to print and work with the object as a date.
 
-🎯 Store a date in a variable named today using `as.Date()`. Then use `mode()`, `typeof()`, and `class()` to compare the underlying storage with the way R treats the object.
+🎯 Store any date in a variable named `start_date` using `as.Date()`. Then use `mode()`, `typeof()`, and `class()` to compare the underlying storage with the way R treats the object.
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
-today <- as.Date("2026-01-01")
-print(today)
+start_date <- as.Date("2026-08-24")
+print(start_date)
 ```
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
-mode(today)
-typeof(today)
-class(today)
+mode(start_date)
+typeof(start_date)
+class(start_date)
 ```
 
-🗣 The object `today` is stored underneath as a number, but its class is `"Date"`. The class tells R to print it and work with it as a date.
+🗣 **Modeled Comment:** `mode(start_date)` returns `"numeric"`, `typeof(start_date)` returns `"double"`, and `class(start_date)` returns `"Date"`. The class tells R to print and work with the object as a date.
 
-Why does this matter? Even though the date is stored underneath as a number, R does not treat it like an ordinary number because its class is `"Date"`.
+Why does this matter? R uses the `"Date"` class to apply date-specific behavior even though the object is stored underneath as a double.
 
-🎯 What date will it be in one week?
+🎯 What date was it one week after `start_date`?
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
-today + 7
+start_date + 7
 ```
 
-🗣 R treats `7` as seven days and returns the date one week after `today`.
+🗣 **Modeled Comment:** R treats `7` as seven days and returns the date one week after `start_date`.
 
-### Types vs Classes {#types-vs-classes}
+### Types, Modes, and Classes {#types-vs-classes}
 
-Every object has an underlying type; some objects also have a class attribute that changes behavior. So far, you've seen numeric, integer, and character underlying types. `class()` often matches the underlying type label. 
+Every object has an underlying type. `typeof()` reports the specific internal storage type. `mode()` reports a broader storage category. For example, integer and double vectors both have mode `"numeric"`.
+
+`class()` reports how R should interpret an object. For an ordinary double vector, `typeof()` returns `"double"` while `class()` returns `"numeric"`. For an object with a special class, such as a date or factor, the class adds meaning and affects how functions print and work with it.
 
 **Common Atomic Vector Types:**
 
-- **double**: numeric numbers (e.g., `1`, `3.14`)
+- **double**: numbers such as `1` and `3.14`
 
-- **integer**: whole numbers (e.g., `1L`, `2L`)
+- **integer**: whole numbers explicitly marked with `L`, such as `1L` and `2L`
 
-- **character**: text strings (e.g., `"Hello World", "R is fun"`)
+- **character**: text strings such as `"Hello World"` and `"R is fun"`
 
-- **logical**: `TRUE` or `FALSE` values
+- **logical**: `TRUE`, `FALSE`, or `NA`
 
-- **complex**: complex numbers (e.g., `1 + 2i`)
+- **complex**: complex numbers such as `1 + 2i`
 
+**Classes Used in This Chapter:**
 
-**Other object structures you will see later:**
+- **Date**: a class for dates, usually built on double storage, such as `as.Date("2026-01-01")`
 
-- **numeric**: includes both double and integer types (e.g., `42`, `3.14`)
+- **[factor]{.glossary-term data-term="Factor Class"}**: a class for categorical data, built on integer codes and a set of category labels called levels
 
-- **Date**: dates (e.g., `as.Date("2026-01-01")`)
+### Character Strings {#character-strings}
 
-- **[factor]{.glossary-term data-term="Factor Class"}**: categorical data (e.g., `"red"`, `"blue"`) is
-  a special type of character vector used for categorical data.
-  
-- **list**: a collection of objects (e.g., `list(a = 1, b = "text")`)
-  
-- **matrix**: a two-dimensional array (e.g., `matrix(1:6, nrow = 2)`)
-
-- **array**: a multi-dimensional array (e.g., `array(1:12, dim = c(2, 3, 2))`)
-
-- **data.frame**: a table-like structure (e.g., `data.frame(name = c("Alice", "Bob"), age = c(25, 30))`)
-
-### Character strings {#character-strings}
-
-A character string{.glossary-term data-term="Character String"} is a sequence of characters (text) enclosed in quotes. They are used to represent text data in R.
+A [character string]{.glossary-term data-term="Character String"} is a sequence of characters enclosed in quotes. Character strings are used to represent text data in R.
 
 The `paste()` function in R is used to concatenate (combine) strings together. It takes multiple string arguments and combines them into a single string, with an optional separator between them.
 
 ___
 
-🧩 **Memo Example**
+✍️ **Transparency Memo Example**
 
 ![R Notebook using paste() to combine “yellow” and “banana” into “yellow banana,” then class(sentence) returning “character,” followed by a memo noting confusion about what “character” means.](images/ch03-vector/Memo_Example3.png)
 
-> 🧐 **Notice:** The student (1) 🗣 composed a memo expressing confusion about the term "character." This is a useful memo because the student identified a specific point of confusion instead of skipping over it. A strong next step would be to review the course materials, ask a peer or instructor, or use an approved AI tool and document what helped. Then return to the practice space and document what was discovered.
+> 🧐 **Notice:** The student used 🪞 **Reflect** to record an unexpected result and a specific question about the word `"character"`. A useful next step would be to review the chapter, ask a peer or instructor, or consult another resource allowed for the work. If a resource helps, use 👀 **Cite** to identify it and explain what it contributed.
 
 ___
-
 
 `paste()` works across vectors too, combining elements element-wise.
 
@@ -448,7 +435,7 @@ full_names <- paste(first_names, last_names)
 print(full_names)
 ```
 
-🗣 The output shows the full names created by combining the first and last names element-wise.
+🗣 **Modeled Comment:** The output shows the full names created by combining the first and last names element-wise.
 
 🌳 If you don't want spaces, try `paste0(first_names, last_names)`.
 
@@ -456,11 +443,11 @@ print(full_names)
 
 A [factor]{.glossary-term data-term="Factor Class"} is R’s way of storing categorical data. Factors store values that come from a fixed set of categories, such as “freshman,” “sophomore,” “junior,” and “senior.” Factors are common in data analysis because they help R treat categories correctly in tables, summaries, and models.
 
-A factor often looks like a character vector, but it is not the same thing. In fact, object *type* will sometimes surprise you!
+A factor often prints labels that look like character values, but its internal storage and class are different. R stores a standard factor using integer codes and uses its levels to connect those codes with category labels.
 
 #### Creating Factors {#creating-factors}
 
-The function `factor()` is used to create factor vectors from character vectors.
+The function `factor()` creates a factor from a vector. Character input is common because the vector values become category labels.
 
 📜 The SYNTAX (basic): 
 
@@ -476,7 +463,7 @@ grades <- c("A", "B", "C", "A", "B", "A")
 grades <- factor(grades)
 ```
 
-🗣 The object `grades` is overwritten as a factor using the `factor()` function because the same name is used in the assignment process `grades <-`.
+🗣 **Modeled Comment:** The object `grades` is overwritten as a factor using the `factor()` function because the same name is used in the assignment process `grades <-`.
 
 ```{r , eval=FALSE}
 # ✅ Check the grades factor
@@ -493,15 +480,15 @@ print(grades)
 Levels: A B C
 ```
 
-🗣 The output shows that the `grades` object has class `"factor"`. Underneath, R stores the factor using integer codes, even though it prints the category labels. 
+🗣 **Modeled Comment:** The output shows that the `grades` object has class `"factor"`. Underneath, R stores the factor using integer codes, even though it prints the category labels. 
 
 #### Levels and Ordering {#levels-and-ordering}
 
-The printed output above displays the [levels]{.glossary-term data-term="Factor Levels"} of the factor, which are the unique categories present in the vector. R may automatically assign levels in alphabetical order unless you specify a different order when creating the factor.
+The printed output above displays the [levels]{.glossary-term data-term="Factor Levels"} of the factor. Levels are the possible category labels a factor can contain. A factor can retain a level even when no current element uses it. Unless you specify `levels`, R generally creates levels from the observed values and orders character labels alphabetically.
 
-Even though factors print labels that look like text, R stores them underneath as integer codes. `typeof()` shows this precise storage type as `"integer"`. `mode()` may report `"numeric"` because integers are part of R’s broader numeric mode. **Levels** are the distinct categories a factor can take, ordered in a specific way. By default, R usually orders factor levels alphabetically. You can override this default ordering by specifying the levels when creating the factor.
+Even though factors print category labels, R stores a standard factor underneath as integer codes. `typeof()` reports the internal type as `"integer"`, `mode()` reports the broader mode as `"numeric"`, and `class()` reports `"factor"`. You can control the possible categories and their order by supplying the `levels` argument when creating the factor.
 
-🎯 Create a factor vector named `sizes` with levels ordered as "Small," "Medium," and "Large" using the `factor()` function.
+🎯 Create a factor vector named `sizes` with levels ordered as `"Small"`, `"Medium"`, and `"Large"` using the `factor()` function.
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
@@ -514,24 +501,23 @@ sizes <- factor(sizes, levels = c("Small", "Medium", "Large"))
 print(sizes)
 ```
 
-🗣 The output shows the `sizes` factor with levels ordered as "Small," "Medium," and "Large," as specified in the `factor()` function.
+🗣 **Modeled Comment:** The output shows the `sizes` factor with levels ordered as `"Small"`, `"Medium"`, and `"Large"`, as specified in the `factor()` function.
 
 ___
 
-**🧩 Memo Example**
+✍️ **Transparency Memo Example**
 
 ![R Notebook creating a character vector of class standings, converting it to a factor, and showing levels() plus mode()/typeof() outputs; memo questions why the factor prints words but stores integer codes, with a follow-up memo summarizing the explanation (integer codes + levels labels).](images/ch03-vector/Memo_Example4.png)
 
-> 🧐 **Notice:** The student (1) ✅ confirmed the original object’s class (character) and then created a factor version, (2) 🔎 checked multiple diagnostics (mode(), typeof(), and levels()) to investigate what changed, (3) ✍️ wrote a memo that pinpointed the exact contradiction (“stored as numbers but prints words”) instead of hand-waving, and (4) 🤖 used an AI tool to research the mechanism and then summarized the explanation accurately in their own words (integer codes + levels labels).
+> 🧐 **Notice:** This is a ✍️ transparent record because the student used ✅ **Check** to compare class, mode, type, and levels; used 🪞 **Reflect** to record the contradiction between integer storage and printed words; and used 👀 **Cite** to identify ChatGPT and summarize what it contributed to the final understanding.
 
 This is a high-quality memo because it captures confusion, gathers diagnostic evidence, and then resolves the confusion with a correct explanation. 
 
 ___
 
+Next, examine what happens when values of different types are combined in one atomic vector.
 
-Another type of attribute that vectors can have is names. Let's look at named vectors more closely.
-
-#### Data Coercion {#data-coercion}
+### Data Coercion {#data-coercion}
 
 An atomic vector stores elements of one type. If you try to mix types, R will coerce (convert) them to a common type based on a hierarchy of flexibility.
 
@@ -545,12 +531,11 @@ print(mixed)
 class(mixed)
 ```
 
-🗣  4 and 92 print as character values (in quotes) because the whole vector was coerced to character.
+🗣 **Modeled Comment:** The values 4 and 92 print as character values because the entire vector was coerced to character.
 
-A vector can only hold *one* type. Mixing types triggers [coercion]{.glossary-term data-term="Coercion"} to a common type. For the types used here, R generally moves from logical to numeric to character.
+An atomic vector stores elements of one underlying type. Mixing types triggers [coercion]{.glossary-term data-term="Coercion"} to a common type. A common coercion order is `logical` → `integer` → `double` → `complex` → `character`. R moves toward a type that can represent all the elements.
 
-
-##### Converting Between Types {#converting-between-types}
+#### Converting Between Types {#converting-between-types}
 
 You can explicitly convert between types using functions like `as.numeric()`, `as.character()`, and `as.logical()`. 
 
@@ -560,15 +545,13 @@ The `as.numeric()` function tries to convert characters to numbers. If it can't,
 
 `as.numeric(x)`
 
-
 🎯 Try converting a character vector of numbers to numeric using the `as.numeric()` function.
 
 ```{r , eval=FALSE}
 as.numeric(c("1", "2", "3")) # character → numeric: text converts to numbers
 ```
 
-🗣 The output shows the numeric values 1, 2, and 3 successfully converted from character strings.
-
+🗣 **Modeled Comment:** The output shows the numeric values 1, 2, and 3 successfully converted from character strings.
 
 🎯 Try converting the `mixed` vector to numeric using the `as.numeric()` function.
 
@@ -577,22 +560,19 @@ as.numeric(c("1", "2", "3")) # character → numeric: text converts to numbers
 as.numeric(mixed)            # character → numeric: text converts to NA
 ```
 
-🗣 The output shows `NA` for `"candy"` and `"book"` because those text values cannot be converted to numbers. The character values `"4"` and `"92"` can be converted to numeric values, so they become `4` and `92`.
+🗣 **Modeled Comment:** The output shows `NA` for `"candy"` and `"book"` because those text values cannot be converted to numbers. The character values `"4"` and `"92"` can be converted to numeric values, so they become `4` and `92`.
 
-R will also give a warning because some values could not be converted. A [warning]{.glossary-term data-term="Warning"} message may appear indicating that the longer vector length is not a multiple of the shorter vector length.
-
+R also gives the [warning]{.glossary-term data-term="Warning"} `NAs introduced by coercion` because some character values could not be converted to numbers. The warning tells you to inspect the new `NA` values and determine which conversions failed.
 
 ---
 
 ## Summary {#summary}
 
-In this chapter, you learned to create an R Notebook (`.Rmd`), rename and save it correctly, and use code chunks to run R code with output shown directly beneath your work. You practiced memoing in a notebook by writing short, clear notes about what your code does and what the output shows.
+In this chapter, you began using an R Notebook to keep writing, code, and output in one inspectable workflow. You practiced transparency by adding short memos that record what your code does, what the output shows, what you checked, and what you learned.
 
-You also strengthened your work with numeric vectors. You created vectors with `c()`, checked vector length with `length()`, used arithmetic operators on vectors, and created sequences with `:` and `seq()`. You practiced vectorized math by subtracting one vector from another and using exponents to generate powers of 2.
+You created numeric vectors with `c()`, checked their length, used arithmetic operators, built sequences with `:` and `seq()`, and applied exponents. You also examined vectorization and recycling, including the warning R gives when vector lengths do not align evenly.
 
-Finally, you practiced an important reproducible workflow habit: clearing your Environment, running the notebook from top to bottom, checking that your objects are created in the correct order, and saving both your `.Rmd` file and `.RData` workspace for submission.
-
-You should be able to create a basic R Notebook, write short memo notes about your work, build numeric vectors, perform vector arithmetic, and prepare your notebook files for submission. You are ready to test your understanding with the practice exercises.
+You then used `mode()`, `typeof()`, and `class()` to investigate how R stores and interprets objects. Dates, character vectors, factors, levels, and coercion demonstrated how underlying type and class affect behavior. You finished by clearing the Environment, running the notebook from top to bottom, and knitting it to HTML to verify that the record works in order.
 
 ## Chapter Terms {#chapter-terms}
 
@@ -600,55 +580,39 @@ You should be able to create a basic R Notebook, write short memo notes about yo
 
 **Coercion**: The process by which R converts values of different types to a common type when they are combined in a vector. For example, if you combine numbers and characters, R will coerce the numbers to characters.
 
-**Comparison Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`/`FALSE`
-
-**Character Indexing**: Indexing a named vector using element names (character strings) instead of numbers. Names must match exactly; a missing name returns `NA`.
-
 **Character String**: A single piece of text in R, stored as a character value and written in quotes (for example, "My favorite color is yellow!" or "Who stole the cookie from the cookie jar?"). 
 
 **Class** `class()`: A function that reports the object’s class, which tells R how to interpret the object and which methods to use when functions are applied to it. For example, `class(3.14)` returns `"numeric"`, and `class(mtcars)` returns `"data.frame"`.
 
-**Code Chunks**: Fenced blocks in an R Markdown/Quarto document where R code is written and executed, usually starting with ```{r}. Only code inside a chunk runs, and its output (including plots and tables) appears directly below the chunk when executed.
-
-**Element Names**: The individual labels assigned to elements inside a named vector (for example, `"Octarine"` or `"TARDIS Blue"`). Element names let you index by label (e.g., `nerdy_palette["Octarine"]`) to retrieve specific values.
+**Code Chunks**: Fenced blocks in an R Markdown or Quarto document that contain executable code, usually beginning with <code>&#96;&#96;&#96;{r}</code> and ending with three backticks. Code can be run interactively or during rendering. Depending on RStudio settings, output may appear below the chunk or in another relevant pane.
 
 **Factor Class**: An R object class for categorical data, where each value is stored as an integer code that points to a category label. Factors help R handle categories correctly in tables, plots, and statistical models, even though they may print like text.
 
 **Factor Levels**: The distinct category labels a factor can take (for example, `"freshman"`, `"sophomore"`, `"junior"`, `"senior"`). Levels define the set and order of categories, and each factor value is internally stored as the index of its level.
 
-**Indexing Operator**: The square-bracket indexing operator `[` or `[[` are used to extract or replace parts of an object in R (for example, `x[i]`). For vectors, it selects one or more elements and returns the same kind of object as `x` (a vector).
-
-**Logical Vector**: A vector that stores Boolean elements: `TRUE` or `FALSE` (and sometimes `NA` for missing). Logical vectors are commonly produced by comparisons (for example, `x > 0`) and are heavily used for filtering and conditional code.
-
 **Markdown**: A lightweight plain-text formatting syntax used to write structured documents (headings, lists, links, emphasis, code) in a way that stays readable as plain text and can be rendered into formats like HTML on many platforms and tools.
 
 **NA**: A special constant that marks a missing value (“Not Available”)—meaning the data point is unknown or not recorded. R also provides typed missing values like `NA_integer_`, `NA_real_`, `NA_character_`, and `NA_complex_` to match the underlying data type.
 
-**Named Vectors**: Vectors that have labels attached to their elements via the `names()` attribute, so you can refer to values by name instead of only by position. Named vectors are useful as simple lookup tables (for example, retrieving a hex code by a color name).
-
 **Object Name**: The variable name you assign with `<-` that refers to the entire object in your environment. You use the object name to print, modify, or pass the whole object to functions.
-
-**Openness**: Making your analysis inspectable and reproducible by sharing the inputs and decisions that produced your results (data source, packages, code, and key assumptions). In this course, openness means you provide others with enough details so thay are able to rerun your work and get the same outputs.
 
 **Package**: An installable collection of R code—functions, documentation, and sometimes datasets—that adds new features beyond base R. Packages are commonly installed from CRAN and then loaded with `library()` so you can use their tools in your session.
 
-**Positional Indexing**: Indexing a vector using numeric positions (for example, `x[1]` for the first element or `x[c(1, 3)]` for the first and third). Positions are based on the current order of the vector.
-
 **R Markdown**: A document format (`.Rmd`) that mixes plain-text writing (Markdown) with embedded R code chunks, so you can generate reports that combine narrative, code, and computed output. You can render an R Markdown file into finished formats like HTML, PDF, or Word.
 
-**R Notebook**: An `.Rmd` (R Markdown) document that lets you run code in chunks and see the results (output, tables, plots) immediately below each chunk. It’s designed for reproducible work because it keeps your code, results, and explanatory notes together in the same file.
+**R Notebook**: An `.Rmd` document that combines Markdown writing with R code chunks. You can run code interactively and view results below chunks or in another relevant pane, depending on your RStudio settings. Rendering creates a finished document that combines narrative, code, and computed output.
 
-**Recycling**: R’s rule for handling vector operations when the vectors have different lengths. The shorter vector is repeated (recycled) to match the length of the longer vector, then the operation is performed element-by-element. Recycling is safe only when the longer length is an exact multiple of the shorter; otherwise R issues a warning and the result may be unreliable.
+**Recycling**: R’s rule for handling vector operations when vectors have different lengths. R repeats the shorter vector as needed and then performs the operation element by element. If the longer length is not an exact multiple of the shorter length, R issues a warning. If it is an exact multiple, recycling occurs silently, so you should still verify that recycling was intentional.
 
-**Research Journal**: A running record of your R analysis process. This inlcudes what question you asked, what code you tried (including failed attempts), what outputs you got, and what decisions you made along the way. In practice, it’s maintained in an R script or R Markdown/Notebook with dated notes, comments, and citations so you (or someone else) can retrace, verify, and reproduce the work.
+**Research Journal**: A running record of your analysis and learning process. This includes the questions you asked, code you tried, outputs you received, resources you consulted, and decisions you made. In practice, you can maintain this record in an R Script or R Notebook using notes, comments, checks, and citations.
 
-**Transparency**: The practice of clearly disclosing your methods, materials, assumptions, tools, values, and sources so another person can follow your workflow, reproduce your results, and evaluate your claims. In this course, transparency supports explanatory power (you can explain what your code does and why) and originality/accountability (you produce and attribute work honestly, including documenting if and how you used AI).
+**Transparency**: The practice of disclosing the methods, materials, assumptions, values, and interests that shaped the work. In an R Notebook, transparency means keeping relevant code, output, decisions, checks, and resource use visible so the process can be examined.
 
-**Vector**: A one-dimensional object that stores an ordered sequence of elements of the same basic type (for example, all numeric, all character, or all logical). Vectors are the core building block of many R objects, and you create them with functions like `c()`; you can subset them by position or by logical conditions.
+**Vector**: A fundamental R data structure. Atomic vectors store elements of one underlying type, while lists can contain elements of different types and lengths. In this chapter, vector refers primarily to atomic vectors created with functions such as `c()`.
 
-**Vector Arithmetic**: Performing mathematical operations directly on vectors. In R, operations like` +`, `-`, `*`, `/`, and `^` are applied element-by-element, so `c(1, 2, 3) + c(10, 20, 30)` returns `c(11, 22, 33)`.
+**Vector Arithmetic**: Performing mathematical operations directly on vectors. In R, operations such as `+`, `-`, `*`, `/`, and `^` are applied element by element, so `c(1, 2, 3) + c(10, 20, 30)` returns `c(11, 22, 33)`.
 
-**Vectorization**: R’s behavior of applying a function to an entire vector at once, producing results element-by-element without writing an explicit loop. For example, `paste(first, last)` combines the first elements together, then the second, then the third, returning a vector of full names.
+**Vectorization**: Writing an operation so it works directly with a vector instead of processing one element at a time in an explicit loop. In element-wise operations, R pairs corresponding elements and returns a vector of results. Other vectorized functions may summarize or otherwise transform the complete vector.
 
 **Warning**: A console message indicating that R did run the command but detected a potential problem. Execution continues and a result is produced, but the output may be incomplete, unexpected, or based on an assumption (for example, coercing types, removing missing elements, or using a function in a way that may not behave as intended).
 
@@ -661,25 +625,19 @@ Fill in the blanks to complete the code in your R Notebook.
 Before you begin:
 
 1. Create a new R Notebook in RStudio.
-2. Save it in your course folder as `chapter3_practice.Rmd`.
+2. Save it in the folder where you keep your Intro to R work as `chapter3_practice.Rmd`.
 3. Complete all Practice Space tasks in that notebook.
-4. Save your workspace as `chapter3_practice.RData`.
+4. Save your workspace as `chapter3_practice.RData` where you keep your Intro to R work.
 
-Required files to submit:
+✍️ **Transparency:** Write your memo responses as Markdown text outside the code chunks. Keep them near the code and output they explain.
 
-- `chapter3_practice.Rmd`
-- `chapter3_practice.RData`
+- 🗣 **Comment:** Explain what the code, output, evidence, or decision means.
+- 🪞 **Reflect:** Record what you learned, what confused you, what changed in your understanding, or what you would do next.
+- 👀 **Cite:** If you use help from a peer, instructor, documentation, website, or AI tool, identify the resource and explain what it contributed. Follow the policies that apply to your work.
 
-As you work, add short comments or memo notes explaining what your code is doing and what the output shows.
+Keep each memo focused. One to three thoughtful sentences is enough. Complete each 🗣 **Comment** prompt and the 🪞 **Reflect** prompts included with selected tasks.
 
-- 🗣 **Add Comments** asks you to explain what the code or output shows.
-- 🪞 **Reflect** asks you to explain your thinking process, what confused you, what changed in your understanding, or what strategy you would use next.
-
-These are there to help you practice the habit of writing memos as you work. Keep responses short: 1–3 thoughtful sentences is enough. For this Practice Space, answer the 🗣 **Add Comments** prompt for each coding task. Then answer 🪞 **Reflect** prompts where your thinking, prediction, confusion, or troubleshooting changed.
-
-If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (**transparency**).
-
-You may ask an AI to explain an error or provide you with more details to a curiosity. Do not ask AI to rewrite or complete any part of the report for you. You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using `>`. Then hand-type your own explanation of why you are including that quote.
+If you encounter an error, practice tenacity by choosing an informed next step and transparency by recording what happened, what you tried, what you checked, and what remains unclear. If a resource helped you troubleshoot, include a 👀 **Cite** memo near that work.
 
 Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.
 
@@ -712,13 +670,15 @@ length(___)
 ___(sales_q2)
 ```
 
-🗣 Add Comment:  # The output shows __________
+🗣 **Comment:** In 1–3 sentences, explain what `print()` and `length()` show for `sales_q1` and `sales_q2`. State how you verified that the vectors have the same length.
 
 ### Task 2 {#task-2}
 
 📈 **Vector arithmetic**
 
-Using [vector arithmetic]{.glossary-term data-term="Vector Arithmetic"}, create an object named `growth` that stores the difference between `sales_q2` and `sales_q1`. _💡 **Tip:** An operator is be one of the missing characters._
+Using [vector arithmetic]{.glossary-term data-term="Vector Arithmetic"}, create an object named `growth` that stores the difference between `sales_q2` and `sales_q1`. 
+
+_💡 **Tip:** One of the missing characters is an operator._
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook, Fill in the blanks
@@ -730,8 +690,7 @@ growth <- ______ _ ______
 print(growth)
 ```
 
-🗣 Add Comment:  # The output shows __________
-
+🗣 **Comment:** In 1–3 sentences, explain what each value in `growth` represents and how it was calculated from `sales_q1` and `sales_q2`.
 
 ### Task 3 {#task-3}
 
@@ -757,11 +716,9 @@ _____(binary_powers)
 print(binary_powers)
 ```
 
-🗣 Add Comment:  "# The output shows ___ elements (values) in the `binary_powers` vector."
+🗣 **Comment:** In 1–3 sentences, explain what `length(binary_powers)` and `print(binary_powers)` show. Include how many values are in the vector and why the first value is 1.
 
-🗣 Add Comments: In 1–3 sentences, explain what `length(binary_powers)` and `print(binary_powers)` show. Include how many values are in the vector and why the first value is 1.
-
-🪞 Reflect: Before running the code, did you expect `2 ^ exponents` to create one answer or many answers? In 1–3 sentences, explain how this task changed or confirmed your understanding of vectorized math in R.
+🪞 **Reflect:** Before running the code, did you expect `2 ^ exponents` to create one answer or many answers? In 1–3 sentences, explain how this task changed or confirmed your understanding of vectorized math in R.
 
 ### Task 4 {#task-4}
 
@@ -790,7 +747,7 @@ anomaly <- __________ - __________
 print(anomaly)
 ```
 
-🗣 Add Comment:  # The output shows __________
+🗣 **Comment:** In 1–3 sentences, explain how R produced the values in `anomaly` by pairing `travel_jumps` with `cursed_seq`.
 
 _These are just playful example vectors. The important skill is subtracting one vector from another._
 
@@ -823,9 +780,9 @@ typeof(__________)
 class(__________)
 ```
 
-🗣 Add Comments: In 1–3 sentences, explain what `mode()`, `typeof()`, and `class()` showed for `lucky_numbers` and `values`.
+🗣 **Comment:** In 1–3 sentences, explain what `mode()`, `typeof()`, and `class()` showed for `lucky_numbers` and `values`.
 
-🪞 Reflect: Did R treat the number vector and the word vector the same way or differently? In 1–3 sentences, explain what this helped you notice about how R stores objects.
+🪞 **Reflect:** Did R treat the number vector and the word vector the same way or differently? In 1–3 sentences, explain what this helped you notice about how R stores objects.
 
 ### Task 6 {#task-6}
 
@@ -849,13 +806,13 @@ levels(__________________)
 print(__________________)
 ```
 
-🗣 Add Comments: In 1–3 sentences, explain what `class(course_path_factor)` and `levels(course_path_factor)` show.
+🗣 **Comment:** In 1–3 sentences, explain what `class(course_path_factor)` and `levels(course_path_factor)` show.
 
-🪞 Reflect: Why might R need a special class for categorical values instead of treating everything as ordinary character text? Keep your answer to 1–3 sentences.
+🪞 **Reflect:** Why might R need a special class for categorical values instead of treating everything as ordinary character text? Keep your answer to 1–3 sentences.
 
 ### Task 7 {#task-7}
 
-🧠 **Reflect on coercion**
+🪞 **Reflect on coercion**
 
 A single atomic vector can only store one basic data type at a time. When numbers and text are mixed in the same vector, R has to choose one type that can hold all the values. This process is called [coercion]{.glossary-term data-term="Coercion"}.
 
@@ -874,13 +831,15 @@ typeof(mixed_vector)
 class(mixed_vector)
 ```
 
-🗣 Add Comments: Why does R turn numeric values into character values when numbers and text are mixed inside one vector?
+🗣 **Comment:** In 1–3 sentences, explain why R turns the numeric values into character values when numbers and text are combined in one atomic vector.
 
-🪞 Reflect: What would you check in R to confirm that coercion happened? Name one function or output you would use.
+✅ **Check:** Name one function or output you would use to confirm that coercion happened.
+
+🪞 **Reflect:** In 1–3 sentences, explain what this task clarified or changed in your understanding of how an atomic vector stores mixed values.
 
 ### Task 8 {#task-8}
 
-✅ **Final checks before submitting**
+✅ **Final checks**
 
 🎯 **Step 1: Sweep your Environment. Start clean.**  
 Click the 🧹 **broom icon** in the Environment pane to clear objects.
@@ -891,8 +850,8 @@ Use **Run → Run All** to execute every chunk in order. If an error appears, do
 🎯 **Step 3: Knit to HTML.**  
 Knit your notebook to HTML to check that the report works from beginning to end.
 
-🎯 **Step 4: Save and submit.**  
-After your notebook runs without errors, save your notebook (`.Rmd`) and save your workspace (`.RData`) for submission, as directed.
+🎯 **Step 4: Save your work.**  
+After your notebook runs without errors, save the `.Rmd` file and review the rendered HTML.
 
 ## References {#references}
 

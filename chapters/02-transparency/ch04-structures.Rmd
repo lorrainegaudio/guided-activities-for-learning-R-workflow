@@ -1,5 +1,5 @@
 ---
-title: "Chapter 4:️ Structuers"
+title: "Chapter 4: Structures"
 subtitle: "Transparency, Indexing, and Logical Vectors"
 toc: true
 ---
@@ -49,7 +49,7 @@ Here’s what you can do now:
 
 2. **Recognize the YAML header** at the top of the file and edit the title.
 
-3. **Insert code chunks** (Insert button, shortcut, or typing the fences) and understand that R code only runs inside chunks.
+3. **Insert code chunks** using the Insert button, a shortcut, or typed fences, and use chunks to organize the R code in your notebook.
 
 4. **Run chunks** using the play button, Run menu, or keyboard shortcuts and see output directly below.
 
@@ -204,9 +204,9 @@ z[2:4]
 z[-c(1, 5)] 
 ```
 
-🗣 [Negative indexing]{.glossary-term data-term="Negative Indexing"} removes elements from a vector. This returns all elements except the first and last.
+🗣 [Negative indexing]{.glossary-term data-term="Negative Indexing"} excludes specified positions from the returned result. `z[-c(1, 5)]` returns all elements except the first and last. The stored `z` object remains unchanged because the result was not assigned to an object.
 
-> 🧐 **Notice:** R counts positions starting at 1, not 0. Also notice that negative positions remove values instead of selecting them.
+> 🧐 **Notice:** R counts positions starting at 1, not 0. Negative positions exclude those positions from the returned result. They do not delete values from the original vector.
 
 
 #### Character Indexing {#character-indexing}
@@ -291,7 +291,7 @@ print(real)
 
 ### Comparison Operators {#comparison-operators}
 
-Logical vectors can also be created using [comparison operators]{.glossary-term data-term="Comparison Operators"}. These operators compare values and return TRUE or FALSE based on the comparison.
+Logical vectors can also be created using [comparison operators]{.glossary-term data-term="Comparison Operators"}. These operators compare values and usually return `TRUE` or `FALSE`. A comparison involving a missing value will usually return `NA` because R cannot determine whether the comparison is true or false.
 
 **Comparison  operators** include:
 
@@ -324,7 +324,7 @@ print(logicals)
 
 ### Logical Indexing {#logical-indexing}
 
-[Logical indexing]{.glossary-term data-term="Logical Indexing"} uses a logical vector inside `[ ]`. Values paired with `TRUE` are kept. Values paired with `FALSE` are left out.
+[Logical indexing]{.glossary-term data-term="Logical Indexing"} uses a logical vector inside `[ ]`. Values paired with `TRUE` are kept, and values paired with `FALSE` are left out. An `NA` in the logical vector produces an `NA` in the result because R cannot determine whether the matching value should be kept.
 
 🎯 Create a new vector called `smaller` that contains only the values in `number_list` that are less than or equal to 20.
 
@@ -345,7 +345,7 @@ print(mask)
 
 🗣 This prints a logical vector (`TRUE`/`FALSE`) the same length as `number_list`. Each `TRUE` marks a value that is less than or equal to 20.
 
-⚠️ For logical indexing to behave as expected, the logical vector should line up with the vector you are filtering. Here, `mask` has one `TRUE` or `FALSE` value for each value in `number_list`.
+⚠️ For predictable logical indexing, use a logical vector with the same length as the vector being filtered. If the logical vector is shorter, R may recycle it. If it is longer, the result can extend beyond the available values and include `NA`. A length mismatch is a reason to stop and check the mask.
 
 ```{r}
 # ⚡ Step 2: use the logical vector inside [ ]
@@ -376,9 +376,9 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Character Indexing**: Indexing a named vector using element names (character strings) instead of numbers. Names must match exactly; a missing name returns `NA`.
 
-**Code Chunks**: Fenced blocks in an R Markdown/Notebook document where R code is written and executed, usually starting with ```{r}. Only code inside a chunk runs, and its output (including plots and tables) appears directly below the chunk when executed.
+**Code Chunks**: Fenced blocks in an R Markdown or Quarto document that contain executable code, usually beginning with <code>&#96;&#96;&#96;{r}</code> and ending with three backticks. Code in a chunk can run interactively or during rendering. Depending on RStudio settings, output may appear below the chunk or in another relevant pane.
 
-**Comparison Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`/`FALSE`
+**Comparison Operators**: Operators that compare values. Common comparison operators are `==`, `!=`, `<`, `>`, `<=`, and `>=`. They usually return `TRUE` or `FALSE`; a comparison involving a missing value will usually return `NA`.
 
 **Element Names**: The individual labels assigned to elements inside a named vector (for example, `"Octarine"` or `"TARDIS Blue"`). Element names let you index by label (e.g., `nerdy_palette["Octarine"]`) to retrieve specific values.
 
@@ -386,9 +386,9 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Index**: A value used inside a subsetting operator to identify which part of an object to extract or replace. In R, an index can use positions, names, or logical values; for example, `x[2]` uses a positional index to select the second element, while `df[rows, columns]` uses row and column indices to select parts of a data frame. R documentation also calls these values indices or subscripts.
 
-**Indexing Operator**: The square-bracket indexing operator `[` or `[[` are used to extract or replace parts of an object in R (for example, `x[i]`). For vectors, it selects one or more elements and returns the same kind of object as `x` (a vector).
+**Indexing Operator**: The single square-bracket operator `[` used to extract or replace selected parts of an object. For a vector, `x[i]` returns the elements identified by the positions, names, or logical values supplied in `i`.
 
-**Logical Indexing**: Indexing a vector using a logical vector of `TRUE`/`FALSE` values (for example, `x[x > 0]`) so R keeps the elements where the index is `TRUE` and drops those where it is `FALSE`. If the logical index is a different length, R may recycle it, which can lead to surprising results.
+**Logical Indexing**: Using a logical vector inside `[` to select values. `TRUE` keeps the matching value, `FALSE` excludes it, and `NA` produces an unknown element represented by `NA`. A shorter logical index may be recycled, so checking that the index and source vector have the same length helps prevent unintended results.
 
 **Logical Mask**: A logical vector used inside the single square bracket operator `[` to filter another object. Each `TRUE` marks a value or row to keep, and each `FALSE` marks a value or row to leave out; for the cleanest results, the mask should line up element-by-element with the object being filtered. For example, `number_list <= 20` creates a logical mask, and `number_list[mask]` uses that mask to keep only the matching values.
 
@@ -473,7 +473,7 @@ print(student_counts)
 
 🪞 **Reflect:** Which part of this task was easier to keep track of: the values or the names? Explain how you checked that each group name matched the correct count.
 
-```{r eval=FALSE}
+```{r eval=FALSE, include=FALSE}
 missing element names: "First Year", "Junior"
 missing values: 22, 14
 ```
@@ -482,21 +482,21 @@ missing values: 22, 14
 
 ➖ **Use negative indexing**
 
-Practice using negative positions inside `[ ]` to remove elements from a vector.
+Practice using negative positions inside `[ ]` to return all elements except selected positions.
 
-🎯 Use negative indexing (*`c()` with a negative sign before it*) to remove the 1st and 5th values from the `quiz_scores` vector.
+🎯 Use negative indexing by placing a negative sign before `c()` to return all quiz scores except the values in positions 1 and 5.
 
 ```{r eval=FALSE}
 # ⚡ Type this in your R Notebook.
 quiz_scores <- c(85, 92, 78, 88, 61, 95)
 
-# ⚡ Fill in the blank to remove positions 1 and 5.
+# ⚡ Fill in the blank to exclude positions 1 and 5 from the output.
 quiz_scores[____(1, 5)]
 ```
 
-🗣 **Add Comments:** In 1–3 sentences, explain which quiz scores were removed and which scores stayed in the output.
+🗣 **Add Comments:** In 1–3 sentences, explain which quiz scores were excluded from the output and which scores remained. The original `quiz_scores` vector still contains all six scores unless a new result is assigned to it.
 
-    Negative indexing removed __________.
+    The output excluded __________.
 
 🪞 **Reflect:** How did you know that `1` and `5` meant positions, not score values? Explain what you would check if the output removed the wrong scores.
 
@@ -606,4 +606,3 @@ After your notebook runs without errors, save your notebook (`chapter4_practice.
 Resnik, D. B., & Elliott, K. C. (2023). Science, values, and the new demarcation problem. Journal for General Philosophy of Science, 54(2), 259-286.
 
 Thomas, P. A. (2023). Wikipedia and large language models: perfect pairing or perfect storm?. Library Hi Tech News, 40(10), 6-8.
-

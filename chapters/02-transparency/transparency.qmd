@@ -4,7 +4,33 @@ toc: false
 
 # Transparency {.unnumbered}
 
-Transparency is ...
+Research decisions accumulate as you work. You choose materials and methods, write code, interpret output, correct errors, consult resources, and decide what to report. A transparent record keeps the relevant parts of that process visible so you and other readers can understand how a result was produced.
+
+Resnik and Elliott (2023) define transparency as “disclosing methods, materials, assumptions, values, and interests.” They identify transparency as one of the norms that supports reliable and trustworthy scientific work. Transparency contributes to the integrity of science by allowing researchers and readers to examine how a claim was produced.
+
+Transparency is the learning skill theme for this module. The focus of transparency is disclosure. A reader should be able to identify what you did, what informed your work, which assumptions or decisions shaped it, and how you checked the result. These records can also support research values like honesty, carefulness, openness, reproducibility, and accountability.
+
+## Transparency while learning R
+
+An R Notebook can serve as a record of your learning and analysis. Your code records the instructions you gave R. Your output records what R returned. Your memos record your goal, expectations, decisions, questions, checks, and current understanding.
+
+Keeping these parts together helps you return to your own work later. It also helps another reader follow your process, examine your reasoning, and understand why you made particular decisions.
+
+Follow the policies that apply to your work when using outside resources. When you use help from a peer, instructor, documentation, website, or AI tool, identify the resource and explain what it contributed to your understanding or work.
+
+## How transparency appears in this book
+
+The pencil ✍️ marks transparency. When it appears, you are being asked to make part of your learning or analytical process visible.
+
+The primary memo prompts in this module are:
+
+- 🗣 **Comment:** Explain what the code, output, evidence, or decision means.
+- 🪞 **Reflect:** Record what you learned, what confused you, what changed in your understanding, or what you would do next.
+- 👀 **Cite:** Identify a resource you used and explain how it helped.
+
+Other prompts can also become part of a transparent record. A 🎯 Goal shows what you intended to accomplish. A 💬 Prediction records what you expected before running the code. A ✅ Check shows how you verified the result.
+
+You do not need every prompt before or after every line of code. Write a memo when a choice, result, mistake, question, or resource would be difficult to reconstruct later.
 
 ## Chapters in this section
 
@@ -13,7 +39,7 @@ Transparency is ...
 ::: {.section-card}
 ### Chapter 3: Vectors
 
-blah blah blah
+Begin working in an R Notebook. Keep code, output, and short memos together while learning vector operations and documenting what you tried, checked, and learned.
 
 [Open Chapter 3](ch03-vectors.html){.section-button}
 :::
@@ -21,7 +47,7 @@ blah blah blah
 ::: {.section-card}
 ### Chapter 4: Structures
 
-blah blah blah
+Use names, positions, comparisons, and logical masks to select vector values. Document what you intended to select, how you checked the result, and what the evidence showed.
 
 [Open Chapter 4](ch04-structures.html){.section-button}
 :::
@@ -30,7 +56,14 @@ blah blah blah
 
 ## What to focus on
 
-As you work through transparency ...
+As you work through Transparency, practice three habits:
 
+- keep your code, output, and explanation close together,
+- record important assumptions, decisions, questions, and checks,
+- and identify outside resources and explain what they contributed.
 
+These habits create a record that can be understood, checked, revised, and responsibly shared.
 
+## Reference
+
+Resnik, D. B., & Elliott, K. C. (2023). Science, values, and the new demarcation problem. *Journal for General Philosophy of Science, 54*(2), 259-286.
