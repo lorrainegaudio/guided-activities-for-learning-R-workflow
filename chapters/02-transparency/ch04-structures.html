@@ -217,9 +217,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#default-text" id="toc-default-text" class="nav-link" data-scroll-target="#default-text">Default Text</a></li>
   </ul></li>
-  <li><a href="#transparency" id="toc-transparency" class="nav-link" data-scroll-target="#transparency">Transparency</a>
+  <li><a href="#transparency" id="toc-transparency" class="nav-link" data-scroll-target="#transparency">Applying Transparency</a></li>
+  <li><a href="#indexing-vectors" id="toc-indexing-vectors" class="nav-link" data-scroll-target="#indexing-vectors">Indexing Vectors</a>
   <ul class="collapse">
-  <li><a href="#indexing-vectors" id="toc-indexing-vectors" class="nav-link" data-scroll-target="#indexing-vectors">Indexing Vectors</a></li>
+  <li><a href="#positional-indexing" id="toc-positional-indexing" class="nav-link" data-scroll-target="#positional-indexing">Positional Indexing</a></li>
+  <li><a href="#character-indexing" id="toc-character-indexing" class="nav-link" data-scroll-target="#character-indexing">Character Indexing</a></li>
+  <li><a href="#more-indexing-by-position" id="toc-more-indexing-by-position" class="nav-link" data-scroll-target="#more-indexing-by-position">More Indexing by Position</a></li>
   </ul></li>
   <li><a href="#logical-vectors" id="toc-logical-vectors" class="nav-link" data-scroll-target="#logical-vectors">Logical Vectors</a>
   <ul class="collapse">
@@ -238,7 +241,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
   <li><a href="#task-7" id="toc-task-7" class="nav-link" data-scroll-target="#task-7">Task 7</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -267,14 +269,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Now that you can work in an R Notebook and write usable memos, Chapter 4 raises the standard for documentation: transparency.</p>
-<p>In research, correct code is not enough. You also need to document where help came from, what you learned from it, and how you checked your result. This helps you show your learning honestly, return to your work later, and make your analysis understandable to someone else.</p>
+<p>Chapter 3 introduced R Notebook memos as a way to keep your code, output, checks, and learning visible. In this chapter, you will apply transparency while deciding which vector values to select and filter.</p>
+<p>Your memos will record what you intended to select, which indexing method you used, how you checked the result, and what the output showed. This creates a record that you and another reader can follow later.</p>
 <p>This chapter also finishes the vector-selection skills you need before working with larger datasets. You will learn how vector elements can be labeled with names, how indexing lets you select specific values, and how logical values can be used to filter a vector.</p>
 <p>The point of this chapter is control: selecting the values you mean to select, checking whether your selection worked, and documenting your process clearly enough that someone else could follow it.</p>
 <p>By the end of Chapter 4, you should be able to practice transparency in your notebook memos, select vector elements by position and name, build logical vectors using comparison operators, and use logical indexing to filter values from a vector.</p>
 <p>In Chapter Four, you will practice how to:</p>
 <ul>
-<li><p>✍️ Practice transparency in code memos by documenting goals, checks, explanations, and outside resources.</p></li>
+<li><p>✍️ Apply transparency by documenting what you intended to select, how you checked the result, and what the output showed.</p></li>
 <li><p>🧾 Create named vectors using element names.</p></li>
 <li><p>📍 Use indexing to select vector elements by position.</p></li>
 <li><p>🏷️ Use indexing to select vector elements by name.</p></li>
@@ -294,10 +296,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Create and save an R Notebook</strong> (File &gt; New File &gt; R Notebook) and store it in your course folder.</p></li>
 <li><p><strong>Recognize the YAML header</strong> at the top of the file and edit the title.</p></li>
 <li><p><strong>Insert code chunks</strong> using the Insert button, a shortcut, or typed fences, and use chunks to organize the R code in your notebook.</p></li>
-<li><p><strong>Run chunks</strong> using the play button, Run menu, or keyboard shortcuts and see output directly below.</p></li>
+<li><p><strong>Run chunks</strong> using the play button, Run menu, or keyboard shortcuts and view output below the chunk or in another relevant pane, depending on your RStudio settings.</p></li>
 <li><p><strong>Memo correctly</strong>:</p>
 <ul>
-<li><p>Inside a code chunk: text must start with <code>#</code> otherwise R tries to run it.</p></li>
+<li><p>Inside a code chunk: explanatory text must start with <code>#</code>; otherwise, R tries to run it as code.</p></li>
 <li><p>Outside a code chunk: write normal paragraphs with no <code>#</code> needed.</p></li>
 <li><p>Use the notebook to document your learning process, including your goal, checks, explanations, and resources used.</p></li>
 </ul></li>
@@ -309,15 +311,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When you create a new R Notebook or R Markdown file, RStudio provides a template. It is designed to demonstrate the three core components of a notebook:</p>
 <ul>
 <li><p>The <span class="glossary-term" data-term="YAML Header">YAML header</span>: The block of text at the very top, enclosed between two lines of three dashes (<code>---</code>). This tells RStudio how to knit, or render, your document.</p></li>
-<li><p><span class="glossary-term">Markdown</span> Text: The white background text (like “This is an R Markdown Notebook”). This shows you how to write regular prose.</p></li>
-<li><p><span class="glossary-term" data-term="Code Chunks">Code Chunks</span>: The gray boxes containing code (like plot(cars)). This shows you how to embed executable R code.</p></li>
+<li><p><span class="glossary-term" data-term="Markdown">Markdown</span> text: Text outside code chunks, such as “This is an R Markdown Notebook.” This shows you how to write regular prose.</p></li>
+<li><p><span class="glossary-term" data-term="Code Chunks">Code Chunks</span>: Fenced blocks containing code, such as <code>plot(cars)</code>. This shows you how to embed executable R code.</p></li>
 </ul>
 <section id="clear-the-default-notebook-body" class="level4">
 <h4 class="anchored" data-anchor-id="clear-the-default-notebook-body">Clear the Default Notebook Body</h4>
 <p>To start fresh, delete all the default text in the R Notebook so you have a blank canvas to work with.</p>
 <section id="keep-the-header" class="level5">
 <h5 class="anchored" data-anchor-id="keep-the-header"><strong>Keep the Header</strong></h5>
-<p>Do not delete the text at the very top between the — lines. This is your metadata (Title, Author, Output format). If you delete this, your file might not run correctly.</p>
+<p>Do not delete the text at the very top between the <code>---</code> lines. This is the notebook’s metadata, including its title and output format. If this header is deleted or malformed, the notebook may not render as intended.</p>
 <p>Your header should look something like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 4"</span></span>
@@ -341,9 +343,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="type-a-memo" class="level5">
 <h5 class="anchored" data-anchor-id="type-a-memo"><strong>Type a memo</strong></h5>
 <p>🗣 <strong>Add Comments:</strong> In 1–3 sentences, explain what you did to clear the default text and why you kept the YAML header.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>I cleared the default text because the default text is just an example and I want to start with a blank notebook to practice writing my own memos and code. I kept the YAML header because it contains important information about the document, such as the title and output format, which is necessary for the notebook to knit correctly.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>I cleared the default text because the default text is just an example and I want to start with a blank notebook to practice writing my own memos and code. I kept the YAML header because it contains important information about the document, such as the title and output format, that control how the notebook is knitted.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
-<p>🧐 <strong>Notice:</strong> You do not use a <code>#</code> for text outside of a code chunk. You only use <code>#</code> for comments inside a code chunk.</p>
+<p>🧐 <strong>Notice:</strong> Regular paragraph text outside a code chunk does not need <code>#</code>. Explanatory comments inside a code chunk do need <code>#</code> so R does not interpret them as code.</p>
 </blockquote>
 <hr>
 </section>
@@ -351,35 +353,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="transparency" class="level2">
-<h2 class="anchored" data-anchor-id="transparency">Transparency</h2>
-<p>Science is not just about numbers; it is also about the values that guide how and why we do our work. Researchers, policymakers, and the general public must be able to trust scientific expertise for this work to have meaning (Resnik &amp; Elliott, 2023). Transparency in academic work promotes that trust. <span class="glossary-term" data-term="Transparency">Transparency</span> means disclosing methods, materials, assumptions, values, and interests so another person can understand what you did and reproduce it (Resnik &amp; Elliott, 2023).</p>
-<p>Transparency is associated with these three related values:</p>
-<ol type="1">
-<li><p><span class="glossary-term" data-term="Honesty">Honesty</span> means reporting what actually happened, including shortcuts, mistakes, unexpected results, and outside help. You record what you tried even when it did not produce the result you expected. You state what you do not know yet. You do not present outside work as your own. If you use a peer, website, AI tool, instructor, or other resource, document what you used and what you learned.</p></li>
-<li><p><span class="glossary-term" data-term="Openness">Openness</span> means making your work inspectable so someone else can see what you used and how you got your result. Reproducibility is a key part of openness. In this course, that means sharing the data source, code, steps, and explanations needed for someone else to follow your workflow.</p></li>
-<li><p><span class="glossary-term" data-term="Accountability">Accountability</span> means taking responsibility for your work. In this course, accountability means checking your results, correcting mistakes, responding to feedback, and documenting your process clearly enough that someone else can understand your choices.</p></li>
-</ol>
-<p><span class="glossary-term" data-term="Research Journal">Research journals</span> are the running records of your R analysis process. They are internal documents that help you prepare reports, return to old work, and explain your decisions.</p>
-<p>In this course, your R Notebook works like a research journal. Add comments before or near your code explaining:</p>
+<h2 class="anchored" data-anchor-id="transparency">Applying Transparency</h2>
+<p>The Transparency module introduction explains why methods, decisions, checks, and resource use should remain visible. Chapter 3 introduced the R Notebook practices that support this record.</p>
+<p>✍️ In this chapter, apply those practices to indexing and filtering. Add a short memo when you need to explain:</p>
 <ul>
-<li><p>🎯 Goal: What are you trying to do?</p></li>
-<li><p>💬 Prediction: What do you expect the code to produce?</p></li>
-<li><p>⚡ Code/Test: What code did you use to test your idea?</p></li>
-<li><p>✍️ Record what you tried: What did you try, including code that did not work?</p></li>
-<li><p>✅ Verify: How did you check whether the result was correct?</p></li>
-<li><p>🗣 Comment: What does the output mean?</p></li>
-<li><p>🪞 Reflect: What did you learn, and how could this help you later?</p></li>
-<li><p>👀 Resource Cited: What resource did you use, and what did you learn from it?</p></li>
+<li>what value or group you intended to select,</li>
+<li>whether you selected by position, name, or logical condition,</li>
+<li>how you checked that the intended values were returned,</li>
+<li>what an unexpected <code>NA</code> or omitted value showed,</li>
+<li>and what resource helped if you used outside assistance.</li>
 </ul>
-<p>You do not need every memo label for every small line of code. Use memo labels when your own code does something surprising, confusing, or important to check.</p>
-<hr>
-<p>Next, you will practice these transparency habits while learning how R labels vector elements and selects specific values.</p>
-<section id="indexing-vectors" class="level3">
-<h3 class="anchored" data-anchor-id="indexing-vectors">Indexing Vectors</h3>
+<p>You do not need every memo prompt for every line of code. Document choices and results that would be difficult to reconstruct later.</p>
+</section>
+<section id="indexing-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="indexing-vectors">Indexing Vectors</h2>
 <p>The <span class="glossary-term" data-term="Indexing Operator">indexing operator</span> <code>[</code> is the standard way to extract parts of a vector. The basic pattern is <code>x[i]</code>, where <code>x</code> is the vector and <code>i</code> is the index, or indices, of the elements you want to extract. For the atomic vectors in this chapter, <code>[ ]</code> can select one element or many, and it returns an object of the same type as <code>x</code>.</p>
 <p>An <span class="glossary-term" data-term="Index">index</span> is a value used to identify elements in an object. In R, indices are often integers for positions, character values for names, or logical values such as <code>TRUE</code> and <code>FALSE</code>.</p>
-<section id="positional-indexing" class="level4">
-<h4 class="anchored" data-anchor-id="positional-indexing">Positional Indexing</h4>
+<section id="positional-indexing" class="level3">
+<h3 class="anchored" data-anchor-id="positional-indexing">Positional Indexing</h3>
 <p><span class="glossary-term" data-term="Positional Indexing">Positional indexing</span> uses the numeric positions of elements in the vector to retrieve specific values.</p>
 <p>🎯 <strong>Goal</strong> Use <code>[ ]</code> with index positions to extract values from a vector.</p>
 <div class="cell">
@@ -425,8 +416,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🧐 <strong>Notice:</strong> R counts positions starting at 1, not 0. Negative positions exclude those positions from the returned result. They do not delete values from the original vector.</p>
 </blockquote>
 </section>
-<section id="character-indexing" class="level4">
-<h4 class="anchored" data-anchor-id="character-indexing">Character Indexing</h4>
+<section id="character-indexing" class="level3">
+<h3 class="anchored" data-anchor-id="character-indexing">Character Indexing</h3>
 <p>When a vector has names, you can use those names to index into the vector. <span class="glossary-term" data-term="Character Indexing">Character indexing</span> uses the names of the elements to retrieve specific values.</p>
 <p>There are two different naming ideas here.</p>
 <ol type="1">
@@ -470,8 +461,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>🗣 The output should return the color codes for <code>"Octarine"</code> and <code>"TARDIS Blue"</code>, plus <code>NA</code> for <code>"NotAColor"</code> because that name does not exist in the vector.</p>
 </section>
-<section id="more-indexing-by-position" class="level4">
-<h4 class="anchored" data-anchor-id="more-indexing-by-position">More Indexing by Position</h4>
+<section id="more-indexing-by-position" class="level3">
+<h3 class="anchored" data-anchor-id="more-indexing-by-position">More Indexing by Position</h3>
 <p>🎯 Use positional indexing to return the first and third color codes from the <code>nerdy_palette</code> vector.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
@@ -483,7 +474,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>🗣 The output shows the hexadecimal color codes for Octarine and Rebeccapurple in the <code>nerdy_palette</code> vector.</p>
 <p>We will return to indexing in later chapters when we learn about data frames.</p>
-</section>
 </section>
 </section>
 <section id="logical-vectors" class="level2">
@@ -567,58 +557,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>In this chapter, you strengthened your R Notebook habits by practicing transparency in your code memos. You learned to document your goals, explain what your code produced, verify your results, and record outside resources when you used help. These habits make your work easier to understand, check, revise, and share.</p>
-<p>You also learned how to select values from vectors. You practiced positional indexing to select elements by number, negative indexing to remove elements, and character indexing to select elements from named vectors. You saw that character indexing requires exact matching and returns NA when a requested name does not exist.</p>
+<p>You also learned how to select values from vectors. You practiced positional indexing to select elements by number, negative indexing to exclude positions from a returned result, and character indexing to select elements from named vectors. You saw that character indexing requires exact matching and returns <code>NA</code> when a requested name does not exist.</p>
 <p>Finally, you learned how logical vectors support filtering. You created logical values with comparison operators, stored those results in a logical vector, and used logical indexing to keep only the values that met a condition.</p>
 <p>Your main takeaway is that transparent notebooks make your coding choices inspectable, and indexing gives you control over which vector values you select or filter.</p>
 </section>
 <section id="chapter-terms" class="level2">
 <h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
-<p><strong>Accountability</strong>: Taking responsibility for the results you report by verifying them, responding to questions or critiques, and correcting errors when found. In practice, this means you keep a clear record (e.g., in an R Markdown/Notebook or script) that shows how you checked your work and why you made your choices.</p>
 <p><strong>Character Indexing</strong>: Indexing a named vector using element names (character strings) instead of numbers. Names must match exactly; a missing name returns <code>NA</code>.</p>
 <p><strong>Code Chunks</strong>: Fenced blocks in an R Markdown or Quarto document that contain executable code, usually beginning with <code>```{r}</code> and ending with three backticks. Code in a chunk can run interactively or during rendering. Depending on RStudio settings, output may appear below the chunk or in another relevant pane.</p>
 <p><strong>Comparison Operators</strong>: Operators that compare values. Common comparison operators are <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, and <code>&gt;=</code>. They usually return <code>TRUE</code> or <code>FALSE</code>; a comparison involving a missing value will usually return <code>NA</code>.</p>
 <p><strong>Element Names</strong>: The individual labels assigned to elements inside a named vector (for example, <code>"Octarine"</code> or <code>"TARDIS Blue"</code>). Element names let you index by label (e.g., <code>nerdy_palette["Octarine"]</code>) to retrieve specific values.</p>
-<p><strong>Honesty</strong>: Accurately reporting what you did in R—your actual steps, mistakes, revisions, and uncertainty—without presenting outside work as your own. This includes clearly attributing code, ideas, and any AI assistance, and being able to explain the code you submit.</p>
 <p><strong>Index</strong>: A value used inside a subsetting operator to identify which part of an object to extract or replace. In R, an index can use positions, names, or logical values; for example, <code>x[2]</code> uses a positional index to select the second element, while <code>df[rows, columns]</code> uses row and column indices to select parts of a data frame. R documentation also calls these values indices or subscripts.</p>
 <p><strong>Indexing Operator</strong>: The single square-bracket operator <code>[</code> used to extract or replace selected parts of an object. For a vector, <code>x[i]</code> returns the elements identified by the positions, names, or logical values supplied in <code>i</code>.</p>
 <p><strong>Logical Indexing</strong>: Using a logical vector inside <code>[</code> to select values. <code>TRUE</code> keeps the matching value, <code>FALSE</code> excludes it, and <code>NA</code> produces an unknown element represented by <code>NA</code>. A shorter logical index may be recycled, so checking that the index and source vector have the same length helps prevent unintended results.</p>
-<p><strong>Logical Mask</strong>: A logical vector used inside the single square bracket operator <code>[</code> to filter another object. Each <code>TRUE</code> marks a value or row to keep, and each <code>FALSE</code> marks a value or row to leave out; for the cleanest results, the mask should line up element-by-element with the object being filtered. For example, <code>number_list &lt;= 20</code> creates a logical mask, and <code>number_list[mask]</code> uses that mask to keep only the matching values.</p>
-<p><strong>Logical Vector</strong>: A vector that stores Boolean elements: <code>TRUE</code> or <code>FALSE</code> (and sometimes <code>NA</code> for missing). Logical vectors are commonly produced by comparisons (for example, <code>x &gt; 0</code>) and are heavily used for filtering and conditional code</p>
+<p><strong>Logical Mask</strong>: A logical vector used inside the single square-bracket operator <code>[</code> to filter another object. <code>TRUE</code> keeps the matching value, <code>FALSE</code> excludes it, and <code>NA</code> produces an unknown element represented by <code>NA</code>. For predictable results, the mask should have the same length as the object being filtered.</p>
+<p><strong>Logical Vector</strong>: A vector that stores <code>TRUE</code>, <code>FALSE</code>, and sometimes <code>NA</code> for missing values. Logical vectors are commonly produced by comparisons, such as <code>x &gt; 0</code>, and are used for filtering and conditional code.</p>
 <p><strong>Markdown</strong>: A lightweight plain-text formatting syntax used to write structured documents (headings, lists, links, emphasis, code) in a way that stays readable as plain text and can be rendered into formats like HTML on many platforms and tools.</p>
 <p><strong>NA</strong>: A special constant that marks a missing value (“Not Available”)—meaning the data point is unknown or not recorded. R also provides typed missing values like <code>NA_integer_</code>, <code>NA_real_</code>, <code>NA_character_</code>, and <code>NA_complex_</code> to match the underlying data type.</p>
 <p><strong>Named Vectors</strong>: Vectors that have labels attached to their elements via the <code>names()</code> attribute, so you can refer to values by name instead of only by position. Named vectors are useful as simple lookup tables (for example, retrieving a hex code by a color name).</p>
-<p><strong>Negative Indexing</strong>: Using negative integers inside the single bracket operator <code>[</code> to exclude elements (or rows/columns) by position (e.g., <code>x[-2]</code> drops the 2nd element; <code>df[ , -c(8, 9)]</code> drops columns 8 and 9). In base R, negative and positive indices can’t be mixed in the same subset (except <code>0</code>)</p>
+<p><strong>Negative Indexing</strong>: Using negative integers inside <code>[</code> to exclude positions from the returned result. For example, <code>x[-2]</code> returns every element except the second. The original object remains unchanged unless the result is assigned to an object. Positive and negative indices cannot be mixed in the same subset, except for <code>0</code>.</p>
 <p><strong>Object Name</strong>: The variable name you assign with <code>&lt;-</code> that refers to the entire object in your environment. You use the object name to print, modify, or pass the whole object to functions.</p>
-<p><strong>Openness</strong>: Making your analysis inspectable and reproducible by sharing the inputs and decisions that produced your results (data source, packages, code, and key assumptions). In this course, openness means you provide others with enough details so thay are able to rerun your work and get the same outputs.</p>
 <p><strong>Positional Indexing</strong>: Indexing a vector using numeric positions (for example, <code>x[1]</code> for the first element or <code>x[c(1, 3)]</code> for the first and third). Positions are based on the current order of the vector.</p>
-<p><strong>R Notebook</strong>: An <code>.Rmd</code> (R Markdown) document that lets you run code in chunks and see the results (output, tables, plots) immediately below each chunk. It’s designed for reproducible work because it keeps your code, results, and explanatory notes together in the same file.</p>
-<p><strong>Research Journal</strong>: A running record of your R analysis process. This inlcudes what question you asked, what code you tried (including failed attempts), what outputs you got, and what decisions you made along the way. In practice, it’s maintained in an R script or R Markdown/Notebook with dated notes, comments, and citations so you (or someone else) can retrace, verify, and reproduce the work.</p>
-<p><strong>Transparency</strong>: The practice of clearly disclosing your methods, materials, assumptions, tools, values, and sources so another person can follow your workflow, reproduce your results, and evaluate your claims. In this course, transparency supports explanatory power (you can explain what your code does and why) and originality/accountability (you produce and attribute work honestly, including documenting if and how you used AI).</p>
+<p><strong>R Notebook</strong>: An <code>.Rmd</code> document that combines written explanation with executable R code chunks. Depending on your RStudio settings, interactive output may appear below a chunk or in another relevant pane. Rendering creates a finished document that keeps the writing, code, and computed output together.</p>
 <p><strong>YAML Header</strong>: The metadata section at the top of an R Markdown or Quarto document, written between <code>---</code> lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.</p>
 </section>
 <section id="practice-space" class="level2">
 <h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
-<p>Fill in the blanks to complete the code in your R Notebook.</p>
+<p>Complete the following coding and reflection tasks in your R Notebook.</p>
 <p>Before you begin:</p>
 <ol type="1">
 <li>Create a new R Notebook in RStudio.</li>
 <li>Save it in your course folder as <code>chapter4_practice.Rmd</code>.</li>
 <li>Complete all Practice Space tasks in that notebook.</li>
-<li>Save your workspace as <code>chapter4_practice.RData</code>.</li>
 </ol>
-<p>Required files to submit:</p>
-<ul>
-<li><code>chapter4_practice.Rmd</code></li>
-<li><code>chapter4_practice.RData</code></li>
-</ul>
 <p>As you work, add short comments or memo notes explaining what your code is doing and what the output shows.</p>
 <ul>
 <li>🗣 <strong>Add Comments</strong> asks you to explain what the code or output shows.</li>
 <li>🪞 <strong>Reflect</strong> asks you to explain your thinking process, what confused you, what changed in your understanding, or what strategy you would use next.</li>
 </ul>
 <p>These are there to help you practice the habit of writing memos as you work. Keep responses short: 1–3 thoughtful sentences is enough. For this Practice Space, answer the 🗣 <strong>Add Comments</strong> prompt for each coding task. Then answer 🪞 <strong>Reflect</strong> prompts where your thinking, prediction, confusion, or troubleshooting changed.</p>
-<p>If you encounter an error, document your <strong>tenacity</strong> by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (<strong>transparency</strong>).</p>
-<p>You may ask an AI to explain an error or provide you with more details to a curiosity. Do not ask AI to rewrite or complete any part of the report for you. You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using <code>&gt;</code>. Then hand-type your own explanation of why you are including that quote.</p>
+<p>If you encounter an error, practice tenacity by choosing an informed next step. Practice ✍️ transparency by recording what happened, what you tried, what you checked, and what remains unclear. If a resource helped you troubleshoot, identify it and explain what it contributed.</p>
+<p>If you use generative AI, follow the policies or guidance that apply to your work. Document the tool, what you asked, what the response contributed, and how you checked it. If you quote AI output, mark it clearly as quoted material and explain in your own words why you included it.</p>
 <p>Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.</p>
 <section id="task-1" class="level3">
 <h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
@@ -673,7 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
 <p>⚖️ <strong>Create a logical vector</strong></p>
 <p>Practice using a <span class="glossary-term" data-term="Comparison Operators">comparison operator</span> to create a logical vector.</p>
-<p>🎯 Create a logical vector called <code>meets_goal</code> that checks whether each value in <code>quiz_scores</code> vector from Task 2 is greater than or equal to 80.</p>
+<p>🎯 Create a logical vector called <code>meets_goal</code> that checks whether each value in the <code>quiz_scores</code> vector from Task 2 is greater than or equal to 80.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Use the quiz_scores vector from Task 2.</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -710,21 +689,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="task-7" class="level3">
 <h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
-<p>✅ <strong>Final checks before submitting</strong></p>
-<p>🎯 <strong>Step 1: Sweep your Environment (start clean).</strong><br>
-Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
-<p>🎯 <strong>Step 2: Run everything top-to-bottom.</strong><br>
-Use <strong>Run → Run All</strong> to execute every chunk in order.</p>
-<p>🎯 <strong>Step 3: Save and submit.</strong><br>
-After your notebook runs without errors, save your notebook (<code>chapter4_practice.Rmd</code>) and save your workspace (<code>chapter4_practice.RData</code>) for submission to Canvas.</p>
-</section>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p>Resnik, D. B., &amp; Elliott, K. C. (2023). Science, values, and the new demarcation problem. Journal for General Philosophy of Science, 54(2), 259-286.</p>
-<p>Thomas, P. A. (2023). Wikipedia and large language models: perfect pairing or perfect storm?. Library Hi Tech News, 40(10), 6-8.</p>
+<p>✅ <strong>Final checks</strong></p>
+<p>🎯 <strong>Step 1: Save your notebook.</strong></p>
+<p>Save the current version of <code>chapter4_practice.Rmd</code>.</p>
+<p>🎯 <strong>Step 2: Sweep your Environment. Start clean.</strong></p>
+<p>Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
+<p>🎯 <strong>Step 3: Run everything from top to bottom.</strong></p>
+<p>Use <strong>Run → Run All</strong> to execute every chunk in order. If an error appears, document what happened, what you tried, and how you resolved it or what remains unclear.</p>
+<p>🎯 <strong>Step 4: Knit to HTML.</strong></p>
+<p>Knit your notebook to HTML to check that the document works from beginning to end.</p>
+<p>🎯 <strong>Step 5: Review your work.</strong></p>
+<p>Review the rendered HTML. If you make corrections to the <code>.Rmd</code> file, repeat the clean run and knit. Follow any submission directions provided by your instructor.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
