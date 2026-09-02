@@ -92,7 +92,7 @@ Method A. **Packages Tab**
 
 Method B. **Console Pane**
 
-1. In RStudio, go to the `Console` pane (bottom-left).
+1. In RStudio, go to the **`Console`** pane (bottom-left).
 
 2. Type the following command and press Enter:
 
@@ -164,9 +164,9 @@ output: html_notebook
 A [code chunk]{.glossary-term data-term="Code Chunks"} is a fenced block where R code runs. It begins with three [backticks]{.glossary-term data-term="Backtick"} plus `{r}` and ends with three backticks: <code>&#96;&#96;&#96;{r}</code> … <code>&#96;&#96;&#96;</code>.
 
 <code>&#96;&#96;&#96;{r}</code>
-
-\# your R code
-
+```
+# your R code
+```
 <code>&#96;&#96;&#96;</code>
 
 Code chunks are the sections of an R Notebook that contain runnable R code. Put R code inside a chunk. When you run the chunk, RStudio displays the result in the notebook or in another relevant pane, depending on your output settings.
@@ -192,9 +192,9 @@ Method C. **Manually Type**
 Type the following lines in your R Notebook:
 
 <code>&#96;&#96;&#96;{r}</code>
-
-\# your R code
-
+```
+# your R code
+```
 <code>&#96;&#96;&#96;</code>
 
 💡 **Tip:** Remember that these are [backticks]{.glossary-term data-term="Backtick"} and not single quotes. The backtick is located on the same key as the tilde (`~`) on most keyboards, just above the tab button.
@@ -226,24 +226,31 @@ Place your cursor inside the chunk and press `Ctrl + Shift + Enter` (Windows/Lin
 
 🎯 Insert a code chunk then type and run the following R code to do vector arithmetic. 
 
-```{r}
+<code>&#96;&#96;&#96;{r}</code>
+```{r eval=FALSE}
 # ⚡ Type this in your R Notebook
 x <- c(2, 4, 6)
 y <- c(1, 3, 5)
 
 x + y     # We should see three values: 3, 7, and 11
 ```
-
+<code>&#96;&#96;&#96;</code>
 
 🎯 Click the green play button in the chunk (top-right of the chunk), or use the Run menu to run the current chunk / all chunks.
 
+```
+[1]  3  7 11
+```
+
 🗣 **Modeled Comment:** The output shows the result of adding the two vectors element by element: 2 + 1 = **3**, 4 + 3 = **7**, and 6 + 5 = **11**.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r eval=FALSE}
 #  ⚡ Type this in your R Notebook
 x * 2
 x / y
 ```
+<code>&#96;&#96;&#96;</code>
 
 ```
 [1]  4  8 12
@@ -254,14 +261,22 @@ x / y
 
 🎯 Try creating a sequence of powers of 3 using the exponent operator `^`. Create a vector named `small_exponents` that contains the integers from 0 to 4, then create a new vector named `powers_of_three` that raises 3 to the power of each element in `small_exponents`.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r}
 # ⚡ Type this in your R Notebook
 small_exponents <- 0:4
 powers_of_three <- 3 ^ small_exponents
 
 powers_of_three
+```
+<code>&#96;&#96;&#96;</code>
+
+
+<code>&#96;&#96;&#96;{r}</code>
+```{r}
 length(powers_of_three)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** R reads `3 ^ small_exponents` as “raise 3 to each value stored in `small_exponents`.” The vector `small_exponents` tells R which exponents to use. The length tells us how many powers were created, not how large the biggest value is.
 
@@ -320,9 +335,15 @@ recycled_result <- numbers3 + combination
 
 ⚠️ A **Warning** message appears because the longer vector length is not a multiple of the shorter vector length. R still completes the calculation by recycling the shorter vector, but the warning tells you to stop and verify that both vector lengths are what you intended.
 
-```{r}
+<code>&#96;&#96;&#96;{r}</code>
+```{r, eval=FALSE}
 # ✅ Check the recycled_result vector
 print(recycled_result)
+```
+<code>&#96;&#96;&#96;</code>
+
+```
+[1]  3.5  4.5 -0.5  5.5  7.5
 ```
 
 🗣 **Modeled Comment:** R recycles `numbers3` by repeating it as needed: `1.5, 2.5, -3.5, 1.5, 2.5`. Then R adds element-by-element: `1 + 1.5`, `2 + 2.5`, `3 + -3.5`, `4 + 1.5`, and `5 + 2.5`.
@@ -353,18 +374,22 @@ For example, an object created with `as.Date()` has class `"Date"`, underlying t
 
 🎯 Store any date in a variable named `start_date` using `as.Date()`. Then use `mode()`, `typeof()`, and `class()` to compare the underlying storage with the way R treats the object.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
 start_date <- as.Date("2026-08-24")
 print(start_date)
 ```
+<code>&#96;&#96;&#96;</code>
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
 mode(start_date)
 typeof(start_date)
 class(start_date)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** `mode(start_date)` returns `"numeric"`, `typeof(start_date)` returns `"double"`, and `class(start_date)` returns `"Date"`. The class tells R to print and work with the object as a date.
 
@@ -372,10 +397,12 @@ Why does this matter? R uses the `"Date"` class to apply date-specific behavior 
 
 🎯 What date was it one week after `start_date`?
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
 start_date + 7
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** R treats `7` as seven days and returns the date one week after `start_date`.
 
@@ -423,17 +450,21 @@ ___
 
 🎯 Create two character vectors named `first_names` and `last_names`, then use the `paste()` function to combine them into a new vector named `full_names`.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
 first_names <- c("Demi", "Snoop", "Ed")
 last_names <- c("Moore", "Dogg", "Sheeran")
 full_names <- paste(first_names, last_names)
 ```
+<code>&#96;&#96;&#96;</code>
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ✅ Check the full_names vector
 print(full_names)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The output shows the full names created by combining the first and last names element-wise.
 
@@ -457,14 +488,17 @@ Here, `x` is the vector you want to convert into a factor.
 
 🎯 Create a factor vector named `grades` that contains the following letter grades: "A", "B", "C", "A", "B", "A" using the `factor()` function.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r}
 # ⚡ Type this in your R Notebook
 grades <- c("A", "B", "C", "A", "B", "A")
 grades <- factor(grades)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The object `grades` is overwritten as a factor using the `factor()` function because the same name is used in the assignment process `grades <-`.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ✅ Check the grades factor
 mode(grades)
@@ -472,6 +506,7 @@ typeof(grades)
 class(grades)
 print(grades)
 ```
+<code>&#96;&#96;&#96;</code>
 ```
 [1] "numeric"
 [1] "integer"
@@ -490,16 +525,20 @@ Even though factors print category labels, R stores a standard factor underneath
 
 🎯 Create a factor vector named `sizes` with levels ordered as `"Small"`, `"Medium"`, and `"Large"` using the `factor()` function.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
 sizes <- c("Medium", "Large", "Small", "Medium", "Large")
 sizes <- factor(sizes, levels = c("Small", "Medium", "Large"))
 ```
+<code>&#96;&#96;&#96;</code>
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ✅ Check the sizes factor
 print(sizes)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The output shows the `sizes` factor with levels ordered as `"Small"`, `"Medium"`, and `"Large"`, as specified in the `factor()` function.
 
@@ -523,6 +562,7 @@ An atomic vector stores elements of one type. If you try to mix types, R will co
 
 🎯  What happens if you mix numbers and characters?
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 mixed <- c("candy", 4, "book", 92)
 
@@ -530,6 +570,7 @@ mixed <- c("candy", 4, "book", 92)
 print(mixed)
 class(mixed)
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The values 4 and 92 print as character values because the entire vector was coerced to character.
 
@@ -547,18 +588,22 @@ The `as.numeric()` function tries to convert characters to numbers. If it can't,
 
 🎯 Try converting a character vector of numbers to numeric using the `as.numeric()` function.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 as.numeric(c("1", "2", "3")) # character → numeric: text converts to numbers
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The output shows the numeric values 1, 2, and 3 successfully converted from character strings.
 
 🎯 Try converting the `mixed` vector to numeric using the `as.numeric()` function.
 
+<code>&#96;&#96;&#96;{r}</code>
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
 as.numeric(mixed)            # character → numeric: text converts to NA
 ```
+<code>&#96;&#96;&#96;</code>
 
 🗣 **Modeled Comment:** The output shows `NA` for `"candy"` and `"book"` because those text values cannot be converted to numbers. The character values `"4"` and `"92"` can be converted to numeric values, so they become `4` and `92`.
 
