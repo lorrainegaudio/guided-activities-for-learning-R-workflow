@@ -750,7 +750,7 @@ print(____)
 # 🗣 Comment: The updated `nerdy_palette` vector contains __ elements. The new element was added to the ___ (beginning, middle, or end).
 ```
 
-> 🧐 **Notice:** Task 3 creates `nerdy_palette` with 9 elements. Run the Task 4 assignment once to add `"#4D9E68"`, which updates `nerdy_palette` to 10 elements. If `length(nerdy_palette)` returns 11, rerun the Task 3 assignment and then run the Task 4 assignment once. Task 7 requires the 10-element vector.
+> 🧐 **Notice:** Task 3 creates `nerdy_palette` with 9 elements. Run the Task 4 assignment once to add `"#4D9E68"`, which updates `nerdy_palette` to 10 elements. If `length(nerdy_palette)` returns any length other than 10, rerun the Task 3 assignment and then run the Task 4 assignment once. Task 7 requires the 10-element vector.
 
 ### Task 5 {#task-5}
 

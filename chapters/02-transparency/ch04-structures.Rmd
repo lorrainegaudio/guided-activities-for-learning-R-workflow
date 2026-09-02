@@ -7,9 +7,9 @@ toc: true
 
 ## Overview {#overview}
 
-Now that you can work in an R Notebook and write usable memos, Chapter 4 raises the standard for documentation: transparency.
+Chapter 3 introduced R Notebook memos as a way to keep your code, output, checks, and learning visible. In this chapter, you will apply transparency while deciding which vector values to select and filter.
 
-In research, correct code is not enough. You also need to document where help came from, what you learned from it, and how you checked your result. This helps you show your learning honestly, return to your work later, and make your analysis understandable to someone else.
+Your memos will record what you intended to select, which indexing method you used, how you checked the result, and what the output showed. This creates a record that you and another reader can follow later.
 
 This chapter also finishes the vector-selection skills you need before working with larger datasets. You will learn how vector elements can be labeled with names, how indexing lets you select specific values, and how logical values can be used to filter a vector.
 
@@ -19,7 +19,7 @@ By the end of Chapter 4, you should be able to practice transparency in your not
 
 In Chapter Four, you will practice how to:
 
-- ✍️ Practice transparency in code memos by documenting goals, checks, explanations, and outside resources.
+- ✍️ Apply transparency by documenting what you intended to select, how you checked the result, and what the output showed.
 
 - 🧾 Create named vectors using element names.
 
@@ -51,11 +51,11 @@ Here’s what you can do now:
 
 3. **Insert code chunks** using the Insert button, a shortcut, or typed fences, and use chunks to organize the R code in your notebook.
 
-4. **Run chunks** using the play button, Run menu, or keyboard shortcuts and see output directly below.
+4. **Run chunks** using the play button, Run menu, or keyboard shortcuts and view output below the chunk or in another relevant pane, depending on your RStudio settings.
 
 5. **Memo correctly**:
 
-   - Inside a code chunk: text must start with `#` otherwise R tries to run it.
+   - Inside a code chunk: explanatory text must start with `#`; otherwise, R tries to run it as code.
 
    - Outside a code chunk: write normal paragraphs with no `#` needed.
 
@@ -71,9 +71,9 @@ When you create a new R Notebook or R Markdown file, RStudio provides a template
 
 - The [YAML header]{.glossary-term data-term="YAML Header"}: The block of text at the very top, enclosed between two lines of three dashes (`---`). This tells RStudio how to knit, or render, your document.
 
-- [Markdown]{.glossary-term} Text: The white background text (like "This is an R Markdown Notebook"). This shows you how to write regular prose.
+- [Markdown]{.glossary-term data-term="Markdown"} text: Text outside code chunks, such as "This is an R Markdown Notebook." This shows you how to write regular prose.
 
-- [Code Chunks]{.glossary-term data-term="Code Chunks"}: The gray boxes containing code (like plot(cars)). This shows you how to embed executable R code.
+- [Code Chunks]{.glossary-term data-term="Code Chunks"}: Fenced blocks containing code, such as `plot(cars)`. This shows you how to embed executable R code.
 
 #### Clear the Default Notebook Body {#clear-the-default-notebook-body}
 
@@ -81,7 +81,7 @@ To start fresh, delete all the default text in the R Notebook so you have a blan
 
 ##### **Keep the Header** {#keep-the-header}
 
-Do not delete the text at the very top between the --- lines. This is your metadata (Title, Author, Output format). If you delete this, your file might not run correctly.
+Do not delete the text at the very top between the `---` lines. This is the notebook’s metadata, including its title and output format. If this header is deleted or malformed, the notebook may not render as intended.
 
 Your header should look something like this:
 
@@ -113,58 +113,34 @@ After clearing the default text, save your blank notebook as `chapter4_notes.Rmd
  🗣 **Add Comments:** In 1–3 sentences, explain what you did to clear the default text and why you kept the YAML header.
 
 ```markdown
-I cleared the default text because the default text is just an example and I want to start with a blank notebook to practice writing my own memos and code. I kept the YAML header because it contains important information about the document, such as the title and output format, which is necessary for the notebook to knit correctly.
+I cleared the default text because the default text is just an example and I want to start with a blank notebook to practice writing my own memos and code. I kept the YAML header because it contains important information about the document, such as the title and output format, that control how the notebook is knitted.
 ```
 
-> 🧐 **Notice:** You do not use a `#` for text outside of a code chunk. You only use `#` for comments inside a code chunk.
+> 🧐 **Notice:** Regular paragraph text outside a code chunk does not need `#`. Explanatory comments inside a code chunk do need `#` so R does not interpret them as code.
 
 ---
 
-## Transparency {#transparency}
+## Applying Transparency {#transparency}
 
-Science is not just about numbers; it is also about the values that guide how and why we do our work. Researchers, policymakers, and the general public must be able to trust scientific expertise for this work to have meaning (Resnik & Elliott, 2023). Transparency in academic work promotes that trust. [Transparency]{.glossary-term data-term="Transparency"} means disclosing methods, materials, assumptions, values, and interests so another person can understand what you did and reproduce it (Resnik & Elliott, 2023).
+The Transparency module introduction explains why methods, decisions, checks, and resource use should remain visible. Chapter 3 introduced the R Notebook practices that support this record.
 
-Transparency is associated with these three related values:
+✍️ In this chapter, apply those practices to indexing and filtering. Add a short memo when you need to explain:
 
-1. [Honesty]{.glossary-term data-term="Honesty"} means reporting what actually happened, including shortcuts, mistakes, unexpected results, and outside help. You record what you tried even when it did not produce the result you expected. You state what you do not know yet. You do not present outside work as your own. If you use a peer, website, AI tool, instructor, or other resource, document what you used and what you learned.
+- what value or group you intended to select,
+- whether you selected by position, name, or logical condition,
+- how you checked that the intended values were returned,
+- what an unexpected `NA` or omitted value showed,
+- and what resource helped if you used outside assistance.
 
-2. [Openness]{.glossary-term data-term="Openness"} means making your work inspectable so someone else can see what you used and how you got your result. Reproducibility is a key part of openness. In this course, that means sharing the data source, code, steps, and explanations needed for someone else to follow your workflow.
+You do not need every memo prompt for every line of code. Document choices and results that would be difficult to reconstruct later.
 
-3. [Accountability]{.glossary-term data-term="Accountability"} means taking responsibility for your work. In this course, accountability means checking your results, correcting mistakes, responding to feedback, and documenting your process clearly enough that someone else can understand your choices.
-
-[Research journals]{.glossary-term data-term="Research Journal"} are the running records of your R analysis process. They are internal documents that help you prepare reports, return to old work, and explain your decisions.
-
-In this course, your R Notebook works like a research journal. Add comments before or near your code explaining:
-
-- 🎯 Goal: What are you trying to do?
-
-- 💬 Prediction: What do you expect the code to produce?
-
-- ⚡ Code/Test: What code did you use to test your idea?
-
-- ✍️ Record what you tried: What did you try, including code that did not work?
-
-- ✅ Verify: How did you check whether the result was correct?
-
-- 🗣 Comment: What does the output mean?
-
-- 🪞 Reflect: What did you learn, and how could this help you later?
-
-- 👀 Resource Cited: What resource did you use, and what did you learn from it?
-
-You do not need every memo label for every small line of code. Use memo labels when your own code does something surprising, confusing, or important to check.
-
----
-
-Next, you will practice these transparency habits while learning how R labels vector elements and selects specific values.
-
-### Indexing Vectors {#indexing-vectors}
+## Indexing Vectors {#indexing-vectors}
 
 The [indexing operator]{.glossary-term data-term="Indexing Operator"} `[` is the standard way to extract parts of a vector. The basic pattern is `x[i]`, where `x` is the vector and `i` is the index, or indices, of the elements you want to extract. For the atomic vectors in this chapter, `[ ]` can select one element or many, and it returns an object of the same type as `x`. 
 
 An [index]{.glossary-term data-term="Index"} is a value used to identify elements in an object. In R, indices are often integers for positions, character values for names, or logical values such as `TRUE` and `FALSE`.
 
-#### Positional Indexing {#positional-indexing}
+### Positional Indexing {#positional-indexing}
 
 [Positional indexing]{.glossary-term data-term="Positional Indexing"} uses the numeric positions of elements in the vector to retrieve specific values.
 
@@ -209,7 +185,7 @@ z[-c(1, 5)]
 > 🧐 **Notice:** R counts positions starting at 1, not 0. Negative positions exclude those positions from the returned result. They do not delete values from the original vector.
 
 
-#### Character Indexing {#character-indexing}
+### Character Indexing {#character-indexing}
 
 When a vector has names, you can use those names to index into the vector. [Character indexing]{.glossary-term data-term="Character Indexing"} uses the names of the elements to retrieve specific values.
 
@@ -255,7 +231,7 @@ nerdy_palette[c("Octarine", "TARDIS Blue", "NotAColor")]
 
 🗣 The output should return the color codes for `"Octarine"` and `"TARDIS Blue"`, plus `NA` for `"NotAColor"` because that name does not exist in the vector.
 
-#### More Indexing by Position {#more-indexing-by-position}
+### More Indexing by Position {#more-indexing-by-position}
 
 🎯 Use positional indexing to return the first and third color codes from the `nerdy_palette` vector.
 
@@ -363,7 +339,7 @@ The key idea is that the condition `number_list <= 20` creates a logical vector,
 
 In this chapter, you strengthened your R Notebook habits by practicing transparency in your code memos. You learned to document your goals, explain what your code produced, verify your results, and record outside resources when you used help. These habits make your work easier to understand, check, revise, and share.
 
-You also learned how to select values from vectors. You practiced positional indexing to select elements by number, negative indexing to remove elements, and character indexing to select elements from named vectors. You saw that character indexing requires exact matching and returns NA when a requested name does not exist.
+You also learned how to select values from vectors. You practiced positional indexing to select elements by number, negative indexing to exclude positions from a returned result, and character indexing to select elements from named vectors. You saw that character indexing requires exact matching and returns `NA` when a requested name does not exist.
 
 Finally, you learned how logical vectors support filtering. You created logical values with comparison operators, stored those results in a logical vector, and used logical indexing to keep only the values that met a condition.
 
@@ -371,8 +347,6 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 
 ## Chapter Terms {#chapter-terms}
-
-**Accountability**: Taking responsibility for the results you report by verifying them, responding to questions or critiques, and correcting errors when found. In practice, this means you keep a clear record (e.g., in an R Markdown/Notebook or script) that shows how you checked your work and why you made your choices.
 
 **Character Indexing**: Indexing a named vector using element names (character strings) instead of numbers. Names must match exactly; a missing name returns `NA`.
 
@@ -382,17 +356,15 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Element Names**: The individual labels assigned to elements inside a named vector (for example, `"Octarine"` or `"TARDIS Blue"`). Element names let you index by label (e.g., `nerdy_palette["Octarine"]`) to retrieve specific values.
 
-**Honesty**: Accurately reporting what you did in R—your actual steps, mistakes, revisions, and uncertainty—without presenting outside work as your own. This includes clearly attributing code, ideas, and any AI assistance, and being able to explain the code you submit.
-
 **Index**: A value used inside a subsetting operator to identify which part of an object to extract or replace. In R, an index can use positions, names, or logical values; for example, `x[2]` uses a positional index to select the second element, while `df[rows, columns]` uses row and column indices to select parts of a data frame. R documentation also calls these values indices or subscripts.
 
 **Indexing Operator**: The single square-bracket operator `[` used to extract or replace selected parts of an object. For a vector, `x[i]` returns the elements identified by the positions, names, or logical values supplied in `i`.
 
 **Logical Indexing**: Using a logical vector inside `[` to select values. `TRUE` keeps the matching value, `FALSE` excludes it, and `NA` produces an unknown element represented by `NA`. A shorter logical index may be recycled, so checking that the index and source vector have the same length helps prevent unintended results.
 
-**Logical Mask**: A logical vector used inside the single square bracket operator `[` to filter another object. Each `TRUE` marks a value or row to keep, and each `FALSE` marks a value or row to leave out; for the cleanest results, the mask should line up element-by-element with the object being filtered. For example, `number_list <= 20` creates a logical mask, and `number_list[mask]` uses that mask to keep only the matching values.
+**Logical Mask**: A logical vector used inside the single square-bracket operator `[` to filter another object. `TRUE` keeps the matching value, `FALSE` excludes it, and `NA` produces an unknown element represented by `NA`. For predictable results, the mask should have the same length as the object being filtered.
 
-**Logical Vector**: A vector that stores Boolean elements: `TRUE` or `FALSE` (and sometimes `NA` for missing). Logical vectors are commonly produced by comparisons (for example, `x > 0`) and are heavily used for filtering and conditional code
+**Logical Vector**: A vector that stores `TRUE`, `FALSE`, and sometimes `NA` for missing values. Logical vectors are commonly produced by comparisons, such as `x > 0`, and are used for filtering and conditional code.
 
 **Markdown**: A lightweight plain-text formatting syntax used to write structured documents (headings, lists, links, emphasis, code) in a way that stays readable as plain text and can be rendered into formats like HTML on many platforms and tools.
 
@@ -400,37 +372,25 @@ Your main takeaway is that transparent notebooks make your coding choices inspec
 
 **Named Vectors**: Vectors that have labels attached to their elements via the `names()` attribute, so you can refer to values by name instead of only by position. Named vectors are useful as simple lookup tables (for example, retrieving a hex code by a color name).
 
-**Negative Indexing**: Using negative integers inside the single bracket operator `[` to exclude elements (or rows/columns) by position (e.g., `x[-2]` drops the 2nd element; `df[ , -c(8, 9)]` drops columns 8 and 9). In base R, negative and positive indices can’t be mixed in the same subset (except `0`)
+**Negative Indexing**: Using negative integers inside `[` to exclude positions from the returned result. For example, `x[-2]` returns every element except the second. The original object remains unchanged unless the result is assigned to an object. Positive and negative indices cannot be mixed in the same subset, except for `0`.
 
 **Object Name**: The variable name you assign with `<-` that refers to the entire object in your environment. You use the object name to print, modify, or pass the whole object to functions.
 
-**Openness**: Making your analysis inspectable and reproducible by sharing the inputs and decisions that produced your results (data source, packages, code, and key assumptions). In this course, openness means you provide others with enough details so thay are able to rerun your work and get the same outputs.
-
 **Positional Indexing**: Indexing a vector using numeric positions (for example, `x[1]` for the first element or `x[c(1, 3)]` for the first and third). Positions are based on the current order of the vector.
 
-**R Notebook**: An `.Rmd` (R Markdown) document that lets you run code in chunks and see the results (output, tables, plots) immediately below each chunk. It’s designed for reproducible work because it keeps your code, results, and explanatory notes together in the same file.
-
-**Research Journal**: A running record of your R analysis process. This inlcudes what question you asked, what code you tried (including failed attempts), what outputs you got, and what decisions you made along the way. In practice, it’s maintained in an R script or R Markdown/Notebook with dated notes, comments, and citations so you (or someone else) can retrace, verify, and reproduce the work.
-
-**Transparency**: The practice of clearly disclosing your methods, materials, assumptions, tools, values, and sources so another person can follow your workflow, reproduce your results, and evaluate your claims. In this course, transparency supports explanatory power (you can explain what your code does and why) and originality/accountability (you produce and attribute work honestly, including documenting if and how you used AI).
+**R Notebook**: An `.Rmd` document that combines written explanation with executable R code chunks. Depending on your RStudio settings, interactive output may appear below a chunk or in another relevant pane. Rendering creates a finished document that keeps the writing, code, and computed output together.
 
 **YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
 
 ## 📝 Practice Space {#practice-space}
 
-Fill in the blanks to complete the code in your R Notebook.
+Complete the following coding and reflection tasks in your R Notebook.
 
 Before you begin:
 
 1. Create a new R Notebook in RStudio.
 2. Save it in your course folder as `chapter4_practice.Rmd`.
 3. Complete all Practice Space tasks in that notebook.
-4. Save your workspace as `chapter4_practice.RData`.
-
-Required files to submit:
-
-- `chapter4_practice.Rmd`
-- `chapter4_practice.RData`
 
 As you work, add short comments or memo notes explaining what your code is doing and what the output shows.
 
@@ -439,9 +399,9 @@ As you work, add short comments or memo notes explaining what your code is doing
 
 These are there to help you practice the habit of writing memos as you work. Keep responses short: 1–3 thoughtful sentences is enough. For this Practice Space, answer the 🗣 **Add Comments** prompt for each coding task. Then answer 🪞 **Reflect** prompts where your thinking, prediction, confusion, or troubleshooting changed.
 
-If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (**transparency**).
+If you encounter an error, practice tenacity by choosing an informed next step. Practice ✍️ transparency by recording what happened, what you tried, what you checked, and what remains unclear. If a resource helped you troubleshoot, identify it and explain what it contributed.
 
-You may ask an AI to explain an error or provide you with more details to a curiosity. Do not ask AI to rewrite or complete any part of the report for you. You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using `>`. Then hand-type your own explanation of why you are including that quote.
+If you use generative AI, follow the policies or guidance that apply to your work. Document the tool, what you asked, what the response contributed, and how you checked it. If you quote AI output, mark it clearly as quoted material and explain in your own words why you included it.
 
 Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.
 
@@ -531,7 +491,7 @@ student_counts["Junior"]
 
 Practice using a [comparison operator]{.glossary-term data-term="Comparison Operators"} to create a logical vector.
 
-🎯 Create a logical vector called `meets_goal` that checks whether each value in `quiz_scores` vector from Task 2 is greater than or equal to 80.
+🎯 Create a logical vector called `meets_goal` that checks whether each value in the `quiz_scores` vector from Task 2 is greater than or equal to 80.
 
 ```{r eval=FALSE}
 # ⚡ Use the quiz_scores vector from Task 2.
@@ -590,19 +550,24 @@ passing_scores <- quiz_scores[meets_goal]
 
 ### Task 7 {#task-7}
 
-✅ **Final checks before submitting**
+✅ **Final checks**
 
-🎯 **Step 1: Sweep your Environment (start clean).**  
+🎯 **Step 1: Save your notebook.**
+
+Save the current version of `chapter4_practice.Rmd`.
+
+🎯 **Step 2: Sweep your Environment. Start clean.**
+
 Click the 🧹 **broom icon** in the Environment pane to clear objects.
 
-🎯 **Step 2: Run everything top-to-bottom.**  
-Use **Run → Run All** to execute every chunk in order.
+🎯 **Step 3: Run everything from top to bottom.**
 
-🎯 **Step 3: Save and submit.**  
-After your notebook runs without errors, save your notebook (`chapter4_practice.Rmd`) and save your workspace (`chapter4_practice.RData`) for submission to Canvas.
+Use **Run → Run All** to execute every chunk in order. If an error appears, document what happened, what you tried, and how you resolved it or what remains unclear.
 
-## References {#references}
+🎯 **Step 4: Knit to HTML.**
 
-Resnik, D. B., & Elliott, K. C. (2023). Science, values, and the new demarcation problem. Journal for General Philosophy of Science, 54(2), 259-286.
+Knit your notebook to HTML to check that the document works from beginning to end.
 
-Thomas, P. A. (2023). Wikipedia and large language models: perfect pairing or perfect storm?. Library Hi Tech News, 40(10), 6-8.
+🎯 **Step 5: Review your work.**
+
+Review the rendered HTML. If you make corrections to the `.Rmd` file, repeat the clean run and knit. Follow any submission directions provided by your instructor.
