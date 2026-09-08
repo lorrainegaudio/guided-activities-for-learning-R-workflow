@@ -343,7 +343,7 @@ print(recycled_result)
 <code>&#96;&#96;&#96;</code>
 
 ```
-[1]  3.5  4.5 -0.5  5.5  7.5
+[1]  2.5  4.5 -0.5  5.5  7.5
 ```
 
 🗣 **Modeled Comment:** R recycles `numbers3` by repeating it as needed: `1.5, 2.5, -3.5, 1.5, 2.5`. Then R adds element-by-element: `1 + 1.5`, `2 + 2.5`, `3 + -3.5`, `4 + 1.5`, and `5 + 2.5`.
