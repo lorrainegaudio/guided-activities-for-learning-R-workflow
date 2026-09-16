@@ -662,7 +662,8 @@ Type the 👀 **Cite**, 🗣 **Comment**, and 🪞 **Reflect** statements as reg
 
 👀 I used `?mean` to read about the `na.rm` argument.
 
-🗣 The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
+🗣 The help page showed that `na.rm` defaults to `FALSE`. 
+I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
 ```
 ```{r}
 # ⚡ Code
@@ -674,7 +675,8 @@ mean(messy_scores, na.rm = TRUE)
 ```text
 🗣 The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
 
-🪞 I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
+🪞 I learned that a default argument can be optional but still important. 
+In this case, `na.rm` had a default value, but I needed to change it for my data.
 
 ```
 
@@ -682,8 +684,7 @@ mean(messy_scores, na.rm = TRUE)
 
 ---
 
-This is transparent coding. A future reader can see what problem you had, what resource you used, what you changed, and why the change made sense.
-
+🦁 Documenting your process of thinking helps you identify your understanding. It will increase self-awareness and help you regulate your cognitive processes. It will also help you prepare to ask for help when you need it. You will be able to show what you tried, what you learned, and what you need help with.
 
 ## Summary {#summary}
 
@@ -907,7 +908,7 @@ D. Running each code chunk is stronger because it uses the objects already saved
 
 ::: {.callout-note title="Download the Chapter 5 practice files"}
 
-Download these two files and save them together in the folder you are using for this chapter:
+Download these two files and save them together in the folder you are using for this course:
 
 - [ch05-practice-space.Rmd](downloads/ch05-practice-space.Rmd){download="ch05-practice-space.Rmd"}
 - [ch05-practice-space.RData](downloads/ch05-practice-space.RData){download="ch05-practice-space.RData"}

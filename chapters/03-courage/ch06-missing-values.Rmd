@@ -65,9 +65,11 @@ output: html_notebook
 ```")
 ```
 
-The date can be typed directly, such as "`2026-05-20`", or it can be dynamic using `r knitr::inline_expr("Sys.Date()")` so the document updates the date automatically when it renders.
+The date can be typed directly, such as `2026-05-20`, or it can be dynamic using <code>&#96;r Sys.Date()&#96;</code> so the document updates the date automatically when it renders.
 
-4. Remove the default content.
+4. Keep the YAML header at the top of the notebook. Delete only the sample body text and example code below the second `---` line.
+
+> 🧐 **Notice:** The YAML header is the block between the two `---` lines at the top. Keep that block because it controls the notebook's title and output format.
 
 5. Use headings as you work. At minimum, create section headings that match the chapter structure (e.g., `# Special Values`, `# Built-in Functions`, `# Missing Values Workflow`, `# Nesting`). This creates a readable outline.
 
@@ -85,7 +87,7 @@ Next, you’ll focus on what NA means, how missing values “propagate” throug
 
 ## Missing Values Workflow {#missing-values-workflow}
 
-The `na.rm` argument in the `mean()` function has a default value of `FALSE`, meaning that if you don't specify it, the function will include `NA` values in its calculation. 
+The `na.rm` argument in the `mean()` function has a default value of `FALSE`. This means that `mean()` does not remove missing values before calculating. If the input contains `NA`, the result is usually `NA`.
 
 ### Special Values {#special-values}
 
@@ -93,7 +95,7 @@ In R, [missing values]{.glossary-term data-term="Missing Values"} are represente
 
 R has several [special values]{.glossary-term data-term="Special Values"} that represent non-standard data states.
 
-- [NA]{.glossary-term data-term="NA"} ("Not Available") signals *missing* information: the value simply was not recorded.
+- [NA]{.glossary-term data-term="NA"} ("Not Available") signals *missing* information: the value is unknown or unavailable. A value may be missing because it was not recorded, could not be measured, or does not apply.
 - [NaN]{.glossary-term data-term="NaN"} ("Not a Number") signals an *undefined* numeric result, such as 0 divided by 0.
 
 ```{r , eval=FALSE}
@@ -128,7 +130,7 @@ mean(cursed_seq)                       # default is na.rm = FALSE → returns NA
 mean(cursed_seq, na.rm = TRUE)         # Change default to TRUE to ignore missing values
 ```
 
-🗣 The first `mean()` call returns `NA` because the default behavior includes missing values in the calculation. The second call uses `na.rm = TRUE` to ignore the `NA` values, allowing the function to compute the mean of the remaining numbers.
+🗣 The first `mean()` call returns `NA` because the default behavior leaves the missing value in the input, so the mean cannot be determined. The second call uses `na.rm = TRUE` to ignore the `NA` values, allowing the function to compute the mean of the remaining numbers.
 
 ___
 
@@ -267,11 +269,11 @@ which(is.na(LargeVec))                    # ▶ Where are the gaps?
 
 ### Summarizing "Missingness" {#summarizing-missingness}
 
-As a researcher, knowing *how much* data is missing guides your next step.
+As a researcher, knowing *how much* data is missing helps guide your next step, but the amount is only one part of the decision.
 
-A single `NA` might be harmless. If half of your data is missing, that might be big problem.
+A single `NA` may matter if it occurs in a key measurement. A larger number of missing values may create a serious problem, depending on where the missing values occur and why they are missing.
 
-For example, if 1 out of 20 values is missing, then 5% of the vector is missing. If 10 out of 20 values are missing, then 50% of the vector is missing. Those situations should not be treated the same way. If and how you analyze this data depends on how much is missing.
+For example, if 1 out of 20 values is missing, then 5% of the vector is missing. If 10 out of 20 values are missing, then 50% of the vector is missing. Those situations raise different concerns, but the percentage alone does not determine what you should do. Consider the amount and pattern of missing data, why the values may be missing, your analysis goal, the consequences of the decision, and guidance from your field.
 
 🎯 Use `sum()` and `mean()` with `is.na()` to summarize missing values in a large vector.
 
@@ -287,21 +289,21 @@ mean(is.na(LargeVec))
 
 Now that you can *detect* and *locate* gaps, you have to decide what to do about them. There is no universal “best” choice because each option makes assumptions.
 
-In this chapter, we'll use mean imputation is a practice method for learning replacement logic. It is not automatically the best choice in real research. Replacing missing values with the mean can make the data look more complete than it really is, and it can distort the distribution, especially the variance.
+In this chapter, we'll use mean imputation as a practice method for learning replacement logic. This is not a recommendation to use mean imputation in research. Replacing missing values with the mean can make the data look more complete than it really is, and it can distort the distribution, especially the variance.
 
-If you do not know why values are missing, be cautious.
+If you do not know why values are missing, pause before removing or replacing them.
 
-- **Option 1**: Remove missing values (complete-case analysis). Simple and common, but you may drop a lot of data (and potentially bias results).
+- **Option 1**: Exclude missing values from a calculation or create a vector containing only observed values. This is simple, but it reduces the available data and can bias results if the missingness is systematic.
 
 - **Option 2**: Replace missing values with a summary value (simple imputation). Keeps the vector length the same, but it can distort the distribution (especially the variance).
 
-In this chapter we’re practicing on a single vector, so removing missing values often looks “safer.” In real analysis, though, values live in rows of a dataset (one row = one person/observation) with multiple columns. If you remove rows because one column is missing, you also throw away valid information in other columns. That can:
+In this chapter, we are practicing logical indexing on a single vector. In real analysis, values often live in rows of a dataset (one row = one person or observation) with multiple columns. If you remove rows because one column is missing, you also throw away valid information in other columns. That can:
 
 - shrink your sample size (less stable results),
 
 - change which groups are represented (bias),
 
-- break analyses that require the full row structure (plots, models, group summaries).
+- change which observations contribute to plots, models, and group summaries.
 
 ---
 
@@ -309,7 +311,7 @@ In this chapter we’re practicing on a single vector, so removing missing value
 
 ---
 
-The bottom line is that there is no one-size-fits-all solution. If you only need a quick summary of one variable, removing `NA`s is often reasonable. If you need to keep rows aligned across variables, or you are comparing groups, you may consider imputation.
+The bottom line is that there is no one-size-fits-all solution. The appropriate response depends on the amount and pattern of missing data, why values may be missing, your analysis goal, the consequences of the decision, and guidance from your field. For a summary of one variable, a summary function may omit `NA` values when doing so is defensible. In analyses with multiple variables, both removing and imputing values require justification. Keeping rows aligned or comparing groups does not, by itself, make imputation the right choice.
 
 Whatever you choose, you need to document that choice and explain why it made sense for your goal. This is one reason why writing memos around your analysis is so important.
 
@@ -361,7 +363,7 @@ imputed[is.na(imputed)] <- mean(imputed, na.rm = TRUE)
 imputed
 ```
 
-🗣 `is.na(imputed)` identifies exactly where the gaps are, and `imputed[...] <- ...` replaces only those positions. The `na.rm = TRUE` argument is required here. Without it, `mean(imputed)` would return `NA` because the input contains missing values.
+🗣 `is.na(imputed)` identifies exactly where the gaps are, and `imputed[...] <- ...` replaces only those positions. The `na.rm = TRUE` setting is needed here to calculate the replacement mean from the observed values. Without it, `mean(imputed)` would return `NA` because the input contains missing values.
 
 The object we are editing is on the left side: **`imputed[`**`is.na(imputed)`**`]`**. 
 
@@ -373,13 +375,13 @@ The object we are using to find the missing positions is inside brackets: **`is.
 object[positions_to_replace] <- replacement_value
 ```
 
-> 🧐 **Notice:** You might think, “The missing values came from `Large_Vec`, so I should check `Large_Vec`.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value (mean): **`mean(imputed, na.rm = TRUE)`**
+> 🧐 **Notice:** You might think, “The missing values came from `LargeVec`, so I should check `LargeVec`.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value (mean): **`mean(imputed, na.rm = TRUE)`**
 
-> 🧐 **Notice:** You might think, “mean of observed values” means “mean of the original” and want to use `LargeVec`. But `imputed` currently equals `Large_Vec`, so the mean is identical either way at that moment. As soon as you start changing imputed, mixing names can cause logic bugs. You might replace values in one object using positions or summaries computed from a different object. 
+> 🧐 **Notice:** You might think, “mean of observed values” means “mean of the original” and want to use `LargeVec`. But `imputed` currently equals `LargeVec`, so the mean is identical either way at that moment. As soon as you start changing `imputed`, mixing names can cause logic bugs. You might replace values in one object using positions or summaries computed from a different object.
 
-In summary, wherever a element in `imputed` is missing, we replace those spots with the mean of `imputed` *while ignoring missing values so it can calculate the mean*.
+In summary, wherever an element in `imputed` is missing, we replace that position with the mean of `imputed` *while ignoring missing values so it can calculate the mean*.
 
-✅ Confirm your result by comparing `sum(is.na(LargeVec))` versus `sum(is.na(imputed)).`
+✅ Confirm your result by comparing `sum(is.na(LargeVec))` with `sum(is.na(imputed))`.
 
 ```{r , eval=FALSE}
 # ✅ 
@@ -387,7 +389,7 @@ sum(is.na(LargeVec))      # Original vector – should print number 10
 sum(is.na(imputed))       # Imputed vector – should print 0
 ```
 
-🗣 The first `sum(is.na(LargeVec))` call counts the number of missing values in the original vector, which should be greater than 1. The second `sum(is.na(imputed))` call counts the missing values in the imputed vector, which should be 0, confirming that all missing values have been replaced.
+🗣 The first `sum(is.na(LargeVec))` call counts the number of missing values in the original vector, which should be 10. The second `sum(is.na(imputed))` call counts the missing values in the imputed vector, which should be 0, confirming that all missing values have been replaced.
 
 ---
 
@@ -403,9 +405,9 @@ Finally, you practiced two basic strategies for handling missing values: removin
 
 **Impute**: To replace missing or unusable values (e.g., `NA`) with substituted values—often a plausible estimate based on the observed data (such as mean/median imputation or model-based predictions)—so the dataset can be analyzed without dropping incomplete cases. Because imputed values are estimates, you should document what method you used and why.
 
-**Missing Values**: Data values that are unknown or not recorded; in R they are represented by `NA` (“Not Available”). `NA` is a special missing-value indicator (with typed versions like `NA_integer_`, `NA_real_`, and `NA_character_`), and many calculations will return `NA` if any missing values are present unless you explicitly remove them (often via `na.rm = TRUE`, which defaults to `FALSE` in functions like `mean()`)
+**Missing Values**: Data values that are unknown or unavailable; in R they are represented by `NA` (“Not Available”). Depending on the context, a missing value may not have been recorded, may not have been measurable, or may not apply. `NA` is a special missing-value indicator (with typed versions like `NA_integer_`, `NA_real_`, and `NA_character_`), and many calculations will return `NA` if any missing values are present unless you explicitly remove them for that calculation (often via `na.rm = TRUE`, which defaults to `FALSE` in functions like `mean()`).
 
-**NA**: A special constant that marks a missing value (“Not Available”)—meaning the data point is unknown or not recorded. R also provides typed missing values like `NA_integer_`, `NA_real_`, `NA_character_`, and `NA_complex_` to match the underlying data type.
+**NA**: A special constant that marks a missing value (“Not Available”), meaning the data point is unknown or unavailable. R also provides typed missing values like `NA_integer_`, `NA_real_`, `NA_character_`, and `NA_complex_` to match the underlying data type.
 
 **NaN**: A special numeric constant (“Not a Number”) that represents an undefined arithmetic result in floating-point math (for example, `0/0` or other invalid operations). `NaN` is non-finite (not a regular number).
 
@@ -443,20 +445,20 @@ Before you finish, clear your Environment and run the notebook from top to botto
 
 ### Task 1 {#task-1}
 
-🧭 **Help-file scavenger hunt** (required vs default)
+🧭 **Help-file scavenger hunt** (arguments and defaults)
 
 1. 🎯 Use `?sample` to learn about the `sample()` function. 
   - Focus first on the `sample()` Usage line, not the `sample.int()` line.
 
-2. In one sentence, explain how you can tell required vs default arguments from the **Usage** line.
+2. In one sentence, explain how the **Usage** line shows which arguments have default values.
 
 3. Write the Usage lines exactly as they appear (copy/paste is fine), then label:
 
-- TWO required arguments 
+- TWO arguments written without default values in the Usage line
 
-- TWO default arguments for `sample()` exactly as they appear in the Usage section. How you can tell which arguments are required?
+- TWO arguments shown with default values for `sample()`, written exactly as they appear in the Usage section
 
-🗣 Add Comments: Explain how the Usage line helped you decide which arguments were required and which had default values.
+🗣 Add Comments: Explain how the Usage line helped you distinguish arguments written without defaults from arguments shown with default values.
 
 🪞 Reflect: What part of the help page was easiest to interpret? What part was still confusing or too technical?
 
@@ -517,6 +519,8 @@ ____        # should print 3
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook, Fill in the blanks
 average_raw <- mean(____)         # what happens?
+# ✅ Check the result
+____                              # should print NA
 ```
 
 ```{r , eval=FALSE}
@@ -559,7 +563,7 @@ length(____)       # should print 3
 
 🗣 Add Comments: Explain the difference between the output of `is.na(scores)` and the output of `which(is.na(scores))`.
 
-🪞 Reflect: Which output would be more useful if you only wanted to know whether values were missing? Which output would be more useful if you needed to replace or inspect the exact missing positions?
+🪞 Reflect: Which function from this chapter would you use if you wanted one `TRUE` or `FALSE` answer about whether `scores` contains missing values? Which output from this task would you use to inspect or replace the exact missing positions?
 
 ### Task 5 {#task-5}
 
@@ -569,7 +573,7 @@ length(____)       # should print 3
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook, Fill in the blanks
-set.seed(21)
+set.seed(3)
 mean_of_five <- ____   
 # ✅ Check  
 mean_of_five
@@ -601,7 +605,7 @@ now_time <- ____
 
 🎯 Using scores from Task 2:
 
-**Part A** — Remove `NA` values (“complete-case” for a vector)
+**Part A** — Remove `NA` values from a vector
 
 1. Create `scores_clean` by keeping only the observed (non-missing) values in `scores`.
 
