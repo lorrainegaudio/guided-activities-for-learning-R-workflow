@@ -32,25 +32,29 @@ In Chapter Six, you will practice how to:
 
 - 🕸️ Explain why compact code can be efficient but harder to read and debug.
 
+- 🦁 Practice documenting what you understand, what remains uncertain, and when to change strategies or ask for help.
+
+🦁 In this chapter, courage means making your thinking visible even when it is unfinished. When a result surprises you or code becomes difficult to follow, write down what you understand, name what remains uncertain, and choose a next step. You might check a help page, break the code into smaller steps, or ask for help when you stop making progress.
+
 ## Open an R Notebook {#open-an-r-notebook}
 
-Before you follow along with Chapter 6, set yourself up the same way you did in Chapter 5. Your work will be readable and helpful for you to study for review.
+Before you follow along with Chapter 6, set yourself up the same way you did in Chapter 5. Your work will be readable and useful when you review.
 
-🎯 Please open a new R Notebook in your course folder named `chapter6_notes.Rmd` and add a date to the YAML header. Use this document to take notes, practice the chapter content, and memo about what you are learning.
+🎯 Please open a new R Notebook named `chapter6_notes.Rmd`, save it in the folder you use for this chapter, and add a date to the YAML header. Use this document to take notes, practice the chapter content, and memo about what you are learning.
 
 The **YAML header** is the setup block at the very top of an R Notebook. It tells R Markdown the document title, author, date, and output type.
 
 1. Open RStudio → File → New File → R Notebook.
 
-2. Save it in your course folder as: `chapter6_notes.Rmd`.
+2. Save it in the folder you use for this chapter as `chapter6_notes.Rmd`.
 
 3. In your YAML header at the top:
 
-- Update the `title` to match this chapter.
+    - Update the `title` to match this chapter.
 
-- Include a `date` (hard-coded or dynamic, your choice).
+    - Include a `date` (hard-coded or dynamic, your choice).
 
-- Add your name as the `author`.
+    - Add your name as the `author`.
 
 For example, your YAML header might look like this:
 
@@ -71,15 +75,15 @@ The date can be typed directly, such as `2026-05-20`, or it can be dynamic using
 
 > 🧐 **Notice:** The YAML header is the block between the two `---` lines at the top. Keep that block because it controls the notebook's title and output format.
 
-5. Use headings as you work. At minimum, create section headings that match the chapter structure (e.g., `# Special Values`, `# Built-in Functions`, `# Missing Values Workflow`, `# Nesting`). This creates a readable outline.
+5. Use headings as you work. At minimum, create headings for `# Missing Values Workflow`, `## Special Values`, `## Detecting Missing Values`, and `# Nesting Function Calls`. This creates a readable outline.
 
 6. Memo as you go.
 
-- Inside chunks: use `#` for code comments (otherwise R tries to run the text as code).
+    - Inside chunks, use `#` for code comments. Otherwise, R tries to run the text as code.
 
-- Outside chunks: write normal text without a `#`.
-  - If you hit an error, write a one-sentence note about what you changed to fix it. Learned something new? Write a one-sentence note about that too. 
-  - Create these notes as a resource for you to review later.
+    - Outside chunks, use 🗣 **Comment** to explain what the code or output shows and 🪞 **Reflect** to record what you understand, what remains uncertain, and what you would try next.
+
+    - When a resource helps you, add a 👀 **Cite** memo naming the resource and explaining how it helped.
   
 ---
 
@@ -164,10 +168,12 @@ where `x` is the vector you want to check for missing values.
 # ⚡ Type this in your R Notebook
 Vector_NA <- c(3, 7, NA, 12)  # Our sample data – one value is missing
 
-anyNA(Vector_NA)              # TRUE means “Something is missing!"
+anyNA(Vector_NA)              # TRUE means "Something is missing!"
 ```
 
-🗣  If was my data and I saw `FALSE`, I could relax; the vector has no gaps. Seeing TRUE tells me to investigate further. 
+🗣 If this were my data and I saw `FALSE`, I could relax; the vector has no gaps. Seeing `TRUE` tells me to investigate further.
+
+🦁 If the result surprises you, pause before changing the code. Write what you expected, what R returned, and what you will check next.
 
 ### Locating Missing Values {#locating-missing-values}
 
@@ -208,7 +214,7 @@ Several functions help you work with missing values. They answer different quest
 | How many values are missing? | `sum(is.na(x))` | A count |
 | What proportion is missing? | `mean(is.na(x))` | A proportion |
 
-The key is to choose the function that matches your question. If you only need a quick yes/no check, use `anyNA()`. If you need the exact positions, use `which(is.na())`.
+The key is to choose the function that matches your question. If you only need a quick yes/no check, use `anyNA()`. If you need the exact positions, use `which(is.na(x))`.
 
 ## Nesting Function Calls {#nesting-function-calls}
 
@@ -235,7 +241,7 @@ R reads this as:
 Nesting is the simplest form of function composition. It builds a multi-step transformation by combining small, single-purpose functions.
 
 ```{r , eval=FALSE}
-# Nesting with three functions; creating the travel_jumps object
+# Nesting with three functions without creating intermediate objects
 mean(sample(seq(from = 1887, to = 2052, by = 33), size = 5, replace = TRUE))
 ```
 
@@ -244,6 +250,19 @@ mean(sample(seq(from = 1887, to = 2052, by = 33), size = 5, replace = TRUE))
 ---
 
 Real work is rarely one step. Nesting is the base-R way to express that workflow without writing a ton of intermediate objects. However, nesting creates parentheses-heavy code that’s harder to read and debug. In later chapters, we will learn how to pipe multi-step workflows. For now, we'll practice finding missing values with nesting functions.
+
+🦁 If nested code is difficult to understand or debug, change strategies by separating it into smaller steps. Store and check each result before combining the functions again.
+
+```{r , eval=FALSE}
+# ⚡ Type this in your R Notebook
+sampled_jumps <- sample(travel_jumps, size = 5, replace = TRUE)
+sampled_jumps                 # ✅ Check the inner result
+
+mean_jump <- mean(sampled_jumps)
+mean_jump                     # ✅ Check the final result
+```
+
+🗣 Separating the steps makes the intermediate result visible. This helps you identify which function needs attention and gives you specific information to share if you ask for help.
 
 ### Locating Missing Values with Nesting {#locating-missing-values-with-nesting}
 
@@ -265,7 +284,7 @@ print(LargeVec)
 which(is.na(LargeVec))                    # ▶ Where are the gaps?
 ```
 
-🗣 The`is.na()` function creates a *logical* vector indicating which elements are missing, and the `which()` function determines the indices of those `TRUE` values. The numbers are the numeric indices (position) of the `NA` values.
+🗣 The `is.na()` function creates a *logical* vector indicating which elements are missing, and the `which()` function determines the indices of those `TRUE` values. The numbers are the numeric indices (positions) of the `NA` values.
 
 ### Summarizing "Missingness" {#summarizing-missingness}
 
@@ -283,7 +302,8 @@ sum(is.na(LargeVec))
 
 mean(is.na(LargeVec))   
 ```
-🗣 The `sum(is.na(LargeVec))` expression counts the total number of missing values in `LargeVec` by summing the `TRUE` values from `is.na()`. The `mean(is.na(LargeVec))` expression calculates the proportion of missing values by taking the mean of the logical vector returned by `is.na()`, where `TRUE` is treated as 1 and `FALSE` as 0. Fifty percent missing values yield a mean of 0.5.
+
+🗣 The `sum(is.na(LargeVec))` expression counts the total number of missing values in `LargeVec` by summing the `TRUE` values from `is.na()`. The `mean(is.na(LargeVec))` expression calculates the proportion of missing values by taking the mean of the logical vector returned by `is.na()`, where `TRUE` is treated as 1 and `FALSE` as 0. When 50% of the values are missing, the mean of the logical vector is 0.5.
 
 ### Imputation {#imputation}
 
@@ -291,11 +311,11 @@ Now that you can *detect* and *locate* gaps, you have to decide what to do about
 
 In this chapter, we'll use mean imputation as a practice method for learning replacement logic. This is not a recommendation to use mean imputation in research. Replacing missing values with the mean can make the data look more complete than it really is, and it can distort the distribution, especially the variance.
 
-If you do not know why values are missing, pause before removing or replacing them.
+🦁 If you do not know why values are missing, pause before removing or replacing them. Name what you do not know, check the data documentation, or ask someone who understands how the data were collected.
 
 - **Option 1**: Exclude missing values from a calculation or create a vector containing only observed values. This is simple, but it reduces the available data and can bias results if the missingness is systematic.
 
-- **Option 2**: Replace missing values with a summary value (simple imputation). Keeps the vector length the same, but it can distort the distribution (especially the variance).
+- **Option 2**: Replace missing values with a summary value (simple imputation). This keeps the vector length the same, but it can distort the distribution, especially the variance.
 
 In this chapter, we are practicing logical indexing on a single vector. In real analysis, values often live in rows of a dataset (one row = one person or observation) with multiple columns. If you remove rows because one column is missing, you also throw away valid information in other columns. That can:
 
@@ -313,7 +333,7 @@ In this chapter, we are practicing logical indexing on a single vector. In real 
 
 The bottom line is that there is no one-size-fits-all solution. The appropriate response depends on the amount and pattern of missing data, why values may be missing, your analysis goal, the consequences of the decision, and guidance from your field. For a summary of one variable, a summary function may omit `NA` values when doing so is defensible. In analyses with multiple variables, both removing and imputing values require justification. Keeping rows aligned or comparing groups does not, by itself, make imputation the right choice.
 
-Whatever you choose, you need to document that choice and explain why it made sense for your goal. This is one reason why writing memos around your analysis is so important.
+🦁 Whatever you choose, write a memo that documents the decision, the evidence you used, and what remains uncertain. Making your reasoning visible helps you evaluate the choice and ask a clearer question if you need help.
 
 Next, you’ll practice both strategies on a vector so you can see the trade-off clearly. Later, you’ll apply the same decision logic to multi-column datasets.
 
@@ -351,7 +371,7 @@ imputed <- LargeVec     # Make a copy to preserve original
 🗣 The reason we make a copy is that we want to keep the original vector with its missing values intact for comparison. This way, we can see the effect of imputation without losing the original data. 
 
 
-💡 **Tip:** Once we make a copy, we use that copy name everywhere in the imputation line. This new version of the vector is called `imputed`, and it is the version we will use next. `imputed` is the vector's *name*. The name is descriptive of what the difference will be between it and the original `LargeVec` once we have replace only the missing values with the mean of the observed values. It is good practice to name objects in meaningful ways. 
+💡 **Tip:** Once we make a copy, we use that copy name everywhere in the imputation line. This new version of the vector is called `imputed`, and it is the version we will use next. `imputed` is the vector's *name*. The name is descriptive of what the difference will be between it and the original `LargeVec` once we have replaced only the missing values with the mean of the observed values. It is good practice to name objects in meaningful ways.
 
 We’re doing three actions on the same object (`imputed`):
 
@@ -375,7 +395,7 @@ The object we are using to find the missing positions is inside brackets: **`is.
 object[positions_to_replace] <- replacement_value
 ```
 
-> 🧐 **Notice:** You might think, “The missing values came from `LargeVec`, so I should check `LargeVec`.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value (mean): **`mean(imputed, na.rm = TRUE)`**
+> 🧐 **Notice:** You might think, “The missing values came from `LargeVec`, so I should check `LargeVec`.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value is also `imputed`: **`mean(imputed, na.rm = TRUE)`**
 
 > 🧐 **Notice:** You might think, “mean of observed values” means “mean of the original” and want to use `LargeVec`. But `imputed` currently equals `LargeVec`, so the mean is identical either way at that moment. As soon as you start changing `imputed`, mixing names can cause logic bugs. You might replace values in one object using positions or summaries computed from a different object.
 
@@ -403,7 +423,7 @@ Finally, you practiced two basic strategies for handling missing values: removin
 
 ## Chapter Terms {#chapter-terms}
 
-**Impute**: To replace missing or unusable values (e.g., `NA`) with substituted values—often a plausible estimate based on the observed data (such as mean/median imputation or model-based predictions)—so the dataset can be analyzed without dropping incomplete cases. Because imputed values are estimates, you should document what method you used and why.
+**Impute**: To replace missing or unusable values (e.g., `NA`) with substituted values, often using estimates based on the observed data (such as mean/median imputation or model-based predictions), so the dataset can be analyzed without dropping incomplete cases. Because imputed values are estimates, you should document what method you used and why.
 
 **Missing Values**: Data values that are unknown or unavailable; in R they are represented by `NA` (“Not Available”). Depending on the context, a missing value may not have been recorded, may not have been measurable, or may not apply. `NA` is a special missing-value indicator (with typed versions like `NA_integer_`, `NA_real_`, and `NA_character_`), and many calculations will return `NA` if any missing values are present unless you explicitly remove them for that calculation (often via `na.rm = TRUE`, which defaults to `FALSE` in functions like `mean()`).
 
@@ -421,42 +441,49 @@ Finally, you practiced two basic strategies for handling missing values: removin
 
 ## 📝 Practice Space {#practice-space}
 
-Fill in the blanks and answer the short prompts in your R Notebook. This Practice Space helps you check whether you can organize a notebook, read an R help page, use a function argument, and knit your work into an HTML report.
+Fill in the blanks and answer the short prompts in your R Notebook. This Practice Space helps you check whether you can detect, locate, and count missing values; use function arguments deliberately; compare removal with simple mean imputation; and explain nested code. You will also continue using the notebook, memoing, and knitting practices introduced earlier.
+
+📖 **Review:** Tasks 6 and 8 are brief cumulative-review tasks that revisit earlier skills. The other tasks focus on this chapter's missing-values workflow.
 
 Before you begin:
 
 1. Create a new R Notebook in RStudio.
-2. Save it in your course folder as `chapter6_practice.Rmd`.
-3. Complete each task in order.
-4. Add short memo notes throughout your notebook. Your memo notes should explain what your code does, what output you expected, what surprised or confused you, and what you would check next if something did not work.
+2. Keep the YAML header at the top. Delete only the sample body text and example code below the second `---` line.
+3. Save the notebook in the folder you use for this chapter as `chapter6_practice.Rmd`.
+4. Complete each task in order.
+5. Add short memo notes throughout your notebook.
 
-In this Practice Space, you will see two kinds of memo prompts:
+In this Practice Space, you will use three kinds of memos:
 
 - 🗣 **Add Comments** asks you to explain what the code or output shows.
 - 🪞 **Reflect** asks you to explain your thinking process, what confused you, what changed in your understanding, or what strategy you would use next.
+- 👀 **Cite** identifies a human or digital resource you used and explains how it helped.
 
-These are there to help you practice the habit of writing memos as you work. **In each task, you can choose whether to answer one, two, or all memo prompts.**
+Keep each memo short. One to three thoughtful sentences is enough. Answer the 🗣 **Add Comments** prompt in every task where it appears. Answer a 🪞 **Reflect** prompt when your prediction, understanding, confusion, or troubleshooting changed. Whenever a resource contributes to your work, add a 👀 **Cite** memo.
 
-If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (**transparency**). Show **courage** by sharing your thinking process, even if it includes mistakes or confusion.
+🦁 Sharing your thinking takes courage when it includes a mistake, uncertainty, or question. If two focused attempts or about 10 minutes do not produce new information, change strategies or ask for help. Share the relevant code or output, what you tried, and what still confuses you.
 
-You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using `>`. Then hand-type your own explanation of why you are including that quote.
+Follow the AI-use guidance that applies to your learning setting. If you use an AI tool, cite it as directed and explain what it contributed. Clearly mark any words you reproduce exactly as quoted text, using quotation marks or a block quote with `>`.
 
-Before you finish, clear your Environment and run the notebook from top to bottom. Then knit to HTML to check that the notebook works in order.
+🦁 **Test knit:** Before you finish, clear your Environment, run the notebook from top to bottom, and knit to HTML. If knitting fails, read the error and make one informed change at a time.
 
 ### Task 1 {#task-1}
 
 🧭 **Help-file scavenger hunt** (arguments and defaults)
 
 1. 🎯 Use `?sample` to learn about the `sample()` function. 
-  - Focus first on the `sample()` Usage line, not the `sample.int()` line.
+
+    - Focus first on the `sample()` Usage line, not the `sample.int()` line.
 
 2. In one sentence, explain how the **Usage** line shows which arguments have default values.
 
-3. Write the Usage lines exactly as they appear (copy/paste is fine), then label:
+3. Write the `sample()` Usage line exactly as it appears (copy/paste is fine), then label:
 
-- TWO arguments written without default values in the Usage line
+    - TWO arguments written without default values in the Usage line
 
-- TWO arguments shown with default values for `sample()`, written exactly as they appear in the Usage section
+    - TWO arguments shown with default values for `sample()`, written exactly as they appear in the Usage section
+
+👀 Cite: Name the `sample()` help page and explain which section helped you identify the arguments and defaults.
 
 🗣 Add Comments: Explain how the Usage line helped you distinguish arguments written without defaults from arguments shown with default values.
 
@@ -583,6 +610,8 @@ mean_of_five
 
 🪞 Reflect: Was the nested version easier or harder to understand than writing the steps separately? If you were debugging this code, would you keep it nested or break it into smaller objects? Explain why.
 
+🦁 Naming that the nested version is difficult gives you useful information. You can change strategies by breaking the code into smaller objects and checking each result.
+
 ### Task 6 {#task-6}
 
 🕰 **Quick time-stamp**
@@ -605,7 +634,7 @@ now_time <- ____
 
 🎯 Using scores from Task 2:
 
-**Part A** — Remove `NA` values from a vector
+**Part A:** Remove `NA` values from a vector
 
 1. Create `scores_clean` by keeping only the observed (non-missing) values in `scores`.
 
@@ -626,7 +655,7 @@ length(scores_clean)    # should print 25
 
 🪞 Reflect: Why is removing missing values simple for one vector but potentially risky in a larger dataset with many columns?
 
-**Part B** — Impute: replace NA with the mean of present values
+**Part B:** Impute: replace NA with the mean of present values
 
 1. Make a copy of `scores` named `scores_imputed` (so you don’t overwrite the original).
 
@@ -660,7 +689,7 @@ In one sentence, explain the difference between a *function object* such as `mea
 
 🪞 Reflect: What kind of mistake might happen if you type a function name without parentheses when you meant to run the function?
 
-### Task 9 {#task-9}
+### Finish and verify your notebook {#finish-and-verify}
 
 🎯 **Step 1: Sweep your Environment (start clean).**  
 Click the 🧹 **broom icon** in the Environment pane to clear objects.
@@ -668,11 +697,15 @@ Click the 🧹 **broom icon** in the Environment pane to clear objects.
 🎯 **Step 2: Run everything top-to-bottom.**  
 Use **Run → Run All** to execute every chunk in order.
 
-🎯 **Step 3: Save and submit.**  
-After your notebook runs without errors, save your notebook (`.Rmd`) and knit to HTML (`.HTML`) for submission to Canvas, as directed. 
+🎯 **Step 3: Save, knit, and inspect.**
+After your notebook runs without errors, save the `.Rmd` file and knit it to HTML. RStudio will usually create a `.nb.html` file for an R Notebook, although some workflows create a `.html` file.
 
-💡 **Tip:** After you knit, look in your course folder for two files with the same name. One file ends in .Rmd and one ends in .html. Upload the .html file. You can check which is which because one opens in R and the other usually opens in a web browser.
+✅ **Check:** Open the HTML output and confirm that it includes the expected headings, code, output, and memos.
+
+💡 **Tip:** The HTML output opens in a web browser, but it remains a file saved on your computer. If you need to share it, send or upload the HTML file itself rather than copying the local address from the browser.
 
 ---
 
-🪞 Final Reflection: What was one place where your code did not behave the way you expected? What did you check or change before submitting? How much time did you spend completing the Practice Space? Did you complete the Guided Activity first?
+🦁 Use the final reflection to make your thinking visible, including any uncertainty or change in strategy.
+
+🪞 Final Reflection: Identify one place where your code did not behave as expected. What did you understand, what remained uncertain, and what did you check, change, or ask about next? How much time did you spend completing the Practice Space?

@@ -57,6 +57,12 @@ main.content blockquote {
   max-width: none;
 }
 
+/* Make blockquote notices easier to read. */
+main.content blockquote.blockquote {
+  color: $text-dark;
+  border-left-color: $boise-gray;
+}
+
 p {
   margin-bottom: 1rem;
 }
