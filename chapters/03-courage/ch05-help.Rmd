@@ -100,7 +100,7 @@ Inline R works in YAML when written exactly as shown above. Notice the backticks
 
 You'll learn how to **knit** soon, but first, you need a clear structure inside the document. That is where Markdown headings come in.
 
-##### Heading levels {#heading-levels}
+### Heading levels {#heading-levels}
 
 Headings create the outline of your notebook. The number of `#` symbols controls the heading level.
 
@@ -140,7 +140,7 @@ All Chapter HTMLs in this course were created using RStudio. You can see how hea
 
 🎯  Work to complete the sections under each heading as you go through the chapter content. You can also add more headings and subheadings as needed to organize your notes and code.
 
-##### Outline Menu {#outline-menu}
+### Outline Menu {#outline-menu}
 
 The "outline pane" in RStudio uses your Markdown headings to create a clickable map of your document. This document outline or [outline menu]{.glossary-term data-term="Outline Menu"} in the Source pane shows your headings/subheadings. They act as "Jump To" menus, helping you move between tasks without scrolling through the whole notebook.
 
@@ -154,7 +154,7 @@ Figure 1 shows a screenshot of an RStudio R Notebook showing a Markdown section 
 
 In the above example, the `# Notebook set up` heading creates a main section heading. The outline menu on the right lists all headings in the document, allowing you to navigate quickly between sections. 
 
-#### The most common beginner mistake with `#` {#common-mistake}
+### The most common beginner mistake with `#` {#common-mistake}
 
 Put spacing between the `#` symbols and the heading text to paragraph text ensures heading formatting works correctly. 
 
@@ -214,13 +214,13 @@ Now that you have the basics of Markdown structure, you will test whether the wh
 
 ## Knit to HTML {#knit-html}
 
-When you 🧶**Knit** to HTML, RStudio creates a shareable, static report that includes your formatted headings and text, your code, and the output produced when the code runs. The HTML is not a website and you cannot share it by sharing a URL. It is a file on your computer that you can open in a web browser and share with others by sharing the file itself.
+When you 🧶**Knit** to HTML, RStudio creates a static report file that includes your formatted headings and text, your code, and the output produced when the code runs. RStudio saves the HTML file on your computer and opens it in a web browser. Opening the file in a browser does not publish it on the internet. The browser address points to a file on your computer, so another person cannot use that address to open your report. To share the report, send or upload the `.html` file itself.
 
 Knitting is not the same as “running a chunk.” Running a chunk uses your current R session. This means that running a code chunk can succeed even if you wrote code out of order or if objects used already exist in your Environment.
 
 Knitting is a stronger test. It runs the entire notebook from top to bottom in a *fresh* session, then builds an HTML report.
 
-#### How to Knit {#how-to-knit}
+### How to Knit {#how-to-knit}
 
 RStudio UI varies. Some of you will have a 🧶[Knit button]{.glossary-term data-term="Knit Button"}, others will use **Preview menu** drop.
 
@@ -272,7 +272,7 @@ This is why knitting is the real test of “does this notebook work?” If it kn
 
 ---
 
-#### Sharing the HTML File {#sharing-html}
+### Sharing the HTML File {#sharing-html}
 
 The HTML file is automatically saved in the same folder as your R Notebook, with the same name but an `.html` extension instead of `.Rmd`. If you have not yet saved your R Notebook, RStudio will prompt you to do so before knitting.
 
@@ -286,15 +286,15 @@ or
 
 - `chapter5_notes.nb.html`
 
-> 🧐 **Notice:** The HTML opens in your browser, but the browser address is a local file path on your computer. You **cannot** submit a browser link.
+> 🧐 **Notice:** The HTML opens in your browser, but it remains a file saved on your computer. The address bar shows a local file path, not a public web address. Another person cannot open that local address.
 
-When you open an HTML, it uses your web browser to display a nicely formatted version of your notebook, including code, output, and memos. You cannot share the HTML by sharing the web address (URL) in your browser because it is a local file on your computer. 
+When you open an HTML file, your browser displays a formatted version of your notebook, including code, output, and memos.
 
-To share (e.g., submit), 📤 upload the `.html` file. 
+To share the report, 📤 send or upload the `.html` file itself. Do not copy and share the local address from your browser.
 
 💡 **Tip:** Check the HTML first to make sure it is correct and shows the correct formatting.
 
-#### Knit Errors {#knit-errors}
+### Knit Errors {#knit-errors}
 
 When you select to knit, the bottom left pane shows progress messages in the [Render tab]{.glossary-term data-term="Render Tab"} as R runs your notebook from top to bottom. 
 
@@ -318,7 +318,7 @@ If knitting fails, do not fear. This is an opportunity to discover where your no
 Common reasons knitting fails:
 
 - You wrote the code out of order, so an object exists in your Environment but is not created earlier in the notebook.
-- You forgot to include setup code, such as creating objects, loading packages, or setting a working directory.
+- You forgot to include setup code, such as loading packages, creating objects, or reading files through the appropriate relative paths.
 - A chunk contains an error you did not notice because you never ran that chunk.
 
 Some errors are tricky. If you get stuck, bring the error message, the chunk, and what you already tried to a peer, office hours, or another approved course resource.
@@ -337,7 +337,7 @@ In this section, you will practice calling a function and noticing the differenc
 
 ### Function Objects vs. Function Calls {#function-objects-vs-calls}
 
-A [function object]{.glossary-term data-term="Function Object"} is the stored code that performs a task. For example, `mean` is a function object that calculates the average of a numeric vector. The stored code sums the values and divides by the number of values.
+A [function object]{.glossary-term data-term="Function Object"} is an R object that performs a task when it is called. For example, `mean` is the function object used to calculate the average of a numeric vector.
 
 🎯 Run `mean` in a code chunk to see the stored function object. Add the code chunk under `# Built-in Functions`
 
@@ -346,7 +346,7 @@ A [function object]{.glossary-term data-term="Function Object"} is the stored co
 mean
 ```
 
-🗣 R prints the instructions stored inside `mean`. You do not need to read every detail yet. For now, notice that typing `mean` by itself shows the stored recipe R uses when you later call `mean()` on data.
+🗣 R displays the definition of the `mean` function object. You do not need to understand every detail yet. For now, notice that typing `mean` without parentheses displays the function instead of calculating a mean.
 
 To make the function do its job, you have to _call it_. A [function call]{.glossary-term data-term="Function Call"} runs the stored code. To call a function, you type the function name followed by parentheses `()`. Inside the parentheses, you must provide any [required arguments]{.glossary-term data-term="Required Arguments"}. For example, to calculate the mean of a numeric vector, you call the `mean()` function and provide the vector as an argument. The vector is a [required argument]{.glossary-term data-term="Required Arguments"} because the function needs it to perform the calculation.
 
@@ -371,7 +371,7 @@ mean(cursed_seq)
 
 Nobody memorizes every function or every argument. Looking in help is one way you stay engaged when you do not already know what to do or you have a question. Skilled R users look things up.
 
-`?[function_name]` opens the help file for that function. The Files pane usually contains several tabs, including the [Help tab]{.glossary-term data-term="Help Tab"}, which displays documentation for R functions.
+Typing a question mark before a function name opens its help file. For example, `?mean` opens the help file for the `mean()` function. The Files pane usually contains several tabs, including the [Help tab]{.glossary-term data-term="Help Tab"}, which displays documentation for R functions.
 
 🎯 Use `?mean` to open the help file for the `mean()` function. Add the code chunk under `## Help Files`
 
@@ -408,7 +408,7 @@ Sys.Date()
 
 Scroll through the help file to find information about the function's usage, arguments, and examples.
 
-- [Usage]{.glossary-term data-term="Examples Section"}: shows the function signature and defaults.
+- [Usage]{.glossary-term data-term="Usage Section"}: shows the function signature and defaults.
 
 - [Arguments]{.glossary-term data-term="Arguments"}: what each argument does.
 
@@ -524,7 +524,7 @@ Read the usage line like this:
 
 | Part | What it means |
 |---|---|
-| `mean()` | Required. This is the function name. |
+| `mean()` | This is the function being called. |
 | `x` | Required. This is the object you want R to average. |
 | `trim = 0` | Optional. R uses `0` unless you choose a different value. |
 | `na.rm = FALSE` | Optional. R keeps missing values unless you choose `TRUE`. |
@@ -561,7 +561,7 @@ messy_scores <- c(80, 90, NA, 100)
 print(messy_scores)
 ```
 
-🗣 The value `NA` means the data value is missing. It is not character or numeric value. It means the third entry is empty. 
+🗣 The third position is marked with `NA`, which means the numeric value is missing.
 
 🎯 Try to calculate the mean of `messy_scores` using only default arguments. 💬 Prediction: What do you think R will return?
 
@@ -640,7 +640,7 @@ Sometimes you know the topic, but you do not know the function name. For example
 help.search("missing values")
 ```
 
-🗣 Use `?[function_name]` when you already know the function name. Use `??["search words"]` or `help.search(["search words"])` when you know the topic but not the exact function.
+🗣 Use a pattern such as `?mean` when you already know the function name. Use `??"search words"` or `help.search("search words")` when you know the topic but not the exact function.
 
 | Situation | What to type |
 |---|---|
@@ -692,11 +692,11 @@ This is transparent coding. A future reader can see what problem you had, what r
 
 ## Summary {#summary}
 
-In this chapter, you strengthened your R Notebook habits by learning how to create a complete, shareable HTML report. You practiced editing the YAML header, using Markdown headings to organize your notebook, knitting your work to HTML, and submitting the actual `.html` file rather than a browser link.
+In this chapter, you strengthened your R Notebook habits by learning how to create a complete, shareable HTML report. You practiced editing the YAML header, using Markdown headings to organize your notebook, knitting your work to HTML, and sharing the actual `.html` file rather than a local browser address.
 
 You also learned that knitting is the real test of whether your notebook works. Running a single chunk only checks part of the code in your current R session, but knitting runs the whole notebook from top to bottom in a fresh session. When knitting fails, the error message is feedback that helps you find what needs to be fixed next.
 
-Finally, you learned how to use built-in R functions and help files. You practiced the difference between a function object and a function call, identified required and default arguments, used `?function_name`, `help()`, `example()`, and `help.search()` to find information, and changed `na.rm = TRUE` to handle missing values in a calculation.
+Finally, you learned how to use built-in R functions and help files. You practiced the difference between a function object and a function call, identified required and default arguments, used `?mean`, `help()`, `example()`, and `help.search()` to find information, and changed `na.rm = TRUE` to handle missing values in a calculation.
 
 Your main takeaway is that strong R work depends on organized notebooks, successful knitting, and the courage to use errors and help files as part of the coding process.
 
@@ -714,11 +714,11 @@ Your main takeaway is that strong R work depends on organized notebooks, success
 
 **Function Object**: A function stored as an R object (functions are “first-class” in R, meaning you can assign them to names, pass them to other functions, and inspect them). 
 
-**Help Page**: Documentation for R functions and packages that provides information on usage, arguments, and examples. Accessed using `?function_name` or `help(function_name)`.
+**Help Page**: Documentation for R functions and packages that provides information on usage, arguments, and examples. For example, use `?mean` or `help(mean)` to open the help page for `mean()`.
 
 **Help Tab**: Located in the Files/Plots/Packages/Help pane, this tab provides access to R documentation, package vignettes, and search functionality to find help topics related to R functions and packages.
 
-**HTML**: A web page file type (`.html`) written in **HyperText Markup Language** that a web browser can open and display as a formatted document. In this course, Preview/Knit/Render can create an HTML file (often `.html` or `.nb.html`) that shows your notebook’s text, code, and output in the browser; because it opens from your computer (a local `file://` path), you can’t submit it by copying the browser address. Upload the HTML file itself.
+**HTML**: A web page file type (`.html`) written in **HyperText Markup Language** that a web browser can open and display as a formatted document. Preview, Knit, or Render can create an HTML file (often `.html` or `.nb.html`) that shows your notebook's text, code, and output. When the file opens from your computer, the browser address is a local file path, not a public link. Share the `.html` file itself.
 
 **Inline Code**: Code-style text placed within a sentence by surrounding the text with single backticks, such as `penguins`. In Quarto and Markdown, inline code is used to mark object names, function names, file names, or short code expressions so they appear in a monospace code font in the rendered report. This formatting signals to the reader, “treat this as code or a code-related name,” not as ordinary prose. 
 
@@ -733,6 +733,8 @@ Your main takeaway is that strong R work depends on organized notebooks, success
 **Render Tab**: A temporary tab that appears in RStudio’s Console pane when you Knit/Render an R Markdown (`.Rmd`) or Quarto (`.qmd`) document. It shows the rendering log—progress messages, warnings, and errors—separately from your interactive Console, and typically includes a Stop control so you can interrupt a failed or long render.
 
 **Required Arguments**: Inputs a function needs because they have no default value in the function definition; you must supply them in the call (or the function can’t do its job). 
+
+**Usage Section**: The part of an R help page that shows how to write the function call, including its arguments and any default values.
 
 **YAML Header**: The metadata section at the top of an R Markdown or Quarto document, written between `---` lines, that controls document settings like the title, author, date, output format (HTML/PDF/Word), and options for rendering.
 
