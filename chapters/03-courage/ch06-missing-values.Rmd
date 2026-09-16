@@ -40,7 +40,7 @@ In Chapter Six, you will practice how to:
 
 Before you follow along with Chapter 6, set yourself up the same way you did in Chapter 5. Your work will be readable and useful when you review.
 
-🎯 Please open a new R Notebook named `chapter6_notes.Rmd`, save it in the folder you use for this chapter, and add a date to the YAML header. Use this document to take notes, practice the chapter content, and memo about what you are learning.
+🎯 Please open a new R Notebook and name it `chapter6_notes.Rmd`. Save it in the folder you use for this chapter, and add a date to the YAML header. Use this document to take notes, practice the chapter content, and memo about what you are learning.
 
 The **YAML header** is the setup block at the very top of an R Notebook. It tells R Markdown the document title, author, date, and output type.
 
