@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4a48981ed7de43aebb597d4e7fd5f8e6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-c687014b6e94f91f508873c3b612f981.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -432,7 +432,7 @@ Compare what you typed with the image of the knitted result.
 
 🎯 Make a comment inside a code chunk
 
-```hso
+```zov
 # ⚡ This is a comment inside a code chunk.
 cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 ```
@@ -557,7 +557,7 @@ cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, ...) 
 UseMethod("mean")
-&lt;bytecode: 0x7af88dcb0&gt;
+&lt;bytecode: 0xbc378bcb0&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>
@@ -861,7 +861,8 @@ UseMethod("mean")
 <pre class="text"><code>
 👀 I used `?mean` to read about the `na.rm` argument.
 
-🗣 The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.</code></pre>
+🗣 The help page showed that `na.rm` defaults to `FALSE`. 
+I changed `na.rm` to `TRUE` because my vector contained an `NA` value.</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>messy_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="cn">NA</span>, <span class="dv">100</span>)</span>
@@ -873,11 +874,12 @@ UseMethod("mean")
 </div>
 <pre class="text"><code>🗣 The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
 
-🪞 I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
+🪞 I learned that a default argument can be optional but still important. 
+In this case, `na.rm` had a default value, but I needed to change it for my data.
 </code></pre>
 <p>🦁 If knitting fails, follow the <a href="#knit-errors">Knit Errors</a> steps and stopping rule.</p>
 <hr>
-<p>This is transparent coding. A future reader can see what problem you had, what resource you used, what you changed, and why the change made sense.</p>
+<p>🦁 Documenting your process of thinking helps you identify your understanding. It will increase self-awareness and help you regulate your cognitive processes. It will also help you prepare to ask for help when you need it. You will be able to show what you tried, what you learned, and what you need help with.</p>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -1023,7 +1025,7 @@ UseMethod("mean")
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Download these two files and save them together in the folder you are using for this chapter:</p>
+<p>Download these two files and save them together in the folder you are using for this course:</p>
 <ul>
 <li><a href="downloads/ch05-practice-space.Rmd" download="ch05-practice-space.Rmd">ch05-practice-space.Rmd</a></li>
 <li><a href="downloads/ch05-practice-space.RData" download="ch05-practice-space.RData">ch05-practice-space.RData</a></li>
