@@ -61,7 +61,7 @@ A basic YAML header looks like this:
 
 ```yaml
 ---
-title: "Untitled"
+title: "R Notebook"
 output: html_notebook
 ---
 ```
@@ -222,7 +222,7 @@ Knitting is a stronger test. It runs the entire notebook from top to bottom in a
 
 ### How to Knit {#how-to-knit}
 
-RStudio interfaces vary. You may have a 🧶[Knit button]{.glossary-term data-term="Knit Button"}, or you may use the **Preview** drop-down menu.
+RStudio interfaces vary. You may have a 🧶[Knit button]{.glossary-term data-term="Knit Button"}, or you may see a **Preview** drop-down menu.
 
 Option 1: **Knit button**
 
@@ -346,7 +346,9 @@ A [function object]{.glossary-term data-term="Function Object"} is an R object t
 mean
 ```
 
-🗣 R displays the definition of the `mean` function object. You do not need to understand every detail yet. For now, notice that typing `mean` without parentheses displays the function instead of calculating a mean.
+🗣 R displays the definition of the `mean` function object. 
+
+🦁 You do not need to understand every detail yet. For now, notice that typing `mean` without parentheses displays the function instead of calculating a mean.
 
 To make the function do its job, you have to _call it_. A [function call]{.glossary-term data-term="Function Call"} runs the stored code. To call a function, you type the function name followed by parentheses `()`. Inside the parentheses, you must provide any [required arguments]{.glossary-term data-term="Required Arguments"}. For example, to calculate the mean of a numeric vector, you call the `mean()` function and provide the vector as an argument. The vector is a [required argument]{.glossary-term data-term="Required Arguments"} because the function needs it to perform the calculation.
 
@@ -380,7 +382,7 @@ Typing a question mark before a function name opens its help file. For example, 
 ?mean
 ```
 
-💡 **Test knit:** If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
+🦁 **Test knit:** If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
 
 🚀 **Explore and Play:** As we move through the remainder of the chapter, add meaningful headings and subheadings to your notebook to organize your notes and code as you wish. 
 
@@ -439,6 +441,8 @@ help(mean)
 The SYNTAX (with one default argument):
  
  `mean(x, trim = 0)`
+ 
+ If you do not specify a value for `trim`, R uses the default value of `0`, which means no values are excluded.
 
 🎯 Calculate the trimmed mean of the cursed sequence, removing 20% of the lowest and highest values before computing the mean.
  
@@ -465,11 +469,11 @@ Some functions use `...` (dot-dot-dot). That means “additional optional argume
 
 ---
 
-This clue helps you read help pages faster. You do not need to understand the whole page before you can use one useful part of it.
+🦁 You do not need to understand the whole help page before you can use one useful part of it.
 
 ## Reading R Help Pages {#reading-help-pages}
 
-Help pages are useful, but they are not written like beginner tutorials. They are written like reference pages. That means your job is not to read every word. Your job is to know where to look first when you are trying to write, fix, or explain code. This section gives you a reading strategy for reading the help pages.
+Help pages are useful, but they are not written like beginner tutorials. They are written like reference pages. That means you need to learn where to look when you are trying to write, fix, or explain code. This section gives you a reading strategy for reading the help pages.
 
 ### Open Help Page {#open-help-page}
 
@@ -490,8 +494,6 @@ help(mean)
 🗣 The help page usually opens in the help tab in the bottom-right area of RStudio. That area contains several tabs, such as Files, Plots, Packages, Help, and Viewer. 
 
 ### Reading Order {#reading-order}
-
-Help pages can look overwhelming. That is normal. This page is not readily accessible to beginners. 
 
 When you open a help page, use this reading order:
 
@@ -538,12 +540,6 @@ In summary:
 
 - a [default argument]{.glossary-term data-term="Default Arguments"} is an input R already has a value for. You can use the default value, or you can replace it with your own value.
 
-📜 The basic rule:
-
-- No `=` sign usually means the argument is required.
-- An `=` sign means R has a default value.
-- A default argument is optional, but it may still be important to consider for your task.
-
 🗣 In `mean(x, trim = 0, na.rm = FALSE, ...)`, the argument `x` is required because it does not have a default value. The arguments `trim` and `na.rm` are optional because R already has default values for them.
 
 ---
@@ -563,17 +559,19 @@ print(messy_scores)
 
 🗣 The third position is marked with `NA`, which means the numeric value is missing.
 
-🎯 Try to calculate the mean of `messy_scores` using only default arguments. 💬 Prediction: What do you think R will return?
+🎯 Try to calculate the mean of `messy_scores` using only default arguments. 
 
-```{r}
+💬 Prediction: What do you think R will return? Calculate your predicted answer before you run the code. 
+
+```{r eval=FALSE}
 # ⚡ Type this in your R Notebook
 mean(messy_scores)
 class(messy_scores)
 ```
 
-🗣 R returns `NA` because the vector contains a missing value. By default, `mean()` does not remove missing values before calculating the average.
+🗣 R returns `NA` because the vector contains a missing value. By default, `mean()` does not remove missing values before calculating the average. This means that R cannot calculate the mean of the vector due to the missing value.
 
-But we haven't yet learned how to change that behavior. This is the moment to use the help page.
+🦁 We haven't yet learned how to change that behavior. This is the moment to use the help page.
 
 🎯 Open the help page for `mean()`.
 
@@ -584,7 +582,7 @@ But we haven't yet learned how to change that behavior. This is the moment to us
 
 ✅ **Check:** In the [Arguments]{.glossary-term data-term="Arguments"} section, find the argument named `na.rm`.
 
-Ask yourself:
+🦁 Ask yourself:
 
 - What does `na.rm` control?
 - What default value does R use?
@@ -619,7 +617,7 @@ example(mean)
 🗣 The `example()` function runs examples from the help page. You do not need to understand every line. 
 
 
-🦁 **Courage:** Help-page examples may look unfamiliar. You do not need to understand every line before you begin. Look for one pattern that helps you understand how the `trim` argument is used in the `mean()` function.
+🦁 Help-page examples may look unfamiliar. Look for one pattern that helps you understand how the `trim` argument is used in the `mean()` function.
 
 
 ### Unknown Function Name {#unknown-function-name}
@@ -660,11 +658,11 @@ Troubleshooting is part of working in R. Documenting your troubleshooting effort
 
 Type the 👀 **Cite**, 🗣 **Comment**, and 🪞 **Reflect** statements as regular Markdown text. Put only runnable R code and R comments inside the code chunk.
 
-```markdown
+```text
 
-👀 **Cite:** I used `?mean` to read about the `na.rm` argument.
+👀 I used `?mean` to read about the `na.rm` argument.
 
-🗣 **Comment:** The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
+🗣 The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
 ```
 ```{r}
 # ⚡ Code
@@ -673,14 +671,14 @@ messy_scores <- c(80, 90, NA, 100)
 mean(messy_scores, na.rm = TRUE)
 ```
 
-```markdown
-🗣 **Comment:** The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
+```text
+🗣 The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
 
-🪞 **Reflect:** I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
+🪞 I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
 
 ```
 
-💡 **Test knit:** If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
+🦁 If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
 
 ---
 

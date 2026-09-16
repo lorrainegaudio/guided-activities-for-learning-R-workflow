@@ -48,7 +48,7 @@ book:
       chapters:
          - chapters/03-courage/ch05-help.Rmd
     #     - chapters/03-courage/ch05-help-prompting.Rmd
-         - chapters/03-courage/ch06-missing-values.Rmd   
+    #     - chapters/03-courage/ch06-missing-values.Rmd   
         
     # - part: chapters/04-autonomy/autonomy.qmd
     #   chapters:
