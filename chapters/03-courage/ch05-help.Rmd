@@ -8,11 +8,11 @@ toc: true
 
 Chapter 5 focuses on making your R Notebook organized, reproducible, and shareable.
 
-You will learn how to use Markdown and YAML to structure your notebook, then knit it into an HTML report that someone else can read without opening RStudio. You will also practice using R help files to understand functions, arguments, and examples.  
+You will learn how to use Markdown and YAML to structure your notebook, then knit it into an HTML report that someone else can read without opening RStudio. You will also practice using R help files to understand functions, arguments, and examples.
 
-The main goal of this chapter is to build confidence with the normal problem-solving process in R. Instead of trying to memorize everything, you will learn how to use help resources, and document what you learned in a shareable report.
+The main goal of this chapter is to build confidence with the normal problem-solving process in R. Instead of trying to memorize everything, you will learn how to use help resources and document what you learned in a shareable report.
 
-In Chapter Five, you will practice how to:
+In this chapter, you will practice how to:
 
 - #️⃣ Format your R Notebook using Markdown headings.
 
@@ -30,20 +30,20 @@ In Chapter Five, you will practice how to:
 
 - ✅ Use help pages to solve a problem with missing values.
 
-- ✍️ Document the help you used and explain how it improved your code.
+- 🦁 Practice deciding when to keep troubleshooting, when to change strategies, and when to ask for help.
 
 ---
 
 ## R Notebook -> HTML Report {#notebook-html}
 
 
-In this chapter, you will learn how to turn your R Notebook into a shareable [HTML]{.glossary-term data-term="HTML"} report. Data analysis reports are not just for sharing results. They are also for sharing the process of getting to those results. In this course, your R reports are more than a place to type code. They are where you practice being brave enough to try, notice when something is wrong, and keep going instead of hiding the mess. Courage here means documenting where you got stuck, asking for help when needed, and showing the learning process that helped you move forward. 
+In this chapter, you will learn how to turn your R Notebook into a shareable [HTML]{.glossary-term data-term="HTML"} report. The report records both your results and the process you used to reach them. 🦁 **Courage in this chapter** means staying engaged when an error or unfamiliar help page creates uncertainty, using the evidence to choose a reasonable next step, and asking for help before the struggle becomes unproductive. The chapter models this process, and the Practice Space asks you to use it and document what you tried and learned.
 
-🎯 Please open a new R Notebook and save it in your course folder named `chapter5_notes.Rmd`. Use this document to take notes and practice the chapter content. 
+🎯 Please open a new R Notebook and save it as `chapter5_notes.Rmd` in the folder you use for this chapter. Use this document to take notes and practice the chapter content.
 
 1. Open RStudio → File → New File → R Notebook.
 
-2. Save it in your course folder as: `chapter5_notes.Rmd`.
+2. Save it in the folder you use for this chapter as `chapter5_notes.Rmd`.
 
 3. Keep the YAML header at the top of the notebook. Delete only the sample body text and example code below the second `---` line.
 
@@ -55,7 +55,7 @@ In this chapter, you will learn how to turn your R Notebook into a shareable [HT
 
 The [YAML header]{.glossary-term data-term="YAML Header"} is the metadata “label” for your notebook. It controls document settings like the title, date, and output format.
 
-Good document labels help future-you, your peers, collaborators, and *your instructor* understand what the file is, when it was created, and what kind of output RStudio should build. This is a small documentation habit, but it matters when you are trying to keep your work organized.
+Good document labels help future-you and anyone who reviews or continues the work understand what the file is, when it was created, and what kind of output RStudio should build. This is a small documentation habit, but it matters when you are trying to keep your work organized.
 
 A basic YAML header looks like this:
 
@@ -66,7 +66,7 @@ output: html_notebook
 ---
 ```
 
-🎯  Add a date to your notebook by editing the YAML header to include a `date:` field. 
+🎯 Add a date to your notebook by editing the YAML header to include a `date:` field.
 
 Method A. **Hard Code**
 
@@ -118,7 +118,7 @@ Text here will be in paragraph font.
 Text here will be in paragraph font.
 ```
 
-All Chapter HTMLs in this course were created using RStudio. You can see how headings create a structured outline and how the font sizes change with heading level from "2.1 YAML Date Field" to "2.1.0.1 Heading levels."
+The chapter HTML pages in this book were created using RStudio. Notice how headings create a structured outline and how font sizes change with each heading level.
 
 🎯 Add headings to your Chapter 5 Notes. 
 
@@ -146,17 +146,17 @@ The "outline pane" in RStudio uses your Markdown headings to create a clickable 
 
 ---
 
-![Figure 1. Screenshot of R markdown formating](images/ch05-help/Memo_Example_heading.png)
+![Figure 1. Screenshot of R Markdown formatting](images/ch05-help/Memo_Example_heading.png)
 
 ---
 
-Figure 1 shows a screenshot of an RStudio R Notebook showing a Markdown section heading (e.g., `## Markdown structure`) in the editor and the Outline menu on the right listing all headings. Markdown headings create a structured outline. The orange arrow points to the Outline button used to show/hide that heading-based outline. 💡 **Tip:** Clicking in the outline menu jumps you view in the report to that section.
+Figure 1 shows an RStudio R Notebook with a Markdown section heading (for example, `## Markdown structure`) in the editor and the Outline menu on the right. Markdown headings create the structured outline. The orange arrow points to the Outline button used to show or hide it. 💡 **Tip:** Clicking a heading in the Outline menu jumps to that section in the report.
 
-In the above example, the `# Notebook set up` heading creates a main section heading. The outline menu on the right lists all headings in the document, allowing you to navigate quickly between sections. 
+In this example, `# Notebook set up` creates a main section heading.
 
 ### The most common beginner mistake with `#` {#common-mistake}
 
-Put spacing between the `#` symbols and the heading text to paragraph text ensures heading formatting works correctly. 
+Put a space between the `#` symbols and the heading text to ensure the heading formatting works correctly.
 
 For example, `##Task 1` will not format as a heading, but `## Task 1` will.
 
@@ -164,19 +164,19 @@ For example, `##Task 1` will not format as a heading, but `## Task 1` will.
 
 1. **Outside a code chunk**, `#` creates a Markdown heading.
 
-🎯  Type `### Task 1` under `## Markdown structure` to create a subsection heading.
+🎯 Type `### Task 1` under `## Markdown structure` to create a subsection heading.
 
 ```markdown
 ## Markdown structure
 
-Heading levels are controlled by the number of `#` when used outside of code chunks. 
+Heading levels are controlled by the number of `#` symbols when they are used outside code chunks.
 
 ### Task 1
 ```
 
 2. **Inside a code chunk**, `#` creates an R comment. R ignores the comment when it runs the code.
 
-🎯 Type "`# This is a comment inside a code chunk.`" inside a code chunk to create a comment. 💡 **Tip:** Click the Insert Chunk button in the toolbar (green C with plus sign) and choose R from the drop-down list.
+🎯 Type `# This is a comment inside a code chunk.` inside a code chunk to create a comment. 💡 **Tip:** Click the Insert Chunk button in the toolbar (green C with plus sign) and choose R from the drop-down list.
 
 ```{r, echo=FALSE, results='asis'}
 chunk_open <- paste0("```", "{r}")
@@ -186,7 +186,7 @@ example_text <- paste(
   "## Markdown structure",
   "",
   "Heading levels are controlled by the number of `#` when used outside of code chunks.",
-  "Compare the type with the image of the knit result.",
+  "Compare what you typed with the image of the knitted result.",
   "",
   "### Task 1",
   "",
@@ -206,7 +206,7 @@ cat(htmltools::htmlEscape(example_text))
 cat("</code></pre>")
 ```
 
-> 🧐 **Notice:** Write notes about your code, type `#` inside the code chunk. Write result memos and learning reflections outside the code chunk without `#`.
+> 🧐 **Notice:** To write notes about your code, type `#` inside the code chunk. Write result memos and learning reflections outside the code chunk without `#`.
 
 ---
 
@@ -222,7 +222,7 @@ Knitting is a stronger test. It runs the entire notebook from top to bottom in a
 
 ### How to Knit {#how-to-knit}
 
-RStudio UI varies. Some of you will have a 🧶[Knit button]{.glossary-term data-term="Knit Button"}, others will use **Preview menu** drop.
+RStudio interfaces vary. You may have a 🧶[Knit button]{.glossary-term data-term="Knit Button"}, or you may use the **Preview** drop-down menu.
 
 Option 1: **Knit button**
 
@@ -238,7 +238,7 @@ Figure 2 is a screenshot of RStudio showing the 🧶Knit button on the toolbar (
 
 Option 2: **Preview menu**
 
-In the Source pane, click the the **Preview menu** drop down button and select Knit to HTML. 
+In the Source pane, click the **Preview** drop-down menu and select Knit to HTML.
 
 ---
 
@@ -248,7 +248,7 @@ In the Source pane, click the the **Preview menu** drop down button and select K
 
 Figure 3 is a screenshot of RStudio with the Preview menu opened; orange arrows highlight the Preview dropdown button and the Knit to HTML option, showing how to knit an R Notebook into a shareable HTML document (not just run a single code chunk).
 
-Below is the result you get after knitting to HTML
+Below is the result you get after knitting to HTML.
 
 ---
 
@@ -268,7 +268,7 @@ When you knit, RStudio automatically does three things:
 
 This is why knitting is the real test of “does this notebook work?” If it knits, someone else (including future-you) can see the workflow and results without needing to open RStudio.
 
-🧭 Your notebook must create every object it uses in the notebook itself. Your Environment does not count. Knitting may reveal a code error you did not notice. That is useful information about the *first place* your workflow that needs attention.
+✅ **Check:** Your notebook must create every object it uses in the notebook itself. Your Environment does not count. Knitting may reveal a code error you did not notice. That is useful information about the *first place in your workflow* that needs attention.
 
 ---
 
@@ -296,24 +296,24 @@ To share the report, 📤 send or upload the `.html` file itself. Do not copy an
 
 ### Knit Errors {#knit-errors}
 
-When you select to knit, the bottom left pane shows progress messages in the [Render tab]{.glossary-term data-term="Render Tab"} as R runs your notebook from top to bottom. 
+When you knit, the [Render tab]{.glossary-term data-term="Render Tab"} shows progress messages as R runs your notebook from top to bottom.
 
 A successful knit has three visible signs:
 
 1. The Render tab shows the process finishing without an error message.
 
-2. A browser window opens (or Viewer in File Pane) showing your notebook as a formatted web page.
+2. Your notebook opens as a formatted web page in a browser window or in RStudio's Viewer.
 
 3. An `.html` file appears in the same folder as your `.Rmd` file.
 
-If knitting fails, do not fear. This is an opportunity to discover where your notebook needs revision. 
+🦁 **Courage:** A failed knit can feel frustrating or uncertain. Courage does not require you to ignore that feeling. Read the error, use it as evidence, and take one informed next step.
 
 1. Read the error message in the Render tab.
 2. Find the line or chunk that caused it. The error usually names a chunk or shows a line number.
 3. Fix the first error you see. Many later errors are just “domino effects.”
 4. Knit again.
 
-🧭 A knit error is a "Not yet" signal. It shows where your notebook needs revision. What is the specific problem R is naming?
+✅ **Check:** A knit error is a "not yet" signal. What specific problem is R naming, and what evidence can guide your next step?
 
 Common reasons knitting fails:
 
@@ -321,7 +321,7 @@ Common reasons knitting fails:
 - You forgot to include setup code, such as loading packages, creating objects, or reading files through the appropriate relative paths.
 - A chunk contains an error you did not notice because you never ran that chunk.
 
-Some errors are tricky. If you get stuck, bring the error message, the chunk, and what you already tried to a peer, office hours, or another approved course resource.
+🦁 **Courage:** Know when to ask for help. If you have made two focused attempts or spent about 10 minutes without learning anything new, stop repeating the same strategy. Save the exact error message and the smallest relevant code chunk. Note what you tried, then ask a peer, instructor, tutor, or another appropriate resource for help.
 
 Next, you will shift from building the report to writing code inside it. 
 
@@ -339,7 +339,7 @@ In this section, you will practice calling a function and noticing the differenc
 
 A [function object]{.glossary-term data-term="Function Object"} is an R object that performs a task when it is called. For example, `mean` is the function object used to calculate the average of a numeric vector.
 
-🎯 Run `mean` in a code chunk to see the stored function object. Add the code chunk under `# Built-in Functions`
+🎯 Run `mean` in a code chunk to see the stored function object. Add the code chunk under `# Built-in Functions`.
 
 ```{r}
 # ⚡ Type mean in your R Notebook inside a code chunk
@@ -373,14 +373,14 @@ Nobody memorizes every function or every argument. Looking in help is one way yo
 
 Typing a question mark before a function name opens its help file. For example, `?mean` opens the help file for the `mean()` function. The Files pane usually contains several tabs, including the [Help tab]{.glossary-term data-term="Help Tab"}, which displays documentation for R functions.
 
-🎯 Use `?mean` to open the help file for the `mean()` function. Add the code chunk under `## Help Files`
+🎯 Use `?mean` to open the help file for the `mean()` function. Add the code chunk under `## Help Files`.
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your R Notebook
 ?mean
 ```
 
-💡 Test knit.
+💡 **Test knit:** If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
 
 🚀 **Explore and Play:** As we move through the remainder of the chapter, add meaningful headings and subheadings to your notebook to organize your notes and code as you wish. 
 
@@ -404,7 +404,7 @@ Sys.Date()
 ?Sys.Date
 ```
 
-🗣 The `Sys.Date` [help page]{.glossary-term data-term="Help Page"} opens in the [help tab]{.glossary-term data-term="Help Tab"} in the files pane. Note that `Sys.Date()` has no required arguments.
+🗣 The `Sys.Date` [help page]{.glossary-term data-term="Help Page"} opens in RStudio's [Help tab]{.glossary-term data-term="Help Tab"}. Note that `Sys.Date()` has no required arguments.
 
 Scroll through the help file to find information about the function's usage, arguments, and examples.
 
@@ -420,7 +420,7 @@ Scroll through the help file to find information about the function's usage, arg
 
 ### Required Arguments {#required-arguments}
 
-[Required argument]{.glossary-term data-term="Required Arguments"} are what a function needs to do its job. 
+[Required arguments]{.glossary-term data-term="Required Arguments"} are the inputs a function needs to do its job.
 
 🎯 Open the help file for the `mean()` function. Scroll through the help file to find information about the function's usage, arguments, and examples.
 
@@ -430,11 +430,11 @@ Scroll through the help file to find information about the function's usage, arg
 help(mean)
 ```
 
-🗣 The `mean` help page opens in the Help tab in the Files pane. `mean.default(x, trim = 0, na.rm = FALSE, …)` shows that `x` is a required argument, while `trim` and `na.rm` have default values.
+🗣 The `mean` help page opens in RStudio's Help tab. `mean.default(x, trim = 0, na.rm = FALSE, ...)` shows that `x` is a required argument, while `trim` and `na.rm` have default values.
 
 ### Default Arguments {#default-arguments}
 
-[Default arguments]{.glossary-term data-term="Default Arguments"} are inputs that a function uses in situations when you did not provide that argument. For example, the `trim` argument in the `mean()` function allows you to exclude a certain percentage of the lowest and highest values before calculating the mean.
+[Default arguments]{.glossary-term data-term="Default Arguments"} are inputs with preset values that a function uses when you do not provide your own values. For example, the `trim` argument in the `mean()` function allows you to exclude a certain percentage of the lowest and highest values before calculating the mean.
 
 The SYNTAX (with one default argument):
  
@@ -451,7 +451,7 @@ mean(cursed_seq, trim = 0.2)  # drop 20% from each end first
 
 ---
 
-🧭 How can you tell which arguments are required?
+✅ **Check:** How can you tell which arguments are required?
 
 The main clue that `x` is required is that it has no `=` sign or default value next to it in the usage section. The other arguments have `=` signs, showing the default values that R will use if you don't provide your own.
 
@@ -527,12 +527,12 @@ Read the usage line like this:
 | `mean()` | This is the function being called. |
 | `x` | Required. This is the object you want R to average. |
 | `trim = 0` | Optional. R uses `0` unless you choose a different value. |
-| `na.rm = FALSE` | Optional. R keeps missing values unless you choose `TRUE`. |
+| `na.rm = FALSE` | Optional. Missing values are not removed unless you choose `TRUE`. |
 | `...` | Extra options may be allowed. Ignore this for now. |
 
 ---
 
-In summary, 
+In summary:
 
 - a [required argument]{.glossary-term data-term="Required Arguments"} is an input the function needs before it can do its job.
 
@@ -573,7 +573,7 @@ class(messy_scores)
 
 🗣 R returns `NA` because the vector contains a missing value. By default, `mean()` does not remove missing values before calculating the average.
 
-But we haven't learned how that affects the calculation. This is the moment to use the help page.  
+But we haven't yet learned how to change that behavior. This is the moment to use the help page.
 
 🎯 Open the help page for `mean()`.
 
@@ -582,7 +582,7 @@ But we haven't learned how that affects the calculation. This is the moment to u
 ?mean
 ```
 
-✅ Check: In the [Arguments]{.glossary-term data-term="Arguments"} section, find the argument named `na.rm`.
+✅ **Check:** In the [Arguments]{.glossary-term data-term="Arguments"} section, find the argument named `na.rm`.
 
 Ask yourself:
 
@@ -601,7 +601,7 @@ mean(messy_scores, na.rm = TRUE)
 
 ---
 
-Next, you will see how help-page examples can give you working patterns even when they are not your exact assignment answer.
+Next, you will see how help-page examples can give you working patterns even when they do not exactly match your task.
 
 ### Examples {#examples}
 
@@ -619,7 +619,7 @@ example(mean)
 🗣 The `example()` function runs examples from the help page. You do not need to understand every line. 
 
 
-🧭 Look for one pattern that helps you understand how the trim argument is used in the `mean()` function.
+🦁 **Courage:** Help-page examples may look unfamiliar. You do not need to understand every line before you begin. Look for one pattern that helps you understand how the `trim` argument is used in the `mean()` function.
 
 
 ### Unknown Function Name {#unknown-function-name}
@@ -654,19 +654,17 @@ help.search("missing values")
 
 ## Document Help {#document-help}
 
-In this course, troubleshooting is part of the work. Documenting your troubleshooting efforts is how you show that work. When you use a resource, digital or human, document where you went, why, and what you discovered.
+Troubleshooting is part of working in R. Documenting your troubleshooting efforts makes that work visible. When you use a digital or human resource, document where you went, why, and what you discovered.
 
-🎯 Add a short help note to your memo to your report.
+🎯 Add a short help note to your report.
 
-Type the resource note, check, and comment as regular Markdown text. Put only the runnable R code inside the code chunk.
+Type the 👀 **Cite**, 🗣 **Comment**, and 🪞 **Reflect** statements as regular Markdown text. Put only runnable R code and R comments inside the code chunk.
 
-```
+```markdown
 
-I used `?mean` to read about the `na.rm` argument.
+👀 **Cite:** I used `?mean` to read about the `na.rm` argument.
 
-The help page showed that `na.rm` defaults to `FALSE`.
-
-I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
+🗣 **Comment:** The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.
 ```
 ```{r}
 # ⚡ Code
@@ -676,14 +674,13 @@ mean(messy_scores, na.rm = TRUE)
 ```
 
 ```markdown
-🗣 The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
+🗣 **Comment:** The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
 
-
-🗣I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
+🪞 **Reflect:** I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
 
 ```
 
-💡 Test knit.
+💡 **Test knit:** If knitting fails, follow the [Knit Errors](#knit-errors) steps and stopping rule.
 
 ---
 
@@ -706,7 +703,7 @@ Your main takeaway is that strong R work depends on organized notebooks, success
 
 **Arguments**: Inputs that you provide to functions to customize their behavior. Arguments are specified within the parentheses of a function call and can modify how the function operates or what data it processes.
 
-**Default Arguments**: Inputs that already have a preset value in the function definition and are used automatically when you don’t provide your own (e.g., `mean(..., na.rm = FALSE)` by default).
+**Default Arguments**: Inputs that already have a preset value in the function definition and are used automatically when you don’t provide your own (e.g., `mean(x, na.rm = FALSE)` by default).
 
 **Examples Section**: The part of an R help page that shows runnable code examples for how a function is used in practice. This section is often the fastest place to learn because it shows the function in context: what inputs go inside the function call, what the code looks like, and what kind of output to expect. In R, many help-page examples can also be run with the `example()` function.
 
@@ -730,7 +727,7 @@ Your main takeaway is that strong R work depends on organized notebooks, success
 
 **Outline Menu**: A navigation tool in RStudio that uses your Markdown headings to create a clickable map of an `.Rmd` or `.qmd` document. The outline shows the structure of the notebook by heading level, so you can jump between sections without scrolling through the whole file. In RStudio, open it from the Outline button/menu in the Source pane toolbar.
 
-**Render Tab**: A temporary tab that appears in RStudio’s Console pane when you Knit/Render an R Markdown (`.Rmd`) or Quarto (`.qmd`) document. It shows the rendering log—progress messages, warnings, and errors—separately from your interactive Console, and typically includes a Stop control so you can interrupt a failed or long render.
+**Render Tab**: A temporary tab that appears in RStudio's Console pane when you Knit or Render an R Markdown (`.Rmd`) or Quarto (`.qmd`) document. It shows progress messages, warnings, and errors separately from your interactive Console, and typically includes a Stop control so you can interrupt a failed or long render.
 
 **Required Arguments**: Inputs a function needs because they have no default value in the function definition; you must supply them in the call (or the function can’t do its job). 
 
@@ -746,13 +743,13 @@ This Practice Space has two parts.
 
 First, you will answer short multiple-choice questions that check whether you can organize an R Notebook, read an R help page, use a function argument, and explain why knitting is an important reproducibility check.
 
-Second, you will practice troubleshooting a broken R Markdown file. The goal is to see how code can appear to work in your RStudio Environment but still fail when you knit because knitting starts from a cleaner version of the workflow.
+Second, you will practice troubleshooting an R Markdown file. Use the error messages and the troubleshooting workflow from this chapter to decide what to check and change.
 
 ### Part 1: Check your understanding {#check-understanding}
 
 Choose the best answer for each question in this section.
 
-### Task 1 {#task-1}
+#### Task 1 {#task-1}
 
 🧾 **YAML header**
 
@@ -808,7 +805,7 @@ html_notebook
 
 ---
 
-### Task 2 {#task-2}
+#### Task 2 {#task-2}
 
 \#️⃣ **Markdown headings**
 
@@ -824,7 +821,7 @@ D. `Help Pages ##`
 
 ---
 
-### Task 3 {#task-3}
+#### Task 3 {#task-3}
 
 💬 **Markdown heading vs. R comment**
 
@@ -840,7 +837,7 @@ D. `#` always causes an error in R Notebooks.
 
 ---
 
-### Task 4 {#task-4}
+#### Task 4 {#task-4}
 
 🧩 **Required arguments and default arguments**
 
@@ -862,7 +859,7 @@ D. `na.rm = FALSE` is required; `trim = 0` is not an argument.
 
 ---
 
-### Task 5 {#task-5}
+#### Task 5 {#task-5}
 
 🧮 **Use a help-page argument to handle missing values**
 
@@ -880,7 +877,7 @@ sum(daily_steps)
 
 R returns `NA`.
 
-In the function `sum()`, which argument handles the missing value before adding the numbers?
+Which call to `sum()` correctly uses an argument to handle the missing value before adding the numbers?
 
 A. `sum(daily_steps, na.rm = TRUE)`
 
@@ -892,11 +889,11 @@ D. `sum(daily_steps, delete = NA)`
 
 ---
 
-### Task 6 {#task-6}
+#### Task 6 {#task-6}
 
 📤 **Reproducibility check**
 
-Which is a a stronger reproducibility check: knitting an R Notebook to HTML or running every code chunk?
+Which is a stronger reproducibility check: knitting an R Notebook to HTML or running every code chunk?
 
 A. Running each code chunk is stronger because it checks only the selected code without rerunning earlier chunks.
 
@@ -912,7 +909,7 @@ D. Running each code chunk is stronger because it uses the objects already saved
 
 ::: {.callout-note title="Download the Chapter 5 practice files"}
 
-Download these two files and save them in the same course folder:
+Download these two files and save them together in the folder you are using for this chapter:
 
 - [ch05-practice-space.Rmd](downloads/ch05-practice-space.Rmd){download="ch05-practice-space.Rmd"}
 - [ch05-practice-space.RData](downloads/ch05-practice-space.RData){download="ch05-practice-space.RData"}
@@ -927,5 +924,8 @@ Then complete the troubleshooting workflow:
 4. Knit the R Markdown file to HTML.
 5. Use the Render/Knit error message to identify what needs to be fixed.
 6. Make one testable change at a time.
-7. Add a short memo near each place where you corrected code.
-8. Knit again after each meaningful correction so you know whether your edit fixed the problem.
+7. If two focused attempts or about 10 minutes do not produce new information, stop repeating the same strategy and ask for help. Share the error message, the relevant code, and what you already tried.
+8. Add a short memo near each place where you corrected code.
+9. Knit again after each meaningful correction so you know whether your edit fixed the problem.
+
+🦁 **Courage:** In your memo, identify when you decided to continue, change strategies, or ask for help. Explain what evidence guided that decision and what you tried next.
