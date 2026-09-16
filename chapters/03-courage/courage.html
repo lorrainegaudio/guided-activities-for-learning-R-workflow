@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tenacity – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<title>Courage – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/01-tenacity/ch01-navigation.html" rel="next">
-<link href="../../front-matter/preface.html" rel="prev">
+<link href="../../chapters/03-courage/ch05-help.html" rel="next">
+<link href="../../chapters/02-transparency/ch04-structures.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/tenacity.html">Tenacity</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/03-courage/courage.html">Courage</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -128,13 +128,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tenacity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
@@ -170,13 +170,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Courage</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
@@ -200,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tenacity</h1>
+<h1 class="title">Courage</h1>
 </div>
 
 
@@ -217,34 +217,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Learning R often begins with friction. Installing software, locating files, remembering syntax, and interpreting error messages can take more effort than expected. Early difficulty gives you an opportunity to develop ways of working that will support every later analysis. Your ability grows through practice, feedback, revision, and questions.</p>
-<p>Tenacity is purposeful persistence in the pursuit of understanding. When you struggle, return to your goal, examine what happened, and choose an informed next step. You might correct a small syntax error, test a different idea, review an example, or ask someone for help. When repeated attempts stop producing useful information, pause and reconsider your approach. Another perspective may be the next step that moves your learning forward.</p>
-<p>This is why Tenacity begins the book. The first chapters help you work through early uncertainty while developing habits you will use throughout your work with R. Stay engaged, pay attention to evidence, adjust your strategy, and keep a record of what you learn. These actions turn persistence into an intelligent learning practice (Baehr, 2022; King, 2021).</p>
-<p>In this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.</p>
+<p>Learning R can make uncertainty visible. An error message may show that you do not yet understand what happened. A failed knit may expose a problem you cannot immediately locate. Asking a question may require admitting that you are confused. These moments can create fear of struggling, failing, appearing unprepared, or discovering that your current approach does not work.</p>
+<p>Courage is the learning skill of continuing to pursue understanding when fear, uncertainty, or a perceived risk might otherwise direct your choices. Courage does not require pretending that a risk is absent. It involves responding in a way that serves learning: examining the evidence, acknowledging what you do not know, asking an appropriate question, or trying an informed next step.</p>
+<p>Baehr (2022) describes intellectual courage as keeping fear from controlling intellectual activity. King (2021) adds an important qualification: persistence under threat is not automatically virtuous. Courageous learning requires a worthwhile goal, an appropriate occasion, sensible methods, and a motive directed toward knowledge. That said, persisting with an unproductive approach is not the kind of courage you should practice.</p>
+<p>King describes virtuous courage as standing between two vice counterparts. Cowardice gives threats too much weight, or gives the value of learning too little weight, and can lead someone to withdraw from a worthwhile intellectual activity too soon. Rashness, on the other hand, gives threats too little weight and can lead someone to persist beyond what is wise. This distinction helps us evaluate whether an action fits the goal, occasion, means, and motive instead of treating every act of persistence as courageous.</p>
+<p>Difficulty acting does not indicate a character failure. Anxiety or prior negative technology experiences can make intellectual risks more difficult. The purpose of this learning skill is not to label anyone as rash, courageous, or cowardly. It is to help you recognize manageable opportunities to act in support of your learning.</p>
+<section id="courage-while-learning-r" class="level2">
+<h2 class="anchored" data-anchor-id="courage-while-learning-r">Courage while learning R</h2>
+<p>Courage in R may involve looking closely at an error instead of hiding it, testing a possible explanation, consulting documentation, asking someone for help, or stating that a result does not yet make sense. It can also mean stopping an unproductive approach and seeking help from additional resources.</p>
+<p>A growth mindset can support these actions. If you treat your current ability as something that can develop, an error or failed attempt can provide information about what to learn next. The goal is not to prove that you already know the answer. The goal is to remain engaged long enough to understand the problem and respond thoughtfully.</p>
+<p>Courage works alongside the learning skills from earlier modules. Tenacity helps you continue through difficulty or frustration. Transparency helps you visualize your learning process with record of what you tried, misunderstood, and discovered. Courage helps you take the next appropriate intellectual step.</p>
+</section>
+<section id="how-courage-appears-in-this-book" class="level2">
+<h2 class="anchored" data-anchor-id="how-courage-appears-in-this-book">How courage appears in this book</h2>
+<p>The lion 🦁 marks courage. In this module, it appears when you are asked to take an informed step toward help, use an appropriate resource, or reconsider an approach that is not producing useful information.</p>
+<p>The lion may mark opportunities to:</p>
+<ul>
+<li>use an error message to decide what to inspect next,</li>
+<li>consult an R help page, documentation, or a working example,</li>
+<li>bring the relevant code, error message, and previous attempts when asking someone for help,</li>
+<li>pause when repeated attempts are not productive,</li>
+<li>and change your approach before persistence becomes rashness.</li>
+</ul>
+<p>Naming what you do not understand and recording how you worked through it are Transparency practices. They remain important and may be modeled in these chapters. The lion marks the courageous action of seeking help, consulting a resource, or choosing a more productive strategy.</p>
+</section>
 <section id="chapters-in-this-section" class="level2">
 <h2 class="anchored" data-anchor-id="chapters-in-this-section">Chapters in this section</h2>
 <div class="section-card-grid">
-<section id="chapter-1-navigation" class="level3 section-card">
-<h3 class="anchored" data-anchor-id="chapter-1-navigation">Chapter 1: Navigation</h3>
-<p>Get oriented to the RStudio interface, including the Console, Environment, Files pane, and basic workflow habits.</p>
-<p><a href="ch01-navigation.html" class="section-button">Open Chapter 1</a></p>
+<section id="chapter-5-help" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="chapter-5-help">Chapter 5: Help</h3>
+<p>Knit an R Notebook into an HTML report, examine common knit errors, and use R help pages to decide what to inspect next. Practice documenting where you became stuck, which resource you used, and what helped you move forward.</p>
+<p><a href="ch05-help.html" class="section-button">Open Chapter 5</a></p>
 </section>
-<section id="chapter-2-scripts" class="level3 section-card">
-<h3 class="anchored" data-anchor-id="chapter-2-scripts">Chapter 2: Scripts</h3>
-<p>Practice writing, saving, running, and submitting R scripts so your work is easier to reuse and revise.</p>
-<p><a href="ch02-scripts.html" class="section-button">Open Chapter 2</a></p>
+<section id="chapter-6-missing-values" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="chapter-6-missing-values">Chapter 6: Missing Values</h3>
+<p>Recognize and locate missing values, examine how they affect calculations, and make deliberate choices about handling them. Practice checking results that can appear complete even when missing information has changed the analysis.</p>
+<p><a href="ch06-missing-values.html" class="section-button">Open Chapter 6</a></p>
 </section>
 </div>
 </section>
 <section id="what-to-focus-on" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-focus-on">What to focus on</h2>
-<p>As you work through Tenacity, pay attention to three habits:</p>
+<p>As you work through Courage, practice four habits:</p>
 <ul>
-<li>where you are working in RStudio,</li>
-<li>whether you typed the code exactly as intended,</li>
-<li>and how you check what happened before moving on.</li>
+<li>read error messages and other feedback for information about what to do next,</li>
+<li>recognize when another attempt will test a new idea and when it will only repeat an unsuccessful approach,</li>
+<li>seek help before confusion grows into hours of unproductive work,</li>
+<li>and use what you learn from a resource or another person to return to the problem with a more informed strategy.</li>
 </ul>
-<p>These habits will matter in every later chapter.</p>
+<p>Courage means making a thoughtful decision about when to persist, when to change your approach, and when to ask for help. The goal is to keep learning without quitting prematurely or persisting beyond what is useful.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Baehr, J. (2022). <em>Deep in thought: A practical guide to teaching for intellectual virtues</em>. Harvard Education Press.</p>
+<p>King, N. L. (2021). <em>The excellent mind: Intellectual virtues for everyday life</em>. Oxford University Press.</p>
 
 
 </section>
@@ -657,13 +683,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../front-matter/preface.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="../../chapters/02-transparency/ch04-structures.html" class="pagination-link" aria-label="Chapter 4: Structures">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 4: Structures</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/01-tenacity/ch01-navigation.html" class="pagination-link" aria-label="Chapter 1: Navigation">
-        <span class="nav-page-text"><span class="chapter-title">Chapter 1: Navigation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/03-courage/ch05-help.html" class="pagination-link" aria-label="Chapter 5 Help!">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 5 Help!</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
