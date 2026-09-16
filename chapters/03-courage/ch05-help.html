@@ -68,7 +68,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/03-courage/ch06-missing-values.html" rel="next">
 <link href="../../chapters/03-courage/courage.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -220,11 +219,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 5 Help!</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -344,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Good document labels help future-you and anyone who reviews or continues the work understand what the file is, when it was created, and what kind of output RStudio should build. This is a small documentation habit, but it matters when you are trying to keep your work organized.</p>
 <p>A basic YAML header looks like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Untitled"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"R Notebook"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>🎯 Add a date to your notebook by editing the YAML header to include a <code>date:</code> field.</p>
@@ -438,7 +432,7 @@ Compare what you typed with the image of the knitted result.
 
 🎯 Make a comment inside a code chunk
 
-```atn
+```hso
 # ⚡ This is a comment inside a code chunk.
 cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 ```
@@ -458,7 +452,7 @@ cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 <p>Knitting is a stronger test. It runs the entire notebook from top to bottom in a <em>fresh</em> session, then builds an HTML report.</p>
 <section id="how-to-knit" class="level3">
 <h3 class="anchored" data-anchor-id="how-to-knit">How to Knit</h3>
-<p>RStudio interfaces vary. You may have a 🧶<span class="glossary-term" data-term="Knit Button">Knit button</span>, or you may use the <strong>Preview</strong> drop-down menu.</p>
+<p>RStudio interfaces vary. You may have a 🧶<span class="glossary-term" data-term="Knit Button">Knit button</span>, or you may see a <strong>Preview</strong> drop-down menu.</p>
 <p>Option 1: <strong>Knit button</strong></p>
 <p>In the Source pane, click the Knit button (it looks like a ball of yarn with a knitting needle 🧶).</p>
 <hr>
@@ -563,11 +557,12 @@ cursed_seq &lt;- c(4, 8, 15, 16, 23, 42)
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, ...) 
 UseMethod("mean")
-&lt;bytecode: 0x8fb7b3cb0&gt;
+&lt;bytecode: 0x7af88dcb0&gt;
 &lt;environment: namespace:base&gt;</code></pre>
 </div>
 </div>
-<p>🗣 R displays the definition of the <code>mean</code> function object. You do not need to understand every detail yet. For now, notice that typing <code>mean</code> without parentheses displays the function instead of calculating a mean.</p>
+<p>🗣 R displays the definition of the <code>mean</code> function object.</p>
+<p>🦁 You do not need to understand every detail yet. For now, notice that typing <code>mean</code> without parentheses displays the function instead of calculating a mean.</p>
 <p>To make the function do its job, you have to <em>call it</em>. A <span class="glossary-term" data-term="Function Call">function call</span> runs the stored code. To call a function, you type the function name followed by parentheses <code>()</code>. Inside the parentheses, you must provide any <span class="glossary-term" data-term="Required Arguments">required arguments</span>. For example, to calculate the mean of a numeric vector, you call the <code>mean()</code> function and provide the vector as an argument. The vector is a <span class="glossary-term" data-term="Required Arguments">required argument</span> because the function needs it to perform the calculation.</p>
 <p>📜 The SYNTAX (basic):</p>
 <p><code>mean(x)</code></p>
@@ -594,7 +589,7 @@ UseMethod("mean")
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>💡 <strong>Test knit:</strong> If knitting fails, follow the <a href="#knit-errors">Knit Errors</a> steps and stopping rule.</p>
+<p>🦁 <strong>Test knit:</strong> If knitting fails, follow the <a href="#knit-errors">Knit Errors</a> steps and stopping rule.</p>
 <p>🚀 <strong>Explore and Play:</strong> As we move through the remainder of the chapter, add meaningful headings and subheadings to your notebook to organize your notes and code as you wish.</p>
 <section id="no-required-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="no-required-arguments">No Required Arguments</h3>
@@ -639,6 +634,7 @@ UseMethod("mean")
 <p><span class="glossary-term" data-term="Default Arguments">Default arguments</span> are inputs with preset values that a function uses when you do not provide your own values. For example, the <code>trim</code> argument in the <code>mean()</code> function allows you to exclude a certain percentage of the lowest and highest values before calculating the mean.</p>
 <p>The SYNTAX (with one default argument):</p>
 <p><code>mean(x, trim = 0)</code></p>
+<p>If you do not specify a value for <code>trim</code>, R uses the default value of <code>0</code>, which means no values are excluded.</p>
 <p>🎯 Calculate the trimmed mean of the cursed sequence, removing 20% of the lowest and highest values before computing the mean.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
@@ -659,12 +655,12 @@ UseMethod("mean")
 <li><code>...</code> → extra optional arguments may be allowed; ignore this for now</li>
 </ul>
 <hr>
-<p>This clue helps you read help pages faster. You do not need to understand the whole page before you can use one useful part of it.</p>
+<p>🦁 You do not need to understand the whole help page before you can use one useful part of it.</p>
 </section>
 </section>
 <section id="reading-help-pages" class="level2">
 <h2 class="anchored" data-anchor-id="reading-help-pages">Reading R Help Pages</h2>
-<p>Help pages are useful, but they are not written like beginner tutorials. They are written like reference pages. That means your job is not to read every word. Your job is to know where to look first when you are trying to write, fix, or explain code. This section gives you a reading strategy for reading the help pages.</p>
+<p>Help pages are useful, but they are not written like beginner tutorials. They are written like reference pages. That means you need to learn where to look when you are trying to write, fix, or explain code. This section gives you a reading strategy for reading the help pages.</p>
 <section id="open-help-page" class="level3">
 <h3 class="anchored" data-anchor-id="open-help-page">Open Help Page</h3>
 <p>If you know the function name, type a question mark before the function name.</p>
@@ -681,7 +677,6 @@ UseMethod("mean")
 </section>
 <section id="reading-order" class="level3">
 <h3 class="anchored" data-anchor-id="reading-order">Reading Order</h3>
-<p>Help pages can look overwhelming. That is normal. This page is not readily accessible to beginners.</p>
 <p>When you open a help page, use this reading order:</p>
 <ol type="1">
 <li><strong>Description</strong>: What does this function do?</li>
@@ -745,12 +740,6 @@ UseMethod("mean")
 <li><p>a <span class="glossary-term" data-term="Required Arguments">required argument</span> is an input the function needs before it can do its job.</p></li>
 <li><p>a <span class="glossary-term" data-term="Default Arguments">default argument</span> is an input R already has a value for. You can use the default value, or you can replace it with your own value.</p></li>
 </ul>
-<p>📜 The basic rule:</p>
-<ul>
-<li>No <code>=</code> sign usually means the argument is required.</li>
-<li>An <code>=</code> sign means R has a default value.</li>
-<li>A default argument is optional, but it may still be important to consider for your task.</li>
-</ul>
 <p>🗣 In <code>mean(x, trim = 0, na.rm = FALSE, ...)</code>, the argument <code>x</code> is required because it does not have a default value. The arguments <code>trim</code> and <code>na.rm</code> are optional because R already has default values for them.</p>
 <hr>
 </section>
@@ -768,27 +757,22 @@ UseMethod("mean")
 </div>
 </div>
 <p>🗣 The third position is marked with <code>NA</code>, which means the numeric value is missing.</p>
-<p>🎯 Try to calculate the mean of <code>messy_scores</code> using only default arguments. 💬 Prediction: What do you think R will return?</p>
+<p>🎯 Try to calculate the mean of <code>messy_scores</code> using only default arguments.</p>
+<p>💬 Prediction: What do you think R will return? Calculate your predicted answer before you run the code.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(messy_scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-</div>
-<p>🗣 R returns <code>NA</code> because the vector contains a missing value. By default, <code>mean()</code> does not remove missing values before calculating the average.</p>
-<p>But we haven’t yet learned how to change that behavior. This is the moment to use the help page.</p>
+<p>🗣 R returns <code>NA</code> because the vector contains a missing value. By default, <code>mean()</code> does not remove missing values before calculating the average. This means that R cannot calculate the mean of the vector due to the missing value.</p>
+<p>🦁 We haven’t yet learned how to change that behavior. This is the moment to use the help page.</p>
 <p>🎯 Open the help page for <code>mean()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>?mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ <strong>Check:</strong> In the <span class="glossary-term" data-term="Arguments">Arguments</span> section, find the argument named <code>na.rm</code>.</p>
-<p>Ask yourself:</p>
+<p>🦁 Ask yourself:</p>
 <ul>
 <li>What does <code>na.rm</code> control?</li>
 <li>What default value does R use?</li>
@@ -796,8 +780,8 @@ UseMethod("mean")
 </ul>
 <p>🎯 Try the code again using <code>na.rm = TRUE</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90</code></pre>
 </div>
@@ -812,11 +796,11 @@ UseMethod("mean")
 <p>You are using the example to understand a structure, then applying that structure to your own task.</p>
 <p>🎯 Run R’s built-in examples for <code>mean()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">example</span>(mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">example</span>(mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The <code>example()</code> function runs examples from the help page. You do not need to understand every line.</p>
-<p>🦁 <strong>Courage:</strong> Help-page examples may look unfamiliar. You do not need to understand every line before you begin. Look for one pattern that helps you understand how the <code>trim</code> argument is used in the <code>mean()</code> function.</p>
+<p>🦁 Help-page examples may look unfamiliar. Look for one pattern that helps you understand how the <code>trim</code> argument is used in the <code>mean()</code> function.</p>
 </section>
 <section id="unknown-function-name" class="level3">
 <h3 class="anchored" data-anchor-id="unknown-function-name">Unknown Function Name</h3>
@@ -824,12 +808,12 @@ UseMethod("mean")
 <p>Sometimes you know the topic, but you do not know the function name. For example, you might know you need help with missing values, but you may not know which function or argument to search for. In that case, use <code>??</code> or <code>help.search()</code>.</p>
 <p>🎯 Search for help pages related to “missing values” using <code>??</code> and <code>help.search()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>??<span class="st">"missing values"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>??<span class="st">"missing values"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">"missing values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">help.search</span>(<span class="st">"missing values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Use a pattern such as <code>?mean</code> when you already know the function name. Use <code>??"search words"</code> or <code>help.search("search words")</code> when you know the topic but not the exact function.</p>
 <table class="caption-top table">
@@ -874,23 +858,24 @@ UseMethod("mean")
 <p>Troubleshooting is part of working in R. Documenting your troubleshooting efforts makes that work visible. When you use a digital or human resource, document where you went, why, and what you discovered.</p>
 <p>🎯 Add a short help note to your report.</p>
 <p>Type the 👀 <strong>Cite</strong>, 🗣 <strong>Comment</strong>, and 🪞 <strong>Reflect</strong> statements as regular Markdown text. Put only runnable R code and R comments inside the code chunk.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>👀 **Cite:** I used <span class="in">`?mean`</span> to read about the <span class="in">`na.rm`</span> argument.</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>🗣 **Comment:** The help page showed that <span class="in">`na.rm`</span> defaults to <span class="in">`FALSE`</span>. I changed <span class="in">`na.rm`</span> to <span class="in">`TRUE`</span> because my vector contained an <span class="in">`NA`</span> value.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre class="text"><code>
+👀 I used `?mean` to read about the `na.rm` argument.
+
+🗣 The help page showed that `na.rm` defaults to `FALSE`. I changed `na.rm` to `TRUE` because my vector contained an `NA` value.</code></pre>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>messy_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="cn">NA</span>, <span class="dv">100</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>messy_scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(messy_scores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 90</code></pre>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>🗣 **Comment:** The result is <span class="in">`90`</span> because R averaged <span class="in">`80`</span>, <span class="in">`90`</span>, and <span class="in">`100`</span> after removing <span class="in">`NA`</span> from the calculation.</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>🪞 **Reflect:** I learned that a default argument can be optional but still important. In this case, <span class="in">`na.rm`</span> had a default value, but I needed to change it for my data.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>💡 <strong>Test knit:</strong> If knitting fails, follow the <a href="#knit-errors">Knit Errors</a> steps and stopping rule.</p>
+<pre class="text"><code>🗣 The result is `90` because R averaged `80`, `90`, and `100` after removing `NA` from the calculation.
+
+🪞 I learned that a default argument can be optional but still important. In this case, `na.rm` had a default value, but I needed to change it for my data.
+</code></pre>
+<p>🦁 If knitting fails, follow the <a href="#knit-errors">Knit Errors</a> steps and stopping rule.</p>
 <hr>
 <p>This is transparent coding. A future reader can see what problem you had, what resource you used, what you changed, and why the change made sense.</p>
 </section>
@@ -938,34 +923,34 @@ UseMethod("mean")
 <ol type="A">
 <li></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="2" type="A">
 <li></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="at">title = "Chapter 5 Practice"</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="at">date = Sys.Date()</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="at">output = html_notebook</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="at">title = "Chapter 5 Practice"</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="at">date = Sys.Date()</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="at">output = html_notebook</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="at">--</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="A">
 <li></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> </span><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span><span class="at"> html_notebook</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="4" type="A">
 <li></li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Chapter 5 Notes"</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">"`r Sys.Date()`"</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="at">html_notebook</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Chapter 5 Notes"</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">"`r Sys.Date()`"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="at">html_notebook</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 <section id="task-2" class="level4">
@@ -992,7 +977,7 @@ UseMethod("mean")
 <h4 class="anchored" data-anchor-id="task-4">Task 4</h4>
 <p>🧩 <strong>Required arguments and default arguments</strong></p>
 <p>The <code>mean()</code> help page may show a usage line like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">trim =</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Which answer correctly identifies the required argument and one default argument?</p>
 <p>A. <code>x</code> is required; <code>na.rm = FALSE</code> is a default argument.</p>
 <p>B. <code>trim = 0</code> is required; <code>x</code> is a default argument.</p>
@@ -1004,9 +989,9 @@ UseMethod("mean")
 <h4 class="anchored" data-anchor-id="task-5">Task 5</h4>
 <p>🧮 <strong>Use a help-page argument to handle missing values</strong></p>
 <p>You create this vector:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>daily_steps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">7500</span>, <span class="cn">NA</span>, <span class="dv">10000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>daily_steps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5000</span>, <span class="dv">7500</span>, <span class="cn">NA</span>, <span class="dv">10000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then you run:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(daily_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(daily_steps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>R returns <code>NA</code>.</p>
 <p>Which call to <code>sum()</code> correctly uses an argument to handle the missing value before adding the numbers?</p>
 <p>A. <code>sum(daily_steps, na.rm = TRUE)</code></p>
@@ -1476,9 +1461,6 @@ UseMethod("mean")
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/03-courage/ch06-missing-values.html" class="pagination-link" aria-label="Chapter 6: Missing Values">
-        <span class="nav-page-text"><span class="chapter-title">Chapter 6: Missing Values</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
