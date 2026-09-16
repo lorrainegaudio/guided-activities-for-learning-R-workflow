@@ -2,10 +2,39 @@
 toc: false
 ---
 
-## Courage
+# Courage {.unnumbered}
 
-Courage is ...
+Learning R can make uncertainty visible. An error message may show that you do not yet understand what happened. A failed knit may expose a problem you cannot immediately locate. Asking a question may require admitting that you are confused. These moments can create fear of struggling, failing, appearing unprepared, or discovering that your current approach does not work.
 
+Courage is the learning skill of continuing to pursue understanding when fear, uncertainty, or a perceived risk might otherwise direct your choices. Courage does not require pretending that a risk is absent. It involves responding in a way that serves learning: examining the evidence, acknowledging what you do not know, asking an appropriate question, or trying an informed next step.
+
+Baehr (2022) describes intellectual courage as keeping fear from controlling intellectual activity. King (2021) adds an important qualification: persistence under threat is not automatically virtuous. Courageous learning requires a worthwhile goal, an appropriate occasion, sensible methods, and a motive directed toward knowledge. That said, persisting with an unproductive approach is not the kind of courage you should practice.
+
+King describes virtuous courage as standing between two vice counterparts. Cowardice gives threats too much weight, or gives the value of learning too little weight, and can lead someone to withdraw from a worthwhile intellectual activity too soon. Rashness, on the other hand, gives threats too little weight and can lead someone to persist beyond what is wise. This distinction helps us evaluate whether an action fits the goal, occasion, means, and motive instead of treating every act of persistence as courageous.
+
+Difficulty acting does not indicate a character failure. Anxiety or prior negative technology experiences can make intellectual risks more difficult. The purpose of this learning skill is not to label anyone as rash, courageous, or cowardly. It is to help you recognize manageable opportunities to act in support of your learning.
+
+## Courage while learning R
+
+Courage in R may involve looking closely at an error instead of hiding it, testing a possible explanation, consulting documentation, asking someone for help, or stating that a result does not yet make sense. It can also mean stopping an unproductive approach and seeking help from additional resources.
+
+A growth mindset can support these actions. If you treat your current ability as something that can develop, an error or failed attempt can provide information about what to learn next. The goal is not to prove that you already know the answer. The goal is to remain engaged long enough to understand the problem and respond thoughtfully.
+
+Courage works alongside the learning skills from earlier modules. Tenacity helps you continue through difficulty or frustration. Transparency helps you visualize your learning process with record of what you tried, misunderstood, and discovered. Courage helps you take the next appropriate intellectual step.
+
+## How courage appears in this book
+
+The lion 🦁 marks courage. In this module, it appears when you are asked to take an informed step toward help, use an appropriate resource, or reconsider an approach that is not producing useful information.
+
+The lion may mark opportunities to:
+
+- use an error message to decide what to inspect next,
+- consult an R help page, documentation, or a working example,
+- bring the relevant code, error message, and previous attempts when asking someone for help,
+- pause when repeated attempts are not productive,
+- and change your approach before persistence becomes rashness.
+
+Naming what you do not understand and recording how you worked through it are Transparency practices. They remain important and may be modeled in these chapters. The lion marks the courageous action of seeking help, consulting a resource, or choosing a more productive strategy.
 
 ## Chapters in this section
 
@@ -14,23 +43,15 @@ Courage is ...
 ::: {.section-card}
 ### Chapter 5: Help
 
-blah blah blah
+Knit an R Notebook into an HTML report, examine common knit errors, and use R help pages to decide what to inspect next. Practice documenting where you became stuck, which resource you used, and what helped you move forward.
 
 [Open Chapter 5](ch05-help.html){.section-button}
 :::
 
 ::: {.section-card}
-### Chapter 5 Extension: AI Prompting for Knit Errors
-
-Practice writing structured prompts that help an AI tool explain render errors, identify likely causes, and suggest what to inspect next.
-
-[Open the AI Prompting Activity](ch05-help-prompting.html){.section-button}
-:::
-
-::: {.section-card}
 ### Chapter 6: Missing Values
 
-blah blah blah
+Recognize and locate missing values, examine how they affect calculations, and make deliberate choices about handling them. Practice checking results that can appear complete even when missing information has changed the analysis.
 
 [Open Chapter 6](ch06-missing-values.html){.section-button}
 :::
@@ -39,7 +60,17 @@ blah blah blah
 
 ## What to focus on
 
-As you work through courage ...
+As you work through Courage, practice four habits:
 
+- read error messages and other feedback for information about what to do next,
+- recognize when another attempt will test a new idea and when it will only repeat an unsuccessful approach,
+- seek help before confusion grows into hours of unproductive work,
+- and use what you learn from a resource or another person to return to the problem with a more informed strategy.
 
+Courage means making a thoughtful decision about when to persist, when to change your approach, and when to ask for help. The goal is to keep learning without quitting prematurely or persisting beyond what is useful.
 
+## References
+
+Baehr, J. (2022). *Deep in thought: A practical guide to teaching for intellectual virtues*. Harvard Education Press.
+
+King, N. L. (2021). *The excellent mind: Intellectual virtues for everyday life*. Oxford University Press.
