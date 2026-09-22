@@ -82,6 +82,31 @@ c. **Linux**: Select the installer that matches your Linux distribution (for exa
 
 3. After installation, open **RStudio Desktop**. It should automatically detect the version of R you already installed. If RStudio does not start or cannot find R, reinstall R and then reopen RStudio.
 
+:::{.callout-important}
+## Windows computers with an Arm processor
+
+Before you install R and RStudio, open **Settings > System > About** and check **System type**. If it says **ARM-based processor**, contact your instructor for the current Windows on Arm setup directions. The standard Windows build of RStudio is currently an x86_64 application and runs through Windows emulation. Posit also provides a native ARM64 version of Positron, but its interface differs from the RStudio directions and screenshots used in this course. Do not install extra copies of R or switch between RStudio and Positron until you have chosen one course-supported setup path.
+:::
+
+### Check Your Installation {#check-your-installation}
+
+Complete this check before you begin the first chapter.
+
+1. Create a folder named `DATA-R155-setup-check` in a local location on your computer that is not inside OneDrive or another cloud-synced folder.
+2. In RStudio, create a new R Markdown document and save it in that folder as `setup_check.Rmd`.
+3. Replace the document contents with the example below.
+
+<pre><code>---
+title: "Setup Check"
+output: html_document
+---
+
+&#96;&#96;&#96;{r}
+1 + 1
+&#96;&#96;&#96;</code></pre>
+
+4. Knit the document to HTML. The check is successful when a file named `setup_check.html` opens and shows the result `2`.
+5. If it fails, save the complete text from the Render tab and contact your instructor. Include whether **System type** says x64-based or ARM-based processor. Do not reinstall several tools or disable Windows security settings before asking for help.
 
 ![Figure 2. The RStudio icon on Windows.](images/RStudio_Logo.png)
 

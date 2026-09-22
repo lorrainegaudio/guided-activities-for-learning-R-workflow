@@ -321,6 +321,29 @@ Common reasons knitting fails:
 - You forgot to include setup code, such as loading packages, creating objects, or reading files through the appropriate relative paths.
 - A chunk contains an error you did not notice because you never ran that chunk.
 
+:::{.callout-important}
+
+#### If Pandoc says the `.knit.md` file does not exist {#missing-knit-md}
+
+RStudio uses a converter called **Pandoc** after R runs the notebook. If the Render tab first says `output file: filename.knit.md` and then says that the same `.knit.md` file `does not exist`, Pandoc started but could not open the intermediate file. Treat this as a file-location or converter-access problem.
+
+1. Save a copy of the `.Rmd` file in a short, local folder path that is not inside OneDrive, another cloud-synced folder, a network drive, or a downloaded ZIP file. On Windows, an example is `C:/Users/YourName/DATA-R155/Chapter5/`.
+2. Close RStudio, reopen the copied file from that folder, and knit again.
+3. If it still fails, create the small `setup_check.Rmd` document from the [Check Your Installation](../../front-matter/preface.qmd#check-your-installation) section in the same local folder and knit it.
+4. If the setup check also fails, stop and ask for help. Send the complete Render tab text and run the following lines in the Console so you can include the results:
+
+```{r eval=FALSE}
+R.version.string
+R.version$arch
+RStudio.Version()$version
+rmarkdown::pandoc_version()
+rmarkdown::find_pandoc()
+```
+
+If **Settings > System > About > System type** says **ARM-based processor**, include that fact. The instructor may need to check whether your computer should use the Windows emulation setup for RStudio or the native ARM64 version of Positron. Do not install a separate copy of Pandoc or Quarto, change Windows emulation settings, or disable security software as a first step.
+
+:::
+
 🦁 **Courage:** Know when to ask for help. If you have made two focused attempts or spent about 10 minutes without learning anything new, stop repeating the same strategy. Save the exact error message and the smallest relevant code chunk. Note what you tried, then ask a peer, instructor, tutor, or another appropriate resource for help.
 
 Next, you will shift from building the report to writing code inside it. 
