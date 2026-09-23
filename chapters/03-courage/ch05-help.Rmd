@@ -325,7 +325,15 @@ Common reasons knitting fails:
 
 #### If Pandoc says the `.knit.md` file does not exist {#missing-knit-md}
 
-RStudio uses a converter called **Pandoc** after R runs the notebook. If the Render tab first says `output file: filename.knit.md` and then says that the same `.knit.md` file `does not exist`, Pandoc started but could not open the intermediate file. Treat this as a file-location or converter-access problem.
+RStudio uses a converter called **Pandoc** after R runs the notebook. If the Render tab first says `output file: filename.knit.md` and then says that the same `.knit.md` file `does not exist`, try this simple reset first:
+
+1. Save your `.Rmd` file and close RStudio.
+2. Check that the `.Rmd` file is still in your Chapter folder. If you also see a file ending in `.nb.html`, delete only that file. Windows may show it as `chapter5_notes.nb` and label it **Chrome HTML Document**.
+3. Reopen the `.Rmd` file and knit again. RStudio can create a new `.nb.html` file if it needs one.
+
+Do not delete the `.Rmd` file. That is the file containing your work.
+
+If the error continues:
 
 1. Save a copy of the `.Rmd` file in a short, local folder path that is not inside OneDrive, another cloud-synced folder, a network drive, or a downloaded ZIP file. On Windows, an example is `C:/Users/YourName/DATA-R155/Chapter5/`.
 2. Close RStudio, reopen the copied file from that folder, and knit again.

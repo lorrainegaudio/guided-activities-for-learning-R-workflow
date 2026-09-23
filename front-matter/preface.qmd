@@ -108,6 +108,8 @@ output: html_document
 4. Knit the document to HTML. The check is successful when a file named `setup_check.html` opens and shows the result `2`.
 5. If it fails, save the complete text from the Render tab and contact your instructor. Include whether **System type** says x64-based or ARM-based processor. Do not reinstall several tools or disable Windows security settings before asking for help.
 
+💡 **Tip:** Keep RStudio up to date. If RStudio offers an update, save your work and finish your current task. Then close RStudio and install the update before your next work session.
+
 ![Figure 2. The RStudio icon on Windows.](images/RStudio_Logo.png)
 
 ### Intallation Video Tutorials {#installation-video-tutorials}
