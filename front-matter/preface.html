@@ -208,6 +208,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#download-and-install-r" id="toc-download-and-install-r" class="nav-link" data-scroll-target="#download-and-install-r">Download and Install R</a></li>
   <li><a href="#download-and-install-rstudio" id="toc-download-and-install-rstudio" class="nav-link" data-scroll-target="#download-and-install-rstudio">Download and Install RStudio</a></li>
+  <li><a href="#check-your-installation" id="toc-check-your-installation" class="nav-link" data-scroll-target="#check-your-installation">Check Your Installation</a></li>
   <li><a href="#installation-video-tutorials" id="toc-installation-video-tutorials" class="nav-link" data-scroll-target="#installation-video-tutorials">Intallation Video Tutorials</a></li>
   </ul></li>
   <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
@@ -305,6 +306,41 @@ Welcome to Introduction to R Programming
 <ol start="3" type="1">
 <li>After installation, open <strong>RStudio Desktop</strong>. It should automatically detect the version of R you already installed. If RStudio does not start or cannot find R, reinstall R and then reopen RStudio.</li>
 </ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Windows computers with an Arm processor
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before you install R and RStudio, open <strong>Settings &gt; System &gt; About</strong> and check <strong>System type</strong>. If it says <strong>ARM-based processor</strong>, contact your instructor for the current Windows on Arm setup directions. The standard Windows build of RStudio is currently an x86_64 application and runs through Windows emulation. Posit also provides a native ARM64 version of Positron, but its interface differs from the RStudio directions and screenshots used in this course. Do not install extra copies of R or switch between RStudio and Positron until you have chosen one course-supported setup path.</p>
+</div>
+</div>
+</section>
+<section id="check-your-installation" class="level3">
+<h3 class="anchored" data-anchor-id="check-your-installation">Check Your Installation</h3>
+<p>Complete this check before you begin the first chapter.</p>
+<ol type="1">
+<li>Create a folder named <code>DATA-R155-setup-check</code> in a local location on your computer that is not inside OneDrive or another cloud-synced folder.</li>
+<li>In RStudio, create a new R Markdown document and save it in that folder as <code>setup_check.Rmd</code>.</li>
+<li>Replace the document contents with the example below.</li>
+</ol>
+<pre><code>---
+title: "Setup Check"
+output: html_document
+---
+
+```{r}
+1 + 1
+```</code></pre>
+<ol start="4" type="1">
+<li>Knit the document to HTML. The check is successful when a file named <code>setup_check.html</code> opens and shows the result <code>2</code>.</li>
+<li>If it fails, save the complete text from the Render tab and contact your instructor. Include whether <strong>System type</strong> says x64-based or ARM-based processor. Do not reinstall several tools or disable Windows security settings before asking for help.</li>
+</ol>
+<p>💡 <strong>Tip:</strong> Keep RStudio up to date. If RStudio offers an update, save your work and finish your current task. Then close RStudio and install the update before your next work session.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="images/RStudio_Logo.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure 2. The RStudio icon on Windows."><img src="images/RStudio_Logo.png" class="img-fluid figure-img" alt="Figure 2. The RStudio icon on Windows."></a></p>
