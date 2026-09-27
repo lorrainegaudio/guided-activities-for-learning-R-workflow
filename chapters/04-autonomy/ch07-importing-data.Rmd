@@ -92,7 +92,7 @@ Intro_to_R/
 │   └── chapter6_notes.Rmd
 └── Module_4/
     ├── chapter7_practice.Rmd
-    ├── chapter7_practice.html
+    ├── chapter7_practice.nb.html
     ├── Values_Transport_dplace.csv
     └── car_prices.xlsx
 ```
@@ -121,7 +121,7 @@ This activity will walk you through the process of placing the activity Rmd file
 
 1. Open an R Notebook: Go to `File > New File > R Notebook`
 
-2. Edit the YAML Header and delete the default text. The YAML header should look like this:
+2. Keep the YAML header at the top of the notebook. Replace its contents with the template below. Delete only the sample body text and example code that appear below the second `---` line.
 
 
 ```{r echo=FALSE, results='asis'}
@@ -135,7 +135,7 @@ output: html_notebook
 ```")
 ```
 
-3. Change `[Your Name]` to your actual name and clear the default text in the body of the notebook. 
+3. Change `[Your Name]` to your actual name and confirm that both `---` lines remain in place.
 
 4. Save your R Notebook `File` > `Save As...`, choose your course folder, name the file `chapter7_practice`.
 
@@ -144,6 +144,8 @@ Intro_to_R/
 └── Module_4/
     └── chapter7_practice.Rmd
 ```
+
+After you knit the notebook, RStudio will usually create `chapter7_practice.nb.html`. Some workflows create `chapter7_practice.html` instead.
 
 > 🧐 **Notice:** The guided activity is using `chapter7_practice.Rmd` as the file name because completing this guided activity will help you get started in the Practice Space file submission.
 
@@ -221,12 +223,13 @@ If you are not sure how to move downloaded files, follow the steps for your comp
    - Drag the files into the open `Module_4` window.
    - Release the mouse or trackpad.
 
-✅ Verify it worked.
-   - Click inside the `Module_4` Finder window.
-   - You should see:
-     - `chapter7_practice.Rmd`
-     - `Values_Transport_dplace.csv`
-     - `car_prices.xlsx`
+✅ **Verify it worked.**
+
+- Click inside the `Module_4` Finder window.
+- You should see:
+  - `chapter7_practice.Rmd`
+  - `Values_Transport_dplace.csv`
+  - `car_prices.xlsx`
 
 🗣 If you can see all three files in the `Module_4` window, the move was successful.
 
@@ -286,12 +289,13 @@ If your files are in the correct folder, move to [Working Directory](#working-di
    - Drag the files into the open `Module_4` window.
    - Release the mouse.
 
-✅ Verify it worked.
-   - Click inside the `Module_4` File Explorer window.
-   - You should see:
-     - `chapter7_practice.Rmd`
-     - `Values_Transport_dplace.csv`
-     - `car_prices.xlsx`
+✅ **Verify it worked.**
+
+- Click inside the `Module_4` File Explorer window.
+- You should see:
+  - `chapter7_practice.Rmd`
+  - `Values_Transport_dplace.csv`
+  - `car_prices.xlsx`
 
 🗣 If you can see all three files in the `Module_4` window, the move was successful.
 
@@ -318,7 +322,7 @@ If you can see the files in the correct location, then you are ready to move on 
 
 In Chapter 1, you learned how to use `getwd()` and `setwd()` to manage your [working directory]{.glossary-term data-term="Working Directory"}. This is crucial for importing data because R needs to know where to find the files you want to load.
 
-**Running chunks interactively often uses the same session as the Console.** The real difference shows up when you Knit, because knitting runs in a fresh session and uses the Notebook file location as the working directory. That means your notebook must include everything needed to run from the top, including correct file paths.
+Code that you run interactively uses the Console's current working directory. When you Knit the notebook used in this chapter, R starts a fresh session and looks from the folder where the Rmd file is saved. Because these locations can be different, you will check both and compare the results.
 
 🎯 Make R able to find your data files when you (1) run code in the Console and (2) when you Knit an R Notebook document.
 
@@ -338,7 +342,7 @@ list.files()
 knitr::include_graphics("images/ch07-importing-data/getwd_in_console.png")
 ```
 
-✅ In the knitted notebook output, look directly under the `getwd()` and `list.files()`  in the console output. Confirm that the folder path matches where you saved `chapter7_practice.Rmd`. Then check whether the file list includes the notebook file itself.
+✅ Look at the output from `getwd()` and `list.files()` in the Console. Notice which folder R is using and which files R can see there. The folder may be different from the one containing `chapter7_practice.Rmd`. You will compare it with the knitted notebook output next.
 
 🗣 When you run `getwd()`, you are checking where R is currently "looking." When you run `list.files()`, you are checking what R can actually see from that location. 
 
@@ -346,13 +350,13 @@ knitr::include_graphics("images/ch07-importing-data/getwd_in_console.png")
 
 ---
 
-The Notebook works differently because when you Knit, R starts a fresh session and sets the working directory to the folder where the Notebook is saved. Let's see that in action!
+The notebook works differently when you Knit it. For the notebook setup used in this chapter, R starts a fresh session and uses the folder where the Rmd file is saved. Let's see that in action!
 
 ### R Notebook {#r-notebook}
 
 **Check your working directory in the Notebook**
 
-#### Step 1 {#step-1}
+#### Step 1 {#notebook-step-1}
 
 🎯  Add a new code chunk with the same code as above.
 
@@ -362,13 +366,13 @@ getwd()
 list.files()
 ```
 
-#### Step 2 {#step-2}
+#### Step 2 {#notebook-step-2}
 
 **💡 Test knit.** 
 
 🎯  Click the Knit button at the top of the R Notebook editor pane. This will run all the code in your notebook from top to bottom in a fresh R session and create an HTML document as output.
 
-#### Step 3 {#step-3}
+#### Step 3 {#notebook-step-3}
 
 **✅  Verify**
 
@@ -382,11 +386,11 @@ You should see the files for this chapter listed in the output:
 [1] "car_prices.xlsx"              "chapter7_practice.Rmd"        "Values_Transport_dplace.csv"
 ```
 
-🗣 The working directory of an R Notebook is the folder where the notebook is saved. 
+🗣 When this notebook is knitted, R uses the folder where the Rmd file is saved as the working directory.
 
 🗣  **Write a memo** Did R look in the same folder both times, or did the Console and Knit use different folders? Either result is okay. Explain what your result tells you about where R is looking. Why does this matter when importing files? **This is Task 2 of the Practice Space at the end of this chapter.**
 
-🧭 What this means for loading data is that R must be able to find your data file from the working directory it is using. If you are working in the Console or an R script, check or set the working directory yourself. When you are working in an Rmd (or qmd) file, you will keep the data files in the same folder as the Rmd file unless you provide a specific file path to use.
+🧭 Before loading data, use `getwd()` and `list.files()` to confirm where R is looking and what it can see. In the Console, that location may be different from the notebook folder. When you Knit the notebook used in this chapter, keeping the data files beside the Rmd file allows R to find them by file name.
 
 > 🌳 In `Chapter 9: Git and GitHub`, you will learn how to organize data files in a subfolder.
 
@@ -412,7 +416,7 @@ You need to download the package before you can use it. **You only need to insta
 
 **Bottom-right pane → Packages tab → Install → type the package name.**
 
-In the bottom-right **Files Pane**, you will see a tab called "Packages." This is where RStudio lists the packages you have installed. You can install packages by clicking the Install button. 
+In the bottom-right pane, you will see a tab called "Packages." This is where RStudio lists the packages you have installed. You can install packages by clicking the Install button.
 
 ![Click the 📥 Install button from the Packages tab then type `dslabs` in the Packages box and click Install to download dslabs from the Package Repository CRAN](images/ch07-importing-data/Packages.png)
 
@@ -420,21 +424,21 @@ In the bottom-right **Files Pane**, you will see a tab called "Packages." This i
 
 🧭 Method B: **Type the code in the Console to install packages.**
 
-Often times, you will use the function `install.packages()` to install a package. In this chapter, we need the packages `readr`, `readxl`, `dslabs` package, which provides functions for reading and writing data files. 
+Often, you will use the function `install.packages()` to install a package. This chapter uses `readr` to import CSV files, `readxl` to import Excel files, and `dslabs` to provide a curated dataset for practice.
 
 🎯 Install the packages `readr`, `readxl`, and `dslabs` using `install.packages()`.
 
 ```{r, eval=FALSE}
 # ⚡ Type this in your Console to install packages
 install.packages("dslabs")                # You can install one package at a time
-install.packages(c("readr", "readxl"))    # Or you use c()
+install.packages(c("readr", "readxl"))    # Or use c() to install multiple packages
 ```
 
-🗣 The `install.packages()` function is used to install packages from CRAN. It is normal to see a Warning message in your console. This code installs the `dslabs`, `readr`, and `readxl` packages. The `c()` function combines the package names into a vector, allowing you to install multiple packages at once. 
+🗣 The `install.packages()` function installs packages from CRAN. Messages during installation are normal. Warnings are also common and are often not fatal, but read them and use `packageVersion()` to confirm that the package installed. An error means the installation did not complete successfully. This code installs the `dslabs`, `readr`, and `readxl` packages. The `c()` function combines the package names into a vector, allowing you to install multiple packages at once.
 
 **💡 Test knit.**
 
-> ⚠️ Common Pain Point: `install.packages()` lines will not run successfully in a knitted notebook because of the way that knitting works. If you include `install.packages()` lines in your R Notebook, make sure to comment them out with `#` after you run them once in the Console.
+> ⚠️ Common Pain Point: Run `install.packages()` in the Console rather than putting it in your R Notebook. If an installation line remains in the notebook, knitting may try to install the package again and may require internet access or additional input. Keep the `library()` lines in the notebook so the packages load when the notebook runs.
 
 
 ```{r}
@@ -456,7 +460,7 @@ After installing the package, you need to load it into your R session using the 
 
 💡 **Tip:** Add headings and format your report as you work. 🎯 Add the heading # Library Packages.
 
-🎯 Load the packages `readr`, `readxl`, and `dslabs` into your R session **using a notebook code chunk** so it load *every time* when you Knit. **This is Task 3 of the Practice Space at the end of this chapter.**
+🎯 Load the packages `readr`, `readxl`, and `dslabs` into your R session **using a notebook code chunk** so they load each time you Knit. **This is Task 3 of the Practice Space at the end of this chapter.**
 
 ```{r}
 # ⚡ Type this in a code chunk in the R Notebook to load packages
@@ -564,7 +568,7 @@ Often, you will need to load data from external files that you have downloaded o
 
 Importing a CSV (`read_csv`) requires the package `readr` that we loaded earlier. If you forget to load (`library()`) the `readr` package first, you will get an error message when you try to use the `read_csv()` function.
 
-Because we are using an R Notebook, you will use a simple file path because your file is saved in the same location as the R Notebook. 
+For the notebook setup used in this chapter, the CSV file is saved in the same folder as the Rmd file. When you Knit, this allows you to use only the file name in the import code.
 
 📜 The basic SYNTAX:
 
@@ -618,7 +622,7 @@ Importing an Excel file requires the package `readxl` that we loaded earlier. If
 
 **Type `read_excel()` in your notebook**
 
-Saving the data file in the exact same folder as your R Notebook allows you to use the file name without a path.
+For the notebook setup used in this chapter, saving the Excel file in the same folder as the Rmd file allows you to use only the file name when you Knit.
 
 `df <- read_excel("file.xlsx")`
 
@@ -682,7 +686,7 @@ save(
 )
 ```
 
-🗣 `chapter7_practice.RData` will automatically save in the same folder that your Rmd file is located.
+🗣 `save()` writes `chapter7_practice.RData` in the current working directory. When you Knit the notebook used in this chapter, that directory is the folder containing `chapter7_practice.Rmd`. After knitting, use `list.files()` or Finder or File Explorer to confirm that the RData file is there.
 
 🧭 This file type is useful because it can be loaded into R to restore these objects without needing to re-import the data from the original CSV and Excel files. 
 
@@ -788,7 +792,7 @@ Files for this chapter:
 
 🎯 Run `getwd()` and `list.files()` in the **Console**. Then include the same code in a code chunk of your R Notebook and test Knit. 
 
-#### Step 1 {#step-1}
+#### Step 1 {#task-2-step-1}
 
 Type and Run this code in the Console first 
 
@@ -797,7 +801,7 @@ getwd()
 list.files()
 ```
 
-#### Step 2 {#step-2}
+#### Step 2 {#task-2-step-2}
 
 Add a code chunk in your R Notebook, write the same code in that code chunk, then 🧶 knit your notebook.
 
@@ -807,13 +811,13 @@ getwd()
 list.files()
 ```
 
-#### Step 3 {#step-3}
+#### Step 3 {#task-2-step-3}
 
 ✅ Check the resulting HTML and compare with Console output. 
 
 🪞 Reflect: Did R look in the same folder both times, or did the Console and Knit use different folders? Either result is okay. Explain what your result tells you about where R is looking. Why does this matter when importing files? 
 
-### Task 3 {task-3}
+### Task 3 {#task-3}
 
 **📦 Load packages**
 
@@ -893,9 +897,9 @@ car_prices_df <- _______(_______)
 
 ### Task 8 {#task-8}
 
-**💾 Save your workspace for submission**
+**💾 Save selected objects in an RData file**
 
-🎯 Save your workspace (`chapter7_practice.RData`) for submission. 
+🎯 Save the four selected objects in a file called `chapter7_practice.RData`.
 
 This file should contain: 
 

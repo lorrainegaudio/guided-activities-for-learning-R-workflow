@@ -50,10 +50,10 @@ book:
     #     - chapters/03-courage/ch05-help-prompting.Rmd
          - chapters/03-courage/ch06-missing-values.Rmd   
         
-    # - part: chapters/04-autonomy/autonomy.qmd
-    #   chapters:
-    #     - chapters/04-autonomy/ch07-importing-data.Rmd
-    #     - chapters/04-autonomy/ch08-indexing.Rmd
+    - part: chapters/04-autonomy/autonomy.qmd
+      chapters:
+         - chapters/04-autonomy/ch07-importing-data.Rmd
+         - chapters/04-autonomy/ch08-indexing.Rmd
         
     # - part: chapters/05-openmindedness/openmindedness.qmd
     #   chapters:
