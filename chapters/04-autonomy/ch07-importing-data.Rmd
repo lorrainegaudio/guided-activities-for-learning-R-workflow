@@ -955,8 +955,6 @@ save(
 )
 ```
 
-🌳 Optional: Show off your coding skills: add `car_prices_sheet1` by editing the code above. Do this only if your notebook also creates `car_prices_sheet1` before the `save()` call.
-
 ✅ Check that the `.RData` file was created and is saved in your module folder. 
 
 ### Finish and verify your notebook {#finish-and-verify}
