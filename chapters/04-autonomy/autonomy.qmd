@@ -2,11 +2,41 @@
 toc: false
 ---
 
+# Autonomy {.unnumbered}
 
-## Autonomy
+Learning R involves decisions. You decide how to organize your files, which information in an error message matters, what kind of object a function needs, which method fits your goal, and whether you should continue investigating or consult another resource. These decisions require more than following a sequence of instructions. They require you to understand what you are doing and take responsibility for what you do next.
 
+Baehr (2022) describes intellectual autonomy as thinking for yourself and developing command of your own intellectual abilities. An autonomous learner can do more than repeat information or reproduce an example. The learner can explain an idea in their own words, apply it in a new situation, and use evidence to form a judgment.
 
-Autonomy is ...
+King (2021) explains that autonomy requires appropriate reliance on others. Taking responsibility for your thinking does not require you to learn alone. A learner can rely too heavily on another person or source and allow that source to become a substitute for personal understanding. A learner can also reject useful instruction, evidence, or expertise in an attempt to remain independent. Autonomous learners use support without surrendering responsibility for their own conclusions.
+
+Autonomy is the learning skill theme for this module. It means taking ownership of your understanding, choices, code, and learning. You can use instructions, examples, documentation, peers, instructors, and AI tools as resources. You remain responsible for deciding how that information applies, checking whether it is accurate, and understanding the work you produce.
+
+## Autonomy while learning R
+
+Autonomy in R begins with knowing your goal and using evidence to decide what to do next. You might inspect your working directory, check whether R can see a file, read an error message, compare two objects, or examine the kind of output a function returned.
+
+Autonomy also involves choosing among valid approaches. You may need to decide whether to use a graphical interface or code, whether to keep a column as a data frame or extract it as a vector, or whether to write a logical condition directly inside an index or save it as a separate object that you can inspect.
+
+When a person, example, website, or AI tool suggests code, examine the suggestion before adopting it. Run the code, inspect the result, and decide whether it accomplishes your goal. You should be able to explain what the code does, why it fits the task, and what evidence shows that it worked.
+
+Using help is part of autonomous learning. Courage may help you ask a question when you are uncertain. Autonomy helps you decide when support is appropriate, evaluate the guidance you receive, and use it to make an informed next decision.
+
+## How autonomy appears in this book
+
+The compass 🧭 marks autonomy. It appears when you are being asked to orient yourself to the goal, examine the available evidence, and make a reasoned choice.
+
+The compass may mark opportunities to:
+
+- decide whether you need detailed guidance or are ready to proceed,
+- organize files so you understand where your work and data are located,
+- inspect output or an error message before choosing the next step,
+- select an R method according to the kind of result you need,
+- test and evaluate code suggested by another resource,
+- protect original data while experimenting with a possible change,
+- and recognize when another resource or person can help you move forward.
+
+The compass does not mean that you must solve every problem alone. It reminds you to use available support while remaining responsible for understanding and checking your work.
 
 ## Chapters in this section
 
@@ -15,7 +45,7 @@ Autonomy is ...
 ::: {.section-card}
 ### Chapter 7: Importing Data
 
-blah blah blah
+Organize notebooks and data files, examine working directories, install and load packages, and import CSV and Excel files. Practice using targeted checks to determine whether R can find and load the data you need.
 
 [Open Chapter 7](ch07-importing-data.html){.section-button}
 :::
@@ -23,7 +53,7 @@ blah blah blah
 ::: {.section-card}
 ### Chapter 8: Indexing
 
-blah blah blah
+Use positions, names, and logical conditions to select data. Practice choosing between subsetting, extraction, and replacement methods according to the result you need, then check that the code returned what you intended.
 
 [Open Chapter 8](ch08-indexing.html){.section-button}
 :::
@@ -32,7 +62,18 @@ blah blah blah
 
 ## What to focus on
 
-As you work through autonomy ...
+As you work through Autonomy, pause to ask:
 
+- What am I trying to understand or accomplish?
+- What evidence can I inspect before deciding what to do?
+- Which method or resource fits this situation?
+- Should I continue independently, review available guidance, or ask a focused question?
+- Can I explain why I chose this approach and how I verified the result?
 
+Autonomy is responsible ownership of your learning. Use the support available to you, exercise your own judgment, and keep enough evidence to explain and defend the decisions you make.
 
+## References
+
+Baehr, J. (2022). *Deep in thought: A practical guide to teaching for intellectual virtues*. Harvard Education Press.
+
+King, N. L. (2021). *The excellent mind: Intellectual virtues for everyday life*. Oxford University Press.
