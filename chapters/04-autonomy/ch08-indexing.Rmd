@@ -334,7 +334,7 @@ field_sightings[, "Band_Color", drop = FALSE]    # 1-column TIBBLE
 
 🗣 A one-column tibble is printed showing all row values in the `Band_Color` column of the `field_sightings` tibble. The explicit `drop = FALSE` instruction says to keep the rectangular structure.
 
-⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using names indexing with `[ ]`.
+> ⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using names indexing with `[ ]`.
 
 🧭 Choose a method based on the kind of output you need next. If you need a smaller data frame, keep the data-frame structure. If you need the values inside one column, extract the column as a vector.
 
