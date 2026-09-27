@@ -18,14 +18,16 @@ By the end of Chapter 8, you will be able to:
 -  🧩 Apply the subsetting template `df[rows, cols]` to select data by 📍 position, 🏷️ name, and 🔍 logical mask.
 -  🔎 Check whether your indexing code returned the rows, columns, object type, and values you expected.
 -  ⚠️ Explain how missing values can propagate through logical masks and create confusing filtering results.
--  🧭 Use `which()` to turn logical conditions into row positions when you want to avoid carrying `NA` values into a subset.
+-  Use `which()` to turn logical conditions into row positions when you want to avoid carrying `NA` values into a subset.
 -  🧪 Extract one column as “the thing itself” using `[[ ]]` or `$` so you can pass the values into functions like `unique()` or `table()`.
 -  🛠️ Use subassignment to overwrite selected values in a copied data frame and insert a new column.
 -  🎯 Use code chunk options to manage long outputs and make your R Notebook easier to read.
 
+Watch for the 🧭 autonomy marker throughout this chapter. It identifies places where you inspect evidence, choose an indexing method, or decide what to check next. Use your memos to explain these decisions.
+
 ## Activity Setup {#activity-setup}
 
-🧭 Chapter 7 introduced you folder organization and how to import data into R. This section will lightly review what you learned, providing you with additional practice. If you need a more detailed refresher on how to import data, start by reviewing Chapter 7 📤 Importing Data.
+📖 **Review:** Chapter 7 introduced you to folder organization and how to import data into R. This section will lightly review what you learned, providing you with additional practice. If you need a more detailed refresher on how to import data, start by reviewing Chapter 7 📤 Importing Data.
 
 ### Create/Save Chapter 8 Notebook {#create-notebook}
 
@@ -134,13 +136,15 @@ field_sightings <- read_csv("data/field_sightings.csv")
 head(field_sightings)
 ```
 
-🧭 Feel free to click `field_sightings` in your Environment pane to view the data frame and get a sense of what the data looks like.
+✅ Click `field_sightings` in your Environment pane and confirm that its columns are `Status` and `Band_Color`.
+
+As you work, add short memos to your notebook. Use 🗣 Comments to explain your code or output and 🪞 Reflect to record what you understand, what remains uncertain, or what you would check next.
 
 🧶 **Test knit.** Before you move on, test knit your R Notebook to make sure everything is working. Check that the formatting is working as expected (e.g., headings appear as heading font, code appears in code chunks, and memos are paragraph text)
 
 ---
 
-With your data loaded in to the environment, you are ready to start practicing subsetting, extraction, and replacement techniques in R. 
+With your data loaded into the environment, you are ready to start practicing subsetting, extraction, and replacement techniques in R.
 
 ## Subsetting {#subsetting}
 
@@ -152,13 +156,13 @@ The structure returned by `[ ]` depends on the object being indexed and the way 
 
 [Positional indexing]{.glossary-term data-term="Positional Indexing"} is the most basic form of indexing in R, where you use numeric positions to select elements from a vector or data frame.
 
-💡 **Tip:** Positions start at `1` in R. This is different from other coding languages like python which starts indexing values at `0`.
+💡 **Tip:** Positions start at `1` in R. This is different from other coding languages like Python, which starts indexing values at `0`.
 
 #### Vector {#positional-vector}
 
 In Chapter 3, you practiced using the [indexing operator]{.glossary-term data-term="Indexing Operator"} with positional indexing to extract elements from vectors. Let's review that briefly before we move on to [data frames](#positional-data-frame).
 
-You learned that the basic pattern for positional indexing is `x[i]`, where `x` is the vector and `i` is the index (or indices) of the elements you want to extract. A position used to identify elements in an object. 
+You learned that the basic pattern for positional indexing is `x[i]`, where `x` is the vector and `i` is the index (or indices) of the elements you want to select. An index identifies a position in an object.
 
 🎯   Practice using `[ ]` with positional indexing on vectors. 
 
@@ -189,7 +193,7 @@ z[3]
 z[2:4]     
 ```
 
-🗣 The second, third and fourth elements by position is 20, 30, and 40.
+🗣 The second, third and fourth elements by position are 20, 30, and 40.
 
 #### Data Frame {#positional-data-frame}
 
@@ -332,7 +336,7 @@ field_sightings[, "Band_Color", drop = FALSE]    # 1-column TIBBLE
 
 ⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using names indexing with `[ ]`.
 
-🧭 The autonomous move here is not memorizing three methods as separate tricks. It is deciding what kind of output you need next. If you need a smaller data frame, keep the data-frame structure. If you need values to pass into a function, extract the column as a vector.
+🧭 Choose a method based on the kind of output you need next. If you need a smaller data frame, keep the data-frame structure. If you need the values inside one column, extract the column as a vector.
 
 🧶 **Test knit.**
 
@@ -342,13 +346,13 @@ So far, you've learned about positional indexing and names indexing. Both of the
 
 ### 🔍 Logical Mask Indexing {#logical-mask}
 
-A [logical mask]{.glossary-term data.term="Logical Mask"} is the logical vector you use to index.
+A [logical mask]{.glossary-term data-term="Logical Mask"} is the logical vector you use to index.
 
 #### Vector {#logical-vector}
 
 In Chapter 4, you practiced logical indexing with a vector.
 
-🎯 Create a new vector called `smaller`that contains only values in `number_list` that are less than or equal to 20.
+🎯 Create a new vector called `smaller` that contains only values in `number_list` that are less than or equal to 20.
 
 ```{r}
 # ⚡ Type this in your R Notebook
@@ -431,11 +435,11 @@ Logical mask indexing works the same way for data frames, except that the logica
 
 The mask can be `TRUE`/`FALSE`/`NA` for each row. When you use the mask in `df[mask, ]`, R keeps rows where the mask is TRUE. If the mask contains `NA`, those unknown positions can also appear in the result, which can make the subset larger than the number of definite `TRUE` values.
 
-🎯 : Keep only rows where the bird is tagged using `[ ]`.
+🎯 Use a logical mask with `[ ]` to subset rows based on whether the bird is tagged, then inspect how missing values affect the result.
 
 ```{r}
 # ⚡ Type this in your R Notebook
-# Step 1: create the logical mask (one TRUE/FALSE per row)
+# Step 1: create the logical mask (one TRUE/FALSE/NA per row)
 mask_tagged <- field_sightings[["Status"]] == "Tagged"
 ```
 
@@ -468,12 +472,12 @@ head(tagged_only)
 
 🗣 This subsets the data frame using the logical mask. Rows where the mask is `TRUE` are retained. Because the mask also contains `NA`, unknown rows appear in the result as rows of missing values.
 
-✅ Compare the three counts. `nrow(field_sightings)` tells you the size of the original data frame.` nrow(tagged_only)` tells you how many rows were returned by the subset. `sum(mask_tagged, na.rm = TRUE)` tells you how many rows were definitely `TRUE`.
+✅ Compare the three counts. `nrow(field_sightings)` tells you the size of the original data frame. `nrow(tagged_only)` tells you how many rows were returned by the subset. `sum(mask_tagged, na.rm = TRUE)` tells you how many rows were definitely `TRUE`.
 
 ```{r}
 # ✅  Check
 nrow(field_sightings)            # how many rows in the original data frame?
-nrow(tagged_only)                # how many tagged rows?
+nrow(tagged_only)                # how many rows were returned?
 sum(mask_tagged, na.rm= TRUE)    # how many TRUE values in the mask?
 ```
 
@@ -526,7 +530,7 @@ nrow(tagged_only)
 length(row_idx_tagged)
 ```
 
-🗣 `which()` returns the indices of the `TRUE` elements and omits positions where the test result is `FALSE` or `NA` values for the logical vector passed in. If the logical test can produce NA, `which()` drops unknowns.
+🗣 I used `which()` because I wanted only confirmed Tagged rows. The subset has 300 rows, matching the number of `TRUE` positions in the mask. The 25 unknown statuses were omitted.
 
 🧭 Use a plain logical mask when the condition is simple and you have already checked how missing values behave. Use `which()` when you want row positions and want to avoid carrying NA values into the subset.
 
@@ -562,7 +566,7 @@ Extract a column as a vector
 field_sightings[["Band_Color"]]   # the column VECTOR
 ```
 
-> 🧐 **Notice:** This output is long. You can use `#` to "comment out" the code for code chunks that might make an HTML report difficult to read.
+> 🧐 **Notice:** This output is long. Use the code chunk option `results = 'hide'` to run the code while hiding its printed output in your HTML report. The [Code Chunk Options](#code-chunk-options) section explains how.
 
 ✅ Check that the output is a vector of values, not a 1-column data frame. You should see the band color values printed directly.
 
@@ -577,9 +581,9 @@ Use the extracted vector inside the function `unique()`
 unique(field_sightings[["Band_Color"]])
 ```
 
-✅ Check that `unique()` returns each band color only once. This confirms that [`[ ]]` gave `unique()` the column values it needed.
+✅ Check that `unique()` returns each band color only once. This confirms that `[[ ]]` extracted the column values you wanted to inspect.
 
-🗣 This shows the unique band colors in the `field_sightings` data frame. The `[[` operator allows you to extract the column as a vector, which is what `unique()` needs to work properly.
+🗣 This shows the unique band colors in the `field_sightings` data frame. Extracting the column with `[[ ]]` gives `unique()` the values from that column.
 
 🧭 If a function needs the values inside one column, extraction is usually the better move. Ask yourself: “Does the next function need a data frame, or does it need the column values themselves?”
 
@@ -606,7 +610,7 @@ field_sightings$Band_Color
 
 🗣 A vector is printed showing all element values from the column `Band_Color` from the `field_sightings` data frame. It is an extraction from one column and returns a vector, values only.
 
-You will likely use the `$` operator often. The `$` operator is more concise and easier to read for common uses cases. However, it only works for selecting one column at a time and can’t use an assigned variable stored in the environment. 
+You will likely use the `$` operator often. The `$` operator is more concise and easier to read for common use cases. However, it only works for selecting one column at a time and can’t use an assigned variable stored in the environment.
 
 If we try to use a variable to specify the column name with the `$` operator, it will not work because `$` does not evaluate the variable name. `[[ ]]` can use a variable and is safer in programs.
 
@@ -658,7 +662,7 @@ In this chapter, you’ll use three core replacement patterns for data frames:
 
 3. Use `x$name <- value` to replace/add one column (when the column name is typed literally).
 
-    👉 **Indexing on the left of `<-` edits the object you assign into**
+👉 **Indexing on the left of `<-` edits the object you assign into.**
     
 ### Overwrite with `x[i, j] <- value` {#overwrite}
 
@@ -726,7 +730,7 @@ unique(reintroduction[["Status"]])       # modified data frame
 unique(field_sightings[["Status"]])      # original data frame
 ```
 
-🗣 The `Status` column in the `reintroduction` data frame has been modified to replace "Untagged" with "Wild Hatch". 
+🗣 The copy now contains "Wild Hatch", while the original still contains "Untagged". These checks show that I changed the intended values and preserved the original data.
 
 🧶 **Test knit.**
 
@@ -757,7 +761,7 @@ reintroduction2 <- field_sightings
 
 **Step 2**
 
-Store the new name of your column a variable 
+Store the new name of your column in a variable.
 
 ```{r}
 # ⚡ Type this in your R Notebook
@@ -796,12 +800,12 @@ table(reintroduction2[["Tag_Flag"]], useNA = "always")
 
 ✅ Confirm that the table reports 4,145 values of `0`, 300 values of `1`, and 25 `NA` values.
 
-🧭 Feel free to click `reintroduction` and `reintroduction2` in your Environment pane to view the data frame and compare
+✅ Click `field_sightings` and `reintroduction2` in your Environment pane. Confirm that `Tag_Flag` appears only in the copy and that the original data frame still has two columns.
 
 
 #### `$` Method {#dollar-method}
 
-If you are typing the column name directly (not stored in a variable), you can use $ to add the column.
+If you are typing the column name directly (not stored in a variable), you can use `$` to add the column.
 
 🎯  Add a new column (a flag) using a column name typed literally with `$`.
 
@@ -862,6 +866,8 @@ To make your R Notebook more readable, you can use the `results = 'hide'` option
 
 Alternatively, you can use `eval = FALSE` to prevent the code from running at all, which is useful for code that is meant to be illustrative rather than executed, such as when there is an error that you want to discuss without actually running the code.
 
+Inspect messages and warnings before deciding to hide them. If they explain an unresolved problem, keep them visible and record what you checked in a memo. The example that hides messages and warnings below uses code you have already checked.
+
 Below are some examples of how to use these options in your R Notebook. Try out the code chunk settings in your notebook to see how they work!
 
 ```{r echo=FALSE, results='asis'}
@@ -872,8 +878,8 @@ cat(paste0(
   "field_sightings[['Band_Color']]\n",
   "```\n\n",
   "```{r, echo=FALSE, message=FALSE, warning=FALSE}\n",
-  "# Run, but don't show code/messages/warnings\n",
-  "field_sightings$col_name \n",
+  "# Run checked code; hide code/messages/warnings\n",
+  "head(field_sightings)\n",
   "```\n\n",
   "```{r, eval=FALSE, echo=TRUE}\n",
   "# Show code, but do not run it\n",
@@ -903,25 +909,25 @@ Logical masks introduced an important warning about missing values. When a compa
 
 Finally, you practiced subassignment by making a copy of a data frame, finding row positions with `which()`, and overwriting selected values. You also practiced adding a new column. These are important data-cleaning skills because real datasets often need corrections or new variables before they are ready for analysis.
 
-The main habit to carry forward is this: after indexing, extracting, or modifying data, verify what changed. Check the dimensions, names, object type, values, or summary output before moving on. In the next chapter, you will extend this work by filtering with more complex conditions using `&`, `|`, and `%in%`.
+The main habit to carry forward is this: after indexing, extracting, or modifying data, verify what changed. Check the dimensions, names, object type, values, or summary output before moving on. In later chapters, you will extend this work by filtering with more complex conditions using `&`, `|`, and `%in%`.
 
 ## Chapter Terms {#chapter-terms}
 
 **Column index**: The index used to select columns in a data frame or matrix (the second slot inside brackets: `x[, j]`).
 
-**Conditional Subsetting** (Logical Subsetting): Filtering an object by using a logical condition inside [ (e.g., `df[df$cyl != 4, ]`), where `TRUE` keeps an element/row and `FALSE` drops it. This contrasts with negative indexing, which excludes by position rather than by a condition.
+**Conditional Subsetting** (Logical Subsetting): Filtering an object by using a logical condition inside `[ ]` (e.g., `df[df$cyl != 4, ]`), where `TRUE` keeps an element/row and `FALSE` drops it. This contrasts with negative indexing, which excludes by position rather than by a condition.
 
-**Dollar Sign Operator** (`$`): An extraction (and replacement) operator used to access a single named component of a recursive object. Most commonly a data frame column (`df$col`) or a list element (`lst$name`). `$` requires a literal name (not a name stored in a variable), returns NULL if the name doesn’t exist, and by default may do partial matching (which can surprise you).
+**Dollar Sign Operator** (`$`): An extraction (and replacement) operator used to access one named component, such as a data frame column (`df$col`) or a list element (`lst$name`). `$` uses the name typed after it rather than a column name stored in a variable. If the name does not exist, it returns `NULL`. The tibbles used in this chapter also display an unknown-column warning.
 
 **Double Square Bracket Operator** (`[[`): An extraction operator used to pull out one single element from a list (or one column from a data frame) and return the element itself, not a same-type subset. Unlike `[`, which can return multiple elements and preserves the container type, `[[` is for “give me the one thing inside” (e.g., a vector inside a dataframe).
 
 **Equal To** (`==`): A relational operator that tests equality and returns `TRUE` where values are equal and `FALSE` where they are not (element-by-element for vectors).
 
-**Extraction**: Retrieving a single component from an object—such as one list element or one data-frame column—so you get the “thing itself” (often a simplified result like a vector). Extraction is commonly done with `[[ ]]` (extract one element by position or name) or `$` (extract one column by name).
+**Extraction**: Retrieving a single component from an object, such as one list element or one data-frame column, so you get the component's contents (often a vector). Extraction is commonly done with `[[ ]]` (extract one element by position or name) or `$` (extract one column by name).
 
-**Indexing Operator**: The square-bracket indexing operator `[` or `[[` are used to extract or replace parts of an object in R (for example, `x[i]`). For vectors, it selects one or more elements and returns the same kind of object as `x` (a vector).
+**Indexing Operator**: The single square bracket operator `[ ]` selects or replaces parts of an object in R. For a vector, `x[i]` selects values by position, name, or logical condition. For a data frame, `df[rows, cols]` selects rows and columns. The double square bracket operator `[[ ]]` extracts one component and has its own definition above.
 
-**Insertion**: A common type of subassignment where you add something new to an object—most often a new column in a data frame. Example: `df[["Tag_Flag"]] <- 0` (creates the column if it doesn’t exist yet).
+**Insertion**: A common type of subassignment where you add something new to an object, most often a new column in a data frame. Example: `df[["Tag_Flag"]] <- 0` (creates the column if it doesn’t exist yet).
 
 **Less Than or Equal To** (`<=`): A relational operator that returns `TRUE` where the left side is less than or equal to the right side, and `FALSE` otherwise.
 
@@ -931,9 +937,9 @@ The main habit to carry forward is this: after indexing, extracting, or modifyin
 
 **Missing Value Propagation**: R’s behavior where an `NA` (unknown value) “carries through” computations and comparisons. If an operation can’t be determined because of missing data, the result is often `NA` (unknown) instead of `TRUE` or `FALSE`. For example, `NA == "Tagged"` returns `NA`. If you use a logical mask that contains `NA` values for subsetting (e.g., `x[mask]` or `df[mask, ]`), R does not treat `NA` as `FALSE`, so the subset may include `NA` values (or `NA` rows), which can change counts and results.
 
-**Names Indexing**: Indexing a named vector using character strings that match element names (for example, `x[c("Octarine", "TARDIS Blue")]`). With `[`, names are matched exactly; any name that doesn’t exist returns `NA` for that position.
+**Names Indexing**: Selecting parts of an object using character strings that match element or column names. Examples: `x[c("Octarine", "TARDIS Blue")]` selects named vector elements, and `df[, c("id", "year")]` selects data frame columns. A name that does not exist returns `NA` when subsetting a named vector, but selecting a missing data frame column produces an error.
 
-**Overwrite**: A common type of subassignment where you change existing values (you replace what is already there). Example:` df[rows, "Status"] <- "Wild Hatch"`.
+**Overwrite**: A common type of subassignment where you change existing values (you replace what is already there). Example: `df[rows, "Status"] <- "Wild Hatch"`.
 
 **Positional Indexing**: Indexing a vector using numeric positions (for example, `x[1]` for the first element or `x[c(1, 3)]` for the first and third). Positions are based on the current order of the vector.
 
@@ -1161,7 +1167,7 @@ unique(_____)
 
 🗣 Add Comments: Comment on the output of `table(year_vector)` or `unique(year_vector)`. What do you notice about possible values in the year column?
 
-🪞 Reflect: Why does extraction with `[[ ]]` make sense here? What kind of object does `table()` need: a data frame or the values inside one column?
+🪞 Reflect: Why does extraction with `[[ ]]` make sense here? How does extracting the column make it clear which values you want `table()` to count?
 
 🧶 **Test knit.**
 
