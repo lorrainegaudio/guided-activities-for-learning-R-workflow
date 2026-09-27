@@ -1,11 +1,44 @@
 ---
-toc: true
+toc: false
 ---
 
+# Open-mindedness {.unnumbered}
 
-## Openmindedness
+Learning R introduces you to different ways of approaching the same task. You may encounter an unfamiliar method, hear another explanation, or get a result that challenges what you expected. These moments invite you to examine another possibility and consider what you can learn from it.
 
-Openmindedness is ...
+Baehr (2022) describes intellectual open-mindedness as a willingness and ability to step outside a familiar way of thinking long enough to give another perspective fair consideration. This requires trying to understand the alternative on its own terms. Considering another perspective can help you recognize an assumption, correct a misunderstanding, or develop a fuller understanding of an idea.
+
+King (2021) explains that open-mindedness is compatible with confidence in a well-supported belief. You can take another idea seriously while continuing to hold your own view. Evidence may give you a reason to revise your thinking, or it may support your original understanding. Open-mindedness and intellectual firmness work together: consider alternatives carefully and retain conclusions that remain well supported.
+
+Open-mindedness is the learning skill theme for this module. While learning R, you will practice considering different interpretations, methods, and workflows. Your goal is to understand the possibilities and use evidence to decide what to keep or revise.
+
+## Open-mindedness while learning R
+
+An unexpected result is an opportunity to reconsider your first interpretation. Suppose a filter returns rows you did not intend to include. Read the data question again, explain the code in words, and examine how R evaluates the conditions. You may discover that the code expresses a different rule from the one you had in mind.
+
+You will also encounter different ways to accomplish similar tasks. A filter might use separate logical vectors or one combined expression. Base R brackets and `dplyr` functions can often select the same data. Give an unfamiliar approach enough attention to understand how it works. Compare the results, then consider which version makes the reasoning easier to follow.
+
+New tools offer opportunities to examine your workflow from another perspective. Git and GitHub introduce version control, and Quarto provides another way to combine code, output, and written explanation. As you learn these tools, identify what remains familiar, what changes, and how the new approach supports your work.
+
+Another person may also understand your code differently from how you intended it. Listening to their explanation can help you notice an ambiguous condition or a confusing layout. Use their perspective to examine your work, and check any suggested changes before adopting them.
+
+## How open-mindedness appears in this book
+
+The thinking-face emoji 🤔 marks opportunities to consider another way of understanding or approaching your work.
+
+It may invite you to:
+
+- examine an interpretation that differs from your first reading,
+- understand another way to write the same filtering rule,
+- reconsider an assumption when the output gives you a reason,
+- give an unfamiliar tool or workflow a fair trial,
+- or consider how another reader might understand your code.
+
+When you see 🤔, pause long enough to understand the alternative. Use the task’s goal and the available evidence to decide whether to retain your original approach or revise it.
+
+The ✅ marker directs you to check code or output. The 🤔 marker asks you to consider what another interpretation or approach might help you understand.
+
+Use your memos to make this thinking visible. A 🗣 Comment can explain how two expressions differ or what their results show. A 🪞 Reflect memo can describe an assumption you reconsidered, what you learned from another approach, or why you retained your original understanding. Add a 👀 Cite memo when a human or digital resource contributes to your work.
 
 ## Chapters in this section
 
@@ -14,15 +47,15 @@ Openmindedness is ...
 ::: {.section-card}
 ### Chapter 9: Git and GitHub
 
-blah blah blah
+Connect Git, GitHub, and RStudio to track changes in an R project. Practice making commits, pushing and pulling changes, and reviewing which files belong in a repository. Examine how version control supports your existing workflow.
 
 [Open Chapter 9](ch09-github.html){.section-button}
 :::
 
 ::: {.section-card}
-### Chapter 10: And, Or, and In
+### Chapter 10: And, Or, and Membership
 
-blah blah blah
+Use `&`, `|`, and `%in%` to combine filtering conditions. Translate between a data question and its R expression, compare alternative filters, and reconsider your interpretation when the selected rows do not match your intended rule.
 
 [Open Chapter 10](ch10-and-or-in.html){.section-button}
 :::
@@ -30,21 +63,27 @@ blah blah blah
 ::: {.section-card}
 ### Chapter 11: dplyr Subsetting
 
-blah blah blah
+Use pipes, `select()`, and `filter()` to build readable data workflows. Compare these methods with familiar base R approaches, and begin using Quarto to organize code, output, and memos.
 
 [Open Chapter 11](ch11-dplyr-subsetting.html){.section-button}
 :::
-
 
 :::
 
 ## What to focus on
 
-As you work through openmindedness ...
+As you work through Open-mindedness, pause to ask:
 
+- What am I assuming about this code, dataset, or tool?
+- Can I explain the alternative approach before judging it?
+- Does the code mean what I first thought it meant?
+- What evidence supports keeping or revising my interpretation?
+- What did considering another perspective help me understand?
 
+Keep an approach when you can explain why it fits the task and what evidence supports it. Revise it when your investigation gives you a reason. Record enough of your thinking to understand that decision later.
 
+## References
 
+Baehr, J. (2022). *Deep in thought: A practical guide to teaching for intellectual virtues*. Harvard Education Press.
 
-
-
+King, N. L. (2021). *The excellent mind: Intellectual virtues for everyday life*. Oxford University Press.

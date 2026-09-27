@@ -55,7 +55,7 @@ book:
          - chapters/04-autonomy/ch07-importing-data.Rmd
          - chapters/04-autonomy/ch08-indexing.Rmd
         
-    # - part: chapters/05-openmindedness/openmindedness.qmd
+    - part: chapters/05-openmindedness/openmindedness.qmd
     #   chapters:
     #     - chapters/05-openmindedness/ch09-github.Rmd
     #     - chapters/05-openmindedness/ch10-and-or-in.Rmd        

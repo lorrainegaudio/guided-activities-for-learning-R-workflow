@@ -491,7 +491,7 @@ Logical mask indexing is a powerful way to subset data frames based on condition
 
 When we then subset with `tagged_only <- field_sightings[mask_tagged, ]`, R keeps rows where the mask is `TRUE`, but it does not treat `NA` as `FALSE`. Rows with `NA` in the mask can appear in the subset rows, which is why `tagged_only` has 325 rows even though there are only 300 `TRUE` values in the mask.
 
-#### which() Function *Helper* {#which-function}
+#### which() Function Helper {#which-function}
 
 The function `which()` is a subsetting helper that turns a logical mask into row indices. Using `which()` is one strategy for handling potential `NA` values in a logical test. `which()` returns the positions that are `TRUE` and omits positions that are `FALSE` or `NA`.
 
