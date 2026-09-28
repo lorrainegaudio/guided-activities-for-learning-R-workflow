@@ -7,11 +7,9 @@ toc: true
 
 ## Overview {#overview}
 
-In this guided activity, you will connect GitHub, Git, and RStudio so they can work together. You will create a small GitHub repository, clone it into RStudio as a project, make changes locally, commit those changes, push them to GitHub, and practice pulling a change back down from GitHub.
+In this guided activity, you will connect GitHub, Git, and RStudio so they can work together. You will create a small GitHub repository, clone it into RStudio as a project, make changes locally, commit those changes, push them to GitHub, and practice pulling before you work.
 
-In this course, you are not expected to learn how to write Git commands from memory. Git can be confusing at first, so the chapter keeps things simple with low-tech workarounds when useful. RStudio provides a beginner-friendly way to use Git, but its built-in Git tools are limited, so learning Git commands is necessary to take full advantage of Git. 
-
-> To learn more about Git, check out the 1 credit hour course CS 155 - Introduction to Version Control.
+In this chapter, you are not expected to learn how to write Git commands from memory. Git can be confusing at first, so the chapter keeps things simple with low-tech workarounds when useful. RStudio provides a beginner-friendly way to use Git, but its built-in Git tools are limited, so learning Git commands is necessary to take full advantage of Git.
 
 By the end of this activity, you will 
 
@@ -21,7 +19,7 @@ By the end of this activity, you will
 
 - 🐙 know the workflow: Open Project → Pull → Edit → Save → Stage → Commit → Push.
 
-- 🐙 know where to go to find Git and GitHub support on Campus.
+- 🐙 know where to look for help when your Git or GitHub setup does not match the instructions.
 
 ### Setup Order {#setup-order}
 
@@ -39,9 +37,9 @@ Git and GitHub setup can feel challenging because several tools must connect cor
 8. [Create the public practice repository](#make-github-repo) and [clone it into RStudio](#clone-github-via-rstudio).
 9. Practice the complete [Open Project → Pull → Edit → Save → Stage → Commit → Push workflow](#workflow).
 10. Create and test a `.gitignore` file for [data privacy and organization](#data-privacy-and-organization).
-11. [Verify the final public repository](#final-repository-structure), review its commit history, and copy its regular browser URL for Canvas.
+11. [Verify the final public repository](#final-repository-structure), review its commit history, and copy its regular browser URL to share with others.
 
-💡 **Tip**: If something does not work, and you're stuck, use the course support options to get help. You can do hard things!
+💡 **Tip**: If something does not work and you are stuck, use the support options available in your course or institution. You can do hard things!
 
 ---
 
@@ -67,6 +65,8 @@ Only tracked and committed work becomes part of Git history, and only commits th
 > Git tracks the history. GitHub hosts the remote repository. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.
 
 GitHub provides a useful remote copy and version history for tracked files, but it is not a complete backup of your project or computer.
+
+🤔 Compare two pictures of GitHub: a complete copy of your local project folder, or a separate repository whose contents depend on which changes have been committed and shared. As you work, check which picture better explains the differences you see.
 
 ---
 
@@ -95,7 +95,7 @@ Before downloading anything, check whether RStudio can already find Git. If RStu
 
 🎯 From the **[Tools]{.glossary-term}** menu, click **[Global Options]{.glossary-term}**.
 
-![Figure 2. Tools menu is selected and Global Options is at the bottom of the list](images/ch09-github/Tools_Global Options.png)
+![Figure 1. Tools menu is selected and Global Options is at the bottom of the list](images/ch09-github/Tools_Global Options.png)
 
 🗣 This opens the Global Options window. On the left side of the window is a list of settings.
 
@@ -105,7 +105,7 @@ Before downloading anything, check whether RStudio can already find Git. If RStu
 
 🎯 Click the **Git/SVN** tab.
 
-![Figure 3. Git/SVN option item shows version control settings.](images/ch09-github/Tools_Global Options_VersionControl.png)
+![Figure 2. Git/SVN option item shows version control settings.](images/ch09-github/Tools_Global Options_VersionControl.png)
 
 🎯 Make sure the box for **Enable version control interface for RStudio projects** is **checked.**
 
@@ -138,9 +138,9 @@ Before downloading anything, check whether RStudio can already find Git. If RStu
 
 The Git/SVN tab is the main check for this activity. The Terminal check is optional, but it can help confirm that Git works.
 
-![Figure 4. Screenshot of both the Terminal pane and the Git/SVN option window in Global Options.](images/ch09-github/check_for_git.png) 
+![Figure 3. Screenshot of both the Terminal pane and the Git/SVN option window in Global Options.](images/ch09-github/check_for_git.png)
 
-In Figure 4, the Git/SVN option window in Global Options shows the path to the Git executable as well, confirming that Git is installed and recognized by RStudio. The Terminal pane shows the command which git and the output is /mingw64/bin/git, which indicates that Git is installed and located at that path. Your path will likely be different, but the key is that it shows a path to Git rather than an error message. The git --version command also shows the version of Git installed. If Git is not installed, it will return an error message, such as git: command not found.
+In Figure 3, the Git/SVN option window in Global Options shows the path to the Git executable as well, confirming that Git is installed and recognized by RStudio. The Terminal pane shows the command which git and the output is /mingw64/bin/git, which indicates that Git is installed and located at that path. Your path will likely be different, but the key is that it shows a path to Git rather than an error message. The git --version command also shows the version of Git installed. If Git is not installed, it will return an error message, such as git: command not found.
 
 ### Step 1 {#step-1-terminal-check}
 
@@ -166,7 +166,7 @@ git --version
 - If you see a Git version number, Git is installed.
 - If you see an error message, Git may not be installed or RStudio may not be able to find it.
 
-![Figure 5. git --version output examples](images/ch09-github/git_not_installed_error.png)
+![Figure 4. git --version output examples](images/ch09-github/git_not_installed_error.png)
 
 🗣 The Terminal check confirms whether Git responds to a command. The Git/SVN tab confirms whether RStudio knows where Git is installed.
 
@@ -175,7 +175,7 @@ git --version
 
 ## Checkpoint: Do You Need to Install Git? {#checkpoint-git}
 
-✅ If RStudio shows a Git executable path, skip the install directions and continue to [Configure Git Identity](#configure-git-identity).
+✅ If RStudio shows a Git executable path, skip the install directions and continue to [GitHub](#github).
 
 
 ✅ If RStudio does not show a Git executable path, continue to the install directions for your operating system:
@@ -196,7 +196,7 @@ If you found that you do not have Git installed, navigate to the section that de
 
 Most Macs have git. If for some reason you do not have Git installed, follow this 3 step process.
 
-Most Mac computers can install Git through **Xcode Command Line Tools**. For this installation step, use the **Mac Terminal app**, not RStudio. You do **not** need to install the full Xcode app from the App Store for this course. 
+Most Mac computers can install Git through **Xcode Command Line Tools**. For this installation step, use the **Mac Terminal app**, not RStudio. You do **not** need to install the full Xcode app from the App Store for this activity.
 
 #### Step 1 {#step-1-install-git-macos}
 
@@ -238,7 +238,7 @@ git --version
 ```
 You should see a Git version number.
 
-🗣 If you see a Git version number, Git is already installed. Return to RStudio and continue to [Configure Git Identity](#configure-git-identity).
+🗣 If you see a Git version number, Git is already installed. Return to RStudio and continue to [GitHub](#github).
 
 💡 **Tip**: The Mac Terminal app and the RStudio Terminal tab look similar because both let you type commands. For installing Git on a Mac, you start with the Mac Terminal app, but after Git is installed, please use the RStudio Terminal for the remainder of the set up activity.
 
@@ -273,7 +273,7 @@ git --version
 
 ✅ Verify what happens:
 
-- If you see a Git version number, Git is already installed. Return to RStudio and continue to the **Configure Git Identity** section.
+- If you see a Git version number, Git is already installed. Return to RStudio and continue to the **GitHub** section.
 - If you see an error such as git: command not found, Git is not installed yet. Continue with the installation steps below.
 
 #### Step 3 {#step-3-install-git-linux}
@@ -343,7 +343,7 @@ git --version
 
 You should see a Git version number.
 
-🗣 If you see a Git version number, Git is installed on your Linux computer. Return to RStudio and continue to [Configure Git Identity](#configure-git-identity).
+🗣 If you see a Git version number, Git is installed on your Linux computer. Return to RStudio and continue to [GitHub](#github).
 
 💡 Tip: The Linux Terminal app and the RStudio Terminal tab look similar because both let you type commands. For installing Git on Linux, start with the Linux Terminal app. After Git is installed, please use the RStudio Terminal for the remainder of the setup activity.
 
@@ -378,7 +378,7 @@ It will usually have a name like: `Git-2.XX.X-64-bit.exe`
 
 🎯 Work through the installer screens.
 
-For this course, keep the default options unless your computer gives you a clear reason not to.
+For this activity, keep the default options unless your computer gives you a clear reason not to.
 
 - Keep the default installation location. It is usually something like "`C:\Program Files\Git`"
 - Choosing the default editor used by Git.
@@ -406,13 +406,13 @@ git --version
 
 You should see a Git version number.
 
-🗣 If Git Bash opens and shows a Git version number, Git is installed on your Windows computer. Return to RStudio and continue to [Configure Git Identity](#configure-git-identity).
+🗣 If Git Bash opens and shows a Git version number, Git is installed on your Windows computer. Return to RStudio and continue to [GitHub](#github).
 
 ---
 
 ## GitHub {#github}
 
-[GitHub]{.glossary-term data-term="GitHub"} is the website that will host your online repository. A repository is a project folder that Git can track. In this course, you will use GitHub so your RStudio project can have an online copy.
+[GitHub]{.glossary-term data-term="GitHub"} is the website that will host your online repository. A repository is a project folder that Git can track. In this activity, you will use GitHub so your RStudio project can have an online copy.
 
 Before you continue, make sure Git is installed and RStudio can find it. You will configure your Git identity after you create or access your GitHub account.
 
@@ -456,7 +456,7 @@ Your GitHub username may be visible on your public repositories, commits, and pr
 - timeless,
 - easy to type,
 - all lowercase if possible,
-- separated with a hyphen `-` or underscore `_` if needed.
+- separated with a hyphen `-` if needed.
 
 Examples of reasonable username styles:
 
@@ -490,7 +490,7 @@ lastname-data
 
 **Log into GitHub**
 
-🎯 Go to [Github](https://github.com/login){target="_blank" rel="noopener noreferrer"} and log in.
+🎯 Go to [GitHub](https://github.com/login){target="_blank" rel="noopener noreferrer"} and log in.
 
 🎯 Log in with the account you created.
 
@@ -580,7 +580,7 @@ Tools > Terminal > New Terminal
 git --version
 ```
 
-✅ Verify you see a Git version number. See Figure 4 for more details. If you see a version number, Git is installed. If you see an error, Git is not installed correctly yet or RStudio cannot find it. 
+✅ Verify you see a Git version number. See Figure 3 for more details. If you see a version number, Git is installed. If you see an error, Git is not installed correctly yet or RStudio cannot find it.
 
 💡 **Tip:** After installing Git, you may need to restart RStudio before RStudio recognizes it.
 
@@ -957,25 +957,25 @@ Keep the Terminal open so you can compare the selected key’s fingerprint with 
 2. Click your profile picture.
 3. Click **Settings**.
 4. In the **Access** section of the sidebar, click **SSH and GPG keys**.
-5. Review the keys listed under **SSH keys**.
+5. Under **SSH keys**, review the **Authentication keys**.
 
-Compare the SHA-256 fingerprint shown for the selected key in the Terminal with the fingerprints listed in GitHub.
+Compare the SHA-256 fingerprint shown for the selected key in the Terminal with the fingerprints listed under **Authentication keys** in GitHub.
 
 ### Checkpoint: Does GitHub Already Have This Key? {#checkpoint-existing-github-key}
 
-✅ **Matching key found:** If the same fingerprint already appears in your GitHub account, do not add the key again. Skip Step 8 and continue to Step 9.
+✅ **Matching key found:** If the same fingerprint already appears among your GitHub Authentication keys, do not add the key again. Skip Step 8 and continue to Step 9.
 
-✅ **No matching key found:** If the selected fingerprint does not appear in your GitHub account, continue to Step 8.
+✅ **No matching key found:** If the selected fingerprint does not appear among your GitHub Authentication keys, continue to Step 8.
 
 If GitHub shows a key that you do not recognize, pause this setup and review your account security before making changes. Do not delete a key merely because its title is unfamiliar; first compare its fingerprint and determine whether it belongs to another computer you use.
 
-🗣 Matching fingerprints show that GitHub already has the public key associated with the selected private key on the computer.
+🗣 A matching Authentication key shows that GitHub already has the public key associated with the selected private key on the computer.
 
 ### Step 8 {#step-8-configure-ssh-keys}
 
 **Add the public key to GitHub if needed**
 
-Complete this step only if Step 7 found no matching fingerprint.
+Complete this step only if Step 7 found no matching Authentication key.
 
 🎯 On the **SSH and GPG keys** page:
 
@@ -997,13 +997,13 @@ Mac laptop
 6. Click **Add SSH key**.
 7. Authenticate to your GitHub account if GitHub asks you to confirm the action.
 
-Never paste the private key into GitHub. Only the public-key filename ending in `.pub` belongs in the **Key** box.
+Never paste the private key into GitHub. Only the contents of the public key file, whose filename ends in `.pub`, belong in the **Key** box.
 
 If GitHub reports `Key is already in use`, stop. Do not delete or regenerate the key. This message means the public key is already attached to another GitHub account or repository and must be identified before you continue.
 
 ### Checkpoint: Public Key Connected to GitHub {#checkpoint-public-key-connected}
 
-✅ Verify that the selected key now appears in your GitHub SSH-key list.
+✅ Verify that the selected key now appears among your GitHub Authentication keys.
 
 ✅ Compare its SHA-256 fingerprint with the result from:
 
@@ -1096,11 +1096,11 @@ If those checks do not resolve the problem, stop and use GitHub’s current [Per
 - you selected a recognized and authorized key pair or safely created a new one;
 - the private key remained private;
 - the selected private key was loaded into the SSH agent;
-- the matching public-key fingerprint appears in the intended GitHub account;
+- the matching public-key fingerprint appears among the intended GitHub account’s Authentication keys;
 - you verified GitHub’s host fingerprint if the first-connection prompt appeared; and
 - `ssh -T git@github.com` reported successful authentication for the correct GitHub username.
 
-🗣 The successful authentication message confirms that this computer can use the selected SSH key to connect to the intended GitHub account.
+🗣 The successful authentication message confirms SSH access to the GitHub account named in the message.
 
 ---
 
@@ -1146,10 +1146,10 @@ If you do not see the green `New` button:
 🎯 In the **Repository name** box, type:
 
 ```text
-data-r155-github-practice
+github-practice
 ```
 
-✅ Verify that the repository name is exactly `data-r155-github-practice`.
+✅ Verify that the repository name is exactly `github-practice`.
 
 🗣 This name identifies the repository as the practice project used in this activity.
 
@@ -1239,7 +1239,7 @@ git@github.com:
 It should look something like this:
 
 ```markdown
-git@github.com:YOUR-USERNAME/data-r155-github-practice.git
+git@github.com:YOUR-USERNAME/github-practice.git
 ```
 
 🗣 The SSH link tells RStudio to connect to GitHub using the SSH key you already set up.
@@ -1305,7 +1305,7 @@ RStudio will fill in the project directory name automatically.
 🎯 The project directory name should be:
 
 ```text
-data-r155-github-practice
+github-practice
 ```
 
 💡 **Tip**: Ideally, the GitHub repository name and the RStudio project folder name should match. That makes it easier to stay organized.
@@ -1316,27 +1316,27 @@ data-r155-github-practice
 
 The **Create project as subdirectory of** field asks where RStudio should place the cloned project folder.
 
-🎯 Select a stable parent folder where you keep course or R projects. For example:
+🎯 Select a stable parent folder where you keep R projects. This example uses `Intro_to_R`:
 
 ```text
-Course-Projects/
+Intro_to_R/
 ```
 
 RStudio will create the repository folder inside that parent folder:
 
 ```text
-Course-Projects/
-  data-r155-github-practice/
+Intro_to_R/
+  github-practice/
 ```
 
-Do not create or select a second folder named `data-r155-github-practice`. RStudio creates that folder when it clones the repository.
+Do not create or select a second folder named `github-practice`. RStudio creates that folder when it clones the repository.
 
 ✅ Verify that:
 
-- the project directory name is still `data-r155-github-practice`; and
+- the project directory name is still `github-practice`; and
 - the selected parent folder is a location you can find again.
 
-🗣 RStudio will clone the repository into a new `data-r155-github-practice` folder inside the selected parent folder.
+🗣 RStudio will clone the repository into a new `github-practice` folder inside the selected parent folder.
 
 💡 **Tip:** A consistent project location makes it easier to reopen the correct RStudio Project later.
 
@@ -1351,7 +1351,7 @@ Do not create or select a second folder named `data-r155-github-practice`. RStud
 ✅ Verify that RStudio opens a project named:
 
 ```text
-data-r155-github-practice
+github-practice
 ```
 
 🗣 RStudio displays the active project name in the top-right corner of the RStudio window. If you do not see the project name, you may not be in the project yet.
@@ -1366,7 +1366,7 @@ data-r155-github-practice
 
 ```text
 README.md
-data-r155-github-practice.Rproj
+github-practice.Rproj
 ```
 
 The `README.md` file came from the GitHub repository. RStudio created the `.Rproj` file when it created the local project.
@@ -1379,9 +1379,9 @@ You may also see the `.Rproj` file listed as untracked in the Git pane. That is 
 
 ✅ Continue only after confirming that:
 
-- RStudio displays `data-r155-github-practice` as the active project;
+- RStudio displays `github-practice` as the active project;
 - `README.md` appears in the Files pane;
-- `data-r155-github-practice.Rproj` appears in the Files pane; and
+- `github-practice.Rproj` appears in the Files pane; and
 - the Git pane is available.
 
 🗣 The GitHub repository has been cloned into a local RStudio Project, and the local project remains connected to the remote repository.
@@ -1426,19 +1426,22 @@ A line I wrote in RStudio.
 
 It is usually near the Environment, History, Connections, and Tutorial panes in the upper right area.
 
-✅ Verify that `README.md` appears in the Git pane.
+✅ Verify that `README.md` and `github-practice.Rproj` appear in the Git pane.
 
 💡 **Tip**: If you do not see the Git pane, make sure you are inside the RStudio Project created from the GitHub repository.
 
 ### Step 4 {#step-4-local-changes}
 
-**Stage the file**
+**Stage the files**
 
-🎯 In the Git pane, check the [Staged]{.glossary-term data-term="Staged"} box next to:
+🎯 In the Git pane, check the [Staged]{.glossary-term data-term="Staged"} boxes next to:
 
-`README.md`
+```text
+README.md
+github-practice.Rproj
+```
 
-✅ Verify that `README.md` is checked.
+✅ Verify that both files are checked.
 
 🗣 [Staging]{.glossary-term data-term="Staged"} means, “include this file in the next commit.”
 
@@ -1448,7 +1451,7 @@ It is usually near the Environment, History, Connections, and Tutorial panes in 
 
 🎯 Click Commit button in the Git pane's menu bar.
 
-The Commit window opens. It shows the staged file and a box for a commit message.
+The Commit window opens. It shows the staged files and a box for a commit message.
 
 🎯 In the `Commit message` box, type:
 
@@ -1492,7 +1495,9 @@ You can find the Push button in the Git pane's menu bar, usually near the Commit
 
 A line I wrote in RStudio.
 
-🗣 If the line appears on GitHub, your RStudio project successfully pushed a local change to your online GitHub repository.
+✅ Verify that `github-practice.Rproj` also appears in the repository’s file list.
+
+🗣 If the line and project file appear on GitHub, your RStudio project successfully pushed a local change to your online GitHub repository.
 
 ---
 
@@ -1596,7 +1601,7 @@ github_practice.Rmd
 
 **Stage the file**
 
-Recall that [stage]{.glossary-term data-term="Stage"} means selecting the file or files that should be included in the next commit.
+Recall that [stage]{.glossary-term data-term="Staged"} means selecting the file or files that should be included in the next commit.
 
 🎯 Go to the Git pane.
 
@@ -1662,11 +1667,11 @@ github_practice.Rmd
 
 ## Data Privacy & Organization {#data-privacy-and-organization}
 
-A [data folder]{.glossary-term data-term="data/"} (`data/`) is a folder where project data files are stored. A [`.gitignore`]{.glossary-term data-term=".gitignore"} file tells Git which files or folders to ignore when committing changes.
+A [data folder]{.glossary-term data-term="data/"} (`data/`) is a folder where project data files are stored. A [`.gitignore`]{.glossary-term data-term=".gitignore"} file tells Git which untracked files or folders to ignore.
 
-In earlier course work, you may have stored a data file in the same folder as your R Notebook. That is a minimum workable structure, but it can get messy as projects grow. A better practice is to create a data/ folder and keep data files there.
+In earlier R work, you may have stored a data file in the same folder as your R Notebook. That is a minimum workable structure, but it can get messy as projects grow. A better practice is to create a data/ folder and keep data files there.
 
-In this section, you will learn how to keep the `data/` folder on your local computer. You will use `.gitignore` to prevent Git from pushing any files stored in the `data/` folder to GitHub.
+In this section, you will learn how to keep the `data/` folder on your local computer. You will use `.gitignore` to keep new, untracked files in `data/` out of your commits and off GitHub.
 
 **GitHub Sharing Guidelines**:
 
@@ -1810,6 +1815,8 @@ github_practice.Rmd
 
 🗣 The test file exists on your computer but is unavailable to stage. This confirms that the `data/` rule is working for an untracked file.
 
+🤔 Compare this workflow with keeping a data file beside your notebook. What did your checks show about which files stayed local and which files you chose to share? Which arrangement better fits the goal of this project?
+
 💡 **Tip:** If `data/ignore-check.txt` appears in the Git pane, do not stage it. Check that:
 
 - `.gitignore` is saved in the main project folder;
@@ -1862,6 +1869,7 @@ Add data folder ignore rule
 
 ```text
 README.md
+github-practice.Rproj
 .gitignore
 github_practice.Rmd
 ```
@@ -1876,17 +1884,19 @@ If you chose Quarto, verify that GitHub shows `github_practice.qmd` instead of `
 
 🎯 Return to the repository’s main page and copy the URL from your browser’s address bar.
 
-✅ Verify that the URL begins with `https://github.com/` and includes `data-r155-github-practice`. Do not use the SSH clone address beginning with `git@github.com:`.
+✅ Verify that the URL begins with `https://github.com/` and includes `github-practice`. Do not use the SSH clone address beginning with `git@github.com:`.
 
 🗣 The regular browser URL opens the public repository for another reader. Use this URL whenever you are asked to share or submit the repository.
 
 ---
 
-### Check Point: Final Repository Structure {#final-repository-structure} 
+### Checkpoint: Final Repository Structure {#final-repository-structure}
 
-✅ If your local computer folder  and GitHub repo structure matches  the diagram below, you have completed the activity. 
+✅ If your local project folder and GitHub repository follow the pattern in the diagram below, you have completed the activity. If you chose Quarto, your notebook file ends in `.qmd` instead of `.Rmd`.
 
-![Figure 1. Diagram of the folder structure on your computer and your GitHub Repository](images/ch09-github/Folder_Structure.png)
+![Figure 6. Local project files compared with committed files on GitHub](images/ch09-github/Folder_Structure.png)
+
+**Text description of Figure 6:** On your computer, `Intro_to_R/github-practice/` contains `github-practice.Rproj`, `README.md`, `.gitignore`, `github_practice.Rmd` (or `github_practice.qmd`), and `data/`. The project file, README, ignore file, and notebook were committed and pushed, so they also appear in the GitHub repository. The `data/` folder and its new, untracked test file remain only on your computer because the `.gitignore` rule excludes files inside it. Push sends commits, not every local file.
 
 ---
 
@@ -1899,7 +1909,7 @@ You have now completed the full GitHub, Git, and RStudio setup workflow. You cre
 
 **Clone**: To copy a Git repository from GitHub or another remote location onto your computer. Cloning creates a new local project folder that contains the repository files and Git history, so you can work on the project in RStudio and later commit, pull, and push changes.
 
-**Commit**: A saved checkpoint in Git that records a specific set of file changes with a message describing what changed. In this course, a commit is the version-control equivalent of saying, “save this meaningful stage of my work.”
+**Commit**: A saved checkpoint in Git that records a specific set of file changes with a message describing what changed. A commit is the version-control equivalent of saying, “save this meaningful stage of my work.”
 
 **data/**: A project folder used to store dataset files separately from scripts, notebooks, and output files. Keeping data in a dedicated folder makes file paths clearer, keeps the project organized, and helps others find the raw or prepared data needed to reproduce the analysis. The data/ directory is also a common convention in R project structures.
 
@@ -1907,13 +1917,13 @@ You have now completed the full GitHub, Git, and RStudio setup workflow. You cre
 
 **Git Identity**: The name and email address that Git attaches to each commit to show who authored the work. Your Git identity is set with `user.name` and `user.email`; it labels your commits so the project history shows who made each checkpoint.
 
-**Git Pane**: The RStudio tab that shows Git-tracked file changes for the current project and provides point-and-click controls for common Git actions, such as viewing differences, staging files, committing, pulling, pushing, and viewing history. The Git pane appears only when Git version control is enabled for the project, and it is usually located near the Environment and History panes.
+**Git Pane**: The RStudio tab that shows tracked and untracked file changes for the current project and provides point-and-click controls for common Git actions, such as viewing differences, staging files, committing, pulling, pushing, and viewing history. The Git pane appears only when Git version control is enabled for the project, and it is usually located near the Environment and History panes.
 
 **GitHub**: An online platform for storing and sharing Git repositories. GitHub is the web-based location where your repository lives, while Git tracks changes locally and RStudio provides the Git pane you use to commit and push your work. 
 
 **Git Bash**: A command-line program for Windows that comes with Git for Windows and provides a Bash-style terminal for running Git commands. It gives Windows users a consistent place to type commands such as `git status`, `git pull`, `git commit`, and `git push`, especially when instructions are written for a Unix-style terminal.
 
-**.gitignore**: A plain-text file that tells Git which files or folders not to track or commit, such as temporary files, system files, rendered outputs, or large/private data files. A .gitignore file is usually placed in the root of a repository so the ignore rules apply consistently across the project.
+**.gitignore**: A plain-text file that tells Git which untracked files or folders to ignore, such as temporary files, system files, rendered outputs, or large/private data files. It does not stop tracking files already committed. A .gitignore file is usually placed in the root of a repository so the ignore rules apply consistently across the project.
 
 **Git Workflow**: The regular sequence of steps used to move work through Git: update your local project, edit files, stage selected changes, commit a checkpoint, and push the commit to GitHub. A basic workflow is **pull → edit → stage → commit → push**. This pattern helps keep the local project and online repository in sync while creating a clear history of meaningful checkpoints. Commit snapshots when the project reaches a state worth recording.
 
@@ -1921,7 +1931,7 @@ You have now completed the full GitHub, Git, and RStudio setup workflow. You cre
 
 **Local Change**: A file edit, addition, or deletion made in the project folder on your own computer before it is pushed to GitHub. Git can detect local changes in the working tree, but they are not part of the project history until you commit them, and they are not visible in the online repository until you push them.
 
-**Pull**: Updating your local project with changes from the remote repository on GitHub. Pull before you start working so your RStudio project has the newest files before you edit, commit, and push. Technically, `git pull` fetches remote changes and merges them into your current local branch.
+**Pull**: Updating your local project with changes from the remote repository on GitHub. Pull before you start working so your RStudio project has the newest files before you edit, commit, and push. Technically, `git pull` fetches remote changes and integrates them into your current local branch.
 
 **Push**: Sending your local commits from your computer to the remote repository on GitHub. Pushing is how the work you committed in RStudio becomes visible in your online GitHub repository.
 
@@ -1933,13 +1943,13 @@ You have now completed the full GitHub, Git, and RStudio setup workflow. You cre
 
 **Staged**: Marked for inclusion in the next Git commit. In RStudio’s Git pane, checking the Staged box tells Git, “include this file’s current changes in the checkpoint I am about to create.” Staging does not send the file to GitHub yet; it only prepares the selected change for the next commit.
 
-**Subdirectory**: A folder located inside another folder, also called a **subfolder**. When you create a project as a subdirectory of a course folder, the new project folder is nested inside that larger folder (e.g, `DATA-R155/data-r155-github-practice/`). This keeps related files organized in a clear folder structure.
+**Subdirectory**: A folder located inside another folder, also called a **subfolder**. When you create a project as a subdirectory of a larger folder, the new project folder is nested inside that folder (for example, `Intro_to_R/github-practice/`). This keeps related files organized in a clear folder structure.
 
 **Terminal**: A command-line tab in RStudio that lets you type commands directly to your computer’s system shell from inside the RStudio interface. The Terminal is different from the R Console: the Console runs R commands, while the Terminal is used for system-level commands such as Git commands, file navigation, and other command-line tools. In RStudio, the Terminal tab is usually next to the Console tab; if it is not visible, open it from Tools > Terminal > New Terminal or the Terminal menu.
 
-**Tools**: The top-menu item that provides access to settings and helper features in RStudio. It is the place you go to change preferences, install tools, and access developer utilities. This menu that groups commands for customizing the IDE and running support tasks (for example, options, addins, and project tools).
+**Tools**: The top-menu item in RStudio that groups settings and helper features, such as Global Options, addins, and project tools.
 
-**Version Control**: A system for tracking changes to files over time so you can review earlier versions, understand what changed, and return to a previous checkpoint if needed. In Git, these meaningful checkpoints are called commits, which are better than keep version history across many file copies. 
+**Version Control**: A system for tracking changes to files over time so you can review earlier versions, understand what changed, and return to a previous checkpoint if needed. In Git, these checkpoints are called commits. They let you keep a clear version history without making many separate file copies.
 
 
 ## References {#references}

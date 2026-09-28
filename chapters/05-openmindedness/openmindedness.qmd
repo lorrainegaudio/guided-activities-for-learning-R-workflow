@@ -47,7 +47,7 @@ Use your memos to make this thinking visible. A 🗣 Comment can explain how two
 ::: {.section-card}
 ### Chapter 9: Git and GitHub
 
-Connect Git, GitHub, and RStudio to track changes in an R project. Practice making commits, pushing and pulling changes, and reviewing which files belong in a repository. Examine how version control supports your existing workflow.
+Connect Git, GitHub, and RStudio to track changes in an R project. Practice making commits, pushing changes, pulling before you work, and reviewing which files belong in a repository. Examine how version control supports your existing workflow.
 
 [Open Chapter 9](ch09-github.html){.section-button}
 :::
