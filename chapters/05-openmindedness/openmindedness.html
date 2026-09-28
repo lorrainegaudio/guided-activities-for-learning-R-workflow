@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tenacity – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<title>Open-mindedness – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/01-tenacity/ch01-navigation.html" rel="next">
-<link href="../../front-matter/preface.html" rel="prev">
+<link href="../../chapters/05-openmindedness/ch09-github.html" rel="next">
+<link href="../../chapters/04-autonomy/ch08-indexing.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -86,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/01-tenacity/tenacity.html">Tenacity</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/05-openmindedness/openmindedness.html">Open-mindedness</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -128,13 +128,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tenacity</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
@@ -212,13 +212,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Open-mindedness</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
@@ -237,7 +237,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tenacity</h1>
+<h1 class="title">Open-mindedness</h1>
 </div>
 
 
@@ -254,34 +254,68 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Learning R often begins with friction. Installing software, locating files, remembering syntax, and interpreting error messages can take more effort than expected. Early difficulty gives you an opportunity to develop ways of working that will support every later analysis. Your ability grows through practice, feedback, revision, and questions.</p>
-<p>Tenacity is purposeful persistence in the pursuit of understanding. When you struggle, return to your goal, examine what happened, and choose an informed next step. You might correct a small syntax error, test a different idea, review an example, or ask someone for help. When repeated attempts stop producing useful information, pause and reconsider your approach. Another perspective may be the next step that moves your learning forward.</p>
-<p>This is why Tenacity begins the book. The first chapters help you work through early uncertainty while developing habits you will use throughout your work with R. Stay engaged, pay attention to evidence, adjust your strategy, and keep a record of what you learn. These actions turn persistence into an intelligent learning practice (Baehr, 2022; King, 2021).</p>
-<p>In this section, the goal is not speed. The goal is to slow down enough to notice where you are, what you typed, what happened, and what you can check next.</p>
+<p>Learning R introduces you to different ways of approaching the same task. You may encounter an unfamiliar method, hear another explanation, or get a result that challenges what you expected. These moments invite you to examine another possibility and consider what you can learn from it.</p>
+<p>Baehr (2022) describes intellectual open-mindedness as a willingness and ability to step outside a familiar way of thinking long enough to give another perspective fair consideration. This requires trying to understand the alternative on its own terms. Considering another perspective can help you recognize an assumption, correct a misunderstanding, or develop a fuller understanding of an idea.</p>
+<p>King (2021) explains that open-mindedness is compatible with confidence in a well-supported belief. You can take another idea seriously while continuing to hold your own view. Evidence may give you a reason to revise your thinking, or it may support your original understanding. Open-mindedness and intellectual firmness work together: consider alternatives carefully and retain conclusions that remain well supported.</p>
+<p>Open-mindedness is the learning skill theme for this module. While learning R, you will practice considering different interpretations, methods, and workflows. Your goal is to understand the possibilities and use evidence to decide what to keep or revise.</p>
+<section id="open-mindedness-while-learning-r" class="level2">
+<h2 class="anchored" data-anchor-id="open-mindedness-while-learning-r">Open-mindedness while learning R</h2>
+<p>An unexpected result is an opportunity to reconsider your first interpretation. Suppose a filter returns rows you did not intend to include. Read the data question again, explain the code in words, and examine how R evaluates the conditions. You may discover that the code expresses a different rule from the one you had in mind.</p>
+<p>You will also encounter different ways to accomplish similar tasks. A filter might use separate logical vectors or one combined expression. Base R brackets and <code>dplyr</code> functions can often select the same data. Give an unfamiliar approach enough attention to understand how it works. Compare the results, then consider which version makes the reasoning easier to follow.</p>
+<p>New tools offer opportunities to examine your workflow from another perspective. Git and GitHub introduce version control, and Quarto provides another way to combine code, output, and written explanation. As you learn these tools, identify what remains familiar, what changes, and how the new approach supports your work.</p>
+<p>Another person may also understand your code differently from how you intended it. Listening to their explanation can help you notice an ambiguous condition or a confusing layout. Use their perspective to examine your work, and check any suggested changes before adopting them.</p>
+</section>
+<section id="how-open-mindedness-appears-in-this-book" class="level2">
+<h2 class="anchored" data-anchor-id="how-open-mindedness-appears-in-this-book">How open-mindedness appears in this book</h2>
+<p>The thinking-face emoji 🤔 marks opportunities to consider another way of understanding or approaching your work.</p>
+<p>It may invite you to:</p>
+<ul>
+<li>examine an interpretation that differs from your first reading,</li>
+<li>understand another way to write the same filtering rule,</li>
+<li>reconsider an assumption when the output gives you a reason,</li>
+<li>give an unfamiliar tool or workflow a fair trial,</li>
+<li>or consider how another reader might understand your code.</li>
+</ul>
+<p>When you see 🤔, pause long enough to understand the alternative. Use the task’s goal and the available evidence to decide whether to retain your original approach or revise it.</p>
+<p>The ✅ marker directs you to check code or output. The 🤔 marker asks you to consider what another interpretation or approach might help you understand.</p>
+<p>Use your memos to make this thinking visible. A 🗣 Comment can explain how two expressions differ or what their results show. A 🪞 Reflect memo can describe an assumption you reconsidered, what you learned from another approach, or why you retained your original understanding. Add a 👀 Cite memo when a human or digital resource contributes to your work.</p>
+</section>
 <section id="chapters-in-this-section" class="level2">
 <h2 class="anchored" data-anchor-id="chapters-in-this-section">Chapters in this section</h2>
 <div class="section-card-grid">
-<section id="chapter-1-navigation" class="level3 section-card">
-<h3 class="anchored" data-anchor-id="chapter-1-navigation">Chapter 1: Navigation</h3>
-<p>Get oriented to the RStudio interface, including the Console, Environment, Files pane, and basic workflow habits.</p>
-<p><a href="ch01-navigation.html" class="section-button">Open Chapter 1</a></p>
+<section id="chapter-9-git-and-github" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="chapter-9-git-and-github">Chapter 9: Git and GitHub</h3>
+<p>Connect Git, GitHub, and RStudio to track changes in an R project. Practice making commits, pushing changes, pulling before you work, and reviewing which files belong in a repository. Examine how version control supports your existing workflow.</p>
+<p><a href="ch09-github.html" class="section-button">Open Chapter 9</a></p>
 </section>
-<section id="chapter-2-scripts" class="level3 section-card">
-<h3 class="anchored" data-anchor-id="chapter-2-scripts">Chapter 2: Scripts</h3>
-<p>Practice writing, saving, running, and submitting R scripts so your work is easier to reuse and revise.</p>
-<p><a href="ch02-scripts.html" class="section-button">Open Chapter 2</a></p>
+<section id="chapter-10-and-or-and-membership" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="chapter-10-and-or-and-membership">Chapter 10: And, Or, and Membership</h3>
+<p>Use <code>&amp;</code>, <code>|</code>, and <code>%in%</code> to combine filtering conditions. Translate between a data question and its R expression, compare alternative filters, and reconsider your interpretation when the selected rows do not match your intended rule.</p>
+<p><a href="ch10-and-or-in.html" class="section-button">Open Chapter 10</a></p>
+</section>
+<section id="chapter-11-dplyr-subsetting" class="level3 section-card">
+<h3 class="anchored" data-anchor-id="chapter-11-dplyr-subsetting">Chapter 11: dplyr Subsetting</h3>
+<p>Use pipes, <code>select()</code>, and <code>filter()</code> to build readable data workflows. Compare these methods with familiar base R approaches, and begin using Quarto to organize code, output, and memos.</p>
+<p><a href="ch11-dplyr-subsetting.html" class="section-button">Open Chapter 11</a></p>
 </section>
 </div>
 </section>
 <section id="what-to-focus-on" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-focus-on">What to focus on</h2>
-<p>As you work through Tenacity, pay attention to three habits:</p>
+<p>As you work through Open-mindedness, pause to ask:</p>
 <ul>
-<li>where you are working in RStudio,</li>
-<li>whether you typed the code exactly as intended,</li>
-<li>and how you check what happened before moving on.</li>
+<li>What am I assuming about this code, dataset, or tool?</li>
+<li>Can I explain the alternative approach before judging it?</li>
+<li>Does the code mean what I first thought it meant?</li>
+<li>What evidence supports keeping or revising my interpretation?</li>
+<li>What did considering another perspective help me understand?</li>
 </ul>
-<p>These habits will matter in every later chapter.</p>
+<p>Keep an approach when you can explain why it fits the task and what evidence supports it. Revise it when your investigation gives you a reason. Record enough of your thinking to understand that decision later.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Baehr, J. (2022). <em>Deep in thought: A practical guide to teaching for intellectual virtues</em>. Harvard Education Press.</p>
+<p>King, N. L. (2021). <em>The excellent mind: Intellectual virtues for everyday life</em>. Oxford University Press.</p>
 
 
 </section>
@@ -694,13 +728,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../front-matter/preface.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="../../chapters/04-autonomy/ch08-indexing.html" class="pagination-link" aria-label="Chapter 8: Indexing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 8: Indexing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/01-tenacity/ch01-navigation.html" class="pagination-link" aria-label="Chapter 1: Navigation">
-        <span class="nav-page-text"><span class="chapter-title">Chapter 1: Navigation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/05-openmindedness/ch09-github.html" class="pagination-link" aria-label="Chapter 9: Git and GitHub">
+        <span class="nav-page-text"><span class="chapter-title">Chapter 9: Git and GitHub</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

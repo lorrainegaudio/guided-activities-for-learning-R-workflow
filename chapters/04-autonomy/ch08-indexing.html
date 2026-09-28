@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../chapters/05-openmindedness/openmindedness.html" rel="next">
 <link href="../../chapters/04-autonomy/ch07-importing-data.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -240,6 +241,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open-mindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
   </div>
 </li>
       </ul>
@@ -787,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When we then subset with <code>tagged_only &lt;- field_sightings[mask_tagged, ]</code>, R keeps rows where the mask is <code>TRUE</code>, but it does not treat <code>NA</code> as <code>FALSE</code>. Rows with <code>NA</code> in the mask can appear in the subset rows, which is why <code>tagged_only</code> has 325 rows even though there are only 300 <code>TRUE</code> values in the mask.</p>
 </section>
 <section id="which-function" class="level4">
-<h4 class="anchored" data-anchor-id="which-function">which() Function <em>Helper</em></h4>
+<h4 class="anchored" data-anchor-id="which-function">which() Function Helper</h4>
 <p>The function <code>which()</code> is a subsetting helper that turns a logical mask into row indices. Using <code>which()</code> is one strategy for handling potential <code>NA</code> values in a logical test. <code>which()</code> returns the positions that are <code>TRUE</code> and omits positions that are <code>FALSE</code> or <code>NA</code>.</p>
 <p>🎯 Use <code>which()</code> to subset the <code>field_sightings</code> data frame to keep only rows where the bird is tagged, while safely handling any potential NA values in the “Status” column.</p>
 <p>You saw the function <code>which()</code> in Chapter 6. This function converts <code>TRUE</code> positions into numeric indices.</p>
@@ -1834,6 +1851,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../chapters/05-openmindedness/openmindedness.html" class="pagination-link" aria-label="Open-mindedness">
+        <span class="nav-page-text">Open-mindedness</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
