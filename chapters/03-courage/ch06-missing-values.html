@@ -554,54 +554,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="nesting-function-calls" class="level2">
 <h2 class="anchored" data-anchor-id="nesting-function-calls">Nesting Function Calls</h2>
 <p><span class="glossary-term" data-term="Nesting Function Calls">Nesting function calls</span> means putting one function call inside another function call. The output of the inner function becomes an argument to the outer function. This works because functions return values. R can immediately pass a returned value into the next function.</p>
-<p>🎯 Use <code>sample()</code> to randomly select 5 numbers from the vector <code>travel_jumps</code>, then calculate the mean of those sampled numbers by nesting the <code>sample()</code> function inside the <code>mean()</code> function.</p>
+<p>You just used <code>is.na()</code> and <code>which()</code> in separate steps. You can also nest them.</p>
+<p>🎯 Nest <code>is.na()</code> inside <code>which()</code> to find the missing position in <code>Vector_NA</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create travel_jumps vector</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>travel_jumps <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>)   </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read nested code from the inside out</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(travel_jumps, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))  <span class="co"># sample then average</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(Vector_NA))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>R reads this as:</p>
-<ol type="1">
-<li>Run <code>sample(travel_jumps, size = 5, replace = TRUE)</code> first.</li>
-<li>Return 5 sampled values.</li>
-<li>Pass those 5 values into <code>mean()</code>.</li>
-<li>Calculate the average.</li>
-</ol>
-<p>Nesting is the simplest form of function composition. It builds a multi-step transformation by combining small, single-purpose functions.</p>
+<p>🗣 R runs <code>is.na(Vector_NA)</code> first, returning <code>FALSE FALSE TRUE FALSE</code>. Then <code>which()</code> returns the position of the <code>TRUE</code> value: <code>3</code>. This is the same result you got when you stored the logical vector as <code>logical_NA</code> in the previous section.</p>
+<p>🦁 If nested code is difficult to understand or debug, change strategies by separating it into smaller steps. Store and check each result before combining the functions again. The next section might be challenging to read, review <strong>🦁 Change strategies: Check each step</strong>.</p>
+<p>🎯 Use <code>sample()</code> to randomly select 5 numbers from the vector <code>travel_jumps</code>, then calculate the mean of those sampled numbers by nesting the <code>sample()</code> function inside the <code>mean()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nesting with three functions without creating intermediate objects</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>travel_jumps <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(travel_jumps, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))  <span class="co"># sample then average</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🗣 The nesting example with three functions shows that the sequence is first calculated, then sampled, and finally, the sample mean is computed.</p>
-<hr>
-<p>Real work is rarely one step. Nesting is the base-R way to express that workflow without writing a ton of intermediate objects. However, nesting creates parentheses-heavy code that’s harder to read and debug. In later chapters, we will learn how to pipe multi-step workflows. For now, we’ll practice finding missing values with nesting functions.</p>
-<p>🦁 If nested code is difficult to understand or debug, change strategies by separating it into smaller steps. Store and check each result before combining the functions again.</p>
+<p>R runs <code>sample()</code> first and passes its five selected values to <code>mean()</code>. You can also put the <code>seq()</code> call inside <code>sample()</code>, so all three steps appear in one expression:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sampled_jumps <span class="ot">&lt;-</span> <span class="fu">sample</span>(travel_jumps, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>sampled_jumps                 <span class="co"># ✅ Check the inner result</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>mean_jump <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_jumps)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>mean_jump                     <span class="co"># ✅ Check the final result</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">sample</span>(<span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>), <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🗣 Separating the steps makes the intermediate result visible. This helps you identify which function needs attention and gives you specific information to share if you ask for help.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="🦁 Change strategies: Check each step">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>🦁 Change strategies: Check each step
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now test each part of that expression. Start with the innermost <code>seq()</code> call, check its result, and then use that result in <code>sample()</code> and <code>mean()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>travel_jumps <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1887</span>, <span class="at">to =</span> <span class="dv">2052</span>, <span class="at">by =</span> <span class="dv">33</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>travel_jumps                <span class="co"># ✅ Check: six numbers, from 1887 to 2052</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sampled_jumps <span class="ot">&lt;-</span> <span class="fu">sample</span>(travel_jumps, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>sampled_jumps                <span class="co"># ✅ Check: five sampled numbers</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>mean_jump <span class="ot">&lt;-</span> <span class="fu">mean</span>(sampled_jumps)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>mean_jump                    <span class="co"># ✅ Check: one mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Separating the steps makes each intermediate result visible. If a result is unexpected, you can identify which step needs attention. Each call to <code>sample()</code> makes a new random draw, so the means from separate runs may differ even when the code follows the same steps.</p>
+</div>
+</div>
+<p>Nesting can express several steps in one line, but the separated version is often easier to check. In later chapters, you will learn another way to write multi-step workflows using pipes.</p>
 <section id="locating-missing-values-with-nesting" class="level3">
 <h3 class="anchored" data-anchor-id="locating-missing-values-with-nesting">Locating Missing Values with Nesting</h3>
 <p>🎯 Create a large vector with some missing values using <code>sample()</code> and <code>c()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>LargeVec <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">10</span>)))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(LargeVec)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>LargeVec <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">10</span>)))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(LargeVec)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 We used the <code>c()</code> function in Chapter 2. Here we have nested <code>c()</code> inside of <code>sample()</code>. We also used the <code>rep()</code> function, which is covered in more detail in a later chapter.</p>
 <p>🎯 Use <code>which()</code> and <code>is.na()</code> to find the positions of missing values in a large vector by nesting the <code>is.na()</code> function inside the <code>which()</code> function.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(LargeVec))                    <span class="co"># ▶ Where are the gaps?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(LargeVec))                    <span class="co"># ▶ Where are the gaps?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The <code>is.na()</code> function creates a <em>logical</em> vector indicating which elements are missing, and the <code>which()</code> function determines the indices of those <code>TRUE</code> values. The numbers are the numeric indices (positions) of the <code>NA</code> values.</p>
 </section>
@@ -612,10 +623,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For example, if 1 out of 20 values is missing, then 5% of the vector is missing. If 10 out of 20 values are missing, then 50% of the vector is missing. Those situations raise different concerns, but the percentage alone does not determine what you should do. Consider the amount and pattern of missing data, why the values may be missing, your analysis goal, the consequences of the decision, and guidance from your field.</p>
 <p>🎯 Use <code>sum()</code> and <code>mean()</code> with <code>is.na()</code> to summarize missing values in a large vector.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))    </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(LargeVec))   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))    </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">is.na</span>(LargeVec))   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The <code>sum(is.na(LargeVec))</code> expression counts the total number of missing values in <code>LargeVec</code> by summing the <code>TRUE</code> values from <code>is.na()</code>. The <code>mean(is.na(LargeVec))</code> expression calculates the proportion of missing values by taking the mean of the logical vector returned by <code>is.na()</code>, where <code>TRUE</code> is treated as 1 and <code>FALSE</code> as 0. When 50% of the values are missing, the mean of the logical vector is 0.5.</p>
 </section>
@@ -646,11 +657,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Remove missing values</strong></p>
 <p>🎯 Use indexing with !is.na() to keep only the observed (non-missing) values in LargeVec.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>clean_vec <span class="ot">&lt;-</span> LargeVec[<span class="sc">!</span><span class="fu">is.na</span>(LargeVec)]   <span class="co"># Keeps only observed values</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>clean_vec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>clean_vec <span class="ot">&lt;-</span> LargeVec[<span class="sc">!</span><span class="fu">is.na</span>(LargeVec)]   <span class="co"># Keeps only observed values</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>clean_vec</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <code>is.na(LargeVec)</code> returns a logical vector (<code>TRUE</code> for missing, <code>FALSE</code> for present). The <code>!</code> flips it (so <code>TRUE</code> means “keep this value”). The brackets <code>[...]</code> then use that logical vector to select only the elements you want.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="📖 Review: Check each part of the filter">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>📖 Review: Check each part of the filter
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before using the full expression, run each part and inspect what it returns.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(LargeVec)              <span class="co"># See the original values</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>LargeVec[<span class="dv">2</span>]                  <span class="co"># Review: select one value by position</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(LargeVec)              <span class="co"># TRUE where a value is missing</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="fu">is.na</span>(LargeVec)             <span class="co"># TRUE where a value is present</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>LargeVec[<span class="sc">!</span><span class="fu">is.na</span>(LargeVec)]   <span class="co"># Keep only the present values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✅ Compare the last result with <code>clean_vec</code>. They should contain the same observed values.</p>
+</div>
+</div>
 <hr>
 </section>
 <section id="option-2" class="level4">
@@ -659,23 +692,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now that you can detect and locate gaps, you have to decide what to do about them; one option is to <span class="glossary-term" data-term="Impute">impute</span> missing values by replacing them with a summary value. It means “fill in missing values.” A common simple imputation method is to replace missing values with the mean of the observed values.</p>
 <p>🎯 Make a copy of LargeVec, then replace only the missing values with the mean of the observed values.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>imputed <span class="ot">&lt;-</span> LargeVec     <span class="co"># Make a copy to preserve original</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>imputed <span class="ot">&lt;-</span> LargeVec     <span class="co"># Make a copy to preserve original</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The reason we make a copy is that we want to keep the original vector with its missing values intact for comparison. This way, we can see the effect of imputation without losing the original data.</p>
 <p>💡 <strong>Tip:</strong> Once we make a copy, we use that copy name everywhere in the imputation line. This new version of the vector is called <code>imputed</code>, and it is the version we will use next. <code>imputed</code> is the vector’s <em>name</em>. The name is descriptive of what the difference will be between it and the original <code>LargeVec</code> once we have replaced only the missing values with the mean of the observed values. It is good practice to name objects in meaningful ways.</p>
 <p>We’re doing three actions on the same object (<code>imputed</code>):</p>
 <p>🎯 (1) identify missing positions, (2) compute a replacement value, and (3) write the replacements back.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>imputed[<span class="fu">is.na</span>(imputed)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(imputed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>imputed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>imputed[<span class="fu">is.na</span>(imputed)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(imputed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>imputed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <code>is.na(imputed)</code> identifies exactly where the gaps are, and <code>imputed[...] &lt;- ...</code> replaces only those positions. The <code>na.rm = TRUE</code> setting is needed here to calculate the replacement mean from the observed values. Without it, <code>mean(imputed)</code> would return <code>NA</code> because the input contains missing values.</p>
 <p>The object we are editing is on the left side: <strong><code>imputed[</code></strong><code>is.na(imputed)</code><strong><code>]</code></strong>.</p>
 <p>The object we are using to find the missing positions is inside brackets: <strong><code>is.na(imputed)</code></strong>.</p>
 <p><strong>The general replacement pattern is</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>object[positions_to_replace] <span class="ot">&lt;-</span> replacement_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>object[positions_to_replace] <span class="ot">&lt;-</span> replacement_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <blockquote class="blockquote">
 <p>🧐 <strong>Notice:</strong> You might think, “The missing values came from <code>LargeVec</code>, so I should check <code>LargeVec</code>.” But the rule is to use the same object we’re editing, or we risk indexing the wrong thing later. The object we are summarizing to compute the replacement value is also <code>imputed</code>: <strong><code>mean(imputed, na.rm = TRUE)</code></strong></p>
 </blockquote>
@@ -685,9 +718,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In summary, wherever an element in <code>imputed</code> is missing, we replace that position with the mean of <code>imputed</code> <em>while ignoring missing values so it can calculate the mean</em>.</p>
 <p>✅ Confirm your result by comparing <code>sum(is.na(LargeVec))</code> with <code>sum(is.na(imputed))</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))      <span class="co"># Original vector – should print number 10</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(imputed))       <span class="co"># Imputed vector – should print 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ </span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(LargeVec))      <span class="co"># Original vector – should print number 10</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(imputed))       <span class="co"># Imputed vector – should print 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 The first <code>sum(is.na(LargeVec))</code> call counts the number of missing values in the original vector, which should be 10. The second <code>sum(is.na(imputed))</code> call counts the missing values in the imputed vector, which should be 0, confirming that all missing values have been replaced.</p>
 <hr>
@@ -765,15 +798,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Finally, use <code>c()</code> to add three <code>NA</code> values to the end of <code>scores_numbers</code>. Store the full vector as scores.</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> ____                      <span class="co"># use seq() to create 60 through 100</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>scores_numbers <span class="ot">&lt;-</span> ____            <span class="co"># use sample() to draw 25 values (with replacement)</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(____, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)     <span class="co"># add 3 `NA` to the end of `scores_numbers` using `c()`</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the length of scores</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">_____</span>(scores)                 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> ____                      <span class="co"># use seq() to create 60 through 100</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>scores_numbers <span class="ot">&lt;-</span> ____            <span class="co"># use sample() to draw 25 values (with replacement)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(____, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)     <span class="co"># add 3 `NA` to the end of `scores_numbers` using `c()`</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the length of scores</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">_____</span>(scores)                 </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain why <code>scores</code> has 28 elements even though <code>sample()</code> only drew 25 values.</p>
 <p>🪞 Reflect: Which part of the code built the possible values, which part randomly selected values, and which part added missing values? How did checking <code>length(scores)</code> confirm your thinking?</p>
@@ -789,23 +822,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Explain why <code>average_raw</code> behaves the way it does (use the word “default”).</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n_missing <span class="ot">&lt;-</span> ____                 <span class="co"># hint: is.na() + sum()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n_missing <span class="ot">&lt;-</span> ____                 <span class="co"># hint: is.na() + sum()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of missing values</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>____        <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the number of missing values</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>____        <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>average_raw <span class="ot">&lt;-</span> <span class="fu">mean</span>(____)         <span class="co"># what happens?</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the result</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>____                              <span class="co"># should print NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>average_raw <span class="ot">&lt;-</span> <span class="fu">mean</span>(____)         <span class="co"># what happens?</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the result</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>____                              <span class="co"># should print NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>average_score <span class="ot">&lt;-</span> <span class="fu">mean</span>(____, ____)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ print the mean</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>average_score <span class="ot">&lt;-</span> <span class="fu">mean</span>(____, ____)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ print the mean</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain why <code>average_raw</code> returns <code>NA</code>. Use the word <strong>default</strong> in your explanation.</p>
 <p>🪞 Reflect: Before you ran the code, did you expect R to ignore the missing values or return <code>NA</code>? How did this task change your understanding of how R handles missing values?</p>
@@ -820,16 +853,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Verify your result</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>scores_is_missing <span class="ot">&lt;-</span> <span class="fu">is.na</span>(____)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>missing_positions <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">____</span>(____))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>scores_is_missing <span class="ot">&lt;-</span> <span class="fu">is.na</span>(____)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>missing_positions <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">____</span>(____))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print a logical vector</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print indices of missing values</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(____)       <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print a logical vector</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(____)        <span class="co"># should print indices of missing values</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(____)       <span class="co"># should print 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain the difference between the output of <code>is.na(scores)</code> and the output of <code>which(is.na(scores))</code>.</p>
 <p>🪞 Reflect: Which function from this chapter would you use if you wanted one <code>TRUE</code> or <code>FALSE</code> answer about whether <code>scores</code> contains missing values? Which output from this task would you use to inspect or replace the exact missing positions?</p>
@@ -839,11 +872,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>📦 <strong>Nesting functions</strong></p>
 <p>🎯 Compute the mean of 5 random draws from <code>scores</code> in one line, and make sure it still works even if the draw includes <code>NA</code>. 💡 <strong>Tip:</strong> Read the nested code from the inside out. <code>sample()</code> should happen first. Then <code>mean()</code> should summarize the sampled values. Use <code>na.rm = TRUE</code> inside <code>mean()</code> so the mean can still be calculated if the sample includes <code>NA</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>mean_of_five <span class="ot">&lt;-</span> ____   </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check  </span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>mean_of_five</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>mean_of_five <span class="ot">&lt;-</span> ____   </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check  </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>mean_of_five</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain which function runs first in your nested code and why <code>na.rm = TRUE</code> is needed.</p>
 <p>🪞 Reflect: Was the nested version easier or harder to understand than writing the steps separately? If you were debugging this code, would you keep it nested or break it into smaller objects? Explain why.</p>
@@ -854,9 +887,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🕰 <strong>Quick time-stamp</strong></p>
 <p>🎯 Use <code>Sys.Date()</code> and <code>Sys.time()</code> to create two separate objects, <code>today_date</code> and <code>now_time</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>today_date <span class="ot">&lt;-</span> ____</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>now_time <span class="ot">&lt;-</span> ____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>today_date <span class="ot">&lt;-</span> ____</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>now_time <span class="ot">&lt;-</span> ____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain the difference between the output of <code>Sys.Date()</code> and <code>Sys.time()</code>.</p>
 <p>🪞 Reflect: Why might a researcher want a report to include the date or time when the code was run? How could a time-stamp support reproducibility or transparency?</p>
@@ -871,14 +904,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Verify that <code>scores_clean</code> has 3 fewer values than <code>scores</code>.</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>scores_clean <span class="ot">&lt;-</span> scores[<span class="sc">!</span><span class="fu">______</span>(_________)]</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)          <span class="co"># should print 28</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores_clean)    <span class="co"># should print 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>scores_clean <span class="ot">&lt;-</span> scores[<span class="sc">!</span><span class="fu">______</span>(_________)]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores)          <span class="co"># should print 28</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(scores_clean)    <span class="co"># should print 25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain what <code>is.na(scores)</code> identifies, what <code>!is.na(scores)</code> changes, and how bracket indexing uses that result to create <code>scores_clean</code>.</p>
 <p>🪞 Reflect: Why is removing missing values simple for one vector but potentially risky in a larger dataset with many columns?</p>
@@ -889,16 +922,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Verify there are <strong>0</strong> missing values after imputation.</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>scores_imputed <span class="ot">&lt;-</span> _________</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>scores_imputed[<span class="fu">____</span>(_)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(_____, <span class="at">na.rm =</span> ______)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook, Fill in the blanks</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>scores_imputed <span class="ot">&lt;-</span> _________</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>scores_imputed[<span class="fu">____</span>(_)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(_____, <span class="at">na.rm =</span> ______)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scores_imputed))     <span class="co"># should print 0</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(scores_imputed)           <span class="co"># should print a number (not NA)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(scores_imputed))     <span class="co"># should print 0</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(scores_imputed)           <span class="co"># should print a number (not NA)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 Add Comments: Explain why you made a copy named <code>scores_imputed</code> before replacing missing values.</p>
 <p>🪞 Reflect: What assumption are you making when you replace missing values with the mean? Why should this choice be documented instead of treated as automatic?</p>
