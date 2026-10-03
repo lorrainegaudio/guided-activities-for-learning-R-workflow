@@ -220,49 +220,53 @@ The key is to choose the function that matches your question. If you only need a
 
 [Nesting function calls]{.glossary-term data-term="Nesting Function Calls"} means putting one function call inside another function call. The output of the inner function becomes an argument to the outer function. This works because functions return values. R can immediately pass a returned value into the next function.
 
+You just used `is.na()` and `which()` in separate steps. You can also nest them.
+
+🎯 Nest `is.na()` inside `which()` to find the missing position in `Vector_NA`.
+
+```{r , eval=FALSE}
+# ⚡ Type this in your R Notebook
+which(is.na(Vector_NA))
+```
+
+🗣 R runs `is.na(Vector_NA)` first, returning `FALSE FALSE TRUE FALSE`. Then `which()` returns the position of the `TRUE` value: `3`. This is the same result you got when you stored the logical vector as `logical_NA` in the previous section.
+
+🦁 If nested code is difficult to understand or debug, change strategies by separating it into smaller steps. Store and check each result before combining the functions again. The next section might be challenging to read, review **🦁 Change strategies: Check each step**. 
+
 🎯 Use `sample()` to randomly select 5 numbers from the vector `travel_jumps`, then calculate the mean of those sampled numbers by nesting the `sample()` function inside the `mean()` function.
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
-# create travel_jumps vector
-travel_jumps <- seq(from = 1887, to = 2052, by = 33)   
-
-# Read nested code from the inside out
+travel_jumps <- seq(from = 1887, to = 2052, by = 33)
 mean(sample(travel_jumps, size = 5, replace = TRUE))  # sample then average
 ```
 
-R reads this as:
-
-1. Run `sample(travel_jumps, size = 5, replace = TRUE)` first.
-2. Return 5 sampled values.
-3. Pass those 5 values into `mean()`.
-4. Calculate the average.
-
-Nesting is the simplest form of function composition. It builds a multi-step transformation by combining small, single-purpose functions.
-
-```{r , eval=FALSE}
-# Nesting with three functions without creating intermediate objects
-mean(sample(seq(from = 1887, to = 2052, by = 33), size = 5, replace = TRUE))
-```
-
-🗣 The nesting example with three functions shows that the sequence is first calculated, then sampled, and finally, the sample mean is computed.  
-
----
-
-Real work is rarely one step. Nesting is the base-R way to express that workflow without writing a ton of intermediate objects. However, nesting creates parentheses-heavy code that’s harder to read and debug. In later chapters, we will learn how to pipe multi-step workflows. For now, we'll practice finding missing values with nesting functions.
-
-🦁 If nested code is difficult to understand or debug, change strategies by separating it into smaller steps. Store and check each result before combining the functions again.
+R runs `sample()` first and passes its five selected values to `mean()`. You can also put the `seq()` call inside `sample()`, so all three steps appear in one expression:
 
 ```{r , eval=FALSE}
 # ⚡ Type this in your R Notebook
-sampled_jumps <- sample(travel_jumps, size = 5, replace = TRUE)
-sampled_jumps                 # ✅ Check the inner result
-
-mean_jump <- mean(sampled_jumps)
-mean_jump                     # ✅ Check the final result
+mean(sample(seq(from = 1887, to = 2052, by = 33), size = 5, replace = TRUE))
 ```
 
-🗣 Separating the steps makes the intermediate result visible. This helps you identify which function needs attention and gives you specific information to share if you ask for help.
+::: {.callout-note title="🦁 Change strategies: Check each step"}
+Now test each part of that expression. Start with the innermost `seq()` call, check its result, and then use that result in `sample()` and `mean()`.
+
+```{r , eval=FALSE}
+# ⚡ Type this in your R Notebook
+travel_jumps <- seq(from = 1887, to = 2052, by = 33)
+travel_jumps                # ✅ Check: six numbers, from 1887 to 2052
+
+sampled_jumps <- sample(travel_jumps, size = 5, replace = TRUE)
+sampled_jumps                # ✅ Check: five sampled numbers
+
+mean_jump <- mean(sampled_jumps)
+mean_jump                    # ✅ Check: one mean
+```
+
+🗣 Separating the steps makes each intermediate result visible. If a result is unexpected, you can identify which step needs attention. Each call to `sample()` makes a new random draw, so the means from separate runs may differ even when the code follows the same steps.
+:::
+
+Nesting can express several steps in one line, but the separated version is often easier to check. In later chapters, you will learn another way to write multi-step workflows using pipes.
 
 ### Locating Missing Values with Nesting {#locating-missing-values-with-nesting}
 
@@ -352,6 +356,21 @@ clean_vec
 ```
 
 🗣 `is.na(LargeVec)` returns a logical vector (`TRUE` for missing, `FALSE` for present). The `!` flips it (so `TRUE` means “keep this value”). The brackets `[...]` then use that logical vector to select only the elements you want.
+
+::: {.callout-note title="📖 Review: Check each part of the filter"}
+Before using the full expression, run each part and inspect what it returns.
+
+```{r , eval=FALSE}
+# ⚡ Type this in your R Notebook
+print(LargeVec)              # See the original values
+LargeVec[2]                  # Review: select one value by position
+is.na(LargeVec)              # TRUE where a value is missing
+!is.na(LargeVec)             # TRUE where a value is present
+LargeVec[!is.na(LargeVec)]   # Keep only the present values
+```
+
+✅ Compare the last result with `clean_vec`. They should contain the same observed values.
+:::
 
 ___
 
