@@ -438,7 +438,7 @@ install.packages(c("readr", "readxl"))    # Or use c() to install multiple packa
 
 🗣 The `install.packages()` function installs packages from CRAN. Messages during installation are normal. Warnings are also common and are often not fatal, but read them and use `packageVersion()` to confirm that the package installed. An error means the installation did not complete successfully. This code installs the `dslabs`, `readr`, and `readxl` packages. The `c()` function combines the package names into a vector, allowing you to install multiple packages at once.
 
-> ⚠️ Common Pain Point: Run `install.packages()` in the Console rather than putting it in your R Notebook. If an installation line remains in the notebook, knitting may try to install the package again and may require internet access or additional input. Keep the `library()` lines in the notebook so the packages load when the notebook runs.
+> ⚠️ Common Pain Point: Run `install.packages()` in the **Console** rather than putting it in an R Notebook code chunk. If an installation line remains in the notebook, knitting may try to install the package again and will return an **error** when rendering files. Keep the `library()` lines in the notebook so the packages load when the notebook runs.
 
 
 ```{r}
