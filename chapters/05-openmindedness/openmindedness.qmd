@@ -14,7 +14,7 @@ Open-mindedness is the learning skill theme for this module. While learning R, y
 
 ## Open-mindedness while learning R
 
-An unexpected result is an opportunity to reconsider your first interpretation. Suppose a filter returns rows you did not intend to include. Read the data question again, explain the code in words, and examine how R evaluates the conditions. You may discover that the code expresses a different rule from the one you had in mind.
+Before checking a filter, say what you expect it to return. Then compare the output with that prediction. This is a useful kind of skepticism: you are willing to find out that your first interpretation was wrong. If the rows differ from what you expected, read the question again, explain the code in words, and examine the data and conditions. The check may support your original interpretation or show you another one to consider.
 
 You will also encounter different ways to accomplish similar tasks. A filter might use separate logical vectors or one combined expression. Base R brackets and `dplyr` functions can often select the same data. Give an unfamiliar approach enough attention to understand how it works. Compare the results, then consider which version makes the reasoning easier to follow.
 
@@ -36,7 +36,7 @@ It may invite you to:
 
 When you see 🤔, pause long enough to understand the alternative. Use the task’s goal and the available evidence to decide whether to retain your original approach or revise it.
 
-The ✅ marker directs you to check code or output. The 🤔 marker asks you to consider what another interpretation or approach might help you understand.
+The ✅ marker directs you to check code or output. A check can also be part of open-mindedness when you are willing to let the result challenge your expectation. The 🤔 marker asks what other interpretation or approach you should consider and whether the evidence supports keeping or revising your first idea. The two markers may appear together.
 
 Use your memos to make this thinking visible. A 🗣 Comment can explain how two expressions differ or what their results show. A 🪞 Reflect memo can describe an assumption you reconsidered, what you learned from another approach, or why you retained your original understanding. Add a 👀 Cite memo when a human or digital resource contributes to your work.
 

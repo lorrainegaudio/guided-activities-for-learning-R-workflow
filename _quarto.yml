@@ -58,7 +58,7 @@ book:
     - part: chapters/05-openmindedness/openmindedness.qmd
       chapters:
          - chapters/05-openmindedness/ch09-github.Rmd
-    #     - chapters/05-openmindedness/ch10-and-or-in.Rmd        
+         - chapters/05-openmindedness/ch10-and-or-in.Rmd        
     #     - chapters/05-openmindedness/ch11-dplyr-subsetting.Rmd  
         
     # - part: chapters/06-curiosity/curiosity.qmd
