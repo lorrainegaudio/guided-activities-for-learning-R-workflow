@@ -125,7 +125,7 @@ The symbols in this book provide consistent cues. They help you recognize what k
 | 👀 | **Cite:** Identify a resource that helped you and explain how you used it. |
 | ⚠️ | **Common Pain Point:** Watch for a place where learners frequently encounter confusion. |
 | 🛟 | **Help:** Pause and use an appropriate source of support. |
-| 🧶 | **Knit:** Create or update the rendered output from an R Markdown document. |
+| 🧶 | **Knit:** Create or update the rendered output from an R Markdown or Quarto document. |
 
 The symbols accompany written labels, so you do not need to memorize them before you begin. Their meanings will become familiar as you work through the activities.
 

@@ -83,11 +83,11 @@ format:
 ```
 
 Replace `[Your Name]`. Keep the YAML header; remove only unwanted starter text below it. Use the same R code and memo prompts in either format. **Knit** an `.Rmd` file or **Render** a `.qmd` file to make an HTML report.
+
+🤔 Between R Notebook or Quarto, makes your work easier to check and explain?
 :::
 
 🗣 Your document will hold your Chapter 10 code, output, and memo notes. Keeping those pieces together makes it easier to rerun your work, check your filters, and explain the logic behind your subsetting choices.
-
-🤔 If you have used both formats, compare how each helps you see code, output, and memos. Which format makes your work easier to check and explain?
 
 🧶 **Knit or render to check your document.**
 

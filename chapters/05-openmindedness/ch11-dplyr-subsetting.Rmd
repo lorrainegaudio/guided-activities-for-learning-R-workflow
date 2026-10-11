@@ -6,9 +6,9 @@ toc: true
 
 ## Overview {#overview}
 
-In this chapter, you will learn how to subset data efficiently with `dplyr` by combining the pipe `%>%` with two core verbs: `select()` for choosing columns and `filter()` for keeping rows that meet specific conditions. You will also continue working in Quarto, which is the course’s reproducible workflow for combining code, results, and written interpretation in one document. Together, these tools help you move from writing individual R commands to building a clear, repeatable analysis process. The chapter closes with applied practice using datasets such as 🚗 `mtcars`, 🌐 `gapminder`, 🔫 `murders`, and ☣️ `us_contagious_diseases`.
+In this chapter, you will learn how to subset data efficiently with `dplyr` by combining the pipe `%>%` with two core verbs: `select()` for choosing columns and `filter()` for keeping rows that meet specific conditions. This chapter also introduces Quarto, which combines code, results, and written interpretation in one document. Together, these tools help you move from writing individual R commands to building a clear, repeatable analysis process. The chapter closes with applied practice using datasets such as 🚗 `mtcars`, 🌐 `gapminder`, 🔫 `murders`, and ☣️ `us_contagious_diseases`.
 
-This chapter matters because subsetting is one of the most common tasks in data analysis. Before you can graph, summarize, model, or answer a research question, you usually need to isolate the relevant cases and variables. In later coursework, you will rely on these skills to prepare datasets for visualization, descriptive statistics, hypothesis testing, and project-based analysis. In professional data work, analysts constantly filter records, choose relevant fields, remove duplicates, and create smaller, targeted datasets for reporting and decision-making. Learning to do this with readable `dplyr` code will make your work faster, easier to check, and easier for other people to follow.
+This chapter matters because subsetting is one of the most common tasks in data analysis. Before you can graph, summarize, model, or answer a research question, you usually need to isolate the relevant cases and variables. You can use these skills in later analyses to prepare datasets for visualization, descriptive statistics, hypothesis testing, and project-based analysis. In professional data work, analysts constantly filter records, choose relevant fields, remove duplicates, and create smaller, targeted datasets for reporting and decision-making. Learning to do this with readable `dplyr` code will make your work faster, easier to check, and easier for other people to follow.
 
 🤔 This chapter also asks you to practice open-mindedness as a coding habit. Base R brackets and `dplyr` verbs can often solve the same subsetting problem. Your job is not to decide that one method is always better. Your job is to compare the options, check the result, and choose the version that makes the logic clearest for the task.
 
@@ -38,7 +38,7 @@ Keep these goals in mind as you move through each section.
 
 ## Quarto {#quarto}
 
-In earlier chapters, you used an R Notebook as a reproducible thinking document: code, output, and memo-style writing in one place. [Quarto]{.glossary-term data-term="Quarto"} keeps that same basic workflow, but the file is usually a `.qmd` file instead of an `.Rmd` file.
+Earlier chapters modeled an R Notebook as a reproducible thinking document: code, output, and memo-style writing in one place. [Quarto]{.glossary-term data-term="Quarto"} keeps that same basic workflow, but the file is usually a `.qmd` file instead of an `.Rmd` file. If Quarto is new to you, follow the setup steps and render checks. If you have used a `.qmd` file before, use this section as a review.
 
 The biggest changes are:
 
@@ -47,7 +47,7 @@ The biggest changes are:
 * Code chunk options are written as YAML-style lines that begin with `#|` inside the code chunk.
 * You [render]{.glossary-term data-term="Render"} a Quarto document with the render button instead of knitting an R Notebook.
 
-Quarto is useful because it gives you a clean way to combine code, output, and written explanation in one document. It also supports more flexible publishing formats and can work with multiple coding languages, including R, Python, Julia, and Observable JavaScript. In this course, we will use R with Quarto.
+Quarto is useful because it gives you a clean way to combine code, output, and written explanation in one document. It also supports more flexible publishing formats and can work with multiple coding languages, including R, Python, Julia, and Observable JavaScript. The examples in this book use R with Quarto.
 
 🤔 This is an open-minded tool shift. A Quarto document does much of what your R Notebook did, but the file type and setup details are a little bit different. Ask yourself: “What stays the same about my workflow, and what changes?”
 
@@ -55,17 +55,17 @@ To learn more about Quarto, check out the [Quarto website](https://quarto.org/).
 
 ### R Notebook → Quarto {#notebook-quarto}
 
-Quarto will be similar to an R Notebook in several ways. You still write normal paragraphs outside code chunks. You still run R code inside chunks. You still use Markdown headings to create an outline. You still render the document to create a readable HTML report.
+Quarto will be similar to an R Notebook in several ways. You still write normal paragraphs outside code chunks. You still run R code inside chunks. You still use Markdown headings to create an outline. Clicking Render creates a readable HTML report.
 
 What changes is the file extension, the YAML header, and the way chunk options are written.
 
 🎯 Create a Quarto file.
 
-1. For those of you who **have GitHub** and a course project, navigate to your course folder and open your course project. This will open RStudio. Click **Pull** in the Git pane to get the latest version of the course materials. After completing your work, save, stage, commit, and push.
+1. Open RStudio. Open the project or navigate to the folder where you keep your work for this book.
 
-If you **do not have GitHub** or a course project, open RStudio and set your working directory to your course folder.
+2. Open a new Quarto document in that folder and save it as `chapter11_notes.qmd` (`File > New File > Quarto Document`).
 
-2. Open a new Quarto document in your course folder and save it as: `chapter11_notes.qmd` (`File > New File > Quarto Document`).
+If you use Git and GitHub, follow the workflow in [Chapter 9](ch09-github.html): pull before you begin, then save, stage, commit, and push after you finish.
 
 Just like an R Notebook template, a new Quarto file will open with sample text. Start fresh:
 
@@ -77,11 +77,13 @@ Just like an R Notebook template, a new Quarto file will open with sample text. 
 
 🗣 The `.qmd` file is the editable Quarto document. The rendered `.html` file is the readable report created from it.
 
-🤔 An `.Rmd` notebook and a `.qmd` document both support reproducible work, but they organize some settings differently. As you build out the Quarto notes, ask yourself: “Which file type feels easier for me to set up, read, and render?”
+An `.Rmd` notebook and a `.qmd` document both support reproducible work, but they organize some settings differently. As you build your Quarto notes, notice which parts of the notebook workflow carry over.
 
 ### The YAML Header {#yaml-header}
 
 At the top of the document is the [YAML header]{.glossary-term data-term="YAML Header"}. This is document metadata. In Quarto, the header is still surrounded by three dashes (`---`) and uses `key: value` pairs. Quarto uses fields such as `title`, `subtitle`, `author`, `date`, `format`, and `execute`.
+
+Edit the YAML header already in your new `.qmd` file to match this example, replacing `YOUR NAME` with your name. Keep only one header, including its opening and closing `---` lines.
 
 ````{r echo=FALSE, results='asis'}
 cat("```yaml
@@ -120,7 +122,7 @@ execute:
 
 * `warning: true` and `message: true` mean warnings and messages will appear in the rendered HTML if your code produces them. You can change these to `false` later when you want a cleaner final report, but for learning, seeing messages and warnings can help you understand what R is doing.
 
-🤔 Notice that YAML uses lowercase `true` and `false`. R uses uppercase `TRUE` and `FALSE`. Same idea, different file language. Ask yourself: “Am I writing YAML settings, or am I writing R code?”
+Notice that YAML uses lowercase `true` and `false`. R uses uppercase `TRUE` and `FALSE`. Same idea, different file language. Ask yourself: “Am I writing YAML settings, or am I writing R code?”
 
 ### Markdown Headings {#markdown-headings}
 
@@ -160,43 +162,43 @@ The `#` symbol means different things depending on where you type it:
 * Inside a code chunk, `#` creates an R comment.
 * At the top of a Quarto code chunk, `#|` sets a chunk option.
 
-```{r, eval=FALSE}
-#| eval=FALSE
+```{r}
+#| eval: false
 # your R code
 x <- 1:5
 mean(x)
 ```
 
-🗣 The `eval=FALSE` chunk option means the code will not run when you render the document. This is useful for example code, code that you are discussing but not running, or code that installs packages.
+🗣 The `#| eval: false` chunk option means the code will not run when you render the document. This is useful for example code, code that you are discussing but not running, or code that installs packages.
 
 🤔 This is a readability choice. Quarto gives you easy to understand control over what code runs and what appears in the final report. Ask yourself: “Should this chunk run, or is it here only as an example?”
 
-**💡 Test render.**
+🧶 **Test render.** Save your `.qmd`, click **Render**, and open the HTML report. Check that your title and headings appear. If you added the `eval: false` example, its code should appear without output.
 
 ---
 
-You can also use `#| eval=FALSE` in code chunks that contain `install.packages()` instead of commenting out each line with `#`. Let's see that in action next.
+You can also use `#| eval: false` in code chunks that contain `install.packages()` instead of commenting out each line with `#`. Let's see that in action next.
 
 ## 📦 Packages {#packages}
 
 You will need the `dplyr` and `dslabs` packages installed and loaded to follow along with the code examples in this chapter.
 
-The `dplyr` package is part of the [tidyverse]{.glossary-term data-term="Tidyverse"}, a collection of R packages designed for data science. The [dplyr package]{.glossary-term data-term="dplyr"} gives you data-wrangling functions called [verbs]{.glossary-term data-term="Verbs". These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
+The `dplyr` package is part of the [tidyverse]{.glossary-term data-term="Tidyverse"}, a collection of R packages designed for data science. The [dplyr package]{.glossary-term data-term="dplyr"} gives you data-wrangling functions called [verbs]{.glossary-term data-term="Verbs"}. These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
 
-🧠 Recall that you only need to install a package **once** on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put `#| eval=FALSE` at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.
+🧠 Recall that you only need to install a package **once** on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put `#| eval: false` at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.
 
-You should already have dslabs from previous chapters, but if not, install it now.
+If either package is missing, run its installation line once in the RStudio Console. The chunk option below prevents those lines from running again when you render.
 
-```{r, eval=FALSE}
-#| eval=FALSE
+```{r}
+#| eval: false
 # ⚡ Type this in a Quarto code chunk
 install.packages("dslabs")
 install.packages("dplyr")
 ```
 
-✅ Check that the chunk option says `#| eval=FALSE`. This means the install code will be shown in your document but will not run when you render.
+✅ Check that the chunk option says `#| eval: false`. This means the install code will be shown in your document but will not run when you render.
 
-🗣 The `install.packages()` function downloads a package to your computer. You usually only need to do that once. The `#| eval=FALSE` option is useful here because reinstalling packages every time you render your report is unnecessary and can slow down or interrupt the render.
+🗣 The `install.packages()` function downloads a package to your computer. You usually only need to do that once. The `#| eval: false` option is useful here because reinstalling packages every time you render your report is unnecessary and can slow down or interrupt the render.
 
 🤔 This is a Quarto file-choice moment. In an R Notebook, you may have commented out install code with `#`. In Quarto, you can use a chunk option instead. Ask yourself: “Do I want this code to appear in my report, run during render, or both?”
 
@@ -214,9 +216,9 @@ library(dplyr)
 
 You may see messages when packages load. Messages are not always errors. Read them first before assuming something is broken.
 
-**💡 Test render.**
+🧶 **Test render.** Save and render again. Confirm that both packages load without an error, and read any messages or warnings before deciding whether to hide them.
 
-🤔 If you want to hide package messages or warnings in a final report, you can use Quarto chunk options such as `#| message=FALSE` or `#| warning=FALSE`. For now, it is fine to leave messages visible while you are learning because they give you information about what R is doing.
+🤔 A cleaner report can be easier to read, but a warning may reveal something you need to investigate. Before using options such as `#| message: false` or `#| warning: false`, read what appeared. Would hiding it help the reader, or conceal a problem you should resolve first?
 
 ---
 
@@ -279,7 +281,7 @@ In Chapter 8, you learned that you can select columns with base R brackets by na
 
 The `dplyr` verb [`select()`]{.glossary-term data-term="select()"} returns the same type of data object, keeps all rows, and changes which columns are shown. It can select columns by name, by ranges such as `x:y`, and by helper patterns.
 
-You can use R operators such as `:`, `!`, `&`, `|`, `c()`, and `%in%` to select columns. You can also use helper functions like `starts_with()`, `ends_with()`, `contains()`, and `matches()` to select columns based on patterns in their names. **To keep it simple, we will focus on selecting columns by name and by negative selection with `-`.**
+The selection syntax also supports `:`, `!`, `&`, `|`, and `c()`. You can use helper functions like `starts_with()`, `ends_with()`, `contains()`, and `matches()` to select columns based on patterns in their names. **To keep it simple, we will focus on selecting columns by name and by negative selection with `-`.**
 
 📜 The SYNTAX: `select(data, col1, col2, …)`
 
@@ -364,7 +366,7 @@ head(I_Demo)
 
 🗣 A new dataset called `I_Demo` was created from the `gapminder` dataset. It contains all rows from `gapminder`, but only the columns `country`, `year`, `infant_mortality`, and `continent`.
 
-🤔 Creating a smaller dataset is a choice about focus. Ask yourself: “Which columns do I need for the question I am trying to answer, and which columns would only distract me?”
+Creating a smaller dataset is a choice about focus. Ask yourself: “Which columns do I need for the question I am trying to answer, and which columns would only distract me?”
 
 ---
 
@@ -402,7 +404,7 @@ Now that you know how to store a subset when selecting columns and use the pipe,
 
 In chapter 8 and 10, you learned that you can filter rows with base R brackets by name, like `data[data$col1 > 10, ]`. With `dplyr::filter()`, you can do the same thing but with a more concise syntax.
 
-[`filter()`]{.glossary-term data-term="filter()"} keeps only rows for which the condition is `TRUE`. This means that `filter()` treats `NA` values as `FALSE` and drops them. If you want to keep rows with `NA`, you can use the `is.na()` function in your filter condition.
+[`filter()`]{.glossary-term data-term="filter()"} keeps only rows for which the condition is `TRUE`. Rows for which the condition is `FALSE` or `NA` are dropped. If you want to keep rows with `NA`, you can include `is.na()` in your filter condition.
 
 📜 The SYNTAX: `filter(data, condition1, condition2, …)`
 
@@ -436,7 +438,7 @@ filter(mtcars, mpg >= 25)               # high‑mileage cars
 
 🗣 The `filter()` function keeps rows where the condition is `TRUE`. This code keeps cars with `mpg >= 25` and drops cars that do not meet that condition.
 
-🤔 This is the same row-filtering idea you used with base R brackets, but using a custom function. 
+🤔 How would you write the same `mpg >= 25` rule with base R brackets? Compare the results before deciding which version is easier to read and explain.
 
 ### Piping with Filter {#piping-with-filter}
 
@@ -582,7 +584,7 @@ nrow(efficient_ish)  # how many cars are efficient_ish?
 
 🗣 A new dataset called `efficient_ish` was created from the `mtcars` dataset that includes rows where either `mpg` is greater than or equal to 25 or `cyl` is equal to 4. The number of rows in the `efficient_ish` dataset indicates how many cars meet *at least one* of those conditions. (n = 11)
 
-🤔 OR logic is broader than AND logic. A row only needs to satisfy one condition to stay. Ask yourself: “Did my row count get larger because I widened the rule?”
+🤔 The AND filter kept 6 cars, while this OR filter kept 11. Do those counts fit what you expected from the two rules? If not, compare the conditions and selected rows before revising your interpretation.
 
 ## filter() AND select() {#filter-and-select}
 
@@ -657,7 +659,7 @@ nrow(powerful_auto)
 
 🗣 A new dataset called `powerful_auto` was created from `mtcars`. The `filter()` step kept only cars that are automatic (`am == 0`) and have more than 150 horsepower. The `select()` step then kept only the `hp` and `mpg` columns because those are the variables needed for the report. The result contains 10 cars.
 
-🤔 Open-minded coding means checking whether your workflow matches the question. This pipeline filters with columns that explain the rule, then selects the columns needed for the final answer. Ask yourself: “Does my final dataset show enough information to answer the question clearly?”
+🤔 The final table shows `hp` and `mpg`, but not `am`, which identified the automatic cars. Imagine a reader who wants to check that part of your answer. What could you inspect before `select()` removes `am`, while still keeping the requested two-column result?
 
 ---
 
@@ -673,9 +675,9 @@ The larger learning goal is method judgment. Base R brackets and `dplyr` verbs c
 
 **dplyr**: An R package in the tidyverse that provides readable data-wrangling verbs for working with data frames. In this chapter, `dplyr` is used to select columns, filter rows, and build clear subsetting workflows.
 
-**`filter()`**: A `dplyr` function used to keep rows from a data frame or tibble based on one or more logical conditions. `filter()` keeps observations where the condition evaluates to `TRUE` and drops rows where the condition evaluates to `FALSE`.
+**`filter()`**: A `dplyr` function used to keep rows from a data frame or tibble based on one or more logical conditions. `filter()` keeps observations where the condition evaluates to `TRUE` and drops rows where the condition evaluates to `FALSE` or `NA`.
 
-**Logical Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`/`FALSE`, and Boolean operators—`!` (NOT), `&` / `|` (AND/OR applied element-by-element), and `&&` / `||` (AND/OR that evaluate only the first element, mainly for if conditions).
+**Logical Operators**: Operators that create or combine logical elements. The most common are comparison operators—`==`, `!=`, `<`, `>`, `<=`, `>=`—which return `TRUE`, `FALSE`, or `NA` when a comparison involves a missing value, and Boolean operators—`!` (NOT), `&` / `|` (AND/OR applied element-by-element), and `&&` / `||` (AND/OR that evaluate only the first element, mainly for if conditions).
 
 **Pipe**: An operator that passes the result of one step directly into the next step, letting you write code as a readable sequence of actions instead of nesting functions inside each other. In tidyverse code, the pipe is usually `%>%`, so `x %>% f()` means “take `x`, then apply `f()`”; in newer base R, a similar built-in pipe is `|>`.
 
@@ -694,39 +696,36 @@ The larger learning goal is method judgment. Base R brackets and `dplyr` verbs c
 
 ## 📝 Practice Space {#practice-space}
 
-In this Practice Space, you will use `dplyr::select()`, `dplyr::filter()`, and the pipe `%>%` to create smaller, focused datasets. You will also keep practicing Quarto as a reproducible workspace for code, output, and memo notes.
-
-Create a new Quarto document and save it in your course folder as:
-
-`chapter11_practice.qmd`
+In this Practice Space, you will use `dplyr::select()`, `dplyr::filter()`, and the pipe `%>%` to create smaller, focused datasets. You will also use Quarto to keep your code, output, and memo notes together.
 
 Before you begin:
 
 1. Create a new Quarto document in RStudio.
-2. Save it as `chapter11_practice.qmd`.
-3. Edit the YAML so it includes the title `"Chapter 11 Practice"`, your name, the date, and HTML output.
-4. Delete the default body text below the YAML.
+
+2. Save it in your module folder as `chapter11_practice.qmd`.
+
+3. Edit the existing YAML header so it includes the title `"Chapter 11 Practice"`, your name as the author, the date, and `format: html`. Keep the opening and closing `---` lines.
+
+4. Remove any starter content below the closing `---`, but keep the YAML header.
+
 5. Create headings for each task using `## Task 0`, `## Task 1`, and so on.
 
-Complete each task in order. Fill in the blanks, run your code, and add short memo notes as you work.
+Complete each task in order. When a task asks you to write the goal, state it in your own words. Fill in the blanks, run your code, and add short memo notes as you work.
 
-In this Practice Space, you will see three memo prompts:
+In this Practice Space, you will see two kinds of memo prompts:
 
-* 🎯 **Write the goal** state the coding directions in your own words.
-* 🗣 **Add Comments:** explain what the code or output shows.
-* 🪞 **Reflect:** explain your thinking, what you checked, what changed, or what you would try next.
+* 🗣 **Add Comments** asks you to explain what the code or output shows.
+* 🪞 **Reflect** asks you to explain your thinking process, what changed in your understanding, or what you would try next.
 
-Each task should include at least one memo response. You do not need to answer every prompt perfectly. The goal is to practice documenting your thinking while you work.
+**Respond to at least one memo prompt in each task.** You may answer more than one when it helps explain your work. If you use an outside resource, add a brief 👀 Cite note naming the resource and how it helped.
 
-**Open-mindedness** memos means documenting comparing reasonable methods, and choosing the approach that makes the code easiest to read, check, and explain. If you encounter an error, document your **tenacity** by briefly noting what happened, what you tried, and how you fixed it or what still confuses you. Document how you troubleshot the error and what resource(s) you used to help you resolve the issue (**transparency**). Show **courage** by sharing your thinking process, even if it includes mistakes or confusion.
+🤔 **Open-mindedness** means checking your first idea against the output and considering another reasonable approach when it helps. In your memos, explain what you compared and why one approach made the work easier to read, check, or explain.
 
-If you get stuck, briefly document what happened, what you tried, and what still confuses you.
+If you encounter an error, briefly record what happened, what you tried, and what you would check next. Sharing a question or an unfinished idea can help you decide when to ask for help.
 
-You may quote AI output only when you clearly mark it as quoted text, either with quotation marks or a block quote using `>`. Then hand-type your own explanation of why you are including the quote.
+Follow the AI-use guidance that applies to your learning setting. If you use an AI tool, add a 👀 Cite memo naming the tool and explaining what it contributed. Clearly mark any words you reproduce exactly as quoted text, using quotation marks or a block quote with `>`.
 
-Before you submit, clear your Environment and run the `.qmd` from top to bottom. Your file should run without errors and create the required objects listed in Task 7.
-
-For this assignment, submit the saved `.qmd` file. You do not need to submit a rendered HTML file.
+Before you finish, clear your Environment and run the `.qmd` from top to bottom. Then render it to HTML and inspect the report. See Task 7 for the final checks. If this Practice Space is assigned for submission, submit the saved `.qmd` file according to your instructor's directions. You do not need to submit the HTML report unless your instructor asks for it.
 
 ### Task 0 {#task-0}
 
@@ -735,9 +734,9 @@ For this assignment, submit the saved `.qmd` file. You do not need to submit a r
 🎯 Write the goal of this task in your own words.
 
 ```{r, eval=FALSE}
-# ⚡ Type this in a Quarto code chunk, fill in the blanks
 #| message: false
 #| warning: false
+# ⚡ Type this in a Quarto code chunk, fill in the blanks
 
 _______(dslabs)
 _______(dplyr)
@@ -816,7 +815,7 @@ No_Florida <- _______ _______ filter(state _______ "Florida")
 unique(No_Florida$state)
 ```
 
-🗣 Add Comments: Explain why pre-checking the unique values of `state` is useful. What change are you expecting to see in the ✅ Verify step? Explain what rows are removed.
+🗣 Add Comments: State whether `"Florida"` appears in the pre-check output and whether it appears after filtering. Explain which rows were removed.
 
 🪞 Reflect: You could have assumed `"Florida"` appeared exactly as expected, but you checked the available values first. How did that pre-check help you avoid guessing? If `"Florida"` still appeared in the verification output, what would you check next?
 
@@ -866,7 +865,7 @@ From 🚗 `mtcars`, keep only the cars whose displacement is either **under 160*
 range(mtcars$disp)  # check disp range
 ```
 
-🗣 Add Comments: Explain how `range(mtcars$disp)` helps you decide whether the cutoffs `160` and `250` make sense.
+🗣 Add Comments: State the minimum and maximum displacement values shown by `range(mtcars$disp)`. Do `160` and `250` fall within that range?
 
 ```{r, eval=FALSE}
 # ⚡ Type this in a Quarto code chunk, fill in the blanks
@@ -877,10 +876,12 @@ filtered_cars <- mtcars %>%
 
 ```{r, eval=FALSE}
 # ✅ Verify
+nrow(filtered_cars) > 0  # confirm that the result is not empty
+colnames(filtered_cars) # check that only the first three columns remain
 all(filtered_cars$disp > 250 | filtered_cars$disp < 160) # check disp condition
 ```
 
-🗣 Add Comments: Explain what `all()` is testing here. What does `TRUE` tell you about the rows kept in `filtered_cars`?
+🗣 Add Comments: Explain how you checked that `filtered_cars` has rows, contains the first three columns, and meets the displacement condition.
 
 🪞 Reflect: This task uses OR logic, so a car can stay if it meets either displacement condition. Why is `|` the right choice here instead of `&`? How does `all()` help you test whether your first filtering idea worked?
 
@@ -888,17 +889,17 @@ all(filtered_cars$disp > 250 | filtered_cars$disp < 160) # check disp condition
 
 **Reflection**
 
-📝 Write a few sentences comparing base R brackets `[ ]`, `select()`, and `filter()` for subsetting.
+📝 Write a few sentences comparing base R brackets `[ ]`, `select()`, and `filter()` for subsetting. Use at least one example from this Practice Space. For the base R comparison, you may use an example from Chapter 10.
 
-🗣 Add Comments: Explain which method felt easiest to read and which method felt easiest to verify. Use at least one example from this Practice Space.
+🗣 Add Comments: Describe what rows or columns your examples selected and what output you checked to verify the result.
 
-🪞 Reflect: Open-minded coding does not mean every method is equally good. It means comparing reasonable options and choosing the one that makes the logic clearest for the task. After this chapter, when would you choose base R brackets? When would you choose `dplyr` verbs?
+🪞 Reflect: Which method felt easiest to read, and which felt easiest to verify? After this chapter, when would you choose base R brackets? When would you choose `dplyr` verbs?
 
 ### Task 7 {#task-7}
 
 **Self-check checklist**
 
-For the file submission, make sure your `.qmd` runs from top to bottom without errors and that the following objects are created in your environment with the expected content:
+Before you finish, make sure your `.qmd` runs from top to bottom without errors and that the following objects are created in your Environment with the expected content:
 
 * `C_Overload` exists and has only `year` and `carbon_emissions`.
 
@@ -911,6 +912,7 @@ For the file submission, make sure your `.qmd` runs from top to bottom without e
 * `filtered_cars` has rows where `disp > 250` OR `disp < 160` and only the first three columns.
 
 * **All code in your Quarto document runs top-to-bottom without errors.**
+* **The rendered HTML report shows your code, output, and memos.**
 
 🎯 Check your `.qmd` for submission quality.
 
@@ -918,11 +920,15 @@ For the file submission, make sure your `.qmd` runs from top to bottom without e
 Click the 🧹 **broom icon** in the Environment pane to clear objects.
 
 **Step 2: Run everything top-to-bottom.**
-Use **Run → Run All** to execute every chunk in order.
+Use **Run → Run All** to execute every chunk in order. Check and fix any errors before making the HTML report.
 
 **Step 3: Verify the required objects.**
 Use the checklist above to confirm that each object exists and contains the expected rows and columns.
 
-**Step 4: Save and submit.**
-After your Quarto document runs without errors, make sure your latest edits are saved. Submit the required `.qmd` file as directed in Canvas.
+**Step 4: Save, render, and inspect the report.**
+Save `chapter11_practice.qmd`, click **Render**, and open the HTML report. Check that the code, output, and memos appear and that the headings are in order. If rendering fails, inspect the error and correct the `.qmd` file before continuing.
 
+**Step 5: Submit the source file if assigned.**
+Follow your instructor's submission directions. For this Practice Space, submit the saved `.qmd` file; the HTML report is for checking your work unless your instructor asks for it.
+
+🪞 Reflect: After clearing the Environment and running your code from top to bottom, did anything fail or change? What did you find when you opened the HTML report, and what does that tell you about whether your work can be rerun and understood later?
