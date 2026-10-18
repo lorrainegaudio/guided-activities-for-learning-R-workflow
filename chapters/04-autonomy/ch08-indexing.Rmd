@@ -1082,7 +1082,7 @@ head(first_10_basic)
 
 ```{r eval = FALSE}
 # ⚡ Type this in your R Notebook. Fill in the blanks.
-id_name_year <- values_transport[, c("____", "____", "____")]
+id_name_year <- values_transport[, c(____, ____, ____)]
 ```
 
 ```{r eval = FALSE}
