@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/index.html</loc>
-    <lastmod>2026-08-24T03:51:45.907Z</lastmod>
+    <lastmod>2026-10-11T03:24:49.865Z</lastmod>
   </url>
   <url>
     <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/front-matter/preface.html</loc>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/chapters/04-autonomy/ch08-indexing.html</loc>
-    <lastmod>2026-09-27T21:35:18.919Z</lastmod>
+    <lastmod>2026-10-18T19:10:48.492Z</lastmod>
   </url>
   <url>
     <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/chapters/05-openmindedness/openmindedness.html</loc>
@@ -66,6 +66,10 @@
   </url>
   <url>
     <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/chapters/05-openmindedness/ch10-and-or-in.html</loc>
-    <lastmod>2026-10-10T21:31:14.890Z</lastmod>
+    <lastmod>2026-10-10T21:38:06.558Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lorrainegaudio.github.io/guided-activities-for-learning-R-workflow/chapters/05-openmindedness/ch11-dplyr-subsetting.html</loc>
+    <lastmod>2026-10-18T19:08:09.344Z</lastmod>
   </url>
 </urlset>
