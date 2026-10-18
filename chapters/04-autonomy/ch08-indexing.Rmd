@@ -1165,7 +1165,7 @@ table(_____)
 unique(_____)
 ```
 
-🗣 Add Comments: Comment on the output of `table(year_vector)` or `unique(year_vector)`. What do you notice about possible values in the year column?
+🗣 Add Comments: Comment on the output of the completed Check step (`table(_____)` or `unique(____)`). What do you notice about possible values in the year column?
 
 🪞 Reflect: Why does extraction with `[[ ]]` make sense here? How does extracting the column make it clear which values you want `table()` to count?
 

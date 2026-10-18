@@ -790,7 +790,7 @@ head(star_names)
 
 🗣 Add Comments: Does this return a vector or keep a one-column data frame? Explain how you can tell from the output.
 
-🪞 Reflect: A one-column data frame and a vector can look similar at first. Why does it matter to stay open to that difference instead of assuming they are the same kind of object?
+🪞 Reflect: What could you check besides `head(star_names)` to confirm whether `star_names` is a one-column data frame or a vector?
 
 ### Task 3 {#task-3}
 
@@ -817,7 +817,7 @@ unique(No_Florida$state)
 
 🗣 Add Comments: State whether `"Florida"` appears in the pre-check output and whether it appears after filtering. Explain which rows were removed.
 
-🪞 Reflect: You could have assumed `"Florida"` appeared exactly as expected, but you checked the available values first. How did that pre-check help you avoid guessing? If `"Florida"` still appeared in the verification output, what would you check next?
+🪞 Reflect: Why did you check the state values both before and after filtering? What question did each check answer?
 
 ### Task 4 {#task-4}
 
