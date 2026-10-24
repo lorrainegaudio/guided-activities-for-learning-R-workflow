@@ -94,7 +94,7 @@ author: \"YOUR NAME\"
 date: today
 format:
   html:
-    code-fold: false
+    embed-resources: true
 execute:
   warning: true
   message: true

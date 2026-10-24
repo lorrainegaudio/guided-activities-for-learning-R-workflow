@@ -1038,7 +1038,7 @@ list.files()
 # 2) Load required package, then read the CSV
 library(____)
 
-values_transport <- read_csv("___________________________")
+values_transport <- read_csv(___________________________)
 ```
 
 ✅ Check that `values_transport` appears in your Environment pane and that it is a data frame. 
@@ -1105,7 +1105,7 @@ head(id_name_year)
 
 ```{r eval = FALSE}
 # ⚡ Type this in your R Notebook. Fill in the blanks.
-idx_1900 <- ____(values_transport[["____"]] __ 1900)
+idx_1900 <- ____(values_transport[[____]] __ 1900)
 
 values_1900 <- values_transport[_____, ]
 ```
@@ -1154,7 +1154,7 @@ unique(mask)
 
 ```{r eval = FALSE}
 # ⚡ Type this in your R Notebook. Fill in the blank.
-year_vector <- values_transport[["____"]]
+year_vector <- values_transport[[____]]
 ```
 
 ✅ Check that `year_vector` is a vector, not a one-column data frame.

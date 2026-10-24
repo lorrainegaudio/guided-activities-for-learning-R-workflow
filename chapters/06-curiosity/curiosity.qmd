@@ -1,10 +1,38 @@
 ---
-toc: true
+toc: false
 ---
 
-## Curiosity
+# Curiosity {.unnumbered}
 
-Curiosity is ...
+Why did moving one line of code above another change my results? Why did a grouped summary return a different number of rows than I expected? Questions like these can lead you from running code to understanding what it does.
+
+Baehr (2022) describes curiosity as a desire for knowledge and understanding. Curious learners wonder how and why things work. They ask thoughtful questions and pursue answers. An assignment may give you a reason to begin working, and a question that arises during the work can give you a reason to investigate further.
+
+In *The Alignment Problem*, Brian Christian (2020) explores curiosity in living beings and software development, including how **surprise** can spark a desire to understand. While learning R, an unexpected result can reveal a gap in knowledge. Investigating that gap gives you a purpose beyond completing the assignment or earning a grade: you want to understand why. Before running code, identify what you expect. If what R returns differs, decide what small check could help explain the difference.
+
+Curiosity involves deciding which questions deserve attention now. Indifference can lead you to pass over valuable learning opportunities. But, following every interesting side question can take you away from your current goal. King (2021) describes a healthy desire to know as involving judgment about what you investigate, when you investigate it, how you seek an answer, and why the answer matters.
+
+Curiosity is the learning skill theme for this module. You will use it to investigate recoding rules, grouped summaries, and chains of data transformations. A useful question might help you understand a result, a coding decision, or something important about the data. You can record an interesting side question for later when it would take you away from the current goal.
+
+## Curiosity while learning R
+
+In Chapter 12, changing the order of `case_when()` rules gives you a way to investigate how R chooses a matching rule. Predict what will happen, run the revised code, and use the result to explain the rule order.
+
+In Chapter 13, you will ask questions about groups in a dataset. You'll predict how many combinations of two variables are possible, then compare that prediction with the groups present in the data. If the number of groups differs from your prediction, you'll inspect which combinations actually appear in the data. Use what you find to explain the result.
+
+In Chapter 14, you will build a chain of data transformations. Before adding a step, predict what it will change: the rows, columns, groups, or summary values. Inspect the intermediate result and compare it with your prediction. Understanding each step helps you explain the final table.
+
+## How curiosity appears in this book
+
+The cat emoji 🐱 marks opportunities to make a prediction, investigate a focused question, or decide whether a question should be explored now or recorded for later.
+
+At selected points, you will see **🐱 Prediction** below **🎯 Goal** and before the **⚡ Code** instruction. Write what you expect the code to do before running it. Include a brief reason for your prediction. If you are uncertain, explain what you think might happen and what you are unsure about.
+
+Run the code, then use the ✅ checks to compare the result with your prediction. When the result matches, explain why it makes sense. When it differs, identify a focused question and choose a small check that could help answer it. You might inspect one value, test one condition, or examine an intermediate result.
+
+A 🐱 passage may also model deciding how far to investigate. Ask whether pursuing the question will help you understand the current task. You can record a side question and choose not to investigate it today.
+
+Use your memos to preserve this thinking. A 🗣 Comment can explain what a check showed and how it helped answer your question. A 🪞 Reflect memo can describe how comparing your prediction with the result affected your understanding, what you learned from an investigation, or why you chose to set a question aside. Add a 👀 Cite memo when a person or outside resource helps you find an answer.
 
 ## Chapters in this section
 
@@ -13,7 +41,7 @@ Curiosity is ...
 ::: {.section-card}
 ### Chapter 12: Recoding
 
-blah blah blah
+Compare `ifelse()` and `case_when()` to create labels from existing values, then use `mutate()` to add or change columns. Test how changing the order of conditional rules changes a result.
 
 [Open Chapter 12](ch12-recoding.html){.section-button}
 :::
@@ -21,7 +49,7 @@ blah blah blah
 ::: {.section-card}
 ### Chapter 13: Grouped Summaries
 
-blah blah blah
+Use `count()`, `group_by()`, and `summarize()` to investigate categories and subgroups. Predict how many groups a dataset might contain, then check and explain what R returns.
 
 [Open Chapter 13](ch13-grouped-summaries.html){.section-button}
 :::
@@ -29,17 +57,28 @@ blah blah blah
 ::: {.section-card}
 ### Chapter 14: Chaining
 
-blah blah blah
+Build a pipeline that transforms, filters, and summarizes data. Inspect intermediate results to understand what each step contributes to the final table.
 
 [Open Chapter 14](ch14-chaining.html){.section-button}
 :::
-
 
 :::
 
 ## What to focus on
 
-As you work through curiosity ...
+As you work through Curiosity, pause to ask:
 
+- What do I expect the code to return, and why?
+- What did R return?
+- If the result differed from my expectation, what focused question could help explain it?
+- Is this question useful to investigate now, or should I note it and return to the main goal?
 
+A useful investigation does not have to be large. A prediction, one deliberate check, and an explanation of what you found can deepen your understanding of the code you are already writing.
 
+## References
+
+Baehr, J. (2022). *Deep in thought: A practical guide to teaching for intellectual virtues*. Harvard Education Press.
+
+Christian, B. (2020). *The alignment problem: Machine learning and human values*. W. W. Norton & Company.
+
+King, N. L. (2021). *The excellent mind: Intellectual virtues for everyday life*. Oxford University Press.
