@@ -271,6 +271,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -1262,7 +1278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Load required package, then read the CSV</span></span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(____)</span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>values_transport <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"___________________________"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>values_transport <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(___________________________)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ Check that <code>values_transport</code> appears in your Environment pane and that it is a data frame.</p>
 <p>🗣 Add Comments: Explain what evidence showed you that the CSV file loaded successfully.</p>
@@ -1293,7 +1309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Create <code>id_name_year</code> containing only the columns: <code>id</code>, <code>name</code>, and <code>year</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook. Fill in the blanks.</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>id_name_year <span class="ot">&lt;-</span> values_transport[, <span class="fu">c</span>(<span class="st">"____"</span>, <span class="st">"____"</span>, <span class="st">"____"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>id_name_year <span class="ot">&lt;-</span> values_transport[, <span class="fu">c</span>(____, ____, ____)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Check</span></span>
@@ -1310,7 +1326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Subset rows where <code>year</code> is greater than or equal to 1900. Use <code>which()</code> to convert the <code>TRUE</code> positions into row indices. This dataset has no missing values in <code>year</code>, but the same pattern would omit <code>NA</code> positions if they were present.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook. Fill in the blanks.</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>idx_1900 <span class="ot">&lt;-</span> <span class="fu">____</span>(values_transport[[<span class="st">"____"</span>]] __ <span class="dv">1900</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>idx_1900 <span class="ot">&lt;-</span> <span class="fu">____</span>(values_transport[[____]] __ <span class="dv">1900</span>)</span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>values_1900 <span class="ot">&lt;-</span> values_transport[_____, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1346,7 +1362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Extract the <code>year</code> column as a vector using <code>[[ ]]</code>, storing it as <code>year_vector</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook. Fill in the blank.</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>year_vector <span class="ot">&lt;-</span> values_transport[[<span class="st">"____"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>year_vector <span class="ot">&lt;-</span> values_transport[[____]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ Check that <code>year_vector</code> is a vector, not a one-column data frame.</p>
 <div class="cell">
