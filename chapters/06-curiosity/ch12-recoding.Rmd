@@ -175,29 +175,21 @@ When rendered to HTML, this will show as:
 🗣 The filtered dataset has `r num_rows`  rows.
 
 
+**🧶 Test render** your document often to see how your notes are coming together. Do your inline code expressions show the expected values?
+
 In this chapter, use inline R code when you want your memo to report a computed value such as a vector length, category count, or converted measurement.
 
 ---
 
-🎯  For this chapter, practice setting up your notes file so that:
-
-1. the YAML includes a table of contents and section numbering
-
-2. your headings organize the chapter clearly
-
-3. your code chunks do the main work
-
-4. your memos use inline R code whenever you want to report a value from your analysis
-
 Now that you have created and saved your Quarto file, follow along with this guided practice and take notes. Fill in each section under the headings.
-
-**🧶 Test render** your document often to see how your notes are coming together. Do your inline code expressions show the expected values?
 
 ### 📦 Packages {#packages}
 
 In this chapter, you will use `dplyr` verbs and `dslabs` datasets.
 
-If either package is missing, run its installation command once in the RStudio Console: `install.packages("dplyr")` or `install.packages("dslabs")`. Keep installation commands out of code that runs each time you render. Load both packages with `library()` in your document so they are available when it renders.
+If either package had not yet been installed on your computer, run its installation command once in the RStudio Console: `install.packages("dplyr")` or `install.packages("dslabs")`.
+
+Load both packages with `library()` in your Quarto document so they are available when it renders.
 
 🎯 Load the required packages at the beginning of your QMD.
 
@@ -211,13 +203,9 @@ library(dplyr)   # Data manipulation package
 
 ## Vectorized Conditional Functions {#vectorized-conditional-functions}
 
-In previous chapters, you used logical conditions to keep some values and drop others, or to replace selected values in place. In this chapter, you will use logical conditions in a third way: to return a result for every element. That is what functions like [`ifelse()`]{.glossary-term data-term="ifelse()"} and [`case_when()`]{.glossary-term data-term="case_when()"} do.
+[Vectorized conditional functions]{.glossary-term data-term="Vectorized conditional"}, such as [`ifelse()`]{.glossary-term data-term="ifelse()"} and [`case_when()`]{.glossary-term data-term="case_when()"}, use logical conditions to return a new vector with one result for every input position.
 
-Logical conditions in R can do more than *select* values. They can also be used to return a new vector by assigning an output to each element based on one or more rules. Functions such as `ifelse()` and `case_when()` are called [vectorized conditional functions]{.glossary-term data-term="Vectorized conditional"} because they evaluate conditions element-by-element across a vector and return a new vector of the same length.
-
-This section builds on ideas you already know. In earlier chapters, you used conditions to keep values or rows with logical subsetting, and to replace selected values with subassignment. Now you will use conditions in a new way: not to drop or replace selected cases, but to return a result for every position. Those results are often used inside `mutate()` to create or modify columns.
-
-Subsetting keeps some values and drops others. Vectorized conditionals, by contrast, keep all positions and assign each one a result. In other words, subsetting answers “What do I keep?” while vectorized conditionals answer “What value should I return for each element?”
+Logical subsetting asks, “Which values should I keep?” Vectorized conditionals ask, “What value should I return for each element?” You can use the resulting vector inside `mutate()` to create or modify a column.
 
 ### Review Subsetting with Conditions {#review-subsetting-with-conditions}
 
@@ -226,7 +214,8 @@ Subsetting keeps some values and drops others. Vectorized conditionals, by contr
 ```{r}
 # 📖 Review
 ## Create vector x
-x <- 1:6
+# ⚡ Type this in a Quarto code chunk: 
+x <- c(3, 2, 3, 6, 5)
 ## logical vector
 x > 3
 ```
@@ -264,14 +253,11 @@ This review example uses a condition to identify matching cases. The difference 
 
 - Vectorized conditionals return a result for every position.
 
-That is the key new idea in this section. Vectorized conditional functions such as `ifelse()` and `case_when()` still test conditions element-by-element, but they do not drop nonmatching cases.
-Instead, they evaluate a condition for each element and return a *new vector* with one result for every position. 
-
-When this new vector is used inside `mutate()`, a function shown later in this chapter, it supplies the values for a new column or replaces the values in an existing column.
+That is the key new idea in this chapter. Let's see it in action.
 
 ### Simple `ifelse()` {#simple-ifelse}
 
-Base R describes `ifelse()` as returning a value with the same shape as the test, filled from `yes` or `no`.
+`ifelse()` is a base R function described as returning a value with the same shape as the test, filled from `yes` or `no`.
 
 📜 The SYNTAX: `ifelse(test, yes, no)`
 
@@ -283,7 +269,7 @@ Base R describes `ifelse()` as returning a value with the same shape as the test
 
 If a value in `test` is `NA`, the result is `NA` at that position.
 
-Start with this vector:
+Start with this vector x.
 
 ```{r}
 # ⚡ Type this in a Quarto code chunk: 
@@ -295,7 +281,7 @@ x <- c(3, 2, 3, 6, 5)
 length(x)
 ```
 
-___
+::: {.callout-note title="Dynamic memoing" icon=false}
 
 Use inline R to report the length of `x` in your memo.
 
@@ -310,7 +296,7 @@ When rendered to HTML, this should read:
 
 **🧶 Test render.** Does the sentence show the expected number of values in `x`? If not, check your code and try again.
 
-___
+:::
 
 🎯 Label the vector of numbers greater than 3 as "Large" and others as "Small".
 
@@ -504,7 +490,7 @@ measurements <- data.frame(height_in = c(60, 65, 70))
 measurements
 ```
 
-___
+::: {.callout-note title="Dynamic memoing" icon=false}
 
 Use inline R to report the column name before adding a new column.
 
@@ -516,7 +502,7 @@ When rendered to HTML, this should read:
 
 🗣 The `measurements` data frame has one column: `r colnames(measurements)`.
 
-___
+:::
 
 🎯 Create a new column called `height_cm` that converts inches to centimeters (1 inch = 2.54 cm).
 
@@ -566,7 +552,8 @@ student_scores <- student_scores %>%
 # ✅ Verify
 head(student_scores)
 ```
-___
+
+::: {.callout-note title="Dynamic memoing" icon=false}
 
 Now practice using inline R to report the current column names in your memo.
 
@@ -582,11 +569,13 @@ When rendered to HTML, this should read:
 
 `names(student_scores)` gets the column names. In this example, `paste(..., collapse = " and ")` joins them into one piece of text. The text between the quotes controls what goes between the names. You can check `?paste` in RStudio's Help pane for the argument descriptions.
 
-🛠 **Break Things!**
+:::
 
-🎯 Compare the inline sentence with and without spaces around `and`.
+::: {.callout-note title="Dynamic memoing: 🛠 Break Things!" icon=false}
 
 🐱 **Prediction:** What will happen to the sentence if you change `" and "` to `"and"`? Write how you expect the two column names to appear before testing it.
+
+🎯 Compare the inline sentence with and without spaces around `and`.
 
 ⚡ In your memo, remove the spaces around `and`:
 
@@ -600,11 +589,13 @@ When rendered, the changed sentence reads:
 
 🗣 `student_scores` has the columns `r paste(names(student_scores), collapse = "and")`.
 
-🗣 The spaces in `" and "` are part of the text R inserts between the names. Removing those spaces joins the names directly to `and`. Compare this sentence with your prediction.
+Compare this sentence with your prediction.
 
-🐱 I also wonder how `paste()` could combine values from two different columns. That would be a separate example. I will record the question for later and return to creating and overwriting columns with `mutate()`.
+🗣 The spaces in `" and "` are part of the text R inserts between the names. Removing those spaces joins the names directly to `and`. 
 
-___
+🐱 You might also wonder how `paste()` could combine values from two different columns. That would be a separate example. We'll choose to curb our curiosity and return to creating and overwriting columns with `mutate()`.
+
+:::
 
 The `mutate()` + `case_when()` duo is a powerful way to create new variables based on complex rules. You can have as many conditions as you need, and you can use existing columns in your data frame to build those rules.
 
@@ -640,7 +631,7 @@ cars_overwrite <- mtcars %>%
 unique(cars_overwrite$am)
 ```
 
-___
+::: {.callout-note title="Dynamic memoing" icon=false}
 
 Practice inline R code to dynamically report within a memo:
 
@@ -657,7 +648,7 @@ When rendered to HTML, this should read:
 
 **🧶 Test render.**
 
-___
+:::
 
 📖 **Overwrite Key Takeaway** 
 
@@ -976,5 +967,5 @@ Use the checklist above to confirm that each object exists and contains the expe
 Read your predictions for Tasks 2 and 5 alongside your checks. Make sure your memos explain how the results compared with what you expected. If you investigated an unexpected result, record what you checked and what you learned or would check next. Verify that any inline R code worked in your memos, and include a 👀 Cite note for any outside resource you used.
 
 **Step 6: Save your work.**
-After your Quarto document renders without errors, make sure your latest edits are saved. If this Practice Space is assigned for submission, submit the rendered `chapter12_practice.html` file unless your instructor specifies a different format.
+After your Quarto document renders without errors, make sure your latest edits are saved. 
 
