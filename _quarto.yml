@@ -64,7 +64,7 @@ book:
     - part: chapters/06-curiosity/curiosity.qmd
       chapters:
        - chapters/06-curiosity/ch12-recoding.Rmd
-    #     - chapters/06-curiosity/ch13-grouped-summaries.Rmd
+       - chapters/06-curiosity/ch13-grouped-summaries.Rmd
     #     - chapters/06-curiosity/ch14-chaining.Rmd
 
     # - part: chapters/07-thoroughness/thoroughness.qmd

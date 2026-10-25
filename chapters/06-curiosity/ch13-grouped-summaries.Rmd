@@ -6,7 +6,7 @@ toc: true
 
 ## Overview {#overview}
 
-In Chapters 11 and 12, you learned how to subset and transform data with `dplyr` using functions such as `select()`, `filter()`, `mutate()`, and `case_when()`. In this chapter, you will extend that workflow by learning how to organize data into groups and then calculate summaries for those groups. You will use `count()` to make frequency tables, `summarize()` to compute statistics such as mean and standard deviation, and `group_by()` to tell R which subgroups to analyze separately. You will also practice computing multiple statistics at once and working with more than one grouping variable.
+In Chapters 11 and 12, you learned how to subset and transform data with `dplyr` using functions such as `select()`, `filter()`, `mutate()`, and `case_when()`. In this chapter, you will extend that workflow by learning how to organize data into groups and then calculate summaries for those groups. You will use `count()` to make [frequency tables]{.glossary-term data-term="Frequency"}, `summarize()` to compute statistics such as [mean]{.glossary-term data-term="Mean"} and [standard deviation]{.glossary-term data-term="Standard Deviation"}, and `group_by()` to tell R which subgroups to analyze separately. You will also practice computing multiple statistics at once and working with more than one grouping variable.
 
 This chapter is about learning when and how to ask R for grouped summaries, and then explaining what those summaries mean. You will also practice curiosity as a learning skill. Curiosity helps you pause before running code, predict what the output might show, check whether the result matches your question, and decide when a side question is worth exploring or when it is better to stay focused on the chapter goal.
 
@@ -127,19 +127,19 @@ library(dplyr)   # Data manipulation package
 
 Before using `summarize()` and `count()`, it helps to review a few data words you have likely seen before. You do **not** need to calculate these by hand in this chapter. You do need to understand what they mean so you can choose the right function and explain your results.
 
-🐱 Curiosity as an intellectual virtue means choosing where to spend your attention. If these review terms feel rusty, pause here and use this section to refresh them. If you are already familiar with these ideas, you can skip this review section and [jump to dplyr's `count()`](#dplyr-count). Return if you need a reminder.
+If these review terms feel rusty, pause here and use this section to refresh them. If you are already familiar with these ideas, you can skip this review section and [jump to dplyr's `count()`](#dplyr-count). Return if you need a reminder.
 
 ### Data Terminology {#data-terminology}
 
-A **numeric variable** stores numbers that can be measured or calculated, such as `mpg`, height, or test score.
+A **[numeric variable]{.glossary-term data-term="Numerical Data"}** stores numbers that can be measured or calculated, such as `mpg`, height, or test score.
 
-A **categorical variable** stores labels or group names, such as state, disease, or cylinder count.
+A **[categorical variable]{.glossary-term data-term="Categorical Data"}** stores labels or group names, such as state, disease, or cylinder count.
 
 In this chapter, we often **group by a categorical variable** and then **summarize a numeric variable**.
 
 ### Count {#count}
 
-A **count** tells you how many observations there are.
+A **[count]{.glossary-term data-term="Count"}** tells you how many observations there are.
 
 - For a whole dataset, count means the total number of rows.
 
@@ -149,7 +149,7 @@ If you want to know how many cars have 4 cylinders, 6 cylinders, or 8 cylinders,
 
 ### Center {#center}
 
-**Center** describes a typical value.
+**[Center]{.glossary-term data-term="Center"}** describes a typical value.
 
 #### Mean {#mean}
 
@@ -161,13 +161,13 @@ If the mean `mpg` for cars with 4 cylinders is higher than the mean `mpg` for ca
 
 #### Median {#median}
 
-The **median** is the middle value when the data are sorted.
+The **[median]{.glossary-term data-term="Median"}** is the middle value when the data are sorted.
 
-🪞 Median is useful when extreme values might pull the mean too high or too low.
+Median is useful when extreme values might pull the mean too high or too low.
 
 ### Spread {#spread}
 
-**Spread** describes how much the values vary.
+**[Spread]{.glossary-term data-term="Spread"}** describes how much the values vary.
 
 #### Standard Deviation {#standard-deviation}
 
@@ -181,13 +181,13 @@ If one cylinder group has a much larger standard deviation for `mpg`, that group
 
 #### Range {#range}
 
-The **range** is the distance from the smallest value to the largest value.
+The **[range]{.glossary-term data-term="Range"}** is the distance from the smallest value to the largest value.
 
-🪞 Range gives a quick sense of spread, but it only uses the minimum and maximum values.
+Range gives a quick sense of spread, but it only uses the minimum and maximum values.
 
 ---
 
-🐱 The goal is to know which summary tool matches the question. 
+The goal is to know which summary tool matches the question.
 
 - use **count** when you want to know how many rows are in a dataset or group
 
@@ -229,7 +229,7 @@ mtcars %>%
 
 🗣 The code above counts how many rows fall into each value of `cyl`. The result is a new table with one row per cylinder value and a column named `n` that stores the counts.
 
-🐱 This is the curiosity move here: before I compare or explain anything, I want to know what categories are in the data and how many rows belong to each one. This step helps me understand the data before I ask a bigger data question.
+🐱 Which cylinder group has the most cars? I can compare the values in `n`, or sort the table to make that comparison easier.
 
 🧶 **Test render.** Does the table show one row for each cylinder value and a column named `n`?
 
@@ -257,7 +257,7 @@ mtcars %>%
 
 You can also count combinations of categories. 
 
-🐱 This is a good time to indulge curiosity a little further. Counting one variable told us how many cars had each cylinder value. Counting two variables lets us ask a more specific question: how are cylinder values distributed across transmission types?
+🐱 Is the largest cylinder group the same for automatic and manual cars? Counting both variables lets me check.
 
 🎯 Count how many cars fall into each combination of cylinder count and transmission type.
 
@@ -316,7 +316,7 @@ mtcars %>%
 
 ---
 
-🤔 `summary()` is a base R function that gives a quick overall description of an object, such as basic statistics for each variable in a data frame. `summarize()` from `dplyr` is used to create your own summary results, usually after `group_by()`, such as the mean or count for each group.
+`summary()` is a base R function that gives a quick overall description of an object, such as basic statistics for each variable in a data frame. `summarize()` from `dplyr` is used to create your own summary results, usually after `group_by()`, such as the mean or count for each group.
 
 ### count() versus summarize() {#count-vs-summarize}
 
@@ -356,18 +356,18 @@ cyl_means <- mtcars %>%
 
 🗣 `group_by(cyl)` splits the cars into groups based on cylinder count, and `summarize()` calculates `mean(mpg)` for each group. `mean_mpg` is the name of the new summary column.
 
-> 🧐 **Notice:** We chain `group_by()` and `summarize()` together using the pipe operator `%>%`. First, `group_by(cyl)` tells R to work separately by cylinder value. Then, `summarize()` calculates the mean `mpg` for each group.
+> 🧐 **Notice:** We chain `group_by()` and `summarize()` together using the [pipe]{.glossary-term data-term="Pipe"} operator `%>%`. First, `group_by(cyl)` tells R to work separately by cylinder value. Then, `summarize()` calculates the mean `mpg` for each group.
 
 ```{r}
 # ✅ 
 cyl_means  
 ```
 
-🐱 This is the main curiosity move in Chapter 13. We are no longer asking, “What is the overall mean?” We're asking, “Does the mean change across groups?” Grouping helps us ask a sharper question without leaving the learning goal.
+🐱 How do these group means compare with the overall mean calculated earlier? Which differences would be hidden if I reported only that overall mean?
 
 🧶 **Test render.** Does cyl_means print as a small table with one row per cylinder value?
 
-🤔 Grouping cars by `cyl` is useful because cars with different numbers of cylinders often have different fuel efficiency, so one overall average mpg would hide those differences. By grouping first, you can compare the typical mpg for 4-, 6-, and 8-cylinder cars separately.
+Grouping cars by `cyl` is useful because cars with different numbers of cylinders often have different fuel efficiency, so one overall average mpg would hide those differences. By grouping first, you can compare the typical mpg for 4-, 6-, and 8-cylinder cars separately.
 
 ### Explicit vs. Default Naming {#explicit-vs-default-naming}
 
@@ -384,7 +384,7 @@ mtcars %>%
 
 🗣 The default column name is the code itself: `mean(mpg)`. Default names can be confusing when reading or sharing results, so naming summary columns makes tables clearer.
 
-🐱 Notice the problem and build the habit of naming summary columns clearly.
+Notice the problem and build the habit of naming summary columns clearly.
 
 ---
 
@@ -394,7 +394,7 @@ Now that you have seen how `group_by()` changes one summary calculation, you can
 
 🎯 Create several summary columns in one `summarize()` call, separated by commas.
 
-🐱 This is useful curiosity: one statistic rarely tells the whole story. A mean tells me the center, a standard deviation tells me about spread, and `n()` tells me how many rows were used for each group.
+🐱 How much does `mpg` vary within each cylinder group? A mean alone does not answer that question. I will add the standard deviation and group size to the summary.
 
 *Use `?n` to learn about the `n()` function.*
 
@@ -415,7 +415,7 @@ cyl_stats
 
 🗣 `n()` counts how many rows are in each group created by `group_by()`. 
 
-🤔 It is similar to `count()` because both tell you how many observations are in a group, but `n()` is used inside `summarize()` when you are also calculating other statistics.
+It is similar to `count()` because both tell you how many observations are in a group, but `n()` is used inside `summarize()` when you are also calculating other statistics.
 
 > 🧐 **Notice:** `length()` counts the number of elements in an object. For a vector, that means the number of values. For a data frame, `length()` counts columns, not rows. That is why `n()` is the clearer tool here.
 
@@ -428,11 +428,7 @@ cyl_stats
 
 `group_by()` with one column creates one group for each unique value in that column. `group_by()` with two columns creates one group for each unique combination of values.
 
-🐱 This is a good moment to make a prediction before running the code. Curiosity is pausing long enough to make a reasonable guess, then checking that guess against the output.
-
-❓ How many groups will `group_by(cyl, am)` create?
-
-🎯 Predict how many groups will be created by `group_by(cyl, am)` before running the code.
+🎯 Find the mean mpg for each combination of cylinder count and transmission type.
 
 ```{r}
 # ✅ Pre-check
@@ -443,9 +439,7 @@ sort(unique(mtcars$cyl))
 sort(unique(mtcars$am))
 ```
 
-🗣 Two variables with 3 and 2 unique values can create $3 \times 2 = 6$ possible groups. 
-
-🎯 Find the mean mpg for each combination of cylinder count and transmission type.
+🐱 **Prediction:** How many rows do you expect in the summary? Explain how the cylinder and transmission values helped you decide before running the summary code.
 
 > 🧐 **Notice:** In `mtcars`, `am` is a coded transmission variable. A value of `0` means automatic, and a value of `1` means manual.
 
@@ -457,7 +451,7 @@ mtcars %>%
             count = n())
 ```
 
-🗣:
+🗣 Three cylinder values and two transmission values allow $3 \times 2 = 6$ possible combinations. All six appear in this dataset, so the summary contains six rows:
 
 - Group 1: cyl = 4, am = 0 (4-cylinder automatic cars)
 
@@ -473,6 +467,38 @@ mtcars %>%
 
 🧶 **Test render.** Does the output show one row for each `cyl` and `am` combination?
 
+Compare the summary with your prediction. Each row represents one combination present in the data.
+
+🎯 Check which combinations of cylinder count and number of gears appear in `mtcars`.
+
+```{r}
+# ✅ Pre-check
+sort(unique(mtcars$gear))
+```
+
+🐱 **Prediction:** Three cylinder values and three gear values allow nine possible combinations. Will all nine appear in `mtcars`? Predict how many rows the count table will return and explain why.
+
+```{r}
+# ⚡ Type this in a Quarto code chunk:
+mtcars %>%
+  count(cyl, gear)
+```
+
+🗣 The table has eight rows, although nine combinations are possible. A possible combination does not become a group unless it is present in these data.
+
+🐱 Which combination is missing? Comparing the gear values within each cylinder group points me to the 8-cylinder cars. I will check just those cars.
+
+```{r}
+# ✅ Check the gear values for 8-cylinder cars
+mtcars %>%
+  filter(cyl == 8) %>%
+  count(gear)
+```
+
+🗣 This check shows 8-cylinder cars with 3 or 5 gears, but none with 4 gears. That missing combination explains why the full count table has eight rows instead of nine. Compare this result with your prediction.
+
+🐱 I also wonder why this combination is absent. The counts do not explain the reason. I will record that question for later and return to how R groups and summarizes the observations we have.
+
 ---
 
 If you see a message about grouped output, keep going. The next section explains what that message means.
@@ -481,7 +507,7 @@ If you see a message about grouped output, keep going. The next section explains
 
 When you summarize data that has more than one grouping variable, `dplyr` may keep part of the grouping structure in the result. That leftover grouping can affect later code, so it is important to check whether your summary table is still grouped.
 
-🐱 We are asking, “What did R keep behind the scenes, and could that affect my next step?”
+🐱 Which grouping variables remain after `summarize()`? I will inspect the result before deciding whether to remove its grouping.
 
 #### A. Default behavior: keeps earlier groups {#default-keeps-earlier-groups}
 
@@ -540,7 +566,7 @@ is_grouped_df(cyl_gear_stats_drop) # expect FALSE
 
 #### C. Alternative: drop groups after summarizing {#alternative-drop-groups}
 
-🎯 Achieve the same ungrouped result by using `ungroup()` after `summarize()`
+🎯 Achieve the same ungrouped result by using `ungroup()` after `summarize()`.
 
 ```{r}
 # ⚡ Type this in a Quarto code chunk:
@@ -564,9 +590,10 @@ is_grouped_df(cyl_gear_stats_ungroup) # expect FALSE
 
 🗣 Using `ungroup()` after `summarize()` removes all grouping from the resulting data frame. This gives the same ungrouped result as using `.groups = "drop"` inside `summarize()`.
 
-🐱 When we are done summarizing by groups, we want remove grouping for a plain table.
+When you want an ungrouped table after summarizing, remove the grouping.
 
 Pick one method and use it consistently:
+
 - Use `.groups = "drop"` when you want to remove grouping inside `summarize()`.
 - Use `ungroup()` when you want to remove grouping as a separate step after summarizing.
 
@@ -580,9 +607,7 @@ In this chapter, you learned how to describe data by groups using `dplyr`. You r
 
 Most importantly, you learned that grouping changes what a summary means. Instead of one result for the whole dataset, you can produce separate results for each category or combination of categories. This is a core skill for later data analysis because analysts often need to compare subgroups, not just describe an entire dataset with one number.
 
-🐱 You also practiced curiosity as part of your workflow. In this chapter, curiosity meant pausing to ask what a summary is actually showing, predicting how many groups R might create, checking whether the output matched your expectation, and deciding when to investigate further versus when to stay focused on the current learning goal.
-
----
+🐱 You also practiced curiosity by predicting how many groups would appear, comparing possible combinations with the groups present, and choosing a small check to investigate a missing combination. You saw how to record a question for later when the table could not answer it.
 
 ---
 
@@ -672,7 +697,7 @@ If this Practice Space is assigned for submission, submit the rendered `chapter1
 
 Using the `stars` dataset, compute `mean_temperature` and `mean_magnitude` for each star `type`. Name the result `twinkle_twinkle`.
 
-🐱 This is a good place to practice focused curiosity. If you are curious about the star types, use `?stars` or `unique(stars$type)` to understand what groups exist. Then stay focused on the main task: checking whether `group_by()` created one summary row for each group.
+🐱 If you wonder what the star-type labels mean, use `?stars` to investigate. Then return to the task: calculating and interpreting a summary for each `type`.
 
 ```{r, eval=FALSE}
 # ✅ Pre-check
@@ -874,7 +899,7 @@ _____(categorical_counts)
 
 🪞 **Reflect:** Why is grouping useful when reporting the frequency of categorical data like `state` and `disease`?
 
-🐱 If the row count is not what you expected, pause and ask what assumption might have been wrong.
+🐱 Compare the row count with your prediction. If they differ, check the columns used for grouping and the function used to count rows before changing your prediction. Record what you found, even when the result matches what you expected.
 
 **🧶 Test render.**
 
