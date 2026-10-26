@@ -285,6 +285,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -485,6 +490,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🗣 The <code>#| eval: false</code> chunk option means the code will not run when you render the document. This is useful for example code, code that you are discussing but not running, or code that installs packages.</p>
 <p>🤔 This is a readability choice. Quarto gives you easy to understand control over what code runs and what appears in the final report. Ask yourself: “Should this chunk run, or is it here only as an example?”</p>
 <p>🧶 <strong>Test render.</strong> Save your <code>.qmd</code>, click <strong>Render</strong>, and open the HTML report. Check that your title and headings appear. If you added the <code>eval: false</code> example, its code should appear without output.</p>
+<p><strong>Windows users: Rtools warning</strong></p>
+<p>If RStudio displays “Rtools is required to build R packages,” don’t worry. Rtools is used to build certain R packages and is not normally needed for this assignment. If your document renders successfully, you can ignore the warning. If rendering fails, check for other error messages and ask for help.</p>
 <hr>
 <p>You can also use <code>#| eval: false</code> in code chunks that contain <code>install.packages()</code> instead of commenting out each line with <code>#</code>. Let’s see that in action next.</p>
 </section>
@@ -493,16 +500,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
 <p>You will need the <code>dplyr</code> and <code>dslabs</code> packages installed and loaded to follow along with the code examples in this chapter.</p>
 <p>The <code>dplyr</code> package is part of the <span class="glossary-term" data-term="Tidyverse">tidyverse</span>, a collection of R packages designed for data science. The <span class="glossary-term" data-term="dplyr">dplyr package</span> gives you data-wrangling functions called <span class="glossary-term" data-term="Verbs">verbs</span>. These verbs help you work with data frames in readable steps. In this chapter, we will focus on <code>select()</code> for choosing columns and <code>filter()</code> for keeping rows.</p>
-<p>🧠 Recall that you only need to install a package <strong>once</strong> on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put <code>#| eval: false</code> at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.</p>
-<p>If either package is missing, run its installation line once in the RStudio Console. The chunk option below prevents those lines from running again when you render.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dslabs"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>✅ Check that the chunk option says <code>#| eval: false</code>. This means the install code will be shown in your document but will not run when you render.</p>
-<p>🗣 The <code>install.packages()</code> function downloads a package to your computer. You usually only need to do that once. The <code>#| eval: false</code> option is useful here because reinstalling packages every time you render your report is unnecessary and can slow down or interrupt the render.</p>
-<p>🤔 This is a Quarto file-choice moment. In an R Notebook, you may have commented out install code with <code>#</code>. In Quarto, you can use a chunk option instead. Ask yourself: “Do I want this code to appear in my report, run during render, or both?”</p>
+<p>🧠 Recall that you only need to install a package <strong>once</strong> on your computer. If either package is missing, run its installation line once in the RStudio Console.</p>
+<pre class="text"><code>install.packages("dslabs")
+install.packages("dplyr")</code></pre>
+<p>🗣 The <code>install.packages()</code> function downloads a package to your computer. You usually only need to do that once.</p>
 <p>After installing the packages, you need to load them into your R session using the <code>library()</code> function. Each time you open R, you need to load the packages you plan to use. Loading a package makes its functions available for your current R session.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in a Quarto code chunk</span></span>
@@ -525,7 +526,23 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>✅ Check that both packages load without an error.</p>
 <p>🗣 The <code>library()</code> function loads an installed package into the current R session. Unlike <code>install.packages()</code>, <code>library()</code> needs to run each time you start a new R session and want to use that package.</p>
-<p>You may see messages when packages load. Messages are not always errors. Read them first before assuming something is broken.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You may see messages when packages load. Messages are not always errors. One common message is:</p>
+<blockquote class="blockquote">
+<p>WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/</p>
+</blockquote>
+<p>You do not need to install Rtools for this assignment.</p>
+</div>
+</div>
 <p>🧶 <strong>Test render.</strong> Save and render again. Confirm that both packages load without an error, and read any messages or warnings before deciding whether to hide them.</p>
 <p>🤔 A cleaner report can be easier to read, but a warning may reveal something you need to investigate. Before using options such as <code>#| message: false</code> or <code>#| warning: false</code>, read what appeared. Would hiding it help the reader, or conceal a problem you should resolve first?</p>
 <hr>
