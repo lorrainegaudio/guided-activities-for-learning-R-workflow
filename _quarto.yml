@@ -67,9 +67,9 @@ book:
        - chapters/06-curiosity/ch13-grouped-summaries.Rmd
        - chapters/06-curiosity/ch14-chaining.Rmd
 
-    # - part: chapters/07-thoroughness/thoroughness.qmd
-    #   chapters:
-    #     - chapters/07-thoroughness/ch15-probability-functions.Rmd
+    - part: chapters/07-thoroughness/thoroughness.qmd
+      chapters:
+       - chapters/07-thoroughness/ch15-probability-functions.Rmd
     #     - chapters/07-thoroughness/ch16-ggplot2.Rmd
     #     - chapters/07-thoroughness/ch17-string-detect.Rmd
       

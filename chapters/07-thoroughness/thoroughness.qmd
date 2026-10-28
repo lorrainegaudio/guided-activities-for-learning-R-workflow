@@ -1,39 +1,59 @@
----
-toc: false
----
+# Thoroughness
 
-## Thoroughness
+Throughout this book, you have practiced reading and writing base R and `dplyr` code. You have created objects, supplied arguments to functions, worked with vectors and small data sets in simple analysis. The limited breadth of the material covered so far in this book has allowed you to develop a deeper foundation of understanding. This foundation will support you as you learn new functions and packages.
 
-<!-- Module introduction will be drafted later. -->
+How much of unfamiliar code do you already understand? Baehr (2022) describes intellectual thoroughness as seeking deeper understanding, making connections between ideas, and explaining what you know. A thorough understanding lets you do more than reproduce a familiar example. You can explain how its parts work together and generalize that understanding to a different situation.
+
+In this module, you will connect familiar R ideas with new code, explain those connections, and recognize when a new tool introduces a different convention. Probability functions, graphing, and text searches provide new settings in which to broaden your understanding of R.
+
+Thoroughness does not require memorizing functions. King’s (2021) discussion of carefulness distinguishes appropriate attention from excessive preoccupation with avoiding mistakes. Concentrate on the connections needed to understand the code you are using, and consult help when a core topic is unfamiliar.
+
+## Thoroughness while learning R
+
+When you encounter a new function, begin with structures you recognize. Connect new expressions with earlier examples. You have used functions with default and required arguments such as `mean(x, trim = 0, na.rm = FALSE, ...)`. Those same ideas can help you create simulations. The condition changes, but you can use your understanding of arguments to explain the new code like `sample(x, size, replace = FALSE, prob = NULL)`.
+
+Also notice when something new works in familiar ways. For example, you'll find that `ggplot()`, ([`+`](https://ggplot2.tidyverse.org/reference/gg-add.html)) has some similarity to the pipe (`%>%`) and the comma (`,`). They are all symbols that tell us how neighboring pieces of code belong together. Lines ending in `%>%`, `,`, and `+` all indicate that more of the expression follows. Understanding both the connection and the difference of these syntax symbols helps you read the expression accurately.
+
+When code is difficult to follow, examine a smaller part. Identify what is familiar. Then consider how the pieces work together. This gives you a way to investigate unfamiliar code beyond the examples in this book.
+
+## How thoroughness appears in this book
+
+The checkmark emoji ✔️ marks opportunities to connect new code with earlier learning and explain how the code works.
+
+Some ✔️ passages model a connection. Others ask you to identify familiar code, follow what each part returns, explain a difference, or adapt an idea to another example.
+
+The ✅ marker continues to direct you to check code or output. A ✔️ passage asks you to use that evidence to develop or demonstrate your understanding. Identifying an object’s type, for example, can help you explain how another function can use it.
+
+Use your existing memos to preserve this thinking where prompted. A 🗣 Comment can explain how an expression works or how its output supports your explanation. A 🪞 Reflect memo can describe a connection with earlier learning, a rule you had to reconsider, or something you now understand more fully. Add a 👀 Cite memo when a person or outside resource contributes to your understanding.
 
 ## Chapters in this section
 
-::: {.section-card-grid}
-
-::: {.section-card}
 ### Chapter 15: Probability Functions
 
-<!-- Chapter description will be drafted later. -->
+Apply familiar ideas about functions, arguments, vectors, logical conditions, and nesting to simulations. Explain how the parts of an expression produce and summarize simulated results.
 
-[Open Chapter 15](ch15-probability-functions.html){.section-button}
-:::
-
-::: {.section-card}
 ### Chapter 16: ggplot2
 
-<!-- Chapter description will be drafted later. -->
+Use your knowledge of function calls, arguments, objects, and pipes to learn how plots are constructed. Distinguish familiar R structures from the conventions used to map variables and add plot components.
 
-[Open Chapter 16](ch16-ggplot2.html){.section-button}
-:::
-
-::: {.section-card}
 ### Chapter 17: String Detection
 
-<!-- Chapter description will be drafted later. -->
+Connect text searches with logical vectors, filtering, and indexing. Distinguish the R code that calls a function from the text pattern supplied to it.
 
-[Open Chapter 17](ch17-string-detect.html){.section-button}
-:::
+## What to focus on
 
-:::
+As you work through Thoroughness, pause to ask:
 
-<!-- The "What to focus on" section will be drafted later. -->
+- Which parts of this code do I recognize?
+- What does each part return, and how is that result used?
+- How does this connect with something I learned earlier?
+- What works differently in this example?
+- Can I explain and adapt the code rather than reproduce it unchanged?
+
+These connections can help you approach a new function or package with something to build on. You will still encounter unfamiliar ideas, but you have ways to investigate and understand them.
+
+## References
+
+Baehr, J. (2022). *Deep in thought: A practical guide to teaching for intellectual virtues*. Harvard Education Press.
+
+King, N. L. (2021). *The excellent mind: Intellectual virtues for everyday life*. Oxford University Press.
