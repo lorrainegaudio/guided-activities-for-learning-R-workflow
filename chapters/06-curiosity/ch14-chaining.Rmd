@@ -6,15 +6,9 @@ toc: true
 
 ## Overview {#overview}
 
-In Chapters 11, 12, and 13, we explored several functions from `dplyr` (`select()`, `filter()`, `mutate()`, `case_when()`, `group_by` and `summarize()`). You now know the key dplyr verbs one at a time. This week, we'll be putting `dplyr` verbs together in  more complex pipelines. The real power comes from *chaining* them so data flows logically from raw to insight in a single readable statement.
+In Chapters 11, 12, and 13, we explored several functions from `dplyr` (`select()`, `filter()`, `mutate()`, `case_when()`, `group_by()` and `summarize()`). You now know the key dplyr verbs one at a time. In this chapter, we'll be putting `dplyr` verbs together in more complex [pipelines]{.glossary-term data-term="Pipeline"}. The real power comes from *chaining* them so data flows logically from raw to insight in a single readable statement.
 
-To begin Lesson 11, follow these steps:
-
-1. Open your course project for RStudio 
-   
-2. Create a new file. From the file types we have used so far, pick which file type you want to use. (File > New File > ???).
-
-3. Type in the code provided in this document as you follow along with the video. Pause the video at anytime to answer assignment questions, dig deeper or add memo notes.
+🐱 The curiosity notes mark places to predict how a pipeline step will change the data, investigate a result with a small check, or record a side question for later.
 
 **Lesson Overview**
 
@@ -28,28 +22,73 @@ By the end of Chapter 14 you will be able to:
 
 4. 📊 Analyze –  Inspect intermediate output to verify each step.
 
-5. 🧠️ Evaluate – Decide when a single pipeline is clearer than separate objects
+5. 🧠️ Evaluate – Decide when a single pipeline is clearer than separate objects.
 
 Keep these goals in mind as you move through each section.
 
+## Setting Up Your Notes {#setup-notes}
+
+Continue using Quarto to keep your code, output, checks, and memos in one document. The setup below follows Chapters 12 and 13. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.
+
+::: {.callout-note}
+If Quarto is new to you, begin with the [Quarto introduction in Chapter 11](../05-openmindedness/ch11-dplyr-subsetting.html#quarto), then return to the setup steps below. If you have used Quarto before, create and save `chapter14_notes.qmd` using your usual workflow, then review the [YAML header](#yaml-header).
+:::
+
+1. Open RStudio. Open the project or navigate to the folder where you keep your work for this book.
+
+2. Choose `File > New File > Quarto Document`.
+
+3. Keep **HTML** selected as the output format, uncheck **Use visual markdown editor**, and click **Create Empty Document**.
+
+4. Save the document in your folder as `chapter14_notes.qmd`.
+
+Keep the YAML header at the top. If any starter content appears below the closing `---`, remove that content and use the space for your notes, code, and memos.
+
+If you use Git and GitHub, follow the workflow you learned in [Chapter 9](../05-openmindedness/ch09-github.html): pull before you begin, then save, stage, commit while you work, and push after you finish.
+
+### YAML Header {#yaml-header}
+
+Edit the existing YAML header to match this example, replacing `YOUR NAME` with your name. Keep only one header, including its opening and closing `---` lines.
+
+```yaml
+---
+title: "Chapter 14 Notes"
+subtitle: "Chaining dplyr Verbs"
+author: "YOUR NAME"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    embed-resources: true
+---
+```
+
+Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
+
 ## 📦 Packages {#packages}
 
-Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`
+If either package is missing, run its installation command once in the RStudio Console: `install.packages("dplyr")` or `install.packages("dslabs")`. Keep installation commands out of code that runs each time you render.
 
-Load the packages at the start of every session:
+Load both packages with `library()` in your document so they are available when it renders:
 
 ```{r , eval=FALSE}
 library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 ```
 
+🧶 **Test render.** Save your Quarto document and click **Render**. Check that it opens as HTML with your title and headings.
+
 ## 🛠 Building a Pipeline {#build-pipe}
 
-🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in `mtcars` that use greater than 8 L/100 km, broken down by transmission and cylinders.
+🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in `mtcars` that use at least 8 L/100 km, broken down by transmission and cylinders.
 
 ### Start with the data {#start-data}
 
 We'll use the built‑in `mtcars` dataset.
+
+The [pipe]{.glossary-term data-term="Pipe"} `%>%` passes the result on its left into the next function. Here, `mtcars %>% head(2)` passes `mtcars` to `head()` as its first argument, giving the same result as `head(mtcars, 2)`.
 
 🎯 Goal. Load mtcars and confirm shape.
 
@@ -62,17 +101,17 @@ mtcars %>%                       # rows = 32 cars, many columns
 head(mtcars, 2)  # base R version, same output
 ```
 
-🗣 Data loaded correctly
+🗣 Data loaded correctly.
 
 ### Create a new variable with `mutate()` {#mutate}
 
-We'll calculate fuel consumption in liters per 100 kilometers (L/100 km). The formula is:
+We'll calculate fuel consumption in liters per 100 kilometers (L/100 km). The `mpg` column uses miles per US gallon. The formula is:
 
 $$\frac{\text{L}}{100\text{ km}} = \frac{235.215}{\text{MPG}}$$
 
-🎯 Goal. Add `l_100km` using the equation 235.215/`mpg` and round the value to one digit.
+🎯 Goal. Add `l_100km` using the equation 235.215/`mpg` and round the value to one decimal place.
 
-💬 Prediction. Higher mpg → lower l_100km (inverse).
+🐱 **Prediction:** If a car has a higher `mpg` value, do you expect its L/100 km value to be higher or lower? Explain why before running the code.
 
 ```{r , eval=FALSE}
 # ⚡ Test:
@@ -87,9 +126,11 @@ mtcars %>%
 cor(mtcars$mpg, 235.215/mtcars$mpg) < 0
 ```
 
-🗣 The inverse units are verified.
+🗣 The negative correlation is consistent with higher `mpg` and lower L/100 km. This checks the direction of the relationship, not the conversion units.
 
-### Keep only cars using greater than 8 L/100 km {#filter}
+Compare this result with your prediction about the two measurements.
+
+### Keep only cars using at least 8 L/100 km {#filter}
 
 We'll only keep cars that use *at least* 8 L/100 km. Use `filter()` to keep those rows.
 
@@ -112,13 +153,14 @@ mtcars %>%
 mtcars2 <- mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
-  select(cyl, am, l_100km) %>%
-  head()
+  select(cyl, am, l_100km)
+
+head(mtcars2)
 ```
 
 ```{r , eval=FALSE}
 # ✅ Verify:
-setequal(names(mtcars2 %>% select(cyl, am, l_100km)), c("cyl","am","l_100km"))
+setequal(names(mtcars2), c("cyl","am","l_100km"))
 ```
 
 🗣 Columns trimmed.
@@ -128,6 +170,8 @@ setequal(names(mtcars2 %>% select(cyl, am, l_100km)), c("cyl","am","l_100km"))
 Now we can group by `am` and `cyl`, then summarize to get the mean fuel consumption and count of cars in each group.
 
 🎯 Goal. Mean `l_100km` and `n` by `am`, `cyl`.
+
+🐱 **Prediction:** How many rows do you expect in the summary? Use the transmission-and-cylinder combinations in `mtcars2` to explain your prediction before running the summary code.
 
 ```{r , eval=FALSE}
 # ⚡ Test:
@@ -141,9 +185,19 @@ mtcars_summary <- mtcars %>%
 mtcars_summary
 ```
 
-🗣 Explan:
+🐱 The summary has fewer rows than `mtcars2`. Were more cars filtered out? I will compare the total of the group counts in `n` with the number of cars before the summary.
 
-Order Matters in dplyr Pipelines. You can't `summarize` groups before you define them with `group_by()`.
+```{r, eval=FALSE}
+# ✅ Investigate the number of cars represented in the summary
+sum(mtcars_summary$n)
+nrow(mtcars2)
+```
+
+🗣 Both checks return 28. The six summary rows represent groups; the counts in `n` account for the 28 retained cars. Compare the summary's rows with your prediction.
+
+🗣 Explain:
+
+Order matters in `dplyr` pipelines. In this pipeline, `group_by()` comes before `summarize()` so the calculations run separately for each group.
 
 - `group_by(am, cyl)` tells `dplyr` to treat each unique combination of `am` and `cyl` separately. `group_by()` divides your data into separate groups for analysis. It doesn't change how your data looks. It adds metadata that tells **subsequent functions** to operate on each group separately. It's like telling R: "For each combination of these variables, do the following..."
 
@@ -191,7 +245,7 @@ mtcars_summary
 ```
 
 
-🤔 Reflect: Explain why the highest mean_l_100km is the least fuel‑efficient combination. Create a memo to earn learning skill points. 
+🪞 Reflect: Explain why the highest `mean_l_100km` is the least fuel‑efficient combination. Record your explanation in a memo.
 
 ### Readable Result {#result}
 
@@ -219,44 +273,91 @@ mtcars_summary
 ```
 
 
-🗣 Explain: `arrange()` sorts the data frame by `mean_l_100km` (aka `Mean l/100km`) in descending order, so the first row is the least fuel-efficient combination of `am` and `cyl`.
+🗣 Explain: [`arrange()`]{.glossary-term data-term="arrange()"} sorts the data frame by `mean_l_100km` (renamed `Mean l/100km`) in descending order, so the first row is the least fuel-efficient combination of `am` and `cyl`.
 
 Answer the ❓ Question: Which combination of `am` + `cyl` is least fuel‑efficient? 
+
+🐱 I also wonder why the groups differ in fuel consumption. This table describes their averages; it does not explain what caused those differences. I will record that question for later and return to tracing how the pipeline produced the table.
 
 
 ## Summary {#summary}
 
+In this chapter, you combined `dplyr` verbs in a pipeline to transform values, filter rows, select columns, group observations, and calculate summaries. You then labeled, sorted, and selected results to make a readable table. Each step uses the result of the preceding step, so its position in the pipeline matters.
 
-## Chapter Terms {#terms}
+You also predicted how a step would change the data and investigated why a [grouped summary]{.glossary-term data-term="Grouped summary"} had fewer rows than its input. Inspecting intermediate results helps you explain the final table and decide where to look when a result differs from your expectation.
 
+## Chapter Terms {#chapter-terms}
+
+<span id="terms"></span>
+
+**arrange()**: A `dplyr` function that sorts rows using one or more columns. Use `desc()` to sort a column in descending order.
+
+**Grouped summary**: In this chapter, a table with one row for each combination of grouping values present in the data, containing statistics such as a mean or count for that group.
+
+**Intermediate result**: The data or output produced partway through a sequence of operations. Inspecting it helps you understand what a particular step changed.
+
+**Pipe**: The `%>%` operator used here to pass a result into the next function, usually as its first argument.
+
+**Pipeline**: A sequence of connected operations in which the result of one step becomes the input to the next.
+
+**Preview**: A small portion of a dataset used for inspection. For example, `head()` returns the first six rows by default; previewing an object does not change the stored object.
+
+**rename()**: A `dplyr` function that changes column names without changing the values in those columns.
+
+**slice()**: A `dplyr` function that selects rows by position. In the guided pipeline, `slice(1)` keeps the first row after sorting.
 
 ## 📝 Practice Space {#practice-space}
 
-Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Run each section; be sure the requested objects appear in the Environment. When finished, save **BOTH** this script and your .RData workspace and upload to Canvas Assignment 11. Create detailed memos for yourself as you work through each task.
+In this Practice Space, you will combine `dplyr` verbs in one pipeline to create a summary of movie ratings. Task 0 prepares your packages. Tasks 1–3 ask you to explain familiar verbs, build the pipeline, and reflect on your work.
 
 Dataset: `dslabs::movielens`
 
-There are three tasks. **Task 2** is the main coding task. Drafting steps are *optional* but recommended to help you build the final pipeline and earn **learning skill** points on your process (🎯/❓ Goal → Prediction → ⚡ Code → ✅ Checks → 🗣/🪞 Reflection). In Task 2, only `Movie_Facts` is graded for **technical points**. Create a memo about any 👀 Resources you used. 📝 Format your document with section headings, in line text font, and add a date. If you run into issues, ✍️ Keep a record of what you tried and portray a 🧠 Growth mindset through tenacity and curiosity. Make a 💬Prediction on what you think the results will be. All these activites demonstrate learning skills.
+Before you begin:
 
-When you’re done, your workspace should contain `Movie_Facts` that is created by one end-to-end pipeline.
+1. Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as `chapter14_practice.qmd`. If you choose another familiar file type, use the matching extension.
+2. For Quarto, edit the existing YAML header to include the title `"Chapter 14 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml-header). Keep the opening and closing `---` lines.
+3. In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header.
+4. Create headings for Tasks 0–3. Include the optional drafting headings from Task 2 only if you use them.
+5. Load `dplyr` and `dslabs` near the top of your document, as requested in Task 0.
+
+Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Some code and check chunks are intentionally empty: write your own code in those spaces. Run your code and check the output.
+
+Use the same memo labels as in earlier chapters:
+
+* 🗣 **Add Comments** asks you to explain what the code or output shows.
+* 🪞 **Reflect** asks you to explain your learning process or understanding.
+* 👀 **Cite** asks you to name a person or outside resource that helped and explain how it contributed.
+
+In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use `#` comments.
+
+For this Practice Space:
+
+* **Task 0:** Load the packages; no separate memo is needed.
+* **Task 1:** Write the three requested explanations.
+* **Task 2:** Write the goal once in your own words and use the 🐱 Prediction prompt to predict what one pipeline step will change before running Task 2 code. Include a final 🗣 Comment comparing your checks with that prediction and explaining which column and direction you chose for sorting. The drafting steps and their additional memo notes are optional.
+* **Task 3:** Answer one of the two reflection questions.
+
+If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you.
+
+When you finish, `Movie_Facts` should be created by one end-to-end pipeline. Save your source document and `.RData` workspace using the [saving instructions below](#save-upload). If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit.
 
 ### Task 0 {#task0}
 
 📦 Library it up!
 
-Make sure there is script in your document to load `dplyr` and `dslabs` packages so their functions / datasets load.
+Include code in your document to load `dplyr` and `dslabs` so their functions and datasets are available.
 
 ### Task 1 {#task1}
 
 🧠 Quick Recall
 
-Explain how *three* `dplyr` verbs from Lessons 7-11 work.
+Explain how *three* `dplyr` verbs from Chapters 11–13 work.
 
-✍️ EXPLANATION: "___"
+🗣 **Explain:** "___"
 
-✍️ EXPLANATION: "___"
+🗣 **Explain:** "___"
 
-✍️ EXPLANATION: "___"
+🗣 **Explain:** "___"
 
 ### Task 2 {#task2}
 
@@ -264,27 +365,27 @@ Explain how *three* `dplyr` verbs from Lessons 7-11 work.
 
 **Use a single pipeline.**
 
-Option to draft it in steps outlined below. Only final pipeline is evaluated for **technical skills**. 
+Begin by writing your goal and prediction in the [final pipeline](#final-pipeline) area. Then use the optional drafting steps below or write your complete pipeline directly in the final area. The final result must be created by one end-to-end pipeline.
 
-Drafting steps are for your benefit and give you opportunity to check intermediate results, memo notes, and reflect to earn **learning skill** points. You choose if and when you record 🎯, ✅ , 🗣/🪞.  *You could pipe head() in for checks instead of having a separate code chunk.*
+Drafting steps give you an opportunity to check intermediate results, write memo notes, and reflect on your process. The 🎯 Goal and memo prompts in Tasks 2.0–2.6 are optional supports; you do not need a separate memo for every drafting step. *You can temporarily pipe `head()` in for a preview. Remove that preview-only step before running the final pipeline so it uses all retained rating records.*
 
-What your final table must contain 
+What your pipeline must do
 
 A. Filtering (2.1) 
 
-1. Restrict to movies with non-missing rating and `year ≥ 1990`.
+1. Keep rating records where `rating` and `year` are both non-missing and `year >= 1990`.
 
-2. Retain only `rating` and `year` columns where the row values are non-missing.
+2. Keep only the `rating` and `year` columns.
 
 B. The Columns: 
 
 1.  `decade` (2.2)
 
-(a) Calculate the `year` into decades with decimals (e.g., 1994 → 199.4). Hint: use the equation `year`/10.  
+(a) Divide each `year` value by 10 (e.g., 1994 → 199.4).
 
-(b) Round down to nearest 10 (e.g., 199.4 → 199). Hint: use `floor()`. Pass (a)'s equation through `floor()`.
+(b) Round down to a whole number (e.g., 199.4 → 199). Hint: use `floor()`. Pass (a)'s equation through `floor()`.
 
-(c) Convert the count back to decade's starting year (e.g., (199 → 1990).  Hint: Multiply results by 10.  
+(c) Convert the result to the decade's starting year (e.g., 199 → 1990). Hint: Multiply by 10.
 
 2. `rating_label` (2.3)
 
@@ -292,17 +393,17 @@ B. The Columns:
 
 (b) Make `rating_label` a factor with levels ordered so "Bad" comes before "Good".
 
-3. `mean_rating` (rounded to 2), (2.4)
+3. `mean_rating` (rounded to two decimal places), (2.4)
 
-(a) Group by `decade` and `rating_label`
+(a) Group by `decade` and `rating_label`.
 
 (b) Summarize to get **mean** of `rating` rounded to 2 decimal places.
 
 4. `n` (row count) (2.5)
 
-(a) Count of movies in each group (`decade` and `rating_label`)
+(a) Count of rating records in each group (`decade` and `rating_label`)
 
-(b) then ungrouped in the result.
+(b) Remove grouping from the result.
 
 C. Ordering: 
 
@@ -313,6 +414,8 @@ C. Ordering:
 🚀 Explore and Play: add style when you rename the columns in the final output to be more readable (e.g., `Mean Rating`, `Count`). Or add any other enhancements like more levels to `rating_label` such as "Excellent". Be sure to point it out in a memo. 
 
 #### Task 2.0 {#task2.0}
+
+**Optional drafting begins here.** Use as many of Tasks 2.0–2.6 as you find helpful. They are places to test parts of your pipeline before writing the complete version in the final area.
 
 Load packages and confirm `movielens` has `rating` and `year`.
 
@@ -326,7 +429,7 @@ Load packages and confirm `movielens` has `rating` and `year`.
 
 #### Task 2.1 {#task2.1}
 
-Keep only rows `rating` and `year` columns when both are non-missing (Hint: use `!is.na()` and `filter()`). Restrict to movies with non-missing rating and `year ≥ 1990`.
+Use `filter()` to keep rows where `rating` and `year` are both non-missing and `year >= 1990` (Hint: use `!is.na()`). Then use `select()` to keep only the `rating` and `year` columns.
 
 🎯
 
@@ -339,17 +442,17 @@ Keep only rows `rating` and `year` columns when both are non-missing (Hint: use 
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** What did you check to confirm that the retained rows meet the filtering requirements?
 
 #### Task 2.2 {#task2.2}
 
-Add to the pipeline from Task 2.1, using `mutate`, use create the column `decade`
+Add to the pipeline from Task 2.1, using `mutate()` to create the column `decade`.
 
-(a) Calculate the `year` into decades with decimals (e.g., 1994 → 199.4). Hint: use the equation `year`/10.  
+(a) Divide each `year` value by 10 (e.g., 1994 → 199.4).
 
-(b) Round down to nearest 10 (e.g., 199.4 → 199). Hint: use `floor()`. Pass (a)'s equation through `floor()`.
+(b) Round down to a whole number (e.g., 199.4 → 199). Hint: use `floor()`. Pass (a)'s equation through `floor()`.
 
-(c) Convert the count back to decade's starting year (e.g., (199 → 1990).  Hint: Multiply results by 10. 
+(c) Convert the result to the decade's starting year (e.g., 199 → 1990). Hint: Multiply by 10.
 
 🎯
 
@@ -364,12 +467,12 @@ Add to the pipeline from Task 2.1, using `mutate`, use create the column `decade
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** Use one year from the data to explain how your calculation assigned its decade.
 
 
 #### Task 2.3 {#task2.3}
 
-Continue the same pipeline from Task 2.2, but now add to `mutate()`
+Continue the same pipeline from Task 2.2, but now add to `mutate()`:
 
 (a) Use `case_when()` to create a new column `rating_label` that labels ratings less than 3 as "Bad" and ratings 3 or greater as "Good".
 
@@ -390,14 +493,14 @@ Continue the same pipeline from Task 2.2, but now add to `mutate()`
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** What did your checks show about the labels and their factor-level order?
 
 
 #### Task 2.4 {#task2.4}
 
-Continue the same pipeline to create`mean_rating` (rounded to 2), 
+Continue the same pipeline to create `mean_rating`, rounded to two decimal places.
 
-(a) Group by `decade` and `rating_label`
+(a) Group by `decade` and `rating_label`.
 
 (b) Summarize to get **mean** of `rating` rounded to 2 decimal places. Because `NA`s are filtered out, `na.rm=TRUE` isn’t needed.
 
@@ -414,15 +517,15 @@ Continue the same pipeline to create`mean_rating` (rounded to 2),
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** What does one row of your grouped summary represent?
 
 #### Task 2.5 {#task2.5}
 
-Continue the same pipeline to create `n` (row count) (2.5)
+Extend the existing `summarize()` call from Task 2.4, rather than adding a second summary step.
 
-(a) Count of movies in each group (`decade` and `rating_label`)
+(a) Add a row count named `n` for each `decade` and `rating_label` group. Count rating records, not distinct movies.
 
-(b) then ungroup the result. (`groups = "drop"`)
+(b) Remove grouping from the summary result with `.groups = "drop"`.
 
 🎯
 
@@ -435,12 +538,12 @@ Continue the same pipeline to create `n` (row count) (2.5)
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** What did your checks show about the counts and grouping in the result?
 
 
 #### Task 2.6 {#task2.6}
 
-Finish the same pipeline with an arrange() step (choose to sort by mean_rating or by n). End by storing the result as Movie_Facts.
+Finish the same pipeline with an `arrange()` step (choose to sort by `mean_rating` or by `n`). End by storing the result as `Movie_Facts`.
 
 C. Ordering: 
 
@@ -457,33 +560,81 @@ C. Ordering:
 
 ```
 
-🗣/🪞
+🗣 **Add Comments (optional):** How did you check that the rows follow your chosen sort order?
+
+#### Final pipeline {#final-pipeline}
+
+This is the required final coding result for Task 2. Include your complete pipeline here, whether or not you used the optional drafting steps. If you drafted the pipeline above, copy the completed version here; you do not need to rebuild it from scratch.
+
+🎯 **Write the goal:** Restate what your final pipeline should produce in your own words.
+
+🐱 **Prediction:** Choose one step in your planned pipeline. What do you expect it to change: the rows, columns, groups, or summary values? Explain why before running any Task 2 code. If you are unsure, describe what you think might happen and what you are uncertain about.
+
+```{r}
+# ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.
+
+```
+
+For checks on filtering or recoding, inspect an [intermediate result]{.glossary-term data-term="Intermediate result"} before the summary step. Those intermediate results do not need to be saved as additional final objects.
+
+Write checks that help you confirm:
+
+* the retained rating records meet the filtering requirements,
+* the summary has one row per `decade` and `rating_label` combination present in the retained data,
+* the required columns contain the decade, ordered rating labels, rounded means, and rating-record counts,
+* the result is ungrouped, and
+* the rows follow your chosen sort order.
+
+If you used the optional column renaming or other enhancements, check the corresponding columns and explain those changes in your memo.
+
+```{r}
+# ✅ Check: Write your checks and display Movie_Facts.
+
+```
+
+🗣 **Add Comments:** Explain what your checks showed and how the selected step's result compared with your prediction. If it differed, name a question and choose a small check to investigate it. If it matched, explain what your checks confirmed. State your sort choice and explain any optional changes you made.
+
+**🧶 Test render** if you are using Quarto. Confirm that the HTML displays your final table, checks, and memo.
 
 ### Task 3 {#task3}
 
-📝 Write a short paragraph reflecting on when might **separate objects** be clearer than a single long pipeline?
+📝 Write a short paragraph reflecting on when **separate objects might be clearer** than a single long pipeline.
 
-✍️ EXPLANATION: "___"
+🪞 **Reflect:** "___"
 
 **OR** 
 
 📝 Write a short paragraph reflecting on what `n` is counting in `Movie_Facts`. Is it individual movies or individual ratings? Explain. 
 
-✍️ EXPLANATION: "___"
+🪞 **Reflect:** "___"
 
-## Save and Upload {#save-upload}
+## Save Your Work {#save-upload}
 
-1. You will be submitting **both** the "your choice" Document and the workspace file. The workspace file saves all the objects in your environment that you created in this lesson. You can save the workspace by running the following command in a code chunk of the script document document:
+Before you finish, confirm that your document includes:
+
+* the three Task 1 explanations,
+* the final Task 2 goal, prediction, and one end-to-end pipeline that creates `Movie_Facts`,
+* checks of your result and a final Comment comparing them with your prediction and explaining your sort choice,
+* one Task 3 reflection, and
+* citations for any outside help you used.
+
+The optional drafting steps do not need separate final outputs or memos.
+
+Clear your Environment, then run your code from top to bottom. Confirm that `Movie_Facts` is recreated without relying on previously saved objects.
+
+1. Save your source document. If you are using Quarto, render it and inspect the HTML for your code, output, checks, and memos.
+
+2. Save your workspace. The workspace file saves the objects currently in your Environment. Run this command in the RStudio Console after running your Practice Space code:
 
 ```{r , eval=FALSE}
-save.image("Assignment11_Workspace.RData")
+save.image("chapter14_workspace.RData")
 ```
 
 Or you can click the "Save Workspace" button in the Environment pane. 
 
 💾 **Always save the R documents before closing.**
 
-2. Find the assignment in this week's module in Canvas and upload **both** the file with your script and the workspace file.
+3. If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
 
 
 

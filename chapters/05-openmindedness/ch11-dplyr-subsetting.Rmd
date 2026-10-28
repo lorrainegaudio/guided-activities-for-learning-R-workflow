@@ -177,30 +177,20 @@ mean(x)
 
 ---
 
-You can also use `#| eval: false` in code chunks that contain `install.packages()` instead of commenting out each line with `#`. Let's see that in action next.
-
 ## 📦 Packages {#packages}
 
 You will need the `dplyr` and `dslabs` packages installed and loaded to follow along with the code examples in this chapter.
 
 The `dplyr` package is part of the [tidyverse]{.glossary-term data-term="Tidyverse"}, a collection of R packages designed for data science. The [dplyr package]{.glossary-term data-term="dplyr"} gives you data-wrangling functions called [verbs]{.glossary-term data-term="Verbs"}. These verbs help you work with data frames in readable steps. In this chapter, we will focus on `select()` for choosing columns and `filter()` for keeping rows.
 
-🧠 Recall that you only need to install a package **once** on your computer. After a package is installed, you should not try to re-install it every time you render a document. In Quarto, one clean option is to put `#| eval: false` at the top of the install chunk. That keeps the code visible in your document, but prevents Quarto from running it during render.
+🧠 Recall that you only need to install a package **once** on your computer. If either package is missing, run its installation line once in the RStudio Console. 
 
-If either package is missing, run its installation line once in the RStudio Console. The chunk option below prevents those lines from running again when you render.
-
-```{r}
-#| eval: false
-# ⚡ Type this in a Quarto code chunk
+```text
 install.packages("dslabs")
 install.packages("dplyr")
 ```
 
-✅ Check that the chunk option says `#| eval: false`. This means the install code will be shown in your document but will not run when you render.
-
-🗣 The `install.packages()` function downloads a package to your computer. You usually only need to do that once. The `#| eval: false` option is useful here because reinstalling packages every time you render your report is unnecessary and can slow down or interrupt the render.
-
-🤔 This is a Quarto file-choice moment. In an R Notebook, you may have commented out install code with `#`. In Quarto, you can use a chunk option instead. Ask yourself: “Do I want this code to appear in my report, run during render, or both?”
+🗣 The `install.packages()` function downloads a package to your computer. You usually only need to do that once. 
 
 After installing the packages, you need to load them into your R session using the `library()` function. Each time you open R, you need to load the packages you plan to use. Loading a package makes its functions available for your current R session.
 
@@ -214,7 +204,15 @@ library(dplyr)
 
 🗣 The `library()` function loads an installed package into the current R session. Unlike `install.packages()`, `library()` needs to run each time you start a new R session and want to use that package.
 
-You may see messages when packages load. Messages are not always errors. Read them first before assuming something is broken.
+:::{ .callout-tip}
+
+You may see messages when packages load. Messages are not always errors. One common message is:
+
+> WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:  https://cran.rstudio.com/bin/windows/Rtools/
+
+You do not need to install Rtools for this assignment. 
+
+:::
 
 🧶 **Test render.** Save and render again. Confirm that both packages load without an error, and read any messages or warnings before deciding whether to hide them.
 
