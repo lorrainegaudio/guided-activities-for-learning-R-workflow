@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Thoroughness
 
 Throughout this book, you have practiced reading and writing base R and `dplyr` code. You have created objects, supplied arguments to functions, worked with vectors and small data sets in simple analysis. The limited breadth of the material covered so far in this book has allowed you to develop a deeper foundation of understanding. This foundation will support you as you learn new functions and packages.
@@ -6,13 +10,13 @@ How much of unfamiliar code do you already understand? Baehr (2022) describes in
 
 In this module, you will connect familiar R ideas with new code, explain those connections, and recognize when a new tool introduces a different convention. Probability functions, graphing, and text searches provide new settings in which to broaden your understanding of R.
 
-Thoroughness does not require memorizing functions. King’s (2021) discussion of carefulness distinguishes appropriate attention from excessive preoccupation with avoiding mistakes. Concentrate on the connections needed to understand the code you are using, and consult help when a core topic is unfamiliar.
+Thoroughness does not require memorizing functions. King’s (2021) discussion of carefulness distinguishes appropriate attention from scrupulous obsession. Concentrate on the connections needed to understand the code you are using, and consult help when a core topic is unfamiliar.
 
 ## Thoroughness while learning R
 
 When you encounter a new function, begin with structures you recognize. Connect new expressions with earlier examples. You have used functions with default and required arguments such as `mean(x, trim = 0, na.rm = FALSE, ...)`. Those same ideas can help you create simulations. The condition changes, but you can use your understanding of arguments to explain the new code like `sample(x, size, replace = FALSE, prob = NULL)`.
 
-Also notice when something new works in familiar ways. For example, you'll find that `ggplot()`, ([`+`](https://ggplot2.tidyverse.org/reference/gg-add.html)) has some similarity to the pipe (`%>%`) and the comma (`,`). They are all symbols that tell us how neighboring pieces of code belong together. Lines ending in `%>%`, `,`, and `+` all indicate that more of the expression follows. Understanding both the connection and the difference of these syntax symbols helps you read the expression accurately.
+Also notice when something new works in familiar ways. For example, you'll find that `ggplot()`'s plus sign, ([`+`](https://ggplot2.tidyverse.org/reference/gg-add.html)), has some similarity to the pipe (`%>%`) and the comma (`,`). They are all symbols that tell us how neighboring pieces of code belong together. Lines ending in `%>%`, `,`, and `+` all indicate that more of the expression follows. Understanding both the connection and the difference of these syntax symbols helps you read the expression accurately.
 
 When code is difficult to follow, examine a smaller part. Identify what is familiar. Then consider how the pieces work together. This gives you a way to investigate unfamiliar code beyond the examples in this book.
 
