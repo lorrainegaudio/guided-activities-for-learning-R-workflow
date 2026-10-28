@@ -723,7 +723,7 @@ If you encounter an error, briefly record what happened, what you tried, and wha
 
 Follow the AI-use guidance that applies to your learning setting. If you use an AI tool, add a 👀 Cite memo naming the tool and explaining what it contributed. Clearly mark any words you reproduce exactly as quoted text, using quotation marks or a block quote with `>`.
 
-Before you finish, clear your Environment and run the `.qmd` from top to bottom. Then render it to HTML and inspect the report. See Task 7 for the final checks. If this Practice Space is assigned for submission, submit the saved `.qmd` file according to your instructor's directions. You do not need to submit the HTML report unless your instructor asks for it.
+Before you finish, clear your Environment and run the `.qmd` from top to bottom. Then render it to HTML and inspect the report. See Task 7 for the final checks. 
 
 ### Task 0 {#task-0}
 
@@ -925,8 +925,5 @@ Use the checklist above to confirm that each object exists and contains the expe
 
 **Step 4: Save, render, and inspect the report.**
 Save `chapter11_practice.qmd`, click **Render**, and open the HTML report. Check that the code, output, and memos appear and that the headings are in order. If rendering fails, inspect the error and correct the `.qmd` file before continuing.
-
-**Step 5: Submit the source file if assigned.**
-Follow your instructor's submission directions. For this Practice Space, submit the saved `.qmd` file; the HTML report is for checking your work unless your instructor asks for it.
 
 🪞 Reflect: After clearing the Environment and running your code from top to bottom, did anything fail or change? What did you find when you opened the HTML report, and what does that tell you about whether your work can be rerun and understood later?

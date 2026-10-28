@@ -723,8 +723,6 @@ Follow the AI-use guidance that applies to your learning setting. If you use an 
 
 Before you finish, clear your Environment and render the `.qmd` from top to bottom. Your file should render without errors and show your code, output, checks, and memo notes.
 
-If this Practice Space is assigned for submission, submit the rendered `chapter12_practice.html` file unless your instructor specifies a different format.
-
 ### Task 0 {#task-0}
 
 📦 Load the packages needed for this Practice Space: `dplyr` and `dslabs`. This setup chunk is also a good place to practice Quarto chunk controls like `#| message: false` and `#| warning: false`.
@@ -962,10 +960,4 @@ Click **Render** and confirm that the HTML file is created without errors.
 
 **Step 4: Verify the required objects and checks.**
 Use the checklist above to confirm that each object exists and contains the expected labels, columns, or converted values.
-
-**Step 5: Read your memo notes.**
-Read your predictions for Tasks 2 and 5 alongside your checks. Make sure your memos explain how the results compared with what you expected. If you investigated an unexpected result, record what you checked and what you learned or would check next. Verify that any inline R code worked in your memos, and include a 👀 Cite note for any outside resource you used.
-
-**Step 6: Save your work.**
-After your Quarto document renders without errors, make sure your latest edits are saved. 
 

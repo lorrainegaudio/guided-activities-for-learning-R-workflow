@@ -339,7 +339,7 @@ For this Practice Space:
 
 If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you.
 
-When you finish, `Movie_Facts` should be created by one end-to-end pipeline. Save your source document and `.RData` workspace using the [saving instructions below](#save-upload). If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit.
+When you finish, `Movie_Facts` should be created by one end-to-end pipeline. Save your source document and `.RData` workspace using the [saving instructions below](#save-upload). 
 
 ### Task 0 {#task0}
 
