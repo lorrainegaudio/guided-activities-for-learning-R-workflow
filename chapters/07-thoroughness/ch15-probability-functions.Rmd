@@ -27,10 +27,6 @@ Keep these goals in mind as you move through each section.
 
 Continue using Quarto to keep your code, output, checks, and memos in one document. The setup below follows Chapter 14. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.
 
-::: {.callout-note}
-If Quarto is new to you, begin with the [Quarto introduction in Chapter 11](../05-openmindedness/ch11-dplyr-subsetting.html#quarto), then return to the setup steps below. If you have used Quarto before, create and save `chapter15_notes.qmd` using your usual workflow, then review the [YAML header](#yaml-header).
-:::
-
 1. Open RStudio. Open the project or navigate to the folder where you keep your work for this book.
 
 2. Choose `File > New File > Quarto Document`.
@@ -74,7 +70,7 @@ No extra packages are needed. This chapter uses functions included with R.
 
 ## Distribution of Sums {#distribution}
 
-🎯 Identify the "Shape of Data" (or "Distribution of data") is *optional reading*, but may help you answer questions in this chapter.
+🎯 Reading about the shape, or distribution, of data is *optional*, but may help you answer questions in this chapter.
 
 Below are examples of different histogram shapes that you may encounter in real data. A **histogram** groups numerical values into intervals (bins); in these examples, bar heights show [counts]{.glossary-term data-term="Count"}. Its shape can provide insights into the underlying **distribution** of the data, such as whether it is uniform, symmetric, skewed, or bimodal.
 
@@ -471,7 +467,7 @@ The function `replicate()` repeats an expression multiple times and collects the
 
 🎯 How variable is the number of tails in 5,000 flips? Repeat 100 times. 
 
-💰💰💰 .... 💰 That's a lot of coins tosses!
+💰💰💰 .... 💰 That's a lot of coin tosses!
 
 ✔️ In [Chapter 6's nesting example](../03-courage/ch06-missing-values.html#nesting-function-calls), you put `sample()` inside `mean()`. Here, `sample()` produces coin outcomes and `sum()` turns them into one tail count. `replicate()` repeats that whole calculation 100 times and collects the 100 counts. The nesting is familiar; `replicate()` adds repetition.
 
