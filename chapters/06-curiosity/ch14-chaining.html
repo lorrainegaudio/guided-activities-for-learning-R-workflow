@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 14: Chaining – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/06-curiosity/ch13-grouped-summaries.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c687014b6e94f91f508873c3b612f981.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch14-chaining.html"><span class="chapter-title">Chapter 14: Chaining</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R Programming</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4: Structures</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open-mindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#setup-notes" id="toc-setup-notes" class="nav-link" data-scroll-target="#setup-notes">Setting Up Your Notes</a>
+  <ul class="collapse">
+  <li><a href="#yaml-header" id="toc-yaml-header" class="nav-link" data-scroll-target="#yaml-header">YAML Header</a></li>
+  </ul></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">📦 Packages</a></li>
+  <li><a href="#build-pipe" id="toc-build-pipe" class="nav-link" data-scroll-target="#build-pipe">🛠 Building a Pipeline</a>
+  <ul class="collapse">
+  <li><a href="#start-data" id="toc-start-data" class="nav-link" data-scroll-target="#start-data">Start with the data</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate">Create a new variable with <code>mutate()</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Keep only cars using at least 8 L/100 km</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select">Select relevant columns</a></li>
+  <li><a href="#group-summarize" id="toc-group-summarize" class="nav-link" data-scroll-target="#group-summarize">Group and summarize</a></li>
+  <li><a href="#recode" id="toc-recode" class="nav-link" data-scroll-target="#recode">Recode transmission for readability</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Readable Result</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#task0" id="toc-task0" class="nav-link" data-scroll-target="#task0">Task 0</a></li>
+  <li><a href="#task1" id="toc-task1" class="nav-link" data-scroll-target="#task1">Task 1</a></li>
+  <li><a href="#task2" id="toc-task2" class="nav-link" data-scroll-target="#task2">Task 2</a></li>
+  <li><a href="#task3" id="toc-task3" class="nav-link" data-scroll-target="#task3">Task 3</a></li>
+  </ul></li>
+  <li><a href="#save-upload" id="toc-save-upload" class="nav-link" data-scroll-target="#save-upload">Save Your Work</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/curiosity.html">Curiosity</a></li><li class="breadcrumb-item"><a href="../../chapters/06-curiosity/ch14-chaining.html"><span class="chapter-title">Chapter 14: Chaining</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 14: Chaining</span></h1>
+<p class="subtitle lead">Chaining dplyr Verbs</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>In Chapters 11, 12, and 13, we explored several functions from <code>dplyr</code> (<code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>case_when()</code>, <code>group_by()</code> and <code>summarize()</code>). You now know the key dplyr verbs one at a time. In this chapter, we’ll be putting <code>dplyr</code> verbs together in more complex <span class="glossary-term" data-term="Pipeline">pipelines</span>. The real power comes from <em>chaining</em> them so data flows logically from raw to insight in a single readable statement.</p>
+<p>🐱 The curiosity notes mark places to predict how a pipeline step will change the data, investigate a result with a small check, or record a side question for later.</p>
+<p><strong>Lesson Overview</strong></p>
+<p>By the end of Chapter 14 you will be able to:</p>
+<ol type="1">
+<li><p>⚡ Remember – List the actions of main dplyr verbs: <code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>summarize()</code>, <code>arrange()</code>.</p></li>
+<li><p>🔍 Understand – Describe how the pipe <code>%&gt;%</code> passes results step‑by‑step.</p></li>
+<li><p>🛠 Apply – Build a multi‑verb pipeline to clean and summarize data.</p></li>
+<li><p>📊 Analyze – Inspect intermediate output to verify each step.</p></li>
+<li><p>🧠️ Evaluate – Decide when a single pipeline is clearer than separate objects.</p></li>
+</ol>
+<p>Keep these goals in mind as you move through each section.</p>
+</section>
+<section id="setup-notes" class="level2">
+<h2 class="anchored" data-anchor-id="setup-notes">Setting Up Your Notes</h2>
+<p>Continue using Quarto to keep your code, output, checks, and memos in one document. The setup below follows Chapters 12 and 13. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If Quarto is new to you, begin with the <a href="../05-openmindedness/ch11-dplyr-subsetting.html#quarto">Quarto introduction in Chapter 11</a>, then return to the setup steps below. If you have used Quarto before, create and save <code>chapter14_notes.qmd</code> using your usual workflow, then review the <a href="#yaml-header">YAML header</a>.</p>
+</div>
+</div>
+<ol type="1">
+<li><p>Open RStudio. Open the project or navigate to the folder where you keep your work for this book.</p></li>
+<li><p>Choose <code>File &gt; New File &gt; Quarto Document</code>.</p></li>
+<li><p>Keep <strong>HTML</strong> selected as the output format, uncheck <strong>Use visual markdown editor</strong>, and click <strong>Create Empty Document</strong>.</p></li>
+<li><p>Save the document in your folder as <code>chapter14_notes.qmd</code>.</p></li>
+</ol>
+<p>Keep the YAML header at the top. If any starter content appears below the closing <code>---</code>, remove that content and use the space for your notes, code, and memos.</p>
+<p>If you use Git and GitHub, follow the workflow you learned in <a href="../05-openmindedness/ch09-github.html">Chapter 9</a>: pull before you begin, then save, stage, commit while you work, and push after you finish.</p>
+<section id="yaml-header" class="level3">
+<h3 class="anchored" data-anchor-id="yaml-header">YAML Header</h3>
+<p>Edit the existing YAML header to match this example, replacing <code>YOUR NAME</code> with your name. Keep only one header, including its opening and closing <code>---</code> lines.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 14 Notes"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chaining dplyr Verbs"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
+</section>
+</section>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
+<p>If either package is missing, run its installation command once in the RStudio Console: <code>install.packages("dplyr")</code> or <code>install.packages("dslabs")</code>. Keep installation commands out of code that runs each time you render.</p>
+<p>Load both packages with <code>library()</code> in your document so they are available when it renders:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)  <span class="co"># Data science labs package</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🧶 <strong>Test render.</strong> Save your Quarto document and click <strong>Render</strong>. Check that it opens as HTML with your title and headings.</p>
+</section>
+<section id="build-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="build-pipe">🛠 Building a Pipeline</h2>
+<p>🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in <code>mtcars</code> that use at least 8 L/100 km, broken down by transmission and cylinders.</p>
+<section id="start-data" class="level3">
+<h3 class="anchored" data-anchor-id="start-data">Start with the data</h3>
+<p>We’ll use the built‑in <code>mtcars</code> dataset.</p>
+<p>The <span class="glossary-term" data-term="Pipe">pipe</span> <code>%&gt;%</code> passes the result on its left into the next function. Here, <code>mtcars %&gt;% head(2)</code> passes <code>mtcars</code> to <code>head()</code> as its first argument, giving the same result as <code>head(mtcars, 2)</code>.</p>
+<p>🎯 Goal. Load mtcars and confirm shape.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span>                       <span class="co"># rows = 32 cars, many columns</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)                        <span class="co"># preview first two rows</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars, <span class="dv">2</span>)  <span class="co"># base R version, same output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Data loaded correctly.</p>
+</section>
+<section id="mutate" class="level3">
+<h3 class="anchored" data-anchor-id="mutate">Create a new variable with <code>mutate()</code></h3>
+<p>We’ll calculate fuel consumption in liters per 100 kilometers (L/100 km). The <code>mpg</code> column uses miles per US gallon. The formula is:</p>
+<p><span class="math display">\[\frac{\text{L}}{100\text{ km}} = \frac{235.215}{\text{MPG}}\]</span></p>
+<p>🎯 Goal. Add <code>l_100km</code> using the equation 235.215/<code>mpg</code> and round the value to one decimal place.</p>
+<p>🐱 <strong>Prediction:</strong> If a car has a higher <code>mpg</code> value, do you expect its L/100 km value to be higher or lower? Explain why before running the code.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg, <span class="fl">235.215</span><span class="sc">/</span>mtcars<span class="sc">$</span>mpg) <span class="sc">&lt;</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>🗣 The negative correlation is consistent with higher <code>mpg</code> and lower L/100 km. This checks the direction of the relationship, not the conversion units.</p>
+<p>Compare this result with your prediction about the two measurements.</p>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter">Keep only cars using at least 8 L/100 km</h3>
+<p>We’ll only keep cars that use <em>at least</em> 8 L/100 km. Use <code>filter()</code> to keep those rows.</p>
+<p>🎯 Goal. Keep <code>l_100km &gt;= 8</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select">Select relevant columns</h3>
+<p>🎯 Goal. Keep <code>cyl</code>, <code>am</code>, and <code>l_100km</code> columns.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setequal</span>(<span class="fu">names</span>(mtcars2), <span class="fu">c</span>(<span class="st">"cyl"</span>,<span class="st">"am"</span>,<span class="st">"l_100km"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Columns trimmed.</p>
+</section>
+<section id="group-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="group-summarize">Group and summarize</h3>
+<p>Now we can group by <code>am</code> and <code>cyl</code>, then summarize to get the mean fuel consumption and count of cars in each group.</p>
+<p>🎯 Goal. Mean <code>l_100km</code> and <code>n</code> by <code>am</code>, <code>cyl</code>.</p>
+<p>🐱 <strong>Prediction:</strong> How many rows do you expect in the summary? Use the transmission-and-cylinder combinations in <code>mtcars2</code> to explain your prediction before running the summary code.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🐱 The summary has fewer rows than <code>mtcars2</code>. Were more cars filtered out? I will compare the total of the group counts in <code>n</code> with the number of cars before the summary.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Investigate the number of cars represented in the summary</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mtcars_summary<span class="sc">$</span>n)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Both checks return 28. The six summary rows represent groups; the counts in <code>n</code> account for the 28 retained cars. Compare the summary’s rows with your prediction.</p>
+<p>🗣 Explain:</p>
+<p>Order matters in <code>dplyr</code> pipelines. In this pipeline, <code>group_by()</code> comes before <code>summarize()</code> so the calculations run separately for each group.</p>
+<ul>
+<li><p><code>group_by(am, cyl)</code> tells <code>dplyr</code> to treat each unique combination of <code>am</code> and <code>cyl</code> separately. <code>group_by()</code> divides your data into separate groups for analysis. It doesn’t change how your data looks. It adds metadata that tells <strong>subsequent functions</strong> to operate on each group separately. It’s like telling R: “For each combination of these variables, do the following…”</p></li>
+<li><p><code>summarize()</code> then runs <code>mean(l_100km)</code> <em>per group</em> and counts rows with <code>n()</code>.</p></li>
+<li><p><code>.groups = "drop"</code> prevents grouping in the final output.</p></li>
+</ul>
+</section>
+<section id="recode" class="level3">
+<h3 class="anchored" data-anchor-id="recode">Recode transmission for readability</h3>
+<p>❓ Question: How might you check which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
+<p>🎯 Goal. Label <code>am</code> as “Automatic/Manual” in a column “Transmission” and make it a factor with level order.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test: Recode transmission for readability Method 1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars_summary <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Transmission =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Transmission =</span> <span class="fu">factor</span>(Transmission, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(mtcars_summary<span class="sc">$</span>Transmission)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">levels</span>(mtcars_summary<span class="sc">$</span>Transmission), <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Labels set; order fixed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:✔ Pipeline complete! One readable flow from raw data to insight.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),  </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🪞 Reflect: Explain why the highest <code>mean_l_100km</code> is the least fuel‑efficient combination. Record your explanation in a memo.</p>
+</section>
+<section id="result" class="level3">
+<h3 class="anchored" data-anchor-id="result">Readable Result</h3>
+<p>🎯 Goal. Build one readable pipeline, then sort by the highest Mean l/100km (higher = less efficient) and keep the top row.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span>                                       <span class="co"># &lt;-- close mutate() here</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_l_100km)) <span class="sc">%&gt;%</span>             <span class="co"># sort highest (least efficient) first</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span>                                <span class="co"># keep the single worst combo</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Mean l/100km</span><span class="st">`</span> <span class="ot">=</span> mean_l_100km,       <span class="co"># backticks for non-syntactic name</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Count         =</span> n,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cylinder      =</span> cyl,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Transmission  =</span> am)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 Explain: <span class="glossary-term" data-term="arrange()"><code>arrange()</code></span> sorts the data frame by <code>mean_l_100km</code> (renamed <code>Mean l/100km</code>) in descending order, so the first row is the least fuel-efficient combination of <code>am</code> and <code>cyl</code>.</p>
+<p>Answer the ❓ Question: Which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
+<p>🐱 I also wonder why the groups differ in fuel consumption. This table describes their averages; it does not explain what caused those differences. I will record that question for later and return to tracing how the pipeline produced the table.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this chapter, you combined <code>dplyr</code> verbs in a pipeline to transform values, filter rows, select columns, group observations, and calculate summaries. You then labeled, sorted, and selected results to make a readable table. Each step uses the result of the preceding step, so its position in the pipeline matters.</p>
+<p>You also predicted how a step would change the data and investigated why a <span class="glossary-term" data-term="Grouped summary">grouped summary</span> had fewer rows than its input. Inspecting intermediate results helps you explain the final table and decide where to look when a result differs from your expectation.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><span id="terms"></span></p>
+<p><strong>arrange()</strong>: A <code>dplyr</code> function that sorts rows using one or more columns. Use <code>desc()</code> to sort a column in descending order.</p>
+<p><strong>Grouped summary</strong>: In this chapter, a table with one row for each combination of grouping values present in the data, containing statistics such as a mean or count for that group.</p>
+<p><strong>Intermediate result</strong>: The data or output produced partway through a sequence of operations. Inspecting it helps you understand what a particular step changed.</p>
+<p><strong>Pipe</strong>: The <code>%&gt;%</code> operator used here to pass a result into the next function, usually as its first argument.</p>
+<p><strong>Pipeline</strong>: A sequence of connected operations in which the result of one step becomes the input to the next.</p>
+<p><strong>Preview</strong>: A small portion of a dataset used for inspection. For example, <code>head()</code> returns the first six rows by default; previewing an object does not change the stored object.</p>
+<p><strong>rename()</strong>: A <code>dplyr</code> function that changes column names without changing the values in those columns.</p>
+<p><strong>slice()</strong>: A <code>dplyr</code> function that selects rows by position. In the guided pipeline, <code>slice(1)</code> keeps the first row after sorting.</p>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>In this Practice Space, you will combine <code>dplyr</code> verbs in one pipeline to create a summary of movie ratings. Task 0 prepares your packages. Tasks 1–3 ask you to explain familiar verbs, build the pipeline, and reflect on your work.</p>
+<p>Dataset: <code>dslabs::movielens</code></p>
+<p>Before you begin:</p>
+<ol type="1">
+<li>Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as <code>chapter14_practice.qmd</code>. If you choose another familiar file type, use the matching extension.</li>
+<li>For Quarto, edit the existing YAML header to include the title <code>"Chapter 14 Practice"</code>, your name, the date, and the HTML settings from the <a href="#yaml-header">setup section</a>. Keep the opening and closing <code>---</code> lines.</li>
+<li>In Quarto or R Markdown, remove any starter content below the closing <code>---</code>, but keep the YAML header.</li>
+<li>Create headings for Tasks 0–3. Include the optional drafting headings from Task 2 only if you use them.</li>
+<li>Load <code>dplyr</code> and <code>dslabs</code> near the top of your document, as requested in Task 0.</li>
+</ol>
+<p>Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Some code and check chunks are intentionally empty: write your own code in those spaces. Run your code and check the output.</p>
+<p>Use the same memo labels as in earlier chapters:</p>
+<ul>
+<li>🗣 <strong>Add Comments</strong> asks you to explain what the code or output shows.</li>
+<li>🪞 <strong>Reflect</strong> asks you to explain your learning process or understanding.</li>
+<li>👀 <strong>Cite</strong> asks you to name a person or outside resource that helped and explain how it contributed.</li>
+</ul>
+<p>In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use <code>#</code> comments.</p>
+<p>For this Practice Space:</p>
+<ul>
+<li><strong>Task 0:</strong> Load the packages; no separate memo is needed.</li>
+<li><strong>Task 1:</strong> Write the three requested explanations.</li>
+<li><strong>Task 2:</strong> Write the goal once in your own words and use the 🐱 Prediction prompt to predict what one pipeline step will change before running Task 2 code. Include a final 🗣 Comment comparing your checks with that prediction and explaining which column and direction you chose for sorting. The drafting steps and their additional memo notes are optional.</li>
+<li><strong>Task 3:</strong> Answer one of the two reflection questions.</li>
+</ul>
+<p>If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you.</p>
+<p>When you finish, <code>Movie_Facts</code> should be created by one end-to-end pipeline. Save your source document and <code>.RData</code> workspace using the <a href="#save-upload">saving instructions below</a>. If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit.</p>
+<section id="task0" class="level3">
+<h3 class="anchored" data-anchor-id="task0">Task 0</h3>
+<p>📦 Library it up!</p>
+<p>Include code in your document to load <code>dplyr</code> and <code>dslabs</code> so their functions and datasets are available.</p>
+</section>
+<section id="task1" class="level3">
+<h3 class="anchored" data-anchor-id="task1">Task 1</h3>
+<p>🧠 Quick Recall</p>
+<p>Explain how <em>three</em> <code>dplyr</code> verbs from Chapters 11–13 work.</p>
+<p>🗣 <strong>Explain:</strong> “___”</p>
+<p>🗣 <strong>Explain:</strong> “___”</p>
+<p>🗣 <strong>Explain:</strong> “___”</p>
+</section>
+<section id="task2" class="level3">
+<h3 class="anchored" data-anchor-id="task2">Task 2</h3>
+<p>🛠 Pipeline</p>
+<p><strong>Use a single pipeline.</strong></p>
+<p>Begin by writing your goal and prediction in the <a href="#final-pipeline">final pipeline</a> area. Then use the optional drafting steps below or write your complete pipeline directly in the final area. The final result must be created by one end-to-end pipeline.</p>
+<p>Drafting steps give you an opportunity to check intermediate results, write memo notes, and reflect on your process. The 🎯 Goal and memo prompts in Tasks 2.0–2.6 are optional supports; you do not need a separate memo for every drafting step. <em>You can temporarily pipe <code>head()</code> in for a preview. Remove that preview-only step before running the final pipeline so it uses all retained rating records.</em></p>
+<p>What your pipeline must do</p>
+<p>A. Filtering (2.1)</p>
+<ol type="1">
+<li><p>Keep rating records where <code>rating</code> and <code>year</code> are both non-missing and <code>year &gt;= 1990</code>.</p></li>
+<li><p>Keep only the <code>rating</code> and <code>year</code> columns.</p></li>
+</ol>
+<p>B. The Columns:</p>
+<ol type="1">
+<li><code>decade</code> (2.2)</li>
+</ol>
+<ol type="a">
+<li><p>Divide each <code>year</code> value by 10 (e.g., 1994 → 199.4).</p></li>
+<li><p>Round down to a whole number (e.g., 199.4 → 199). Hint: use <code>floor()</code>. Pass (a)’s equation through <code>floor()</code>.</p></li>
+<li><p>Convert the result to the decade’s starting year (e.g., 199 → 1990). Hint: Multiply by 10.</p></li>
+</ol>
+<ol start="2" type="1">
+<li><code>rating_label</code> (2.3)</li>
+</ol>
+<ol type="a">
+<li><p>Use <code>case_when()</code> to create a new column <code>rating_label</code> that labels ratings less than 3 as “Bad” and ratings 3 or greater as “Good”.</p></li>
+<li><p>Make <code>rating_label</code> a factor with levels ordered so “Bad” comes before “Good”.</p></li>
+</ol>
+<ol start="3" type="1">
+<li><code>mean_rating</code> (rounded to two decimal places), (2.4)</li>
+</ol>
+<ol type="a">
+<li><p>Group by <code>decade</code> and <code>rating_label</code>.</p></li>
+<li><p>Summarize to get <strong>mean</strong> of <code>rating</code> rounded to 2 decimal places.</p></li>
+</ol>
+<ol start="4" type="1">
+<li><code>n</code> (row count) (2.5)</li>
+</ol>
+<ol type="a">
+<li><p>Count of rating records in each group (<code>decade</code> and <code>rating_label</code>)</p></li>
+<li><p>Remove grouping from the result.</p></li>
+</ol>
+<p>C. Ordering:</p>
+<ol type="1">
+<li>sort by <code>mean_rating</code> (descending) or by <code>n</code> (you choose; state which you picked in your memo).</li>
+</ol>
+<ul>
+<li>Store as <code>Movie_Facts</code>.</li>
+</ul>
+<p>🚀 Explore and Play: add style when you rename the columns in the final output to be more readable (e.g., <code>Mean Rating</code>, <code>Count</code>). Or add any other enhancements like more levels to <code>rating_label</code> such as “Excellent”. Be sure to point it out in a memo.</p>
+<section id="task2.0" class="level4">
+<h4 class="anchored" data-anchor-id="task2.0">Task 2.0</h4>
+<p><strong>Optional drafting begins here.</strong> Use as many of Tasks 2.0–2.6 as you find helpful. They are places to test parts of your pipeline before writing the complete version in the final area.</p>
+<p>Load packages and confirm <code>movielens</code> has <code>rating</code> and <code>year</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task2.1" class="level4">
+<h4 class="anchored" data-anchor-id="task2.1">Task 2.1</h4>
+<p>Use <code>filter()</code> to keep rows where <code>rating</code> and <code>year</code> are both non-missing and <code>year &gt;= 1990</code> (Hint: use <code>!is.na()</code>). Then use <code>select()</code> to keep only the <code>rating</code> and <code>year</code> columns.</p>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify: years are 1990 or greater</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> What did you check to confirm that the retained rows meet the filtering requirements?</p>
+</section>
+<section id="task2.2" class="level4">
+<h4 class="anchored" data-anchor-id="task2.2">Task 2.2</h4>
+<p>Add to the pipeline from Task 2.1, using <code>mutate()</code> to create the column <code>decade</code>.</p>
+<ol type="a">
+<li><p>Divide each <code>year</code> value by 10 (e.g., 1994 → 199.4).</p></li>
+<li><p>Round down to a whole number (e.g., 199.4 → 199). Hint: use <code>floor()</code>. Pass (a)’s equation through <code>floor()</code>.</p></li>
+<li><p>Convert the result to the decade’s starting year (e.g., 199 → 1990). Hint: Multiply by 10.</p></li>
+</ol>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> Use one year from the data to explain how your calculation assigned its decade.</p>
+</section>
+<section id="task2.3" class="level4">
+<h4 class="anchored" data-anchor-id="task2.3">Task 2.3</h4>
+<p>Continue the same pipeline from Task 2.2, but now add to <code>mutate()</code>:</p>
+<ol type="a">
+<li><p>Use <code>case_when()</code> to create a new column <code>rating_label</code> that labels ratings less than 3 as “Bad” and ratings 3 or greater as “Good”.</p></li>
+<li><p>Make <code>rating_label</code> a factor with levels ordered so “Bad” comes before “Good”.</p></li>
+</ol>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the labels and their factor-level order?</p>
+</section>
+<section id="task2.4" class="level4">
+<h4 class="anchored" data-anchor-id="task2.4">Task 2.4</h4>
+<p>Continue the same pipeline to create <code>mean_rating</code>, rounded to two decimal places.</p>
+<ol type="a">
+<li><p>Group by <code>decade</code> and <code>rating_label</code>.</p></li>
+<li><p>Summarize to get <strong>mean</strong> of <code>rating</code> rounded to 2 decimal places. Because <code>NA</code>s are filtered out, <code>na.rm=TRUE</code> isn’t needed.</p></li>
+</ol>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> What does one row of your grouped summary represent?</p>
+</section>
+<section id="task2.5" class="level4">
+<h4 class="anchored" data-anchor-id="task2.5">Task 2.5</h4>
+<p>Extend the existing <code>summarize()</code> call from Task 2.4, rather than adding a second summary step.</p>
+<ol type="a">
+<li><p>Add a row count named <code>n</code> for each <code>decade</code> and <code>rating_label</code> group. Count rating records, not distinct movies.</p></li>
+<li><p>Remove grouping from the summary result with <code>.groups = "drop"</code>.</p></li>
+</ol>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the counts and grouping in the result?</p>
+</section>
+<section id="task2.6" class="level4">
+<h4 class="anchored" data-anchor-id="task2.6">Task 2.6</h4>
+<p>Finish the same pipeline with an <code>arrange()</code> step (choose to sort by <code>mean_rating</code> or by <code>n</code>). End by storing the result as <code>Movie_Facts</code>.</p>
+<p>C. Ordering:</p>
+<ol type="1">
+<li>sort by <code>mean_rating</code> (descending) or by <code>n</code> (you choose; state which you picked in your memo).</li>
+</ol>
+<p>🎯</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments (optional):</strong> How did you check that the rows follow your chosen sort order?</p>
+</section>
+<section id="final-pipeline" class="level4">
+<h4 class="anchored" data-anchor-id="final-pipeline">Final pipeline</h4>
+<p>This is the required final coding result for Task 2. Include your complete pipeline here, whether or not you used the optional drafting steps. If you drafted the pipeline above, copy the completed version here; you do not need to rebuild it from scratch.</p>
+<p>🎯 <strong>Write the goal:</strong> Restate what your final pipeline should produce in your own words.</p>
+<p>🐱 <strong>Prediction:</strong> Choose one step in your planned pipeline. What do you expect it to change: the rows, columns, groups, or summary values? Explain why before running any Task 2 code. If you are unsure, describe what you think might happen and what you are uncertain about.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For checks on filtering or recoding, inspect an <span class="glossary-term" data-term="Intermediate result">intermediate result</span> before the summary step. Those intermediate results do not need to be saved as additional final objects.</p>
+<p>Write checks that help you confirm:</p>
+<ul>
+<li>the retained rating records meet the filtering requirements,</li>
+<li>the summary has one row per <code>decade</code> and <code>rating_label</code> combination present in the retained data,</li>
+<li>the required columns contain the decade, ordered rating labels, rounded means, and rating-record counts,</li>
+<li>the result is ungrouped, and</li>
+<li>the rows follow your chosen sort order.</li>
+</ul>
+<p>If you used the optional column renaming or other enhancements, check the corresponding columns and explain those changes in your memo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check: Write your checks and display Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> Explain what your checks showed and how the selected step’s result compared with your prediction. If it differed, name a question and choose a small check to investigate it. If it matched, explain what your checks confirmed. State your sort choice and explain any optional changes you made.</p>
+<p><strong>🧶 Test render</strong> if you are using Quarto. Confirm that the HTML displays your final table, checks, and memo.</p>
+</section>
+</section>
+<section id="task3" class="level3">
+<h3 class="anchored" data-anchor-id="task3">Task 3</h3>
+<p>📝 Write a short paragraph reflecting on when <strong>separate objects might be clearer</strong> than a single long pipeline.</p>
+<p>🪞 <strong>Reflect:</strong> “___”</p>
+<p><strong>OR</strong></p>
+<p>📝 Write a short paragraph reflecting on what <code>n</code> is counting in <code>Movie_Facts</code>. Is it individual movies or individual ratings? Explain.</p>
+<p>🪞 <strong>Reflect:</strong> “___”</p>
+</section>
+</section>
+<section id="save-upload" class="level2">
+<h2 class="anchored" data-anchor-id="save-upload">Save Your Work</h2>
+<p>Before you finish, confirm that your document includes:</p>
+<ul>
+<li>the three Task 1 explanations,</li>
+<li>the final Task 2 goal, prediction, and one end-to-end pipeline that creates <code>Movie_Facts</code>,</li>
+<li>checks of your result and a final Comment comparing them with your prediction and explaining your sort choice,</li>
+<li>one Task 3 reflection, and</li>
+<li>citations for any outside help you used.</li>
+</ul>
+<p>The optional drafting steps do not need separate final outputs or memos.</p>
+<p>Clear your Environment, then run your code from top to bottom. Confirm that <code>Movie_Facts</code> is recreated without relying on previously saved objects.</p>
+<ol type="1">
+<li><p>Save your source document. If you are using Quarto, render it and inspect the HTML for your code, output, checks, and memos.</p></li>
+<li><p>Save your workspace. The workspace file saves the objects currently in your Environment. Run this command in the RStudio Console after running your Practice Space code:</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter14_workspace.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Or you can click the “Save Workspace” button in the Environment pane.</p>
+<p>💾 <strong>Always save the R documents before closing.</strong></p>
+<ol start="3" type="1">
+<li>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="pagination-link" aria-label="Chapter 13: Grouped Summaries">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 13: Grouped Summaries</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
