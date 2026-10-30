@@ -70,7 +70,7 @@ book:
     - part: chapters/07-thoroughness/thoroughness.qmd
       chapters:
        - chapters/07-thoroughness/ch15-probability-functions.Rmd
-    #     - chapters/07-thoroughness/ch16-ggplot2.Rmd
+       - chapters/07-thoroughness/ch16-ggplot2.Rmd
     #     - chapters/07-thoroughness/ch17-string-detect.Rmd
       
 format:

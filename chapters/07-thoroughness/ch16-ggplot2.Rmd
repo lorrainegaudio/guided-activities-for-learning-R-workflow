@@ -6,7 +6,7 @@ toc: true
 
 ## Overview {#overview}
 
-In earlier chapters, you practiced working with data frames, variables, and reproducible Quarto notes. In this chapter, you will use `ggplot2` to turn data into graphs that are easier to read and explain. You will build plots by combining a data frame, aesthetic mappings, and geometric layers.
+In earlier chapters, you practiced working with data frames, variables, and reproducible Quarto notes. In this chapter, you will use [`ggplot2`]{.glossary-term data-term="ggplot2"} to turn data into graphs that are easier to read and explain. You will build plots by combining a data frame, aesthetic mappings, and geometric layers.
 
 This chapter matters because analysts do not only calculate results. They also need to communicate patterns, comparisons, distributions, and possible relationships in a clear visual form. In R, `ggplot2` is one of the main tools for doing that.
 
@@ -24,40 +24,43 @@ Keep these goals in mind as you move through each section.
 
 ## Setting Up Your Notes {#setup}
 
-In Chapter 11, you learned how to create a Quarto file, keep the YAML header, use Markdown headings, write memos outside code chunks, and control chunks with `#|` options. In Chapter 12, you added a table of contents and section numbering. In Chapter 13, you continued using those Quarto skills in a reproducible workflow. In Chapter 16, you will keep practicing those same habits while learning `ggplot2`.
+Continue using Quarto to keep your code, plots, checks, and memos in one document. The setup below follows Chapter 15. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.
 
 ### Create a Quarto File {#create_quarto}
 
-For those of you who **have GitHub** and a course project, navigate to your course folder and open your course project. This will open RStudio. Click “Pull” in the Git pane to get the latest version of the course materials. After completing work, save, stage, commit, and push.
+1. Open RStudio. Open the project or navigate to the folder where you keep your work for this book.
 
-If you **don’t have GitHub** or a course project, just open RStudio and set your working directory to your course folder.
+2. Choose `File > New File > Quarto Document`.
 
-Open a new Quarto document in your course folder and save it as:
-`chapter16_notes.qmd`
-(`File > New File > Quarto Document`).
+3. Keep **HTML** selected as the output format, uncheck **Use visual markdown editor**, and click **Create Empty Document**.
+
+4. Save the document in your folder as `chapter16_notes.qmd`.
+
+Keep the YAML header at the top. If any starter content appears below the closing `---`, remove that content and use the space for your notes, code, and memos.
+
+If you use Git and GitHub, follow the workflow you learned in [Chapter 9](../05-openmindedness/ch09-github.html): pull before you begin, then save, stage, commit while you work, and push after you finish.
 
 ### YAML Header {#yaml_header}
 
-Copy and paste this YAML header into your new Quarto document. Update the author field with your name.
+Edit the existing YAML header to match this example, replacing `YOUR NAME` with your name. Keep only one header, including its opening and closing `---` lines.
 
-```{r echo=FALSE, results='asis'}
-cat("```yaml
+```yaml
 ---
-title: \"Chapter 16 Notes\"
-subtitle: \"ggplot2\"
-author: \"YOUR NAME\"
+title: "Chapter 16 Notes"
+subtitle: "ggplot2"
+author: "YOUR NAME"
 date: today
-toc: true
-toc-depth: 2
-number-sections: true
 format:
   html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
     code-fold: false
+    embed-resources: true
 ---
-```")
 ```
 
- Since this document can act as a resource for you to review later, set code-fold to `false` so that all code is visible by default.
+Since this document can act as a resource for you to review later, set `code-fold` to `false` so that all code is visible by default.
 
 
 ### Headings {#headings}
@@ -83,17 +86,19 @@ Use the section headings in this file to structure your notes. You can copy and 
 
 ```
 
-Work through the sections under each heading. Render to HTML often to check both formatting and code output.
+Work through the sections under each heading. Put R code in code chunks and write your memos outside the chunks. As you work, type the code, inspect the plots and other output, and record what you learn.
 
 ## 📦 Packages {#packages}
 
-Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`
+If any of these packages is missing, run its installation line once in the **RStudio Console**, not in a document code chunk:
 
 ```{r , eval=FALSE}
+install.packages("dslabs")
+install.packages("dplyr")
 install.packages("ggplot2")
 ```
 
-Turn off `install.packages()` after you have installed the package once. You only need to install a package one time on your computer. After that, you can load the package with `library()`.
+Keep installation commands out of your document. Use `library()` in your document to load the packages whenever you run it.
 
 🎯 Load the packages at the start of every session:
 
@@ -103,6 +108,8 @@ library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 library(ggplot2) # Data visualization
 ```
+
+🧶 **Test render.** Save your Quarto document and click **Render**. Check that the HTML opens with your title and headings and that the package-loading code runs without errors. If you use R Markdown, knit and inspect the HTML instead.
 
 ## What is ggplot2? {#what-is-ggplot2}
 
@@ -149,13 +156,13 @@ R does not throw an error. 📝 Note that ggplot needs three main steps (data �
 
 ## Mapping Aesthetics {#mapping-aesthetics}
 
-**Aesthetic mapping** is the process of connecting variables in your data to visual properties of the plot, such as position, color, size, and shape. In `ggplot2`, this is done using the `aes()` function.
+**[Aesthetic mapping]{.glossary-term data-term="Aesthetic mapping"}** is the process of connecting variables in your data to visual properties of the plot, such as position, color, size, and shape. In `ggplot2`, this is done using the `aes()` function.
 
 Review the syntax for ggplot2 again. 
 
 📜 The SYNTAX (basic): `⁠ggplot(data = df, mapping = aes(x, y, other aesthetics))`
 
-The `aes()` argument supplies mapping information. Mapping refers to connecting your data variables to visual properties (aesthetics) of the plot. It's how you tell ggplot which column in your data should control which aspect of the visualization.
+The `mapping` argument accepts the mappings created by the `aes()` function. Mapping refers to connecting your data variables to visual properties (aesthetics) of the plot. It's how you tell ggplot which column in your data should control which aspect of the visualization.
 
 ```{r , eval=FALSE}
 ?aes
@@ -176,11 +183,11 @@ divorce_margarine %>%
 
 ## Adding Geometric Objects (Geoms) {#adding-geoms}
 
-Geometric objects (**geoms**) are the actual shapes drawn on the plot: points, lines, bars, boxplots, etc. Each geom answers the question: *Given these aesthetics, how should the data be drawn?*
+Geometric objects (**[geoms]{.glossary-term data-term="geom"}**) are the actual shapes drawn on the plot: points, lines, bars, boxplots, etc. Each geom answers the question: *Given these aesthetics, how should the data be drawn?*
 
 ### Scatterplot Example {#scatterplot-example}
 
-**Scatterplots** are used to visualize the relationship between two numeric variables. Each point represents an observation in the data, with its position determined by the values of the two variables.
+**[Scatterplots]{.glossary-term data-term="Scatterplot"}** are used to visualize the relationship between two numeric variables. Each point represents an observation in the data, with its position determined by the values of the two variables.
 
 `geom_point()` is a geometric object (or "geom") in `ggplot2` that creates a scatter plot by placing points at the specified x and y coordinates.
 
@@ -192,9 +199,9 @@ Geometric objects (**geoms**) are the actual shapes drawn on the plot: points, l
 
 `geom_point(mapping = NULL, data = NULL, ..., na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)`
 
-🧐 Notice that all of the arguments are have default settings because `geom_point()` can inherit the data and aesthetic mappings from the initial `ggplot()` call.
+🧐 Notice that `geom_point()` can inherit the data and aesthetic mappings from the initial `ggplot()` call, so we do not need to repeat them here.
 
-👉 When using ggplot2, geoms are added to the plot using the `+` operator. 
+✔️ The `+` used to build a plot has something in common with the pipe `%>%` and the comma `,`: all three help show how neighboring pieces of code belong together. A line ending in any of these symbols tells you that more of the expression follows. Their roles differ: `%>%` passes a result into a function, a comma separates arguments within a function call, and `+` adds a component to a plot.
 
 1. 🎯 The GOAL: Add points to the plot using `geom_point()`.
 
@@ -205,9 +212,9 @@ divorce_margarine %>%
   geom_point()
 ```
 
-🗣 Comment: There are points showing a linear, positive association between divorce rate and margarine consumption per capita. 
+🗣 Comment: There are points showing a linear, positive association between divorce rate and margarine consumption per capita. This association does not establish that either variable causes changes in the other.
 
-2. 🎯 The GOAL: Map additional aesthetics inside `geom_point()`: color by year, size by divorce rate, and transparency (alpha) by margarine consumption.
+2. 🎯 The GOAL: Map color to year inside `geom_point()`.
 
 
 
@@ -219,7 +226,7 @@ divorce_margarine %>%
    
 ```
 
-🤔 "Wait", you might by thinking, "`aes()` is already defined in `ggplot()`, why are we using it again in `geom_point()`?" The `aes()` in `ggplot()` are global mappings for the entire plot and apply to all layers. When we use `aes()` inside a specific geom like `geom_point()`, we're defining mappings that are specific to that layer. This allows for more granular control over how different layers of the plot behave.
+🤔 "Wait," you might be thinking, "`aes()` is already defined in `ggplot()`, why are we using it again in `geom_point()`?" The mappings defined by `aes()` inside `ggplot()` are global mappings for the plot and are inherited by its layers by default. When we use `aes()` inside a specific geom like `geom_point()`, we're defining mappings that are specific to that layer. This allows for more granular control over how different layers of the plot behave.
 
 `geom_point()` understands these aesthetics:
 
@@ -276,7 +283,7 @@ divorce_margarine %>%
 
 ### Histogram Example {#histogram-example}
 
-**Histograms** are used to visualize the distribution of a single numeric variable. They group values into bins and show the count (or density) of observations in each bin.
+**[Histograms]{.glossary-term data-term="Histogram"}** are used to visualize the distribution of a single numeric variable. They group values into bins and show the count (or density) of observations in each bin.
 
 ```{r , eval=FALSE}
 ?geom_histogram
@@ -288,7 +295,7 @@ divorce_margarine %>%
 
 Let's build our own data set to explore histograms.
 
-1. 🎯 The GOAL: Simulate a `Tallness` data frame with heights for 1,000 people in the USA and Canada each. In the column `Country`, make two groups labeled “USA” and “CAN”. USA heights are centered around 67 inches with a standard deviation of 2.5. CAN heights are centered around 66 inches with a standard deviation of 1.5. Tallness follows a normal distribution.
+1. 🎯 The GOAL: Simulate a `Tallness` data frame with 1,000 hypothetical heights in each of two groups labeled “USA” and “CAN” in the `Country` column. Generate the “USA” group from a normal distribution with mean 67 inches and standard deviation 2.5, and the “CAN” group from a normal distribution with mean 66 inches and standard deviation 1.5. The combined data mix these two distributions. The labels and values are teaching choices, not estimates of national heights.
 
 ```{r}
 # ⚡Code 
@@ -308,7 +315,7 @@ Tallness %>%
             sd_height = sd(Height),
             .groups = "drop")
 ```
-🗣 Comment: We have 2,000 rows, 1,000 for each of the two country labels, and heights roughly around expected means and standard deviation. 
+🗣 Comment: We have 2,000 rows, 1,000 for each country label, with simulated means and standard deviations close to the specified values.
 
 2. 🎯 The GOAL: Build a histogram of heights using `geom_histogram()`.
 
@@ -319,7 +326,7 @@ Tallness %>%
   geom_histogram()
 ```
 
-🗣 Comment: Histograms visualize the distribution of a single continuous variable. `geom_histogram()` uses the global `x` aesthetic (`Height`) and so there is no need to repeat the `aes()` inside of the `geom_histogram()` argument. Additionally, the `y` is computed, not mapped. `geom_histogram()` uses `stat_bin()` "under the hood" to compute the counts (or density). This is why we do not need to map a column to `y`. The y-values are produced by the statistic.
+🗣 Comment: Histograms visualize the distribution of a single continuous variable. `geom_histogram()` uses the global `x` aesthetic (`Height`), so we do not need to repeat that mapping inside `geom_histogram()`. By default, `stat_bin()` computes the counts shown on the y-axis; we do not need a data column for `y`.
 
 `geom_histogram()` understands these aesthetics:
 
@@ -329,17 +336,21 @@ Tallness %>%
 
 -  color: Border color
 
--  binwidth: Width of each bin (default is 1)
-
--  position: Position adjustment (e.g., "identity", "dodge", "fill")
-
 -  alpha: Transparency
 
--  size: Border thickness
+-  linewidth: Border thickness
 
 -  weight: Weight for each observation (optional)
 
 -  linetype: Line type for borders (optional)
+
+Other arguments control the bins and how groups are displayed:
+
+- `binwidth`: Width of each bin. If neither `binwidth` nor `bins` is supplied, the default is 30 bins, not a bin width of 1.
+
+- `position`: Position adjustment. The default is `"stack"`; alternatives include `"identity"`, `"dodge"`, and `"fill"`.
+
+Use `aes()` to map variables to aesthetics. To set a fixed appearance, supply values such as `fill = "steelblue"` directly to `geom_histogram()`.
 
 3. 🎯 The GOAL: Customize the histogram by setting `fill`, `color`, and `binwidth`.
 
@@ -356,13 +367,13 @@ Tallness %>%
 
 🚀 Explore and Play: Change `binwidth = 0.25` inside `geom_histogram()`. Are the overall center and spread the same, even though the “smoothness” changes? Reflect on how binwidth trades off smooth vs. noisy appearance and what you’d choose for a report.
 
-🛠 Break Things! Test out your hand at adding aesthetics `geom_histogram()`  understands.
+🛠 Break Things! Try adding aesthetics that `geom_histogram()` understands.
 
 ### Density Plot {#density-plot}
 
 Now we’ll look at a smooth version of the height distribution using a density curve.
 
-Density plots are smoothed versions of histograms that estimate the probability density function of a continuous variable. They are useful for visualizing the distribution shape without the binning artifacts of histograms.
+[Density plots]{.glossary-term data-term="Density Plot"} are smoothed versions of histograms that estimate the probability density function of a continuous variable. They are useful for visualizing the distribution shape without the binning artifacts of histograms.
 
 ```{r , eval=FALSE}
 ?geom_density
@@ -398,6 +409,19 @@ Tallness %>%
 
 - `linewidth` controls the thickness of the outline.
 
+To compare a histogram with a density curve, they need the same y-scale. Map `y` to `after_stat(density)` so the histogram uses computed density values instead of counts.
+
+🎯 The GOAL: Put a histogram of `Tallness` heights on the density scale.
+
+```{r}
+# ⚡Code Example: Histogram on the density scale
+Tallness %>%
+  ggplot(aes(x = Height)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 0.5)
+```
+
+🗣 Comment: `density` is computed by the histogram, not a column in `Tallness`. The bars are scaled so their total area is 1; a bar's height is not itself a proportion. This puts the histogram on the same scale as `geom_density()`.
+
 ### Overlaid Histograms {#overlaid-histograms}
 
 Let's compare the two height distributions by overlaying histograms and using `fill = Country` to distinguish groups. 
@@ -414,11 +438,11 @@ tall_compared_fig <- Tallness %>%
 print(tall_compared_fig)
 ```
 
-🗣 Comment: `fill = Country` in the global `aes()` tells `ggplot()` to make a separate histogram for each country with different fill colors, and automatic a legend. By default, `geom_histogram()` stacks groups. The `position = "identity"` instead puts the bars in the same x-scale so they overlap. The `alpha = 06` makes bars transparent (0 = invisible, 1 = solid), so we can see where the two distributions overlap. 
+🗣 Comment: `fill = Country` in the global `aes()` tells `ggplot()` to make a separate histogram for each country with different fill colors and automatically adds a legend. By default, `geom_histogram()` stacks groups. The `position = "identity"` instead puts the bars in the same x-scale so they overlap. The `alpha = 0.6` makes bars partially transparent (0 = invisible, 1 = solid), so we can see where the two distributions overlap.
 
 ### Boxplot {#boxplot}
 
-**Boxplots** summarize distributions using five statistics: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. They are useful for comparing distributions across groups.
+**[Boxplots]{.glossary-term data-term="Boxplot"}** show the median, the middle 50% of values (the box), and spread. The box's height is the interquartile range (IQR). Whiskers extend to the most extreme observations within 1.5 IQRs below or above the box. Values beyond the whiskers appear as separate points, so whiskers are not always the minimum and maximum. Boxplots are useful for comparing distributions across groups.
 
 ```{r , eval=FALSE}
 ?geom_boxplot
@@ -441,11 +465,11 @@ Tall_Box <- Tallness %>%
 Tall_Box
 ```
 
-🗣 Comment: There are two boxes, one for each country, with USA maybe a bit higher median and wider spread. The countries appear on the x-axis and that each box shows median, IQR, and dots for each of the outliers.
+🗣 Comment: There are two boxes, one for each country label. In this simulation, the USA group has a slightly higher median and wider spread. The countries appear on the x-axis, and each boxplot shows the median, IQR, whiskers, and separate points beyond the whiskers.
 
 ## Labels and Themes {#labels-themes}
 
-We can enhance our plots by adding axis labels and applying themes for better aesthetics.
+We can enhance our plots by adding axis [labels]{.glossary-term data-term="Labels"} and applying [themes]{.glossary-term data-term="Theme"} for better aesthetics.
 
 `xlab()` and `ylab()` functions set the labels for the x and y axes, respectively. Simply type the desired label text as a string inside the function.
 
@@ -468,7 +492,9 @@ Tall_Box <- Tallness %>%
 Tall_Box
 ```
 
-🗣 Comment: `xlab()` and `ylab()` set axis labels. `ggplot2::theme_light()` applies light horizontal grid lines. (The `ggplot2::` prefix explicitly specifies that you're using the `theme_light()` function from the `ggplot2` package. This is useful when multiple packages have functions with the same name.)
+🗣 Comment: `xlab()` and `ylab()` set axis labels. `ggplot2::theme_light()` applies a light background and grid styling. (The `ggplot2::` prefix explicitly specifies that you're using the `theme_light()` function from the `ggplot2` package. This is useful when multiple packages have functions with the same name.)
+
+✔️ In [Chapter 11's filtering example](../05-openmindedness/ch11-dplyr-subsetting.html#piping-with-filter), `state` referred to a column, while `"District of Columbia"` was text used in a comparison. Here, `Country` and `Height` inside `aes()` refer to columns, while `"Height (inches)"` inside `ylab()` supplies text to display.
 
 ## Summary {#summary}
 
@@ -491,7 +517,7 @@ You also improved plot readability by adding axis labels and applying themes. Th
 
 **Histogram**: A graph that shows the distribution of one numeric variable by grouping values into bins.
 
-**Labels**: Text added to a `ggplot2` graphic to identify and explain what the plot shows, such as axis labels, legend titles, plot titles, subtitles, captions, and tags. In `ggplot2`, labels are commonly set with `labs()`, `xlab()`, `ylab()`, and `ggtitle()`
+**Labels**: Text added to a `ggplot2` graphic to identify and explain what the plot shows, such as axis labels, legend titles, plot titles, subtitles, captions, and tags. In `ggplot2`, labels are commonly set with `labs()`, `xlab()`, `ylab()`, and `ggtitle()`.
 
 **Scatterplot**: A graph that shows the relationship between two numeric variables by placing one point for each observation.
 
@@ -501,31 +527,21 @@ You also improved plot readability by adding axis labels and applying themes. Th
 
 ## 📝 Practice Space {#practice-space}
 
-In this Practice Space, you are expected to:
+In this Practice Space, you will create scatterplots, boxplots, and density plots, then combine a histogram with a density curve. Task 0 loads the packages, Task 1 reviews the three core `ggplot2` steps, Tasks 2–5 ask you to write and inspect plots, and Task 6 asks you to reflect on plot choice.
 
-- build plots with the three core `ggplot2` steps: `data` → `aes()` → `geom_*()`
-- store requested plots with the exact object names given in the task
-- use `ggplot2` layers to add labels, color or fill mappings, transparency, and other formatting
-- check your results by printing plots and using simple checks such as `class()`, `names()`, `head()`, `nrow()`, `table()`, or other appropriate checks
-- write short interpretations that explain what the graph shows, not just what code you ran
+Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Store requested plots with the exact object names given in each task. Run your code and inspect the plots using the supplied checks and any other checks appropriate to the result.
 
-When a task asks for explanation or reflection, answer in a short memo after your code and checks.
+Save your source document and the `chapter16_practice.RData` workspace using the [saving instructions below](#save-upload). If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit.
 
-Replace every `____` placeholder and any TODO comment with working code or a short written response. Run each section and make sure the requested objects appear in the Environment. For every task, use the pattern 🎯 Goal → ⚡ Code → ✅ Checks → 🗣 Explain.
+### Setup {#practice-setup}
 
-You will submit your `chapter16_practice.qmd`, your rendered `chapter16_practice.html` (optional), and your `chapter16_practice.RData` workspace file.
+1. Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as `chapter16_practice.qmd`. If you choose another familiar file type, use the matching extension.
 
-### Setup {#setup}
+🧶 **Test render.** For Quarto, save your document and click **Render**. Inspect the HTML as you work to check formatting, code, plots, and memos. If you use R Markdown, knit and inspect the HTML instead.
 
-1. Create a **new Quarto file** in your course folder and save it as:
+2. For Quarto, edit the existing YAML header to include the title `"Chapter 16 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml_header). Keep only one header, including its opening and closing `---` lines.
 
-- `chapter16_practice.qmd`
-- Test Render your document often so you can catch formatting problems and code errors early.
-- You may also render and submit `chapter16_practice.html`.
-
-2. Use the heading structure taught earlier in the chapter.
-
-Your Quarto setup for Chapter 16 should include headings, section numbering, and a table of contents, and you should render often to check both formatting and errors.
+In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header. Create headings for Tasks 0–6 and keep them in order.
 
 3. 📦 Load the packages used in this chapter
 
@@ -537,36 +553,24 @@ This Practice Space uses `ggplot2`, `dplyr`, and `dslabs`, so your document shou
 - Print each plot object after you create it so you can verify what it looks like in your rendered document.
 - Make sure the requested plot objects appear in your Environment with the exact names listed in the tasks.
 
-5. Memo your work with the 🎯 / ⚡ / ✅ / 🗣
+Use the same memo labels as in earlier chapters:
 
-- 🎯 a memo before the code chunk that states the goal of the code and what you are trying to learn, check, or demonstrate
-- ⚡ the code chunk itself
-- ✅ any needed checks after the code
-- 🗣 a memo after the code chunk that explains what you learned, discovered, or confirmed
-- 🗣 answers to all comment questions included in the task
+- 🗣 **Add Comments** asks you to explain what the code or output shows.
+- 🪞 **Reflect** asks you to explain your learning process or understanding.
+- 👀 **Cite** asks you to name a person or outside resource that helped and explain how it contributed.
 
-👀 If you **used help** while working, document it in a memo. For example, if you used an LLM or another outside resource to understand an error or concept, briefly disclose that use and explain what help you received. **Type all code yourself.** This is part of the course expectation for AI-supported learning and memo-based workflow.
+In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use `#` comments.
 
----
+For this Practice Space:
 
-Follow this template for each coding task.
+- **Task 0:** Load the packages near the top of your document.
+- **Task 1:** Write the three requested explanations. No code or checks are required for this task.
+- **Tasks 2–5:** Complete the code and checks, print each plot, and answer the Comment prompts that follow. In Task 2, also answer the reflection about column names and quoted text.
+- **Task 6:** Write one short paragraph answering the reflection prompt. No code or checks are required for this task.
 
-🎯 What is the goal of the code? What am I trying to learn, check, or demonstrate?
+Use the supplied 🎯 goals to organize your work. Answer the prompts where they appear; you do not need an additional generic memo after every expression.
 
-```{r, eval=FALSE}
-# ⚡ Code
-your_object <- "here"
-```
-
-✅ What checks can I do to confirm that the code worked as expected?
-
-```{r, eval=FALSE}
-# ✅ Checks
-class(your_object)
-your_object
-```
-
-🗣/🪞 What I learned / Next step. 1–2 sentences.
+If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you. **Type all code yourself.**
 
 ---
 
@@ -574,7 +578,7 @@ your_object
 
 📦 **Packages**
 
-Make sure your script includes code that attached `ggplot2`, `dplyr`, and `dslabs` packages so that your script runs from start to finish without errors.
+Make sure your document loads `ggplot2`, `dplyr`, and `dslabs` near the top so that it runs from start to finish without errors.
 
 ```{r, eval=FALSE}
 # ⚡Code
@@ -618,7 +622,9 @@ class(Pretty_Flowers)
 Pretty_Flowers
 ```
 
-🗣/🪞 What pattern do you notice in petal length across species?
+🗣 **Add Comments:** What pattern do you notice in petal length across species?
+
+🪞 **Reflect:** How does your Task 2 code use column names and quoted text in ways you have already seen in `dplyr`?
 
 ### Task 3 {#task-3}
 
@@ -639,13 +645,13 @@ class(Petal_Spread)
 Petal_Spread
 ```
 
-🗣/🪞 Which species appears to have the widest petal-width distribution? What does the boxplot help you see that a table of values would not show as quickly?
+🗣 **Add Comments:** Which species appears to have the widest petal-width distribution? What does the boxplot help you see that a table of values would not show as quickly?
 
 ### Task 4 {#task-4}
 
 **Density plot: split + transparency**
 
-🎯  Create a density plot using the built-in `CO2` dataset and store the plot in an object called `CO2_Graph`. Put CO2 uptake on the horizontal axis. Use plant type to define separate smooth curves, so each plant type has its own density curve filled with a different color. Make the filled areas partially transparent so the curves can overlap and still be visible where they intersect. Finally, add the title “CO2 Uptake by Plant Type” (use `ggtitle()`) at the top of the plot.
+🎯  Create a density plot using the built-in `CO2` dataset and store the plot in an object called `CO2_Graph`. The `Type` column identifies plant origin: Quebec or Mississippi. Put CO2 uptake on the horizontal axis. Use plant type to define separate smooth curves, so each plant type has its own density curve filled with a different color. Make the filled areas partially transparent so the curves can overlap and still be visible where they intersect. Finally, add the title “CO2 Uptake by Plant Type” (use `ggtitle()`) at the top of the plot.
 
 ```{r, eval=FALSE}
 # ⚡Code 
@@ -662,13 +668,13 @@ class(CO2_Graph)
 CO2_Graph
 ```
 
-🗣/🪞 What does the overlap between the density curves suggest about the two plant types?
+🗣 **Add Comments:** What does the overlap between the density curves suggest about the two plant types?
 
 ### Task 5 {#task-5}
 
 ⚖️ **Histogram vs. Density**
 
-🎯  Create a graph from the `heights` dataset and save it in an object called `Tall_Density`. Put height (in inches) on the horizontal axis. Draw a histogram of heights using bars that are 1 inch wide, filled in blue with white borders. Scale the histogram so that the vertical axis shows density (proportion), not raw counts. On top of this, add a smooth density curve that shows the overall shape of the height distribution, using a dark orange line. Fill the area under that density curve with the same dark orange color, but make it partially transparent so you can still see the blue histogram bars underneath. Label the x-axis “Height (inches)” and the y-axis “Density” (**Hint**: See Layering geoms and use `geom_histogram()` first, then `geom_density()`.)
+🎯  Create a graph from the `heights` dataset and save it in an object called `Tall_Density`. Put height (in inches) on the horizontal axis. Draw a histogram of heights using bars that are 1 inch wide, filled in blue with white borders. Scale the histogram so that the vertical axis shows density, not raw counts. On top of this, add a smooth density curve that shows the overall shape of the height distribution, using a dark orange line. Fill the area under that density curve with the same dark orange color, but make it partially transparent so you can still see the blue histogram bars underneath. Label the x-axis “Height (inches)” and the y-axis “Density” (**Hint**: See Layering geoms and use `geom_histogram()` first, then `geom_density()`.)
 
 ```{r, eval=FALSE}
 # ⚡Code 
@@ -697,22 +703,58 @@ head(heights)
 nrow(heights)
 ```
 
-🗣/🪞 What does the density curve add to the histogram? Does the combined graph make the overall shape easier to describe?
+🗣 **Add Comments:** What does the density curve add to the histogram? Does the combined graph make the overall shape easier to describe?
 
 ### Task 6 {#task-6}
 
-🤔 **Reflect**: 
+🪞 **Reflect:**
 
-📝 Write a short paragraph reflecting on when would a density curve be more useful than a histogram?
+📝 Write a short paragraph explaining when a density curve would be more useful than a histogram.
 
 ✍️ EXPLANATION: "___"
 
-### Save and Upload {#save-upload}
+### Save Your Work {#save-upload}
 
-- Save your Quarto file as `chapter16_practice.qmd`.
-- Save your workspace as `chapter16_practice.RData`.
-- You will submit your code file (`.qmd`) and your workspace file (`.RData`).
-- You may also submit the rendered HTML file if you can successfully render. Show off your formatting skills!
+Before you finish, confirm that your document includes:
+
+- the Task 0 package-loading code,
+- the three Task 1 explanations,
+- the completed code, checks, plots, and Comments for Tasks 2–5,
+- the Task 2 reflection about column names and quoted text,
+- one Task 6 reflection, and
+- citations for any outside help you used.
+
+Save your source document and the `chapter16_practice.RData` workspace. If this Practice Space is assigned for submission, follow your instructor's directions for the required files.
+
+📖 **Review:** A workspace file (`.RData`) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.
+
+🎯 Recreate your work from the saved code before saving the final files.
+
+**Step 1: Sweep your Environment (start clean).**
+
+Click the 🧹 **broom icon** in the Environment pane to clear objects.
+
+**Step 2: Run everything top-to-bottom.**
+
+Use **Run → Run All** to execute every chunk in order, beginning with your package-loading code. Confirm that the requested plot objects are recreated without relying on previously saved objects.
+
+**Step 3: Save, render, and inspect.**
+
+Save your source document. If you are using Quarto, render it and inspect `chapter16_practice.html` for your code, plots, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.
+
+**Step 4: Save your workspace.**
+
+Run this command in the RStudio Console after running your Practice Space code:
+
+```{r , eval=FALSE}
+save.image("chapter16_practice.RData")
+```
+
+Or use the "Save Workspace" button in the Environment pane.
+
+💾 **Always save your source document before closing.**
+
+If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
 
 
 

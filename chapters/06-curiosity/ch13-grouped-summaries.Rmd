@@ -687,8 +687,6 @@ Follow the AI-use guidance that applies to your learning setting. If you use an 
 
 Before you finish, clear your Environment and render the `.qmd` from top to bottom. Your file should render without errors and show your code, output, checks, and memo notes.
 
-If this Practice Space is assigned for submission, submit the rendered `chapter13_practice.html` file unless your instructor specifies a different format.
-
 ---
 
 ### Task 1 {#task-1}
@@ -1017,11 +1015,5 @@ Click **Render** and confirm that the HTML file is created without errors.
 
 **Step 4: Verify the required objects and checks.**
 Use the checklist above to confirm that each object exists and contains the expected rows, columns, summaries, counts, or grouped results.
-
-**Step 5: Read your memo notes.**
-Check that you included the requested goals, your Task 4 prediction, at least one Comment or Reflect response for each of Tasks 1–5, and the final reflection from Task 6. Verify that the inline R code worked in your memo sentences and that any outside resources are cited.
-
-**Step 6: Save your work.**
-After your Quarto document renders without errors, make sure your latest edits are saved. If this Practice Space is assigned for submission, submit the rendered `chapter13_practice.html` file unless your instructor specifies a different format.
 
 
