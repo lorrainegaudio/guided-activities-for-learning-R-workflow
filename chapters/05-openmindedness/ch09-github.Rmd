@@ -62,7 +62,7 @@ When you **push**, you send local commits to the remote repository. When you **p
 
 Only tracked and committed work becomes part of Git history, and only commits that have been pushed appear in the remote repository on GitHub. Untracked, ignored, uncommitted, or unpushed files are not stored there.
 
-> Git tracks the history. GitHub hosts the remote repository. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.
+> Git tracks the history. GitHub stores that history remotly. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.
 
 GitHub provides a useful remote copy and version history for tracked files, but it is not a complete backup of your project or computer.
 
@@ -440,7 +440,7 @@ You will usually be asked for:
 2. A password.
 3. A username.
 
-💡 **Tip:** Use an email address you can access right now. GitHub may send a verification email before your account is fully ready.
+💡 **Tip:** Use an email address you can access right now.
 
 ### Step 3 {#step-3-github}
 
@@ -473,6 +473,8 @@ lastname-data
 ### Step 4 {#step-4-github}
 
 **✅ Verify your email address**
+
+If your email address is already verified, continue to [Step 5](#step-5-github). Otherwise, follow the steps below.
 
 🎯 Check the email account you used to sign up for GitHub.
 
@@ -692,6 +694,8 @@ For this step, use a terminal that can run Git and SSH commands.
 
 💡 **Tip:** Windows users should use Git Bash for this step. It was installed when you installed Git for Windows.
 
+💡 **Tip:** Check pasted commands before pressing `Enter`. If a short command pastes incorrectly, clear it and type it instead.
+
 ---
 
 ### Step 2 {#step-2-configure-ssh-keys}
@@ -705,6 +709,8 @@ Before generating a new key, check the `.ssh` folder on your computer.
 ```bash
 ls -al ~/.ssh
 ```
+
+💡 **Tip:** `ls` starts with a lowercase **L**, not the number **1**. The last character in `-al` is also a lowercase **L**.
 
 If the Terminal reports that the `.ssh` folder does not exist, no SSH key is stored in the default location. Follow the **new-key route** below.
 
@@ -787,6 +793,8 @@ Do not type `y`. Do not overwrite, delete, or rename the existing key.
 
 **Protect the private key with a passphrase**
 
+💡 **Tip: Invisible typing is normal.** The Terminal accepts your passphrase even though no letters, dots, or asterisks appear. Type it and press `Enter`. At the confirmation prompt, type the same passphrase again and press `Enter`. Hidden typing does not mean the Terminal is frozen; you do not need to restart the app.
+
 The Terminal will display a prompt similar to:
 
 ```text
@@ -794,8 +802,6 @@ Enter passphrase (empty for no passphrase):
 ```
 
 🎯 Type a secure passphrase and press `Enter`.
-
-The Terminal will not display letters, dots, or other characters while you type. This is normal.
 
 When prompted, type the same passphrase again and press `Enter`.
 
@@ -1478,6 +1484,8 @@ You can find the Push button in the Git pane's menu bar, usually near the Commit
 🗣 [Push]{.glossary-term data-term="Push"} sends your local commit from RStudio up to GitHub.
 
 ✅ Verify that the push finishes without an error.
+
+💡 **Tip: Keep your email private.** If Push reports that it would publish a private email address, GitHub is protecting an email recorded in a commit. You can keep email privacy enabled: [configure Git](#step-2-configure-git-identity) with your exact GitHub-provided `noreply` address for future commits. This does not update existing commits. If those are blocked, ask for help rather than disabling privacy or recreating SSH keys.
 
 💡 **Tip:** If Push reports `fetch first`, `non-fast-forward`, or that your repository is “behind,” stop and do not keep clicking Push. Pull once. If Pull completes without a conflict, try Push again. If RStudio reports a merge conflict, do not Push again until the conflict is resolved and the resolution is committed.
 
