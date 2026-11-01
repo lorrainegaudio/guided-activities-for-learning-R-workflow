@@ -536,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="glossary-term" data-term="Version Control">Version control</span> tracks changes to files over time. A <span class="glossary-term" data-term="Commit">commit</span> is a meaningful checkpoint that records a selected set of changes. You can compare commits or return to an earlier committed version when necessary.</p>
 <p>Only tracked and committed work becomes part of Git history, and only commits that have been pushed appear in the remote repository on GitHub. Untracked, ignored, uncommitted, or unpushed files are not stored there.</p>
 <blockquote class="blockquote">
-<p>Git tracks the history. GitHub hosts the remote repository. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.</p>
+<p>Git tracks the history. GitHub stores that history remotly. RStudio provides the working interface. An RStudio Project keeps the work connected to the correct folder.</p>
 </blockquote>
 <p>GitHub provides a useful remote copy and version history for tracked files, but it is not a complete backup of your project or computer.</p>
 <p>🤔 Compare two pictures of GitHub: a complete copy of your local project folder, or a separate repository whose contents depend on which changes have been committed and shared. As you work, check which picture better explains the differences you see.</p>
@@ -820,7 +820,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A password.</li>
 <li>A username.</li>
 </ol>
-<p>💡 <strong>Tip:</strong> Use an email address you can access right now. GitHub may send a verification email before your account is fully ready.</p>
+<p>💡 <strong>Tip:</strong> Use an email address you can access right now.</p>
 </section>
 <section id="step-3-github" class="level3">
 <h3 class="anchored" data-anchor-id="step-3-github">Step 3</h3>
@@ -847,6 +847,7 @@ lastname-data</code></pre>
 <section id="step-4-github" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-github">Step 4</h3>
 <p><strong>✅ Verify your email address</strong></p>
+<p>If your email address is already verified, continue to <a href="#step-5-github">Step 5</a>. Otherwise, follow the steps below.</p>
 <p>🎯 Check the email account you used to sign up for GitHub.</p>
 <p>🎯 Look for an email from GitHub.</p>
 <p>🎯 Follow the verification instructions in that email.</p>
@@ -1034,6 +1035,7 @@ lastname-data</code></pre>
 </table>
 <p>✅ Verify that you have a terminal window open.</p>
 <p>💡 <strong>Tip:</strong> Windows users should use Git Bash for this step. It was installed when you installed Git for Windows.</p>
+<p>💡 <strong>Tip:</strong> Check pasted commands before pressing <code>Enter</code>. If a short command pastes incorrectly, clear it and type it instead.</p>
 <hr>
 </section>
 <section id="step-2-configure-ssh-keys" class="level3">
@@ -1042,6 +1044,7 @@ lastname-data</code></pre>
 <p>Before generating a new key, check the <code>.ssh</code> folder on your computer.</p>
 <p>🎯 In the Terminal, run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-al</span> ~/.ssh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>💡 <strong>Tip:</strong> <code>ls</code> starts with a lowercase <strong>L</strong>, not the number <strong>1</strong>. The last character in <code>-al</code> is also a lowercase <strong>L</strong>.</p>
 <p>If the Terminal reports that the <code>.ssh</code> folder does not exist, no SSH key is stored in the default location. Follow the <strong>new-key route</strong> below.</p>
 <p>If the folder exists, look for a matching public- and private-key pair. Common supported pairs include:</p>
 <pre class="text"><code>id_ed25519     and id_ed25519.pub
