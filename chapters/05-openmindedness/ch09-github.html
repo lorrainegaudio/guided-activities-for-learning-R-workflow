@@ -1087,10 +1087,10 @@ id_ed25519.pub</code></pre>
 <section id="step-5-configure-ssh-keys" class="level3">
 <h3 class="anchored" data-anchor-id="step-5-configure-ssh-keys">Step 5</h3>
 <p><strong>Protect the private key with a passphrase</strong></p>
+<p>💡 <strong>Tip: Invisible typing is normal.</strong> The Terminal accepts your passphrase even though no letters, dots, or asterisks appear. Type it and press <code>Enter</code>. At the confirmation prompt, type the same passphrase again and press <code>Enter</code>. Hidden typing does not mean the Terminal is frozen; you do not need to restart the app.</p>
 <p>The Terminal will display a prompt similar to:</p>
 <pre class="text"><code>Enter passphrase (empty for no passphrase):</code></pre>
 <p>🎯 Type a secure passphrase and press <code>Enter</code>.</p>
-<p>The Terminal will not display letters, dots, or other characters while you type. This is normal.</p>
 <p>When prompted, type the same passphrase again and press <code>Enter</code>.</p>
 <p>Do not use your GitHub password as the SSH-key passphrase. Keep the passphrase private and store it securely.</p>
 </section>
@@ -1557,6 +1557,7 @@ github-practice.Rproj</code></pre>
 <p>You can find the Push button in the Git pane’s menu bar, usually near the Commit button. It is also in the Commit window after you make a commit.</p>
 <p>🗣 <span class="glossary-term" data-term="Push">Push</span> sends your local commit from RStudio up to GitHub.</p>
 <p>✅ Verify that the push finishes without an error.</p>
+<p>💡 <strong>Tip: Keep your email private.</strong> If Push reports that it would publish a private email address, GitHub is protecting an email recorded in a commit. You can keep email privacy enabled: <a href="#step-2-configure-git-identity">configure Git</a> with your exact GitHub-provided <code>noreply</code> address for future commits. This does not update existing commits. If those are blocked, ask for help rather than disabling privacy or recreating SSH keys.</p>
 <p>💡 <strong>Tip:</strong> If Push reports <code>fetch first</code>, <code>non-fast-forward</code>, or that your repository is “behind,” stop and do not keep clicking Push. Pull once. If Pull completes without a conflict, try Push again. If RStudio reports a merge conflict, do not Push again until the conflict is resolved and the resolution is committed.</p>
 </section>
 <section id="step-7-local-changes" class="level3">
