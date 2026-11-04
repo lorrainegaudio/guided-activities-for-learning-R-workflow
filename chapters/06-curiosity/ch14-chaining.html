@@ -68,6 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../chapters/07-thoroughness/thoroughness.html" rel="next">
 <link href="../../chapters/06-curiosity/ch13-grouped-summaries.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -325,6 +326,32 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/07-thoroughness/thoroughness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thoroughness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch15-probability-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 15: Probability functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 16: ggplot2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch17-string-detect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 17: String Detect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -359,8 +386,8 @@ window.Quarto = {
   <li><a href="#task1" id="toc-task1" class="nav-link" data-scroll-target="#task1">Task 1</a></li>
   <li><a href="#task2" id="toc-task2" class="nav-link" data-scroll-target="#task2">Task 2</a></li>
   <li><a href="#task3" id="toc-task3" class="nav-link" data-scroll-target="#task3">Task 3</a></li>
-  </ul></li>
   <li><a href="#save-upload" id="toc-save-upload" class="nav-link" data-scroll-target="#save-upload">Save Your Work</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -391,15 +418,14 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>In Chapters 11, 12, and 13, we explored several functions from <code>dplyr</code> (<code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>case_when()</code>, <code>group_by()</code> and <code>summarize()</code>). You now know the key dplyr verbs one at a time. In this chapter, we’ll be putting <code>dplyr</code> verbs together in more complex <span class="glossary-term" data-term="Pipeline">pipelines</span>. The real power comes from <em>chaining</em> them so data flows logically from raw to insight in a single readable statement.</p>
 <p>🐱 The curiosity notes mark places to predict how a pipeline step will change the data, investigate a result with a small check, or record a side question for later.</p>
-<p><strong>Lesson Overview</strong></p>
 <p>By the end of Chapter 14 you will be able to:</p>
-<ol type="1">
-<li><p>⚡ Remember – List the actions of main dplyr verbs: <code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>summarize()</code>, <code>arrange()</code>.</p></li>
-<li><p>🔍 Understand – Describe how the pipe <code>%&gt;%</code> passes results step‑by‑step.</p></li>
-<li><p>🛠 Apply – Build a multi‑verb pipeline to clean and summarize data.</p></li>
-<li><p>📊 Analyze – Inspect intermediate output to verify each step.</p></li>
-<li><p>🧠️ Evaluate – Decide when a single pipeline is clearer than separate objects.</p></li>
-</ol>
+<ul>
+<li><p>⚡ List the actions of the main <code>dplyr</code> verbs: <code>select()</code>, <code>filter()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>summarize()</code>, and <code>arrange()</code>.</p></li>
+<li><p>🔍 Describe how the pipe <code>%&gt;%</code> passes results step by step.</p></li>
+<li><p>🛠 Build a multi-verb pipeline to clean and summarize data.</p></li>
+<li><p>📊 Inspect intermediate output to verify each step.</p></li>
+<li><p>🧠 Decide when a single pipeline is clearer than separate objects.</p></li>
+</ul>
 <p>Keep these goals in mind as you move through each section.</p>
 </section>
 <section id="setup-notes" class="level2">
@@ -447,107 +473,148 @@ Note
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
 <p>If either package is missing, run its installation command once in the RStudio Console: <code>install.packages("dplyr")</code> or <code>install.packages("dslabs")</code>. Keep installation commands out of code that runs each time you render.</p>
-<p>Load both packages with <code>library()</code> in your document so they are available when it renders:</p>
+<p>🎯 <strong>Goal:</strong> Load both packages with <code>library()</code> in your document so they are available when it renders.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)  <span class="co"># Data science labs package</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)  <span class="co"># Data science labs package</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🧶 <strong>Test render.</strong> Save your Quarto document and click <strong>Render</strong>. Check that it opens as HTML with your title and headings.</p>
 </section>
 <section id="build-pipe" class="level2">
 <h2 class="anchored" data-anchor-id="build-pipe">🛠 Building a Pipeline</h2>
-<p>🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in <code>mtcars</code> that use at least 8 L/100 km, broken down by transmission and cylinders.</p>
+<p>🎯 <strong>Goal:</strong> Find the average fuel consumption (liters/100 km) for cars in <code>mtcars</code> that use at least 8 L/100 km, broken down by transmission and cylinders.</p>
 <section id="start-data" class="level3">
 <h3 class="anchored" data-anchor-id="start-data">Start with the data</h3>
 <p>We’ll use the built‑in <code>mtcars</code> dataset.</p>
 <p>The <span class="glossary-term" data-term="Pipe">pipe</span> <code>%&gt;%</code> passes the result on its left into the next function. Here, <code>mtcars %&gt;% head(2)</code> passes <code>mtcars</code> to <code>head()</code> as its first argument, giving the same result as <code>head(mtcars, 2)</code>.</p>
-<p>🎯 Goal. Load mtcars and confirm shape.</p>
+<p>🎯 <strong>Goal:</strong> Load <code>mtcars</code> and inspect a <span class="glossary-term" data-term="Preview">preview</span> of its first two rows.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span>                       <span class="co"># rows = 32 cars, many columns</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)                        <span class="co"># preview first two rows</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars, <span class="dv">2</span>)  <span class="co"># base R version, same output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)                        <span class="co"># preview first two rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4</code></pre>
 </div>
-<p>🗣 Data loaded correctly.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars, <span class="dv">2</span>)  <span class="co"># base R version, same output</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Comment:</strong> Both calls return the first two rows of <code>mtcars</code>.</p>
 </section>
 <section id="mutate" class="level3">
 <h3 class="anchored" data-anchor-id="mutate">Create a new variable with <code>mutate()</code></h3>
 <p>We’ll calculate fuel consumption in liters per 100 kilometers (L/100 km). The <code>mpg</code> column uses miles per US gallon. The formula is:</p>
 <p><span class="math display">\[\frac{\text{L}}{100\text{ km}} = \frac{235.215}{\text{MPG}}\]</span></p>
-<p>🎯 Goal. Add <code>l_100km</code> using the equation 235.215/<code>mpg</code> and round the value to one decimal place.</p>
+<p>🎯 <strong>Goal:</strong> Add <code>l_100km</code> using the equation 235.215/<code>mpg</code> and round the value to one decimal place.</p>
 <p>🐱 <strong>Prediction:</strong> If a car has a higher <code>mpg</code> value, do you expect its L/100 km value to be higher or lower? Explain why before running the code.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              mpg cyl disp  hp drat    wt  qsec vs am gear carb l_100km
+Mazda RX4      21   6  160 110  3.9 2.620 16.46  0  1    4    4    11.2
+Mazda RX4 Wag  21   6  160 110  3.9 2.875 17.02  0  1    4    4    11.2</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg, <span class="fl">235.215</span><span class="sc">/</span>mtcars<span class="sc">$</span>mpg) <span class="sc">&lt;</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg, <span class="fl">235.215</span><span class="sc">/</span>mtcars<span class="sc">$</span>mpg) <span class="sc">&lt;</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>🗣 The negative correlation is consistent with higher <code>mpg</code> and lower L/100 km. This checks the direction of the relationship, not the conversion units.</p>
+<p>🗣 <strong>Comment:</strong> The negative correlation is consistent with higher <code>mpg</code> and lower L/100 km. This checks the direction of the relationship, not the conversion units.</p>
 <p>Compare this result with your prediction about the two measurements.</p>
 </section>
 <section id="filter" class="level3">
 <h3 class="anchored" data-anchor-id="filter">Keep only cars using at least 8 L/100 km</h3>
 <p>We’ll only keep cars that use <em>at least</em> 8 L/100 km. Use <code>filter()</code> to keep those rows.</p>
-<p>🎯 Goal. Keep <code>l_100km &gt;= 8</code>.</p>
+<p>🎯 <strong>Goal:</strong> Keep <code>l_100km &gt;= 8</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="select" class="level3">
 <h3 class="anchored" data-anchor-id="select">Select relevant columns</h3>
-<p>🎯 Goal. Keep <code>cyl</code>, <code>am</code>, and <code>l_100km</code> columns.</p>
+<p>🎯 <strong>Goal:</strong> Keep <code>cyl</code>, <code>am</code>, and <code>l_100km</code> columns.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mtcars2 <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  cyl am l_100km
+Mazda RX4           6  1    11.2
+Mazda RX4 Wag       6  1    11.2
+Datsun 710          4  1    10.3
+Hornet 4 Drive      6  0    11.0
+Hornet Sportabout   8  0    12.6
+Valiant             6  0    13.0</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setequal</span>(<span class="fu">names</span>(mtcars2), <span class="fu">c</span>(<span class="st">"cyl"</span>,<span class="st">"am"</span>,<span class="st">"l_100km"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setequal</span>(<span class="fu">names</span>(mtcars2), <span class="fu">c</span>(<span class="st">"cyl"</span>,<span class="st">"am"</span>,<span class="st">"l_100km"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
 </div>
-<p>🗣 Columns trimmed.</p>
+</div>
+<p>🗣 <strong>Comment:</strong> The check returns <code>TRUE</code>: <code>mtcars2</code> contains the three requested columns.</p>
 </section>
 <section id="group-summarize" class="level3">
 <h3 class="anchored" data-anchor-id="group-summarize">Group and summarize</h3>
 <p>Now we can group by <code>am</code> and <code>cyl</code>, then summarize to get the mean fuel consumption and count of cars in each group.</p>
-<p>🎯 Goal. Mean <code>l_100km</code> and <code>n</code> by <code>am</code>, <code>cyl</code>.</p>
+<p>🎯 <strong>Goal:</strong> Calculate the mean <code>l_100km</code> and a car count named <code>n</code> for each combination of <code>am</code> and <code>cyl</code>.</p>
 <p>🐱 <strong>Prediction:</strong> How many rows do you expect in the summary? Use the transmission-and-cylinder combinations in <code>mtcars2</code> to explain your prediction before running the summary code.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+     am   cyl mean_l_100km     n
+  &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;
+1     0     4        10.3      3
+2     0     6        12.4      4
+3     0     8        16.2     12
+4     1     4         9.72     4
+5     1     6        11.4      3
+6     1     8        15.3      2</code></pre>
+</div>
 </div>
 <p>🐱 The summary has fewer rows than <code>mtcars2</code>. Were more cars filtered out? I will compare the total of the group counts in <code>n</code> with the number of cars before the summary.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Investigate the number of cars represented in the summary</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mtcars_summary<span class="sc">$</span>n)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Investigate the number of cars represented in the summary</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mtcars_summary<span class="sc">$</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
 </div>
-<p>🗣 Both checks return 28. The six summary rows represent groups; the counts in <code>n</code> account for the 28 retained cars. Compare the summary’s rows with your prediction.</p>
-<p>🗣 Explain:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mtcars2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> Both checks return 28. The six summary rows represent groups; the counts in <code>n</code> account for the 28 retained cars. Compare the summary’s rows with your prediction.</p>
+<p>🗣 <strong>Comment:</strong></p>
 <p>Order matters in <code>dplyr</code> pipelines. In this pipeline, <code>group_by()</code> comes before <code>summarize()</code> so the calculations run separately for each group.</p>
 <ul>
 <li><p><code>group_by(am, cyl)</code> tells <code>dplyr</code> to treat each unique combination of <code>am</code> and <code>cyl</code> separately. <code>group_by()</code> divides your data into separate groups for analysis. It doesn’t change how your data looks. It adds metadata that tells <strong>subsequent functions</strong> to operate on each group separately. It’s like telling R: “For each combination of these variables, do the following…”</p></li>
@@ -558,60 +625,75 @@ Note
 <section id="recode" class="level3">
 <h3 class="anchored" data-anchor-id="recode">Recode transmission for readability</h3>
 <p>❓ Question: How might you check which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
-<p>🎯 Goal. Label <code>am</code> as “Automatic/Manual” in a column “Transmission” and make it a factor with level order.</p>
+<p>🎯 <strong>Goal:</strong> Label <code>am</code> as “Automatic/Manual” in a column <code>Transmission</code> and make it a factor with level order.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test: Recode transmission for readability Method 1</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars_summary <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Transmission =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Transmission =</span> <span class="fu">factor</span>(Transmission, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Create a labeled Transmission column</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars_summary <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Transmission =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Transmission =</span> <span class="fu">factor</span>(Transmission, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(mtcars_summary<span class="sc">$</span>Transmission)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">levels</span>(mtcars_summary<span class="sc">$</span>Transmission), <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.factor</span>(mtcars_summary<span class="sc">$</span>Transmission)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
 </div>
-<p>🗣 Labels set; order fixed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">levels</span>(mtcars_summary<span class="sc">$</span>Transmission), <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> Both checks return <code>TRUE</code>. <code>Transmission</code> is a factor with “Automatic” before “Manual”.</p>
+<p>The example above adds <code>Transmission</code> and keeps the numeric <code>am</code> column. The complete pipeline below starts again from <code>mtcars</code> and instead overwrites <code>am</code> with the same labels. In the final table, <span class="glossary-term" data-term="rename()"><code>rename()</code></span> will change that column’s name to <code>Transmission</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test:✔ Pipeline complete! One readable flow from raw data to insight.</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),  </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Complete the pipeline from the original data</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),  </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🪞 Reflect: Explain why the highest <code>mean_l_100km</code> is the least fuel‑efficient combination. Record your explanation in a memo.</p>
+<p>🪞 <strong>Reflect:</strong> Explain why the highest <code>mean_l_100km</code> is the least fuel‑efficient combination. Record your explanation in a memo.</p>
 </section>
 <section id="result" class="level3">
 <h3 class="anchored" data-anchor-id="result">Readable Result</h3>
-<p>🎯 Goal. Build one readable pipeline, then sort by the highest Mean l/100km (higher = less efficient) and keep the top row.</p>
+<p>🎯 <strong>Goal:</strong> Build one readable pipeline, then sort by the highest <code>mean_l_100km</code> (higher = less efficient) and keep the top row.</p>
+<p>Use <span class="glossary-term" data-term="slice()"><code>slice()</code></span> to keep the first row after sorting and <code>rename()</code> to give the final columns readable names.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span>                                       <span class="co"># &lt;-- close mutate() here</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_l_100km)) <span class="sc">%&gt;%</span>             <span class="co"># sort highest (least efficient) first</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span>                                <span class="co"># keep the single worst combo</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Mean l/100km</span><span class="st">`</span> <span class="ot">=</span> mean_l_100km,       <span class="co"># backticks for non-syntactic name</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Count         =</span> n,</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cylinder      =</span> cyl,</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Transmission  =</span> am)</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>mtcars_summary <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">l_100km =</span> <span class="fu">round</span>(<span class="fl">235.215</span> <span class="sc">/</span> mpg, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(l_100km <span class="sc">&gt;=</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cyl, am, l_100km) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(am, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_l_100km =</span> <span class="fu">round</span>(<span class="fu">mean</span>(l_100km), <span class="dv">2</span>),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">case_when</span>(am <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Automatic"</span>, <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Manual"</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Automatic"</span>,<span class="st">"Manual"</span>))</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span>                                       <span class="co"># &lt;-- close mutate() here</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_l_100km)) <span class="sc">%&gt;%</span>             <span class="co"># sort highest (least efficient) first</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span>                                <span class="co"># keep the single worst combo</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Mean l/100km</span><span class="st">`</span> <span class="ot">=</span> mean_l_100km,       <span class="co"># backticks for non-syntactic name</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Count         =</span> n,</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cylinder      =</span> cyl,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">Transmission  =</span> am)</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>mtcars_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  Transmission Cylinder `Mean l/100km` Count
+  &lt;fct&gt;           &lt;dbl&gt;          &lt;dbl&gt; &lt;int&gt;
+1 Automatic           8           16.2    12</code></pre>
 </div>
-<p>🗣 Explain: <span class="glossary-term" data-term="arrange()"><code>arrange()</code></span> sorts the data frame by <code>mean_l_100km</code> (renamed <code>Mean l/100km</code>) in descending order, so the first row is the least fuel-efficient combination of <code>am</code> and <code>cyl</code>.</p>
+</div>
+<p>🗣 <strong>Comment:</strong> <span class="glossary-term" data-term="arrange()"><code>arrange()</code></span> sorts the data frame by <code>mean_l_100km</code> (renamed <code>Mean l/100km</code>) in descending order, so the first row is the least fuel-efficient combination of <code>am</code> and <code>cyl</code>.</p>
 <p>Answer the ❓ Question: Which combination of <code>am</code> + <code>cyl</code> is least fuel‑efficient?</p>
 <p>🐱 I also wonder why the groups differ in fuel consumption. This table describes their averages; it does not explain what caused those differences. I will record that question for later and return to tracing how the pipeline produced the table.</p>
 </section>
@@ -730,10 +812,10 @@ Note
 <p><strong>Optional drafting begins here.</strong> Use as many of Tasks 2.0–2.6 as you find helpful. They are places to test parts of your pipeline before writing the complete version in the final area.</p>
 <p>Load packages and confirm <code>movielens</code> has <code>rating</code> and <code>year</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="task2.1" class="level4">
@@ -741,10 +823,10 @@ Note
 <p>Use <code>filter()</code> to keep rows where <code>rating</code> and <code>year</code> are both non-missing and <code>year &gt;= 1990</code> (Hint: use <code>!is.na()</code>). Then use <code>select()</code> to keep only the <code>rating</code> and <code>year</code> columns.</p>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify: years are 1990 or greater</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify: years are 1990 or greater</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did you check to confirm that the retained rows meet the filtering requirements?</p>
 </section>
@@ -758,10 +840,10 @@ Note
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> Use one year from the data to explain how your calculation assigned its decade.</p>
 </section>
@@ -774,10 +856,10 @@ Note
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the labels and their factor-level order?</p>
 </section>
@@ -790,10 +872,10 @@ Note
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What does one row of your grouped summary represent?</p>
 </section>
@@ -806,10 +888,10 @@ Note
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the counts and grouping in the result?</p>
 </section>
@@ -822,10 +904,10 @@ Note
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> How did you check that the rows follow your chosen sort order?</p>
 </section>
@@ -835,7 +917,7 @@ Note
 <p>🎯 <strong>Write the goal:</strong> Restate what your final pipeline should produce in your own words.</p>
 <p>🐱 <strong>Prediction:</strong> Choose one step in your planned pipeline. What do you expect it to change: the rows, columns, groups, or summary values? Explain why before running any Task 2 code. If you are unsure, describe what you think might happen and what you are uncertain about.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For checks on filtering or recoding, inspect an <span class="glossary-term" data-term="Intermediate result">intermediate result</span> before the summary step. Those intermediate results do not need to be saved as additional final objects.</p>
 <p>Write checks that help you confirm:</p>
@@ -848,7 +930,7 @@ Note
 </ul>
 <p>If you used the optional column renaming or other enhancements, check the corresponding columns and explain those changes in your memo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check: Write your checks and display Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check: Write your checks and display Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments:</strong> Explain what your checks showed and how the selected step’s result compared with your prediction. If it differed, name a question and choose a small check to investigate it. If it matched, explain what your checks confirmed. State your sort choice and explain any optional changes you made.</p>
 <p><strong>🧶 Test render</strong> if you are using Quarto. Confirm that the HTML displays your final table, checks, and memo.</p>
@@ -862,11 +944,11 @@ Note
 <p>📝 Write a short paragraph reflecting on what <code>n</code> is counting in <code>Movie_Facts</code>. Is it individual movies or individual ratings? Explain.</p>
 <p>🪞 <strong>Reflect:</strong> “___”</p>
 </section>
-</section>
-<section id="save-upload" class="level2">
-<h2 class="anchored" data-anchor-id="save-upload">Save Your Work</h2>
+<section id="save-upload" class="level3">
+<h3 class="anchored" data-anchor-id="save-upload">Save Your Work</h3>
 <p>Before you finish, confirm that your document includes:</p>
 <ul>
+<li>the Task 0 package-loading code,</li>
 <li>the three Task 1 explanations,</li>
 <li>the final Task 2 goal, prediction, and one end-to-end pipeline that creates <code>Movie_Facts</code>,</li>
 <li>checks of your result and a final Comment comparing them with your prediction and explaining your sort choice,</li>
@@ -874,21 +956,26 @@ Note
 <li>citations for any outside help you used.</li>
 </ul>
 <p>The optional drafting steps do not need separate final outputs or memos.</p>
-<p>Clear your Environment, then run your code from top to bottom. Confirm that <code>Movie_Facts</code> is recreated without relying on previously saved objects.</p>
-<ol type="1">
-<li><p>Save your source document. If you are using Quarto, render it and inspect the HTML for your code, output, checks, and memos.</p></li>
-<li><p>Save your workspace. The workspace file saves the objects currently in your Environment. Run this command in the RStudio Console after running your Practice Space code:</p></li>
-</ol>
+<p>Save your source document and the <code>chapter14_workspace.RData</code> workspace. If this Practice Space is assigned for submission, follow your instructor’s directions for the required files.</p>
+<p>📖 <strong>Review:</strong> A workspace file (<code>.RData</code>) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.</p>
+<p>🎯 Recreate your work from the saved code before saving the final files.</p>
+<p><strong>Step 1: Sweep your Environment (start clean).</strong></p>
+<p>Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
+<p><strong>Step 2: Run everything top-to-bottom.</strong></p>
+<p>Use <strong>Run → Run All</strong> to execute every chunk in order, beginning with your package-loading code. Confirm that <code>Movie_Facts</code> is recreated without relying on previously saved objects.</p>
+<p><strong>Step 3: Save, render, and inspect.</strong></p>
+<p>Save your source document. If you are using Quarto, render it and inspect <code>chapter14_practice.html</code> for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
+<p><strong>Step 4: Save your workspace.</strong></p>
+<p>Run this command in the RStudio Console after running your Practice Space code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter14_workspace.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter14_workspace.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Or you can click the “Save Workspace” button in the Environment pane.</p>
-<p>💾 <strong>Always save the R documents before closing.</strong></p>
-<ol start="3" type="1">
-<li>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</li>
-</ol>
+<p>Or use the “Save Workspace” button in the Environment pane.</p>
+<p>💾 <strong>Always save your source document before closing.</strong></p>
+<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1304,6 +1391,9 @@ Note
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../chapters/07-thoroughness/thoroughness.html" class="pagination-link" aria-label="Thoroughness">
+        <span class="nav-page-text">Thoroughness</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

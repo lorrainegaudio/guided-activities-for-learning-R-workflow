@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Chapter 17: String Detect – Introduction to R Programming: Goal, Code, Verify, Reflect</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/07-thoroughness/ch16-ggplot2.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-30a6f3117ec04dc5da00a6077361ea08.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c687014b6e94f91f508873c3b612f981.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/07-thoroughness/thoroughness.html">Thoroughness</a></li><li class="breadcrumb-item"><a href="../../chapters/07-thoroughness/ch17-string-detect.html"><span class="chapter-title">Chapter 17: String Detect</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Introduction to R Programming: Goal, Code, Verify, Reflect</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/lorrainegaudio/guided-activities-for-learning-R-workflow" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to R Programming</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../front-matter/preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/01-tenacity/tenacity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tenacity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch01-navigation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 1: Navigation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/01-tenacity/ch02-scripts.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 2: Scripts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/02-transparency/transparency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Transparency</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch03-vectors.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 3: Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/02-transparency/ch04-structures.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 4: Structures</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/03-courage/courage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Courage</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch05-help.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 5 Help!</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-courage/ch06-missing-values.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 6: Missing Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/04-autonomy/autonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autonomy</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch07-importing-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 7: Importing Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-autonomy/ch08-indexing.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 8: Indexing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/05-openmindedness/openmindedness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open-mindedness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch09-github.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 9: Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch10-and-or-in.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 10: And, Or, and Membership</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-openmindedness/ch11-dplyr-subsetting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 11: dplyr Subsetting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/06-curiosity/curiosity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curiosity</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch12-recoding.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 12: Recoding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch13-grouped-summaries.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 13: Grouped Summaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-curiosity/ch14-chaining.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 14: Chaining</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/07-thoroughness/thoroughness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thoroughness</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch15-probability-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 15: Probability functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 16: ggplot2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch17-string-detect.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chapter 17: String Detect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setting Up Your Notes</a>
+  <ul class="collapse">
+  <li><a href="#create_quarto" id="toc-create_quarto" class="nav-link" data-scroll-target="#create_quarto">Create a Quarto File</a></li>
+  <li><a href="#yaml_header" id="toc-yaml_header" class="nav-link" data-scroll-target="#yaml_header">YAML Header</a></li>
+  </ul></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">📦 Packages</a></li>
+  <li><a href="#warmup" id="toc-warmup" class="nav-link" data-scroll-target="#warmup">Warm‑Up</a></li>
+  <li><a href="#row-name-search" id="toc-row-name-search" class="nav-link" data-scroll-target="#row-name-search">Row‑name search</a></li>
+  <li><a href="#column-search" id="toc-column-search" class="nav-link" data-scroll-target="#column-search">Column search</a></li>
+  <li><a href="#exact-word-match" id="toc-exact-word-match" class="nav-link" data-scroll-target="#exact-word-match">Exact word match</a></li>
+  <li><a href="#count-matches-quickly" id="toc-count-matches-quickly" class="nav-link" data-scroll-target="#count-matches-quickly">Count Matches Quickly</a></li>
+  <li><a href="#inspect-the-corpus" id="toc-inspect-the-corpus" class="nav-link" data-scroll-target="#inspect-the-corpus">Inspect the Corpus</a></li>
+  <li><a href="#build-a-keyword-index" id="toc-build-a-keyword-index" class="nav-link" data-scroll-target="#build-a-keyword-index">Build a Keyword Index</a></li>
+  <li><a href="#preview-context-lines" id="toc-preview-context-lines" class="nav-link" data-scroll-target="#preview-context-lines">Preview Context Passages</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#chapter-terms" id="toc-chapter-terms" class="nav-link" data-scroll-target="#chapter-terms">Chapter Terms</a></li>
+  <li><a href="#practice-space" id="toc-practice-space" class="nav-link" data-scroll-target="#practice-space">📝 Practice Space</a>
+  <ul class="collapse">
+  <li><a href="#practice-setup" id="toc-practice-setup" class="nav-link" data-scroll-target="#practice-setup">Setup</a></li>
+  <li><a href="#task-0" id="toc-task-0" class="nav-link" data-scroll-target="#task-0">Task 0</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a></li>
+  <li><a href="#task-3" id="toc-task-3" class="nav-link" data-scroll-target="#task-3">Task 3</a></li>
+  <li><a href="#task-4" id="toc-task-4" class="nav-link" data-scroll-target="#task-4">Task 4</a></li>
+  <li><a href="#task-5" id="toc-task-5" class="nav-link" data-scroll-target="#task-5">Task 5</a></li>
+  <li><a href="#task-6" id="toc-task-6" class="nav-link" data-scroll-target="#task-6">Task 6</a></li>
+  <li><a href="#task-7" id="toc-task-7" class="nav-link" data-scroll-target="#task-7">Task 7</a></li>
+  <li><a href="#task-8" id="toc-task-8" class="nav-link" data-scroll-target="#task-8">Task 8</a></li>
+  <li><a href="#save-and-upload" id="toc-save-and-upload" class="nav-link" data-scroll-target="#save-and-upload">Save Your Work</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/07-thoroughness/thoroughness.html">Thoroughness</a></li><li class="breadcrumb-item"><a href="../../chapters/07-thoroughness/ch17-string-detect.html"><span class="chapter-title">Chapter 17: String Detect</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Chapter 17: String Detect</span></h1>
+<p class="subtitle lead">Text Searches and Data Filtering</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Many datasets include text, such as movie titles, country names, and survey answers. In this chapter, you will use <span class="glossary-term" data-term="str_detect()"><code>str_detect()</code></span> to find text that matches a pattern and combine those results with <code>dplyr::filter()</code> to select rows. You will also search passages from a research-integrity article, count matching passages, and retrieve them to read in context.</p>
+<p>By the end of Chapter 17 you will be able to:</p>
+<ul>
+<li><p>🔍 Find matching text in row names and character columns with <code>str_detect()</code>.</p></li>
+<li><p>🎯 Use word boundaries, alternation, and capitalization options to define a search pattern.</p></li>
+<li><p>🧺 Combine text-matching results with <code>filter()</code> to select rows.</p></li>
+<li><p>🔁 Use <span class="glossary-term" data-term="sapply()"><code>sapply()</code></span> and <span class="glossary-term" data-term="lapply()"><code>lapply()</code></span> to apply an operation to several objects or keywords.</p></li>
+<li><p>📖 Build a keyword index, retrieve matching passages, and distinguish passage counts from word-occurrence counts.</p></li>
+</ul>
+<p>Keep these goals in mind as you move through each section.</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setting Up Your Notes</h2>
+<p>Continue using Quarto to keep your code, output, checks, and memos in one document. The setup below follows Chapter 16. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.</p>
+<section id="create_quarto" class="level3">
+<h3 class="anchored" data-anchor-id="create_quarto">Create a Quarto File</h3>
+<ol type="1">
+<li><p>Open RStudio. Open the project or navigate to the folder where you keep your work for this book.</p></li>
+<li><p>Choose <code>File &gt; New File &gt; Quarto Document</code>.</p></li>
+<li><p>Keep <strong>HTML</strong> selected as the output format, uncheck <strong>Use visual markdown editor</strong>, and click <strong>Create Empty Document</strong>.</p></li>
+<li><p>Save the document in your folder as <code>chapter17_notes.qmd</code>.</p></li>
+</ol>
+<p>Keep the YAML header at the top. If any starter content appears below the closing <code>---</code>, remove that content and use the space for your notes, code, and memos.</p>
+<p>If you use Git and GitHub, follow the workflow you learned in <a href="../05-openmindedness/ch09-github.html">Chapter 9</a>: pull before you begin, then save, stage, commit while you work, and push after you finish.</p>
+</section>
+<section id="yaml_header" class="level3">
+<h3 class="anchored" data-anchor-id="yaml_header">YAML Header</h3>
+<p>Edit the existing YAML header to match this example, replacing <code>YOUR NAME</code> with your name. Keep only one header, including its opening and closing <code>---</code> lines.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 17 Notes"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"String Detect"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Set <code>code-fold</code> to <code>false</code> so that all code is visible by default. Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
+</section>
+</section>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages">📦 Packages</h2>
+<p>If any of these packages is missing, run its installation line once in the <strong>RStudio Console</strong>, not in a document code chunk:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dslabs"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"stringr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Keep installation commands out of your document. Use <code>library()</code> in your document to load the packages whenever you run it.</p>
+<p>🎯 <strong>Goal:</strong> Load the packages at the start of every session.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)  <span class="co"># Data science labs package</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)   <span class="co"># Data manipulation package</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># For str_detect() function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🧶 <strong>Test render.</strong> Save your Quarto document and click <strong>Render</strong>. Check that the HTML opens with your title and headings and that the package-loading code runs without errors. If you use R Markdown, knit and inspect the HTML instead.</p>
+</section>
+<section id="warmup" class="level2">
+<h2 class="anchored" data-anchor-id="warmup">Warm‑Up</h2>
+<p>What is <code>str_detect()</code>?</p>
+<p>A <span class="glossary-term" data-term="Pattern">pattern</span> describes what you want to find in text. The <code>string</code> argument supplies the text to search, and <code>pattern</code> supplies the matching rule.</p>
+<p>📜 <strong>The SYNTAX:</strong> <code>str_detect(string, pattern, negate = FALSE)</code></p>
+<p>🎯 <strong>Goal:</strong> Use the help file to identify the arguments and the type of result returned.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>?str_detect    <span class="co"># Arguments and return value (logical)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Comment:</strong> What do the <code>string</code> and <code>pattern</code> arguments supply, and what type of result does the function return?</p>
+<p>For each nonmissing text value, <code>str_detect()</code> returns <code>TRUE</code> if the pattern matches and <code>FALSE</code> otherwise. You can use those logical results to filter rows or find matching positions.</p>
+</section>
+<section id="row-name-search" class="level2">
+<h2 class="anchored" data-anchor-id="row-name-search">Row‑name search</h2>
+<p>🎯 <strong>Goal:</strong> Find states whose names begin with <code>New</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(USArrests)  <span class="co"># View USArrests dataset in RStudio viewer</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(USArrests)  <span class="co"># Check row names of USArrests dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>New_states <span class="ot">&lt;-</span> USArrests <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(<span class="fu">row.names</span>(USArrests), <span class="st">"^New"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>^</code> anchors the pattern to the beginning of each name. The assignment saves the selected rows as <code>New_states</code>.</p>
+<p>✔️ In <a href="../05-openmindedness/ch11-dplyr-subsetting.html#single-condition">Chapter 11</a>, a comparison such as <code>mpg &gt;= 25</code> returned logical results. Here, <code>str_detect()</code> tests text instead of comparing numbers. <code>filter()</code> still uses the results in the same way: it keeps rows where the test returns <code>TRUE</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(New_states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "New Hampshire" "New Jersey"    "New Mexico"    "New York"     </code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> Which <em>New</em> states were found?</p>
+</section>
+<section id="column-search" class="level2">
+<h2 class="anchored" data-anchor-id="column-search">Column search</h2>
+<p>The <code>movielens</code> data frame contains one row per rating, so a movie title can appear in many rows.</p>
+<p>🎯 <strong>Goal:</strong> Keep rating rows whose movie title contains the whole word <code>Love</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(movielens)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(movielens) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Love_films <span class="ot">&lt;-</span> movielens <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(title, <span class="st">"</span><span class="sc">\\</span><span class="st">bLove</span><span class="sc">\\</span><span class="st">b"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Love_films)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 714</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> This counts matching rating rows, not distinct movies. Why can the same movie contribute more than one row?</p>
+</section>
+<section id="exact-word-match" class="level2">
+<h2 class="anchored" data-anchor-id="exact-word-match">Exact word match</h2>
+<p>Inside a quoted R pattern, write <code>\\b</code> to specify a <span class="glossary-term" data-term="Word boundary">word boundary</span>.</p>
+<p>The <code>region</code> column in <code>murders</code> contains names such as <code>"Northeast"</code>, <code>"North Central"</code>, and <code>"South"</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>?stringr<span class="sc">::</span>regex</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span class="glossary-term" data-term="Regular expression">Regular expressions</span> describe text patterns using ordinary text and special symbols. <code>str_detect()</code> uses them by default; <span class="glossary-term" data-term="regex()"><code>regex()</code></span> lets you specify matching options such as whether capitalization matters.</p>
+<p>📜 <strong>The SYNTAX (basic):</strong> <code>regex(pattern, ignore_case = FALSE, ...)</code></p>
+<p>🎯 <strong>Goal:</strong> Match text without requiring the same capitalization.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"HELLO"</span>, <span class="fu">regex</span>(<span class="st">"hello"</span>, <span class="at">ignore_case =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>✅ <strong>Check:</strong> Inspect the logical result. Did the pattern match?</p>
+<p>🗣 <strong>Comment:</strong> Here, <code>ignore_case = TRUE</code> allows uppercase and lowercase letters to match. This is <span class="glossary-term" data-term="Case-insensitive matching">case-insensitive matching</span>. Use <span class="glossary-term" data-term="Case-sensitive matching">case-sensitive matching</span> when capitalization matters to your search.</p>
+<p>🎯 <strong>Goal:</strong> Keep rows whose region contains the whole word <code>South</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>South_states <span class="ot">&lt;-</span> murders <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(region, <span class="fu">regex</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">bSouth</span><span class="sc">\\</span><span class="st">b"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(South_states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> Word boundaries let <code>"\\bSouth\\b"</code> match the whole word <code>South</code>, but not the beginning of <code>Southampton</code>. The word can occur within a longer name; the entire name does not have to equal <code>South</code>.</p>
+<p>🎯 <strong>Goal:</strong> Keep rows whose region contains the whole word <code>North</code> or <code>South</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>NS_states <span class="ot">&lt;-</span> murders <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(region, <span class="fu">regex</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">b(North|South)</span><span class="sc">\\</span><span class="st">b"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(NS_states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 29</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> Inside a pattern, <code>|</code> matches either alternative. This is <span class="glossary-term" data-term="Alternation">alternation</span>. This pattern finds the whole word <code>North</code> or <code>South</code>, so it can match <code>North Central</code> but not <code>Northeast</code>.</p>
+<p>✔️ You used <code>|</code> in <a href="../05-openmindedness/ch10-and-or-in.html#or">Chapter 10</a> to combine logical tests. Inside <code>"\\b(North|South)\\b"</code>, it separates text alternatives: <code>North</code> or <code>South</code>. The OR idea is familiar, but here the symbol belongs to the quoted search pattern.</p>
+</section>
+<section id="count-matches-quickly" class="level2">
+<h2 class="anchored" data-anchor-id="count-matches-quickly">Count Matches Quickly</h2>
+<p>🎯 <strong>Goal:</strong> Store the four row counts in a numeric vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>match_counts <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>(New_states),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>(Love_films),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>(South_states),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>(NS_states)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Add names to the counts.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(match_counts) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"New_states"</span>, <span class="st">"Love_films"</span>, <span class="st">"South_states"</span>, <span class="st">"NS_states"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>match_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  New_states   Love_films South_states    NS_states 
+           4          714           17           29 </code></pre>
+</div>
+</div>
+<p>Alternatively, use <code>sapply()</code> to count rows in each data frame.</p>
+<p>📜 <strong>The SYNTAX (basic):</strong> <code>sapply(X, FUN, ...)</code></p>
+<p><code>X</code> is the list or vector to work through, and <code>FUN</code> is the function to apply to each element.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>?sapply <span class="co"># sapply() applies a function to each element of a list or vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 <strong>Goal:</strong> Apply <code>nrow()</code> to each of the four data frames and collect the counts.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>match_counts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">list</span>(New_states, Love_films, South_states, NS_states), nrow)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>match_counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]   4 714  17  29</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> <code>list()</code> collects the four data frames, and <code>sapply()</code> applies <code>nrow</code> to each one. Here, it returns a vector of counts. This list is unnamed, so the resulting counts do not have the labels added above.</p>
+</section>
+<section id="inspect-the-corpus" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-corpus">Inspect the Corpus</h2>
+<p>A <span class="glossary-term" data-term="Corpus">corpus</span> is a collection of text prepared for analysis. This chapter uses passages from <em>Value pluralism in research integrity</em> by Peels and colleagues (2019).</p>
+<p><strong>Source:</strong> Peels, R., de Ridder, J., Haven, T., &amp; Bouter, L. (2019). Value pluralism in research integrity. <em>Research Integrity and Peer Review, 4</em>, Article 18. <a href="https://doi.org/10.1186/s41073-019-0076-4">Read the original article</a>.</p>
+<p>The article is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a>. For this activity, the publisher’s web text was extracted, display spacing was normalized, and headings were joined to the next passage. Web controls and author contact details were excluded.</p>
+<p>Each vector entry is one passage. The supplied text includes paragraphs, list items, notes, references, and source and license information. Searches include all these entries, not just the main article.</p>
+<p>Download <code>Science_Values.rds</code> and save it in the same folder as the document you are creating for this chapter:</p>
+<p><a href="data/Science_Values.rds" download="">Download Science_Values.rds</a></p>
+<p>🎯 <strong>Goal:</strong> Read the file into the <code>Science_Values</code> character vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Science_Values <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Science_Values.rds"</span>)  <span class="co"># creates Science_Values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Science_Values)   <span class="co"># number of passages in the supplied file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 197</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> <code>length()</code> counts entries in this character vector, so it tells you the number of passages, not the number of words.</p>
+<p>To inspect the first few passages in RStudio, run:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Science_Values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="build-a-keyword-index" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-keyword-index">Build a Keyword Index</h2>
+<p>A <span class="glossary-term" data-term="Keyword index">keyword index</span> connects each keyword with the positions of passages that match it. <code>lapply()</code> lets us repeat the search for each keyword and keep the results in a list.</p>
+<p>📜 <strong>The SYNTAX (basic):</strong> <code>lapply(X, FUN, ...)</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>?lapply  <span class="co"># lapply() applies a function to each element of a list or vector</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🎯 <strong>Goal:</strong> Create the vector of keywords to search for.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>Index_Words <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"values"</span>, <span class="st">"norms"</span>, <span class="st">"integrity"</span>, <span class="st">"ethics"</span>, <span class="st">"bias"</span>, <span class="st">"trust"</span>, </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"transparency"</span>, <span class="st">"responsibility"</span>, <span class="st">"reproducibility"</span>, <span class="st">"evidence"</span>, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"policy"</span>, <span class="st">"funding"</span>, <span class="st">"conflict"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The searches below use case-insensitive, whole-word matching. Some words may have no matches; an empty result means the pattern was not found in the supplied text.</p>
+<p>In <code>function(w)</code>, <code>w</code> receives one keyword at a time. <code>paste0()</code> joins the word boundaries and keyword into a pattern. <code>str_detect()</code> tests each passage, and <code>which()</code> returns the positions of the matches. <code>lapply()</code> stores one result per keyword in a list.</p>
+<p>🎯 <strong>Goal:</strong> Build the index and name each list element with its keyword.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>Index <span class="ot">&lt;-</span> <span class="fu">lapply</span>(Index_Words, <span class="cf">function</span>(w) {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">which</span>(<span class="fu">str_detect</span>(Science_Values, <span class="fu">regex</span>(<span class="fu">paste0</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">b"</span>, w, <span class="st">"</span><span class="sc">\\</span><span class="st">b"</span>),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">ignore_case =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Index) <span class="ot">&lt;-</span> Index_Words</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "values"          "norms"           "integrity"       "ethics"         
+ [5] "bias"            "trust"           "transparency"    "responsibility" 
+ [9] "reproducibility" "evidence"        "policy"          "funding"        
+[13] "conflict"       </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check the index for "trust".</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>Index[[<span class="st">"trust"</span>]]  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  24 108 110 111 138</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Count the matching passages.</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Index[[<span class="st">"trust"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+</div>
+<p>🗣 <strong>Comment:</strong> <code>Index[["trust"]]</code> contains matching passage positions. Its length counts matching passages, not individual occurrences of the word; one passage can contain it more than once.</p>
+</section>
+<section id="preview-context-lines" class="level2">
+<h2 class="anchored" data-anchor-id="preview-context-lines">Preview Context Passages</h2>
+<p>🎯 <strong>Goal:</strong> Retrieve matching passages so you can read the words in context.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>Science_Values[Index[[<span class="st">"transparency"</span>]]][<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]   <span class="co"># first two transparency hits</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "- Moral leadership, honesty, integrity, rigor, transparency, fairness, respect, recognition, and accountability (Australian Code, pp. 1–2);"                                         
+[2] "Example 1\n\nThe ALLEA code contains a variety of epistemic norms for openness and transparency that are aimed at wide distribution of data and knowledge. Here are three instances:"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve all passages containing the whole word "trust"</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>trust_passages <span class="ot">&lt;-</span> Science_Values[Index[[<span class="st">"trust"</span>]]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>✔️ In <a href="../04-autonomy/ch08-indexing.html#which-function">Chapter 8</a>, <code>which()</code> returned positions that you used to select rows. Here, <code>Index[["trust"]]</code> contains matching passage positions. The brackets in <code>Science_Values[Index[["trust"]]]</code> use those positions to retrieve passages. Because <code>Science_Values</code> is a vector, there is no row-and-column comma.</p>
+<p>🗣 <strong>Comment:</strong> Read the retrieved passages before interpreting the matches. A word can occur in a reference or notice as well as the main article; a match alone does not establish its meaning.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this chapter, you used <code>str_detect()</code> to test text and produce logical results, then used those results with <code>filter()</code> to select rows. You refined searches with word boundaries, alternation, and capitalization options. These patterns changed what counted as a match without changing the familiar role of a logical test.</p>
+<p>You also used <code>sapply()</code> to collect row counts and <code>lapply()</code> to build a keyword index. The index stores matching positions so you can retrieve passages with brackets. A matching-passage count does not tell you how often a word occurs or what the author means by it. Read the retrieved text to interpret the result.</p>
+</section>
+<section id="chapter-terms" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
+<p><strong>Alternation</strong>: Using <code>|</code> inside a regular expression to allow either alternative to match.</p>
+<p><strong>Case-insensitive matching</strong>: Matching that ignores differences between uppercase and lowercase letters. In this chapter, <code>ignore_case = TRUE</code> enables it.</p>
+<p><strong>Case-sensitive matching</strong>: Matching that treats uppercase and lowercase letters as different.</p>
+<p><strong>Corpus</strong>: A collection of text prepared for analysis. Here, each entry in <code>Science_Values</code> is one passage.</p>
+<p><strong>Keyword index</strong>: In this chapter, a named list connecting each keyword with the positions of matching passages.</p>
+<p><strong><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/lapply.html"><code>lapply()</code></a></strong>: Applies a function to each element of a list or vector and returns a list containing the results.</p>
+<p><strong>Pattern</strong>: Text or a matching rule that describes what to look for in text.</p>
+<p><strong><a href="https://stringr.tidyverse.org/reference/modifiers.html"><code>regex()</code></a></strong>: Sets regular-expression matching options, such as whether capitalization matters. It supplies a pattern to a search function; it does not perform the search itself.</p>
+<p><strong>Regular expression</strong>: A text pattern that can use special symbols, such as <code>^</code>, <code>\\b</code>, and <code>|</code>, to describe matching rules.</p>
+<p><strong><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/lapply.html"><code>sapply()</code></a></strong>: Applies a function to each element of a list or vector and simplifies the results when possible. In this chapter’s row-count example, it returns a vector of counts.</p>
+<p><strong><a href="https://stringr.tidyverse.org/reference/str_detect.html"><code>str_detect()</code></a></strong>: Tests text for a pattern and returns logical results indicating which entries match.</p>
+<p><strong>Word boundary</strong>: A position at the beginning or end of a word. Write <code>\\b</code> inside a quoted R pattern to specify one; <code>"\\bSouth\\b"</code> matches <code>South</code> but not the beginning of <code>Southampton</code>.</p>
+</section>
+<section id="practice-space" class="level2">
+<h2 class="anchored" data-anchor-id="practice-space">📝 Practice Space</h2>
+<p>In this Practice Space, you will search row names and country names, then count matching passages in <code>Science_Values</code>. Task 0 loads the packages and text data, Tasks 1–7 ask you to write or explain searches, and Task 8 asks you to reflect on word boundaries.</p>
+<p>The numbered tasks create six result objects: <code>Mazda_cars</code>, <code>United</code>, <code>Saint</code>, <code>Republics</code>, <code>Union_2000</code>, and <code>Keyword_Counts</code>. Keep these exact names.</p>
+<p>Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Use the exact object names given in each task. Run your code and inspect the results using the supplied checks and any other checks appropriate to the result. An empty result can be valid; check it against the search conditions rather than assuming that it is an error.</p>
+<p>Save your source document and the <code>chapter17_practice.RData</code> workspace using the <a href="#save-and-upload">saving instructions below</a>. If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit.</p>
+<section id="practice-setup" class="level3">
+<h3 class="anchored" data-anchor-id="practice-setup">Setup</h3>
+<ol type="1">
+<li><p>Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as <code>chapter17_practice.qmd</code>. If you choose another familiar file type, use the matching extension.</p></li>
+<li><p>For Quarto, edit the existing YAML header to include the title <code>"Chapter 17 Practice"</code>, your name, the date, and the HTML settings from the <a href="#yaml_header">setup section</a>. Keep only one header, including its opening and closing <code>---</code> lines.</p></li>
+</ol>
+<p>In Quarto or R Markdown, remove any starter content below the closing <code>---</code>, but keep the YAML header. Create headings for Tasks 0–8 and keep them in order.</p>
+<ol start="3" type="1">
+<li>Use Task 0 to load <code>stringr</code>, <code>dplyr</code>, and <code>dslabs</code>, then read <code>Science_Values.rds</code>. Save the downloaded file in the same folder as your Practice Space document.</li>
+</ol>
+<p>🧶 <strong>Test render.</strong> For Quarto, save your document and click <strong>Render</strong>. Inspect the HTML as you work to check formatting, code, output, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
+<p>Use the same memo labels as in earlier chapters:</p>
+<ul>
+<li>🗣 <strong>Add Comments</strong> asks you to explain what the code or output shows.</li>
+<li>🪞 <strong>Reflect</strong> asks you to explain your learning process or understanding.</li>
+<li>👀 <strong>Cite</strong> asks you to name a person or outside resource that helped and explain how it contributed.</li>
+</ul>
+<p>In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use <code>#</code> comments.</p>
+<p>For this Practice Space:</p>
+<ul>
+<li><strong>Task 0:</strong> Load the packages and read the supplied data file near the top of your document.</li>
+<li><strong>Tasks 1 and 3–7:</strong> Complete the code and checks, then answer the Comment prompts that follow.</li>
+<li><strong>Task 2:</strong> Explain Task 1’s pipeline. No additional code or checks are required.</li>
+<li><strong>Task 8:</strong> Write one short paragraph answering the reflection prompt. No code or checks are required.</li>
+</ul>
+<p>Use the supplied 🎯 goals to organize your work. Answer the prompts where they appear; you do not need an additional generic memo after every expression.</p>
+<p>If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you. <strong>Type all code yourself.</strong></p>
+<hr>
+</section>
+<section id="task-0" class="level3">
+<h3 class="anchored" data-anchor-id="task-0">Task 0</h3>
+<p>📦 <strong>Packages and text data</strong></p>
+<p>🎯 Attach <code>stringr</code>, <code>dplyr</code>, and <code>dslabs</code>. Save the supplied <code>Science_Values.rds</code> file in the same folder as your Practice Space document, then read it below. You do not need a workspace from an earlier lesson.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">____</span>(____) </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">____</span>(____)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">____</span>(____)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>Science_Values <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"Science_Values.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Science_Values)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Science_Values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-1" class="level3">
+<h3 class="anchored" data-anchor-id="task-1">Task 1</h3>
+<p><strong>Row-name search</strong></p>
+<p>🎯 Replace each _____ with functions to find all rows in <code>mtcars</code> with <code>"Mazda"</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>Mazda_cars <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">_____</span>(<span class="fu">_____</span>(<span class="fu">row.names</span>(mtcars), <span class="st">"Mazda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Mazda_cars)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(Mazda_cars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> Which car names were matched?</p>
+</section>
+<section id="task-2" class="level3">
+<h3 class="anchored" data-anchor-id="task-2">Task 2</h3>
+<p>✔️ 🗣 <strong>Add Comments:</strong> Explain what Task 1’s pipeline does. How does its text-matching step work like a numerical comparison in an earlier filter?</p>
+<p>✍️ EXPLANATION: “___”</p>
+</section>
+<section id="task-3" class="level3">
+<h3 class="anchored" data-anchor-id="task-3">Task 3</h3>
+<p><strong>“United” countries</strong></p>
+<p>🎯 Use <code>gapminder</code> ➜ rows whose <code>country</code> contains <code>"United"</code>. Store as <strong><code>United</code></strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>____ <span class="ot">&lt;-</span> _____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(United)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(United<span class="sc">$</span>country)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> Which country names were matched?</p>
+</section>
+<section id="task-4" class="level3">
+<h3 class="anchored" data-anchor-id="task-4">Task 4</h3>
+<p><strong>Countries containing the whole word “St”</strong></p>
+<p>🎯 Use <code>gapminder</code> ➜ rows whose <code>country</code> contains <code>"St"</code> as a whole word, such as in <code>"St. Lucia"</code>. Hint: use <code>\\b</code> before and after. Store as <strong><code>Saint</code></strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>_____ <span class="ot">&lt;-</span> _____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Saint)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(Saint<span class="sc">$</span>country)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> Do the matched country names contain <code>"St"</code> as a whole word?</p>
+</section>
+<section id="task-5" class="level3">
+<h3 class="anchored" data-anchor-id="task-5">Task 5</h3>
+<p><strong>Republic OR Rep</strong></p>
+<p>🎯 Use <code>gapminder</code> ➜ rows whose <code>country</code> contains <code>"Republic"</code> OR the whole word <code>"Rep"</code>. Hint: combine <code>\\b</code> with alternation (<code>|</code>). Store as <strong><code>Republics</code></strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>_____ <span class="ot">&lt;-</span> _____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Republics)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(Republics<span class="sc">$</span>country)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> Which country names matched each alternative in your pattern?</p>
+</section>
+<section id="task-6" class="level3">
+<h3 class="anchored" data-anchor-id="task-6">Task 6</h3>
+<p><strong>Year-specific filter + ignore_case</strong></p>
+<p>🎯 Use <code>gapminder</code> ➜ <code>year == 2000</code> AND <code>country</code> contains <code>"union"</code> (any case). Store as <strong><code>Union_2000</code></strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>_____ <span class="ot">&lt;-</span> _____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Checks</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Union_2000)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(Union_2000<span class="sc">$</span>country)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(Union_2000<span class="sc">$</span>year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> What do the checks show about the result of combining the year and country-name conditions?</p>
+</section>
+<section id="task-7" class="level3">
+<h3 class="anchored" data-anchor-id="task-7">Task 7</h3>
+<p><strong>Build a keyword hit count</strong></p>
+<p>🎯 Using <code>Science_Values</code> (a character vector of passages) and the vector <code>keys</code> of <code>"honesty"</code>, <code>"carefulness"</code>, <code>"privacy"</code>, produce <strong><code>Keyword_Counts</code></strong>: a named integer vector of matching-passage counts for each word. Use case-insensitive, whole-word searches. A word with no matches should have a count of zero.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your document and fill in the blanks.</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>keys <span class="ot">&lt;-</span> _____</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>_____ <span class="ot">&lt;-</span> _____</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Keyword_Counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>🗣 <strong>Add Comments:</strong> What does each number in <code>Keyword_Counts</code> count?</p>
+</section>
+<section id="task-8" class="level3">
+<h3 class="anchored" data-anchor-id="task-8">Task 8</h3>
+<p>🪞 <strong>Reflect:</strong> Write a short paragraph answering this question: When would adding <code>\\b</code> around a word <strong>not</strong> be a good idea?</p>
+<p>✍️ EXPLANATION: “___”</p>
+</section>
+<section id="save-and-upload" class="level3">
+<h3 class="anchored" data-anchor-id="save-and-upload">Save Your Work</h3>
+<p>Before you finish, confirm that your document includes:</p>
+<ul>
+<li>the Task 0 package-loading and text-import code,</li>
+<li>the completed code, checks, and Comments for Tasks 1 and 3–7,</li>
+<li>the Task 2 explanation of the pipeline,</li>
+<li>one Task 8 reflection, and</li>
+<li>citations for any outside help you used.</li>
+</ul>
+<p>Save your source document and the <code>chapter17_practice.RData</code> workspace. If this Practice Space is assigned for submission, follow your instructor’s directions for the required files.</p>
+<p>📖 <strong>Review:</strong> A workspace file (<code>.RData</code>) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.</p>
+<p>🎯 Recreate your work from the saved code before saving the final files.</p>
+<p><strong>Step 1: Sweep your Environment (start clean).</strong></p>
+<p>Click the 🧹 <strong>broom icon</strong> in the Environment pane to clear objects.</p>
+<p><strong>Step 2: Run everything top-to-bottom.</strong></p>
+<p>Use <strong>Run → Run All</strong> to execute every chunk in order, beginning with the package-loading and text-import code in Task 0. Confirm that the six requested result objects are recreated without relying on previously saved objects.</p>
+<p><strong>Step 3: Save, render, and inspect.</strong></p>
+<p>Save your source document. If you are using Quarto, render it and inspect <code>chapter17_practice.html</code> for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
+<p><strong>Step 4: Save your workspace.</strong></p>
+<p>Run this command in the RStudio Console after running your Practice Space code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter17_practice.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Or use the “Save Workspace” button in the Environment pane.</p>
+<p>💾 <strong>Always save your source document before closing.</strong></p>
+<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/lorrainegaudio\.github\.io\/guided-activities-for-learning-R-workflow\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="pagination-link" aria-label="Chapter 16: ggplot2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chapter 16: ggplot2</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Goal, Code, Verify, Reflect</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Boise State University</p>
+</div>
+    <div class="nav-footer-right">
+<p><a href="mailto:lorrainegaudio@boisestate.edu">lorrainegaudio@boisestate.edu</a></p>
+</div>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof bootstrap === "undefined") return;
+
+  function normalizeTerm(text) {
+    return String(text || "")
+      .toLowerCase()
+      .replace(/[’']/g, "")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function getDefinitionNodes(chapterTermsContainer) {
+    const nodes = [];
+
+    if (!chapterTermsContainer) return nodes;
+
+    /*
+      Quarto often places the id on a <section>, not directly on the heading.
+      In that case, the term paragraphs are children inside the section.
+    */
+    if (chapterTermsContainer.tagName === "SECTION") {
+      Array.from(chapterTermsContainer.children).forEach(function (child) {
+        if (child.matches("p, li")) {
+          nodes.push(child);
+        }
+      });
+
+      return nodes;
+    }
+
+    /*
+      Fallback: if the id is on the heading itself, collect paragraphs
+      after the heading until the next major section.
+    */
+    let node = chapterTermsContainer.nextElementSibling;
+
+    while (node && !["H1", "H2"].includes(node.tagName)) {
+      if (node.matches && node.matches("p, li")) {
+        nodes.push(node);
+      }
+
+      node = node.nextElementSibling;
+    }
+
+    return nodes;
+  }
+
+  function getChapterTerms() {
+    const terms = new Map();
+    const chapterTermsContainer = document.getElementById("chapter-terms");
+    const definitionNodes = getDefinitionNodes(chapterTermsContainer);
+
+    definitionNodes.forEach(function (node) {
+      const strong = node.querySelector("strong");
+      if (!strong) return;
+
+      const fullText = node.textContent.replace(/\s+/g, " ").trim();
+      const strongTerm = strong.textContent.replace(/\s+/g, " ").trim();
+      const colonIndex = fullText.indexOf(":");
+
+      if (colonIndex === -1) return;
+
+      const fullTerm = fullText.slice(0, colonIndex).trim();
+      const definition = fullText.slice(colonIndex + 1).trim();
+
+      if (!strongTerm || !definition) return;
+
+      const entry = {
+        title: fullTerm,
+        definition: definition
+      };
+
+      terms.set(normalizeTerm(strongTerm), entry);
+      terms.set(normalizeTerm(fullTerm), entry);
+    });
+
+    return terms;
+  }
+
+  const chapterTerms = getChapterTerms();
+
+  document.querySelectorAll(".glossary-term").forEach(function (termElement) {
+    const dataTerm = termElement.getAttribute("data-term");
+    const requestedTerm = dataTerm && dataTerm.trim()
+      ? dataTerm.trim()
+      : termElement.textContent.trim();
+
+    const glossaryEntry = chapterTerms.get(normalizeTerm(requestedTerm));
+
+    if (!glossaryEntry) {
+      termElement.classList.add("glossary-term-missing");
+      termElement.setAttribute("title", "Definition not found in Chapter Terms.");
+      console.warn("Glossary definition not found for:", requestedTerm);
+      return;
+    }
+
+    termElement.setAttribute("tabindex", "0");
+    termElement.setAttribute("role", "button");
+    termElement.setAttribute("data-bs-toggle", "popover");
+    termElement.setAttribute("data-bs-trigger", "hover focus");
+    termElement.setAttribute("data-bs-placement", "auto");
+    termElement.setAttribute("data-bs-title", glossaryEntry.title);
+    termElement.setAttribute("data-bs-content", glossaryEntry.definition);
+
+    const existingPopover = bootstrap.Popover.getInstance(termElement);
+    if (existingPopover) {
+      existingPopover.dispose();
+    }
+
+    new bootstrap.Popover(termElement, {
+      container: "body",
+      html: false,
+      customClass: "glossary-popover"
+    });
+  });
+});
+</script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

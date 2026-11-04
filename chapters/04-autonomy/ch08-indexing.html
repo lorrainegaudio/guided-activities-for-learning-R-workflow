@@ -297,6 +297,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../chapters/07-thoroughness/thoroughness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Thoroughness</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch15-probability-functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 15: Probability functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch16-ggplot2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 16: ggplot2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/07-thoroughness/ch17-string-detect.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chapter 17: String Detect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -461,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>field_sightings <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"field_sightings.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>🗣 This code loads the <code>readr</code> package, uses <code>read_csv()</code> to read the file named <code>field_sightings.csv</code>, and assigns the resulting tibble to an object called <code>field_sightings</code>. It is normal for <code>read_csv()</code> to display a message summarizing the imported rows, columns, and detected column types.</p>
+<p>🗣 This code loads the <code>readr</code> package, uses <code>read_csv()</code> to read the file named <code>field_sightings.csv</code>, and assigns the resulting data frame to an object called <code>field_sightings</code>. It is normal for <code>read_csv()</code> to display a message summarizing the imported rows, columns, and detected column types.</p>
 <p>✅ Look in the Environment pane for <code>field_sightings</code>. Then run <code>head(field_sightings)</code> to confirm that the data has two columns, <code>Status</code> and <code>Band_Color</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check</span></span>
@@ -488,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="subsetting" class="level2">
 <h2 class="anchored" data-anchor-id="subsetting">Subsetting</h2>
 <p><span class="glossary-term" data-term="Subsetting">Subsetting</span> means selecting a smaller part of an object, typically using <em>positions</em> (integers), <em>names</em> (characters), or a <em>logical mask</em> (<code>TRUE</code>/<code>FALSE</code>). In base R, this is done using the <strong>single square bracket operator</strong> <code>[</code> (<code>[ ]</code>).</p>
-<p>The structure returned by <code>[ ]</code> depends on the object being indexed and the way the index is written. A subset of a vector is still a vector. In this chapter, <code>read_csv()</code> creates a tibble, and <code>[ ]</code> keeps a one-column selection as a one-column tibble. When you need the values inside one column as a vector, use an extraction operator such as <code>[[ ]]</code> or <code>$</code>. Data analysts use subsetting when filtering rows, selecting columns to keep, slicing a range, or pulling a rectangular block from a data frame.</p>
+<p>The structure returned by <code>[ ]</code> depends on the object being indexed and the way the index is written. A subset of a vector is still a vector. In this chapter, <code>read_csv()</code> creates a data frame, and <code>[ ]</code> keeps a one-column selection as a one-column data frame. When you need the values inside one column as a vector, use an extraction operator such as <code>[[ ]]</code> or <code>$</code>. Data analysts use subsetting when filtering rows, selecting columns to keep, slicing a range, or pulling a rectangular block from a data frame.</p>
 <section id="positional-indexing" class="level3">
 <h3 class="anchored" data-anchor-id="positional-indexing">📍 Positional Indexing</h3>
 <p><span class="glossary-term" data-term="Positional Indexing">Positional indexing</span> is the most basic form of indexing in R, where you use numeric positions to select elements from a vector or data frame.</p>
@@ -540,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p><code>df[1:5, ]</code> results in the first five rows, all columns</p></li>
 <li><p><code>df[ , 1:3]</code> shows all rows, first three columns</p></li>
-<li><p><code>df[1, 2]</code> selects the first row and second column. For a tibble such as <code>field_sightings</code>, the result remains a one-row, one-column tibble.</p></li>
+<li><p><code>df[1, 2]</code> selects the first row and second column. For a data frame such as <code>field_sightings</code>, the result remains a one-row, one-column data frame.</p></li>
 </ul>
 <p>Let’s see this in practice with our <code>field_sightings</code> data frame.</p>
 <p>🎯 Print the first six rows of the <code>field_sightings</code> data frame using the indexing operator.</p>
@@ -635,7 +661,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>field_sightings[<span class="st">"Band_Color"</span>]         <span class="co"># 1-column DATA FRAME</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ Check the output structure.</p>
-<p>🗣 A one-column tibble is printed showing all row values in the <code>Band_Color</code> column of the <code>field_sightings</code> tibble. It is a subset that keeps the rectangular tibble structure.</p>
+<p>🗣 A one-column data frame is printed showing all row values in the <code>Band_Color</code> column of the <code>field_sightings</code> data frame. It is a subset that keeps the rectangular data frame structure.</p>
 <p><strong>Method B</strong></p>
 <p>📜 The SYNTAX: <code>x[[i]]</code></p>
 <div class="cell">
@@ -644,16 +670,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>field_sightings[[<span class="st">"Band_Color"</span>]]   <span class="co"># column VECTOR</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ Check the output structure.</p>
-<p>🗣 A vector is printed showing all values from the <code>Band_Color</code> column of the <code>field_sightings</code> tibble. This is extraction: it returns the column values rather than a one-column tibble.</p>
+<p>🗣 A vector is printed showing all values from the <code>Band_Color</code> column of the <code>field_sightings</code> data frame. This is extraction: it returns the column values rather than a one-column data frame.</p>
 <p><strong>Method C</strong></p>
 <p>📜 The SYNTAX: <code>x[i, j, drop = FALSE]</code></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Type this in your R Notebook</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example C</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>field_sightings[, <span class="st">"Band_Color"</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]    <span class="co"># 1-column TIBBLE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>field_sightings[, <span class="st">"Band_Color"</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>]    <span class="co"># 1-column data frame</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>✅ Check the output structure.</p>
-<p>🗣 A one-column tibble is printed showing all row values in the <code>Band_Color</code> column of the <code>field_sightings</code> tibble. The explicit <code>drop = FALSE</code> instruction says to keep the rectangular structure.</p>
+<p>🗣 A one-column data frame is printed showing all row values in the <code>Band_Color</code> column of the <code>field_sightings</code> data frame. The explicit <code>drop = FALSE</code> instruction says to keep the rectangular structure.</p>
 <blockquote class="blockquote">
 <p>⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named <code>Band_Color</code> in your environment and return an error if it doesn’t find one. Always remember to put column names in quotes when using names indexing with <code>[ ]</code>.</p>
 </blockquote>
@@ -891,7 +917,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><span class="glossary-term" data-term="Extraction">Extraction</span> means pulling out a single component. When you want the column values themselves as a vector, operators <code>[[ ]]</code> and <code>$</code> are the clearest extraction approach. Extraction pulls out <em>a single component</em> (one column or one list element) so you can use it inside a function or calculation. Data analysts use extracted objects in a specific part of more complex code that creates a plot or summary.</p>
 <section id="bracket-operator" class="level3">
 <h3 class="anchored" data-anchor-id="bracket-operator"><code>[[</code> Operator</h3>
-<p>There is an operator called the <span class="glossary-term" data-term="Double Square Bracket Operator">double square bracket operator</span> (<code>[[ ]]</code>). <code>[</code> is the general subsetting operator. <code>[[ ]]</code> extracts exactly one component. With a tibble, <code>[</code> keeps a one-column selection as a tibble, while <code>[[ ]]</code> pulls out that column’s values as a vector.</p>
+<p>There is an operator called the <span class="glossary-term" data-term="Double Square Bracket Operator">double square bracket operator</span> (<code>[[ ]]</code>). <code>[</code> is the general subsetting operator. <code>[[ ]]</code> extracts exactly one component. With a data frame, <code>[</code> keeps a one-column selection as a data frame, while <code>[[ ]]</code> pulls out that column’s values as a vector.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -906,7 +932,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td><code>[ ]</code></td>
-<td>Subsetting operator. Selects one or more elements, rows, or columns. With a tibble, a one-column selection remains a tibble.</td>
+<td>Subsetting operator. Selects one or more elements, rows, or columns. With a data frame, a one-column selection remains a data frame.</td>
 </tr>
 <tr class="even">
 <td><code>[[ ]]</code></td>
@@ -977,7 +1003,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>NULL</code></pre>
 </div>
 </div>
-<p>✅ Check the output. Because there is no column literally named <code>col_name</code>, the tibble should display a warning about an unknown column and return <code>NULL</code>.</p>
+<p>✅ Check the output. Because there is no column literally named <code>col_name</code>, the data frame should display a warning about an unknown column and return <code>NULL</code>.</p>
 <p>🗣 The <code>$</code> operator looks for a column literally named <code>col_name</code>. The warning and <code>NULL</code> result are expected evidence that the requested column does not exist.</p>
 <p>🧭 This is a method-choice decision. Use <code>$</code> when you are typing the column name directly. Use <code>[[ ]]</code> when the column name is stored in an object. If your code uses a stored column name and returns <code>NULL</code>, check whether you used <code>$</code> when you needed <code>[[ ]]</code>.</p>
 <p>🧶 <strong>Test knit.</strong></p>
@@ -1198,7 +1224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="chapter-terms">Chapter Terms</h2>
 <p><strong>Column index</strong>: The index used to select columns in a data frame or matrix (the second slot inside brackets: <code>x[, j]</code>).</p>
 <p><strong>Conditional Subsetting</strong> (Logical Subsetting): Filtering an object by using a logical condition inside <code>[ ]</code> (e.g., <code>df[df$cyl != 4, ]</code>), where <code>TRUE</code> keeps an element/row and <code>FALSE</code> drops it. This contrasts with negative indexing, which excludes by position rather than by a condition.</p>
-<p><strong>Dollar Sign Operator</strong> (<code>$</code>): An extraction (and replacement) operator used to access one named component, such as a data frame column (<code>df$col</code>) or a list element (<code>lst$name</code>). <code>$</code> uses the name typed after it rather than a column name stored in a variable. If the name does not exist, it returns <code>NULL</code>. The tibbles used in this chapter also display an unknown-column warning.</p>
+<p><strong>Dollar Sign Operator</strong> (<code>$</code>): An extraction (and replacement) operator used to access one named component, such as a data frame column (<code>df$col</code>) or a list element (<code>lst$name</code>). <code>$</code> uses the name typed after it rather than a column name stored in a variable. If the name does not exist, it returns <code>NULL</code>. The data frames used in this chapter also display an unknown-column warning.</p>
 <p><strong>Double Square Bracket Operator</strong> (<code>[[</code>): An extraction operator used to pull out one single element from a list (or one column from a data frame) and return the element itself, not a same-type subset. Unlike <code>[</code>, which can return multiple elements and preserves the container type, <code>[[</code> is for “give me the one thing inside” (e.g., a vector inside a dataframe).</p>
 <p><strong>Equal To</strong> (<code>==</code>): A relational operator that tests equality and returns <code>TRUE</code> where values are equal and <code>FALSE</code> where they are not (element-by-element for vectors).</p>
 <p><strong>Extraction</strong>: Retrieving a single component from an object, such as one list element or one data-frame column, so you get the component’s contents (often a vector). Extraction is commonly done with <code>[[ ]]</code> (extract one element by position or name) or <code>$</code> (extract one column by name).</p>
