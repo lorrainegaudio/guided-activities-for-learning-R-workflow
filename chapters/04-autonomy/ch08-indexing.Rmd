@@ -127,7 +127,7 @@ library(readr)
 field_sightings <- read_csv("data/field_sightings.csv")
 ```
 
-🗣 This code loads the `readr` package, uses `read_csv()` to read the file named `field_sightings.csv`, and assigns the resulting tibble to an object called `field_sightings`. It is normal for `read_csv()` to display a message summarizing the imported rows, columns, and detected column types.
+🗣 This code loads the `readr` package, uses `read_csv()` to read the file named `field_sightings.csv`, and assigns the resulting data frame to an object called `field_sightings`. It is normal for `read_csv()` to display a message summarizing the imported rows, columns, and detected column types.
 
 ✅ Look in the Environment pane for `field_sightings`. Then run `head(field_sightings)` to confirm that the data has two columns, `Status` and `Band_Color`.
 
@@ -150,7 +150,7 @@ With your data loaded into the environment, you are ready to start practicing su
 
 [Subsetting]{.glossary-term data-term="Subsetting"} means selecting a smaller part of an object, typically using *positions* (integers), *names* (characters), or a *logical mask* (`TRUE`/`FALSE`). In base R, this is done using the **single square bracket operator** `[` (`[ ]`).
 
-The structure returned by `[ ]` depends on the object being indexed and the way the index is written. A subset of a vector is still a vector. In this chapter, `read_csv()` creates a tibble, and `[ ]` keeps a one-column selection as a one-column tibble. When you need the values inside one column as a vector, use an extraction operator such as `[[ ]]` or `$`. Data analysts use subsetting when filtering rows, selecting columns to keep, slicing a range, or pulling a rectangular block from a data frame.
+The structure returned by `[ ]` depends on the object being indexed and the way the index is written. A subset of a vector is still a vector. In this chapter, `read_csv()` creates a data frame, and `[ ]` keeps a one-column selection as a one-column data frame. When you need the values inside one column as a vector, use an extraction operator such as `[[ ]]` or `$`. Data analysts use subsetting when filtering rows, selecting columns to keep, slicing a range, or pulling a rectangular block from a data frame.
 
 ### 📍  Positional Indexing {#positional-indexing}
 
@@ -205,7 +205,7 @@ Rows and columns are coordinates:
 
 - `df[ , 1:3]` shows all rows, first three columns
 
-- `df[1, 2]` selects the first row and second column. For a tibble such as `field_sightings`, the result remains a one-row, one-column tibble.
+- `df[1, 2]` selects the first row and second column. For a data frame such as `field_sightings`, the result remains a one-row, one-column data frame.
 
 Let's see this in practice with our `field_sightings` data frame.
 
@@ -304,7 +304,7 @@ field_sightings["Band_Color"]         # 1-column DATA FRAME
 
 ✅ Check the output structure.
 
-🗣 A one-column tibble is printed showing all row values in the `Band_Color` column of the `field_sightings` tibble. It is a subset that keeps the rectangular tibble structure.
+🗣 A one-column data frame is printed showing all row values in the `Band_Color` column of the `field_sightings` data frame. It is a subset that keeps the rectangular data frame structure.
 
 **Method B** 
 
@@ -318,7 +318,7 @@ field_sightings[["Band_Color"]]   # column VECTOR
 
 ✅ Check the output structure.
 
-🗣 A vector is printed showing all values from the `Band_Color` column of the `field_sightings` tibble. This is extraction: it returns the column values rather than a one-column tibble.
+🗣 A vector is printed showing all values from the `Band_Color` column of the `field_sightings` data frame. This is extraction: it returns the column values rather than a one-column data frame.
 
 **Method C** 
 
@@ -327,12 +327,12 @@ field_sightings[["Band_Color"]]   # column VECTOR
 ```{r, eval = FALSE}
 # ⚡ Type this in your R Notebook
 # Example C
-field_sightings[, "Band_Color", drop = FALSE]    # 1-column TIBBLE
+field_sightings[, "Band_Color", drop = FALSE]    # 1-column data frame
 ```
 
 ✅ Check the output structure.
 
-🗣 A one-column tibble is printed showing all row values in the `Band_Color` column of the `field_sightings` tibble. The explicit `drop = FALSE` instruction says to keep the rectangular structure.
+🗣 A one-column data frame is printed showing all row values in the `Band_Color` column of the `field_sightings` data frame. The explicit `drop = FALSE` instruction says to keep the rectangular structure.
 
 > ⚠️ Common Pain Point: Students often forget to put the column name in quotes when using names indexing. If you forget the quotes, R will look for an object named `Band_Color` in your environment and return an error if it doesn't find one. Always remember to put column names in quotes when using names indexing with `[ ]`.
 
@@ -546,11 +546,11 @@ In conclusion, subsetting (`[ ]`) returns a piece of the original object, often 
 
 ### `[[` Operator {#bracket-operator}
 
-There is an operator called the [double square bracket operator]{.glossary-term data-term="Double Square Bracket Operator"} (`[[ ]]`). `[` is the general subsetting operator. `[[ ]]` extracts exactly one component. With a tibble, `[` keeps a one-column selection as a tibble, while `[[ ]]` pulls out that column's values as a vector.
+There is an operator called the [double square bracket operator]{.glossary-term data-term="Double Square Bracket Operator"} (`[[ ]]`). `[` is the general subsetting operator. `[[ ]]` extracts exactly one component. With a data frame, `[` keeps a one-column selection as a data frame, while `[[ ]]` pulls out that column's values as a vector.
 
 | Operator | Meaning |
 |---|---|
-| `[ ]` | Subsetting operator. Selects one or more elements, rows, or columns. With a tibble, a one-column selection remains a tibble. |
+| `[ ]` | Subsetting operator. Selects one or more elements, rows, or columns. With a data frame, a one-column selection remains a data frame. |
 | `[[ ]]` | Extraction operator. Returns one component, such as a column vector, so its values can be passed into a function. |
 
 🎯  Use the `[[` operator to extract the "Band_Color" column from the `field_sightings` data frame and then use it inside the function `unique()`
@@ -632,7 +632,7 @@ col_name <- "Band_Color"
 field_sightings$col_name      # ❌ looks for a column literally named "col_name"
 ```
 
-✅ Check the output. Because there is no column literally named `col_name`, the tibble should display a warning about an unknown column and return `NULL`.
+✅ Check the output. Because there is no column literally named `col_name`, the data frame should display a warning about an unknown column and return `NULL`.
 
 🗣 The `$` operator looks for a column literally named `col_name`. The warning and `NULL` result are expected evidence that the requested column does not exist.
 
@@ -917,7 +917,7 @@ The main habit to carry forward is this: after indexing, extracting, or modifyin
 
 **Conditional Subsetting** (Logical Subsetting): Filtering an object by using a logical condition inside `[ ]` (e.g., `df[df$cyl != 4, ]`), where `TRUE` keeps an element/row and `FALSE` drops it. This contrasts with negative indexing, which excludes by position rather than by a condition.
 
-**Dollar Sign Operator** (`$`): An extraction (and replacement) operator used to access one named component, such as a data frame column (`df$col`) or a list element (`lst$name`). `$` uses the name typed after it rather than a column name stored in a variable. If the name does not exist, it returns `NULL`. The tibbles used in this chapter also display an unknown-column warning.
+**Dollar Sign Operator** (`$`): An extraction (and replacement) operator used to access one named component, such as a data frame column (`df$col`) or a list element (`lst$name`). `$` uses the name typed after it rather than a column name stored in a variable. If the name does not exist, it returns `NULL`. The data frames used in this chapter also display an unknown-column warning.
 
 **Double Square Bracket Operator** (`[[`): An extraction operator used to pull out one single element from a list (or one column from a data frame) and return the element itself, not a same-type subset. Unlike `[`, which can return multiple elements and preserves the container type, `[[` is for “give me the one thing inside” (e.g., a vector inside a dataframe).
 

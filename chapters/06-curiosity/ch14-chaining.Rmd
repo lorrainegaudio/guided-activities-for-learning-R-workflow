@@ -10,19 +10,17 @@ In Chapters 11, 12, and 13, we explored several functions from `dplyr` (`select(
 
 🐱 The curiosity notes mark places to predict how a pipeline step will change the data, investigate a result with a small check, or record a side question for later.
 
-**Lesson Overview**
-
 By the end of Chapter 14 you will be able to:
 
-1. ⚡ Remember – List the actions of main dplyr verbs: `select()`, `filter()`, `mutate()`, `group_by()`, `summarize()`, `arrange()`.
+- ⚡ List the actions of the main `dplyr` verbs: `select()`, `filter()`, `mutate()`, `group_by()`, `summarize()`, and `arrange()`.
 
-2. 🔍 Understand – Describe how the pipe `%>%` passes results step‑by‑step.
+- 🔍 Describe how the pipe `%>%` passes results step by step.
 
-3. 🛠 Apply –   Build a multi‑verb pipeline to clean and summarize data.
+- 🛠 Build a multi-verb pipeline to clean and summarize data.
 
-4. 📊 Analyze –  Inspect intermediate output to verify each step.
+- 📊 Inspect intermediate output to verify each step.
 
-5. 🧠️ Evaluate – Decide when a single pipeline is clearer than separate objects.
+- 🧠 Decide when a single pipeline is clearer than separate objects.
 
 Keep these goals in mind as you move through each section.
 
@@ -71,9 +69,10 @@ Use headings to organize your notes in the same order as the chapter. Put R code
 
 If either package is missing, run its installation command once in the RStudio Console: `install.packages("dplyr")` or `install.packages("dslabs")`. Keep installation commands out of code that runs each time you render.
 
-Load both packages with `library()` in your document so they are available when it renders:
+🎯 **Goal:** Load both packages with `library()` in your document so they are available when it renders.
 
-```{r , eval=FALSE}
+```{r message=FALSE, warning=FALSE}
+# ⚡ Code
 library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 ```
@@ -82,7 +81,7 @@ library(dplyr)   # Data manipulation package
 
 ## 🛠 Building a Pipeline {#build-pipe}
 
-🎯 The GOAL: Find the average fuel consumption (liters/100 km) for cars in `mtcars` that use at least 8 L/100 km, broken down by transmission and cylinders.
+🎯 **Goal:** Find the average fuel consumption (liters/100 km) for cars in `mtcars` that use at least 8 L/100 km, broken down by transmission and cylinders.
 
 ### Start with the data {#start-data}
 
@@ -90,18 +89,20 @@ We'll use the built‑in `mtcars` dataset.
 
 The [pipe]{.glossary-term data-term="Pipe"} `%>%` passes the result on its left into the next function. Here, `mtcars %>% head(2)` passes `mtcars` to `head()` as its first argument, giving the same result as `head(mtcars, 2)`.
 
-🎯 Goal. Load mtcars and confirm shape.
+🎯 **Goal:** Load `mtcars` and inspect a [preview]{.glossary-term data-term="Preview"} of its first two rows.
 
-```{r , eval=FALSE}
+```{r}
+# ⚡ Code
 data("mtcars")
-# ⚡ Test:
 mtcars %>%                       # rows = 32 cars, many columns
   head(2)                        # preview first two rows
+```
 
+```{r, eval=FALSE}
 head(mtcars, 2)  # base R version, same output
 ```
 
-🗣 Data loaded correctly.
+🗣 **Comment:** Both calls return the first two rows of `mtcars`.
 
 ### Create a new variable with `mutate()` {#mutate}
 
@@ -109,12 +110,12 @@ We'll calculate fuel consumption in liters per 100 kilometers (L/100 km). The `m
 
 $$\frac{\text{L}}{100\text{ km}} = \frac{235.215}{\text{MPG}}$$
 
-🎯 Goal. Add `l_100km` using the equation 235.215/`mpg` and round the value to one decimal place.
+🎯 **Goal:** Add `l_100km` using the equation 235.215/`mpg` and round the value to one decimal place.
 
 🐱 **Prediction:** If a car has a higher `mpg` value, do you expect its L/100 km value to be higher or lower? Explain why before running the code.
 
-```{r , eval=FALSE}
-# ⚡ Test:
+```{r}
+# ⚡ Code
 mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   head(2)
@@ -122,11 +123,11 @@ mtcars %>%
 
 
 ```{r}
-# ✅ Verify:
+# ✅ Check
 cor(mtcars$mpg, 235.215/mtcars$mpg) < 0
 ```
 
-🗣 The negative correlation is consistent with higher `mpg` and lower L/100 km. This checks the direction of the relationship, not the conversion units.
+🗣 **Comment:** The negative correlation is consistent with higher `mpg` and lower L/100 km. This checks the direction of the relationship, not the conversion units.
 
 Compare this result with your prediction about the two measurements.
 
@@ -134,10 +135,10 @@ Compare this result with your prediction about the two measurements.
 
 We'll only keep cars that use *at least* 8 L/100 km. Use `filter()` to keep those rows.
 
-🎯 Goal. Keep `l_100km >= 8`.
+🎯 **Goal:** Keep `l_100km >= 8`.
 
 ```{r , eval=FALSE}
-# ⚡ Test:
+# ⚡ Code
 mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
@@ -146,10 +147,10 @@ mtcars %>%
 
 ### Select relevant columns {#select}
 
-🎯 Goal. Keep `cyl`, `am`, and `l_100km` columns.
+🎯 **Goal:** Keep `cyl`, `am`, and `l_100km` columns.
 
-```{r , eval=FALSE}
-# ⚡ Test:
+```{r}
+# ⚡ Code
 mtcars2 <- mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
@@ -158,23 +159,23 @@ mtcars2 <- mtcars %>%
 head(mtcars2)
 ```
 
-```{r , eval=FALSE}
-# ✅ Verify:
+```{r}
+# ✅ Check
 setequal(names(mtcars2), c("cyl","am","l_100km"))
 ```
 
-🗣 Columns trimmed.
+🗣 **Comment:** The check returns `TRUE`: `mtcars2` contains the three requested columns.
 
 ### Group and summarize {#group-summarize}
 
 Now we can group by `am` and `cyl`, then summarize to get the mean fuel consumption and count of cars in each group.
 
-🎯 Goal. Mean `l_100km` and `n` by `am`, `cyl`.
+🎯 **Goal:** Calculate the mean `l_100km` and a car count named `n` for each combination of `am` and `cyl`.
 
 🐱 **Prediction:** How many rows do you expect in the summary? Use the transmission-and-cylinder combinations in `mtcars2` to explain your prediction before running the summary code.
 
-```{r , eval=FALSE}
-# ⚡ Test:
+```{r}
+# ⚡ Code
 mtcars_summary <- mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
@@ -187,15 +188,15 @@ mtcars_summary
 
 🐱 The summary has fewer rows than `mtcars2`. Were more cars filtered out? I will compare the total of the group counts in `n` with the number of cars before the summary.
 
-```{r, eval=FALSE}
+```{r}
 # ✅ Investigate the number of cars represented in the summary
 sum(mtcars_summary$n)
 nrow(mtcars2)
 ```
 
-🗣 Both checks return 28. The six summary rows represent groups; the counts in `n` account for the 28 retained cars. Compare the summary's rows with your prediction.
+🗣 **Comment:** Both checks return 28. The six summary rows represent groups; the counts in `n` account for the 28 retained cars. Compare the summary's rows with your prediction.
 
-🗣 Explain:
+🗣 **Comment:**
 
 Order matters in `dplyr` pipelines. In this pipeline, `group_by()` comes before `summarize()` so the calculations run separately for each group.
 
@@ -209,28 +210,30 @@ Order matters in `dplyr` pipelines. In this pipeline, `group_by()` comes before 
 
 ❓ Question: How might you check which combination of `am` + `cyl` is least fuel‑efficient?
 
-🎯 Goal. Label `am` as “Automatic/Manual” in a column "Transmission" and make it a factor with level order.
+🎯 **Goal:** Label `am` as “Automatic/Manual” in a column `Transmission` and make it a factor with level order.
 
-```{r , eval=FALSE}
-# ⚡ Test: Recode transmission for readability Method 1
+```{r}
+# ⚡ Code: Create a labeled Transmission column
 mtcars_summary <- mtcars_summary %>%
   mutate(Transmission = case_when(am == 0 ~ "Automatic", TRUE ~ "Manual"),
     Transmission = factor(Transmission, levels = c("Automatic","Manual"))
   )
 ```
 
-```{r , eval=FALSE}
-# ✅ Verify:
+```{r}
+# ✅ Check
 is.factor(mtcars_summary$Transmission)
 identical(levels(mtcars_summary$Transmission), c("Automatic","Manual"))
 ```
 
-🗣 Labels set; order fixed.
+🗣 **Comment:** Both checks return `TRUE`. `Transmission` is a factor with “Automatic” before “Manual”.
+
+The example above adds `Transmission` and keeps the numeric `am` column. The complete pipeline below starts again from `mtcars` and instead overwrites `am` with the same labels. In the final table, [`rename()`]{.glossary-term data-term="rename()"} will change that column's name to `Transmission`.
 
 
 
 ```{r, eval=FALSE}
-# ⚡ Test:✔ Pipeline complete! One readable flow from raw data to insight.
+# ⚡ Code: Complete the pipeline from the original data
 mtcars_summary <- mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
@@ -245,13 +248,16 @@ mtcars_summary
 ```
 
 
-🪞 Reflect: Explain why the highest `mean_l_100km` is the least fuel‑efficient combination. Record your explanation in a memo.
+🪞 **Reflect:** Explain why the highest `mean_l_100km` is the least fuel‑efficient combination. Record your explanation in a memo.
 
 ### Readable Result {#result}
 
-🎯 Goal. Build one readable pipeline, then sort by the highest Mean l/100km (higher = less efficient) and keep the top row.
+🎯 **Goal:** Build one readable pipeline, then sort by the highest `mean_l_100km` (higher = less efficient) and keep the top row.
 
-```{r , eval=FALSE}
+Use [`slice()`]{.glossary-term data-term="slice()"} to keep the first row after sorting and `rename()` to give the final columns readable names.
+
+```{r}
+# ⚡ Code
 mtcars_summary <- mtcars %>%
   mutate(l_100km = round(235.215 / mpg, 1)) %>%
   filter(l_100km >= 8) %>%
@@ -273,7 +279,7 @@ mtcars_summary
 ```
 
 
-🗣 Explain: [`arrange()`]{.glossary-term data-term="arrange()"} sorts the data frame by `mean_l_100km` (renamed `Mean l/100km`) in descending order, so the first row is the least fuel-efficient combination of `am` and `cyl`.
+🗣 **Comment:** [`arrange()`]{.glossary-term data-term="arrange()"} sorts the data frame by `mean_l_100km` (renamed `Mean l/100km`) in descending order, so the first row is the least fuel-efficient combination of `am` and `cyl`.
 
 Answer the ❓ Question: Which combination of `am` + `cyl` is least fuel‑efficient? 
 
@@ -608,10 +614,11 @@ If you used the optional column renaming or other enhancements, check the corres
 
 🪞 **Reflect:** "___"
 
-## Save Your Work {#save-upload}
+### Save Your Work {#save-upload}
 
 Before you finish, confirm that your document includes:
 
+* the Task 0 package-loading code,
 * the three Task 1 explanations,
 * the final Task 2 goal, prediction, and one end-to-end pipeline that creates `Movie_Facts`,
 * checks of your result and a final Comment comparing them with your prediction and explaining your sort choice,
@@ -620,21 +627,37 @@ Before you finish, confirm that your document includes:
 
 The optional drafting steps do not need separate final outputs or memos.
 
-Clear your Environment, then run your code from top to bottom. Confirm that `Movie_Facts` is recreated without relying on previously saved objects.
+Save your source document and the `chapter14_workspace.RData` workspace. If this Practice Space is assigned for submission, follow your instructor's directions for the required files.
 
-1. Save your source document. If you are using Quarto, render it and inspect the HTML for your code, output, checks, and memos.
+📖 **Review:** A workspace file (`.RData`) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.
 
-2. Save your workspace. The workspace file saves the objects currently in your Environment. Run this command in the RStudio Console after running your Practice Space code:
+🎯 Recreate your work from the saved code before saving the final files.
+
+**Step 1: Sweep your Environment (start clean).**
+
+Click the 🧹 **broom icon** in the Environment pane to clear objects.
+
+**Step 2: Run everything top-to-bottom.**
+
+Use **Run → Run All** to execute every chunk in order, beginning with your package-loading code. Confirm that `Movie_Facts` is recreated without relying on previously saved objects.
+
+**Step 3: Save, render, and inspect.**
+
+Save your source document. If you are using Quarto, render it and inspect `chapter14_practice.html` for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.
+
+**Step 4: Save your workspace.**
+
+Run this command in the RStudio Console after running your Practice Space code:
 
 ```{r , eval=FALSE}
 save.image("chapter14_workspace.RData")
 ```
 
-Or you can click the "Save Workspace" button in the Environment pane. 
+Or use the "Save Workspace" button in the Environment pane.
 
-💾 **Always save the R documents before closing.**
+💾 **Always save your source document before closing.**
 
-3. If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
+If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
 
 
 

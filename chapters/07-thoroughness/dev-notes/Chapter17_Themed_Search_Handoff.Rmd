@@ -1,0 +1,311 @@
+---
+title: "Chapter 17: Themed Search Handoff"
+subtitle: "Verified searches and recommended activity plan"
+date: "2026-11-03"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    code_folding: show
+params:
+  corpus_path: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = TRUE)
+options(width = 90)
+```
+
+## Purpose and scope
+
+This handoff supports the planned rewrite of Chapter 17's scientific-values
+word-search activity. It records the source, tested word families, thematic
+groups, and an activity progression. It does not edit Chapter 17, regenerate the
+corpus, render the book, or publish anything.
+
+**Recommendation:** use the carefulness family as the main worked example,
+accuracy as parallel practice, and research credit as a first thematic search.
+Offer broader groups as choices or extensions. These are instructional
+recommendations, not claims established by the article.
+
+## Verified source and corpus facts
+
+Peels, Rik, Jeroen de Ridder, Tamarinde Haven, and Lex Bouter. (2019).
+"Value pluralism in research integrity." *Research Integrity and Peer Review*,
+4, Article 18. <https://doi.org/10.1186/s41073-019-0076-4>.
+
+The preparation report, `Science_Values_Creation.Rmd` in this folder, documents
+extraction from the publisher's version of record and its
+[CC BY 4.0 notice](https://link.springer.com/article/10.1186/s41073-019-0076-4#rightslink).
+Retain source credit, license information, and the description of preparation
+changes. That report also records an unresolved check of underlying licenses
+for attributed quotations from research codes; do not describe that separate
+check as completed by this handoff.
+
+The student file is `../data/Science_Values.rds`. It contains a plain character
+vector of **197 natural passages**. Paragraphs, list items, notes, references,
+and identification records are individual entries; headings attach once to
+the next entry. Citation and rights information remain with the text.
+
+All counts below search the complete supplied vector, including references,
+notes, headings, and notices. They count **matching passages**, not occurrences
+of a word. A passage matching two alternatives counts once in the combined
+search. Counts from separate searches must not simply be added.
+
+### Read the existing file without changing it
+
+When knitted from its repository location, the report finds the OER repository
+above this folder. The optional `corpus_path` parameter allows an explicit input
+for an independent check. No chunk saves or replaces the corpus.
+
+```{r read-existing-corpus}
+corpus_override <- if (exists("params")) params$corpus_path else NULL
+if (is.null(corpus_override)) {
+  input <- knitr::current_input(dir = TRUE)
+  start <- if (length(input) == 1L && nzchar(input)) {
+    dirname(normalizePath(input, mustWork = TRUE))
+  } else getwd()
+  repeat {
+    candidate <- file.path(start, "chapters", "07-thoroughness", "data", "Science_Values.rds")
+    if (file.exists(file.path(start, "_quarto.yml")) && file.exists(candidate)) break
+    parent <- dirname(start)
+    if (identical(parent, start)) stop("Open the OER project or supply corpus_path.")
+    start <- parent
+  }
+  corpus_file <- normalizePath(candidate, mustWork = TRUE)
+} else {
+  corpus_file <- normalizePath(corpus_override, mustWork = TRUE)
+}
+Science_Values <- readRDS(corpus_file)
+stopifnot(is.character(Science_Values), is.null(attributes(Science_Values)),
+          length(Science_Values) == 197L, all(!is.na(Science_Values)))
+knitr::kable(data.frame(
+  passages = length(Science_Values),
+  file_md5 = unname(tools::md5sum(corpus_file))
+))
+```
+
+## 1. Word families: a manageable starting point
+
+A prefix search finds spelling relatives. It does not infer synonyms or a
+passage's meaning. For example, the R string `"\\bcareful"` requires a word
+boundary before `careful` and allows following letters, returning *careful*,
+*carefully*, and *carefulness*. It needs no wildcard or new package.
+
+The absence of a final `\\b` is deliberate. In contrast,
+`"\\bcareful\\b"` finds *careful* without including *carefully* or *carefulness*.
+An explicit alternative is `"\\b(careful|carefully|carefulness)\\b"`.
+
+```{r define-word-families}
+family_patterns <- c(
+  accountability = "\\baccountability\\b",
+  accuracy = "\\baccurate",
+  carefulness = "\\bcareful",
+  thoroughness = "\\bthoroughness\\b",
+  openness = "\\bopen",
+  transparency = "\\btransparen",
+  disclosure = "\\bdisclos",
+  honesty = "\\bhonest",
+  responsibility = "\\bresponsib",
+  conflict = "\\bconflict",
+  humility = "\\b(humility|humble)\\b"
+)
+family_forms <- c(
+  "accountability",
+  "accurate, accurately",
+  "careful, carefully, carefulness",
+  "thoroughness",
+  "open, open-mindedness, openly, openness",
+  "transparency, transparent, transparently",
+  "disclose, disclosing, disclosure",
+  "honest, honesty",
+  "responsible, responsibly, responsibility, responsibilities",
+  "conflict, conflicts, conflicting",
+  "humility, humble"
+)
+```
+
+Searches use `stringr::regex(..., ignore_case = TRUE)`. The expected counts record
+the checked corpus; a changed result should prompt review rather than an
+automatic rewrite of the handoff.
+
+```{r count-word-families}
+count_passages <- function(pattern) {
+  sum(stringr::str_detect(Science_Values,
+                         stringr::regex(pattern, ignore_case = TRUE)))
+}
+family_counts <- vapply(family_patterns, count_passages, integer(1))
+stopifnot(identical(unname(family_counts), c(5L, 4L, 5L, 2L, 14L, 11L, 7L, 8L, 23L, 22L, 3L)))
+knitr::kable(data.frame(
+  search = names(family_patterns),
+  forms_found = family_forms,
+  matching_passages = unname(family_counts)
+), row.names = FALSE)
+```
+
+**Instructional judgment:** the accuracy and carefulness families produce small,
+useful sets. The broad responsibility and conflict searches suit optional
+exploration. Accountability has five hits, but three are values lists and two
+are the journal title *Accountability in Research* in reference entries. It is
+a valid counting exercise, not five explanatory discussions of accountability.
+
+## 2. Connections: combine related concepts into themes
+
+The following groups connect different concepts. They are not synonym lists,
+and some terms reasonably belong to more than one group. Disclosure connects
+openness and honest reporting, but it also appears where information must be
+protected. Plagiarism names a violation rather than a virtue.
+
+Keep *carefulness* and *accuracy* distinct even when searching them together.
+Similarly, transparency and honesty can support reproducibility without being
+equivalent to reproducibility. No added term is claimed to cover an absent
+course value such as tenacity or courage.
+
+```{r define-themed-searches}
+theme_terms <- list(
+  careful_inquiry = c("accurate", "accurately", "careful", "carefully",
+                     "carefulness", "thoroughness"),
+  open_research = c("open", "open-mindedness", "openly", "openness",
+                    "transparency", "transparent", "transparently",
+                    "disclose", "disclosing", "disclosure", "sharing"),
+  honest_reporting = c("honest", "honesty", "disclose", "disclosing", "disclosure"),
+  accountability_and_duties = c("accountability", "responsible", "responsibly",
+                              "responsibility", "responsibilities", "duty", "duties"),
+  research_credit = c("authorship", "ownership", "plagiarism", "acknowledgement"),
+  working_together = c("collaboration", "communication"),
+  protecting_people = c("privacy", "confidentiality", "consent", "autonomy"),
+  competing_values = c("conflict", "conflicts", "conflicting", "humility", "humble",
+                       "reasoning", "judgment", "judgments")
+)
+```
+
+Build one bounded OR pattern for each group, using the alternation already
+introduced in Chapter 17. These terms contain no regex punctuation needing
+escaping; a hyphen outside a character class is literal. This helper is for
+these specified terms, not an unrestricted dictionary parser.
+
+```{r build-themed-patterns}
+theme_patterns <- vapply(theme_terms, function(terms) {
+  paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
+}, character(1))
+theme_counts <- vapply(theme_patterns, count_passages, integer(1))
+stopifnot(identical(unname(theme_counts), c(10L, 21L, 15L, 28L, 8L, 8L, 11L, 24L)))
+knitr::kable(data.frame(
+  theme = names(theme_terms),
+  terms = vapply(theme_terms, paste, character(1), collapse = ", "),
+  matching_passages = unname(theme_counts)
+), row.names = FALSE)
+```
+
+Use these as a menu, not eight required searches. Aiming for about five matches
+works well for the smaller word families. Combining several concepts naturally
+returns more passages; students need only interpret one or two selected results.
+
+Caution, rigor, and precision can be optional additions to careful inquiry. The
+larger group also including care finds 15 passages, but *care* includes animal
+care and one *rigor* hit is a book title. They broaden the topic beyond the
+recommended ten-passage starting group.
+
+Collaboration and communication can share an activity with conflict. Start with
+their eight-passage group, then search the conflict family separately. Combining
+all five terms returns 28 passages. Many conflicts are between research norms,
+not disputes between collaborators, so do not label every hit interpersonal.
+
+### Confirm the optional expansions
+
+```{r check-optional-expansions}
+expanded_care <- c(theme_terms$careful_inquiry, "care", "caution", "rigor", "precision")
+collaboration_conflict <- c(theme_terms$working_together, "conflict", "conflicts", "conflicting")
+bounded_or <- function(terms) paste0("\\b(", paste(terms, collapse = "|"), ")\\b")
+stopifnot(count_passages(bounded_or(expanded_care)) == 15L,
+          count_passages(bounded_or(collaboration_conflict)) == 28L)
+```
+
+## 3. Recommended activity progression
+
+1. **Predict, detect, count, retrieve.** Use the carefulness family. Preserve the
+   existing logical-vector, `sum()`, `which()`, and indexing skills. Ask students
+   to distinguish five matching passages from the total number of occurrences.
+2. **Compare exact and family searches.** Compare whole-word *careful* (2) with
+   the careful family (5). Try whole-word *accurate* (3) and its family (4).
+   Explain why the pattern's final boundary changes the result.
+3. **Build a connection.** Combine authorship, ownership, plagiarism, and
+   acknowledgement with `|` (8 passages). This introduces a deliberately chosen
+   theme rather than just a shared spelling.
+4. **Choose a theme and make an index.** Offer the table as a menu. Use readable
+   theme names as index names and store their regex patterns separately. The
+   existing `lapply()`, `which()`, and indexing approach still applies.
+5. **Interpret one or two results.** Ask: "Which retrieved passage best explains
+   your theme, and which match needs more context?" A keyword match identifies a
+   candidate passage; it does not establish the passage's position or meaning.
+6. **Optional comparison.** Compare openness with protection of people, or
+   examine the conflict family alongside humility. This reaches the article's
+   central argument about values that pull in different directions.
+
+The original exact *carefulness* search (2 passages) is also a good short preview.
+Its two matches are substantive discussions, even though the larger family is
+better for demonstrating expansion.
+
+### Verify the proposed exact-versus-family comparison
+
+```{r check-teaching-comparison}
+stopifnot(count_passages("\\bcareful\\b") == 2L,
+          count_passages("\\baccurate\\b") == 3L,
+          count_passages("\\bcarefulness\\b") == 2L)
+```
+
+## 4. Meaning checks and useful passage anchors
+
+These anchors identify useful locations in the current 197-passage file. Their
+descriptions are instructional judgments based on reading the retrieved text;
+numbers may change after a future extraction.
+
+| Passage | Why it is useful |
+|---|---|
+| 47 | Connects values, norms, virtues, reporting limitations, carefulness, thoroughness, and open-mindedness. |
+| 95 | Uses possible equipment or programming problems to explore novelty versus carefulness in deciding whether to publish. |
+| 103 | States a concise tension between openness/transparency and privacy. |
+| 113 | Develops intellectual humility, listening, and considering other reasonable viewpoints. |
+
+Important interpretation prompts for the editor:
+
+- The open family includes mental open-mindedness, information sharing, and
+  *Open Access* in the rights notice. These are related spellings with different
+  meanings. A word boundary treats a hyphen as a boundary, so even
+  `"\\bopen\\b"` matches the *open* part of *open-mindedness*.
+- Disclosure searches include *non-disclosure*. Privacy searches include
+  arguments for withholding information, and *consent* also appears in two
+  "Not applicable" declarations. Read context before assigning a thematic code.
+- Ownership also occurs in a privacy/openness discussion. The credit group is
+  a useful connection to investigate, not a guarantee that all eight results
+  discuss authorship credit in the same way.
+- A humility family search finds three passages despite only one literal
+  *humility* passage. Autonomy remains a meaningful one-passage search, not a
+  synonym for openness or intellectual independence in every context.
+- Searching all entries means a single word can be found wherever it occurs.
+  Small passage size does not prevent finding it. A zero means the requested
+  pattern is absent, not that the whole article was overlooked.
+
+## 5. Scope for the OER editor
+
+The editor should update the Chapter 17 corpus identification from Resnik and
+Elliott to Peels and colleagues and add the proper source citation. Retain the
+existing RDS download and `Science_Values <- readRDS("Science_Values.rds")` import.
+Use *passages* consistently instead of treating entries as pages or sentences.
+
+Revise the corpus examples and practice around the selected families/themes.
+Use `Science_Values` consistently where the current practice also says
+`Science_vec`. Specify case sensitivity, boundary rules, and whether an exercise
+counts passages or occurrences. Replace the current assumption that exact
+*bias* and *reproducibility* must match; those whole-word searches are zero in
+this text. Related words are not automatically interchangeable concepts.
+
+Check all proposed activity code against the saved corpus, including zero-result
+handling and overlap between terms. Keep the actual regex visible to students
+when an exact search changes into a family or thematic search. Do not add
+automatic stemming or a new text-analysis package for this plan.
+
+This handoff does not authorize unrelated chapter changes or publication. Keep
+the preparation report's outstanding source-permission review visible before
+public redistribution. Render this internal handoff independently for review,
+with output outside the published book, unless publication is separately requested.

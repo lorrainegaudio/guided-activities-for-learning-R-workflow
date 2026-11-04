@@ -1,58 +1,758 @@
 ---
-title: "Build Your Own Very Long Character Vector"
+title: "Preparing the Web Text of Value Pluralism in Research Integrity"
 author: "Lorraine Gaudio"
-date: "2025-05-26"
-output: html_document
+date: "2026-11-03"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    code_folding: show
+params:
+  source_html: null
+  data_dir: null
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = TRUE)
+options(width = 90)
 ```
 
-## Introduction
+## Purpose and output
 
-This is a simple example of how to create a very long character vector in R. I will upload 
+This internal preparation report documents how the published web text of *Value
+pluralism in research integrity* is acquired for the Chapter 17 word-search
+activity. It replaces the earlier PDF-extraction workflow in this copy of the
+report. The original article wording, punctuation, and genuine hyphens are
+preserved; the code does not paraphrase the article.
 
+This workflow creates **paragraph-sized, natural text passages** and saves the
+plain character vector as `Science_Values.rds` in the chapter's `data` folder.
+Each paragraph, list item, note, reference, or identification record becomes one
+passage. Headings are attached to the next passage in source order, once each.
+The article is not split into sentences or flattened into one large string.
 
-```{r}
-#install.packages(c("readtext", "pdftools", "stringr"))
+The structured extraction is retained in memory for checking how each passage
+relates to the web page. Running the complete report replaces the existing
+`Science_Values.rds` with the new Peels and colleagues text. Chapter editing and
+book publication remain separate tasks.
 
+The retained material includes article identification, the abstract and main
+text, notes, references, acknowledgements, funding, the contribution statement,
+ethics declarations, the publisher's note, and the article's rights notice.
+Author affiliations, postal and email addresses, correspondence details, site
+navigation, sharing tools, and reference-search buttons are excluded.
+
+## Source and permission evidence
+
+Peels, Rik, Jeroen de Ridder, Tamarinde Haven, and Lex Bouter. (2019).
+"Value pluralism in research integrity." *Research Integrity and Peer Review*,
+4, Article 18. <https://doi.org/10.1186/s41073-019-0076-4>.
+
+The source is the publisher's version of record, published on 22 August 2019:
+<https://link.springer.com/article/10.1186/s41073-019-0076-4>.
+
+The publisher's [Rights and permissions
+notice](https://link.springer.com/article/10.1186/s41073-019-0076-4#rightslink)
+identifies the article as **Creative Commons Attribution 4.0 International
+(CC BY 4.0)**. This is explicit reuse evidence, rather than an inference from
+free access. The [license](https://creativecommons.org/licenses/by/4.0/)
+permits redistribution and adaptation, including commercial reuse, subject to
+its terms. Credit the authors and source, retain supplied notices, link to the
+license, and identify changes. The code below retains the article's actual
+notice together with its text and records the preparation changes.
+
+The notice also mentions CC0 for data made available in the article. That
+statement does not replace the CC BY license for the article prose. Attributed
+quotations from research codes are retained with their credits. Their underlying
+source licenses have not been independently verified by this workflow; any
+specific third-party exclusions need review before final redistribution.
+
+## 1. Check the required tools
+
+`rvest` reads the HTML elements of a web page, and `xml2` lets us inspect their
+structure. `stringr` checks the chapter's word searches, and `knitr` displays
+review tables in the report. Install missing packages
+once, outside the routine extraction. This report does not install anything
+automatically.
+
+```{r install-once, eval=FALSE}
+install.packages(c("rvest", "xml2", "stringr", "knitr", "rmarkdown"))
 ```
 
-```{r}
-library(readtext)   # universal reader for .txt, .docx, .pdf, etc.
-library(stringr)    # stringr verbs (str_detect, str_squish, ...)
+The check below stops with a clear message if a required package is unavailable.
 
+```{r check-packages}
+required_packages <- c("rvest", "xml2", "stringr", "knitr", "rmarkdown")
+available <- vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
+if (!all(available)) {
+  stop("Install the missing packages first: ",
+       paste(required_packages[!available], collapse = ", "))
+}
 ```
 
-## Read in the PDF
+## 2. Read the publisher's web text
 
-```{r}
-my_doc <- pdftools::pdf_text("Resnik_Elliott2023.pdf") |>
-          paste(collapse = "\n")
+Normally, the report reads directly from the article URL and requires an internet
+connection. The optional `source_html` parameter can instead point to a locally
+saved copy of that same HTML page for checking. A local copy must still pass the
+source and license checks below. The run time is an extraction time, not a claim
+about when a local copy was originally downloaded.
+
+```{r read-web-text}
+article_url <- "https://link.springer.com/article/10.1186/s41073-019-0076-4"
+expected_doi <- "10.1186/s41073-019-0076-4"
+# Knit supplies params; running chunks interactively can use the live-page default.
+source_html <- if (exists("params")) params$source_html else NULL
+source_input <- if (is.null(source_html)) article_url else source_html
+
+article_page <- xml2::read_html(source_input)
+extracted_at <- format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z", tz = "America/Boise")
+source_mode <- if (is.null(source_html)) "Live publisher page" else "Local HTML copy"
+
+data.frame(source = source_mode, input = source_input, extraction_time = extracted_at)
 ```
 
-## Fix hyphenation issues
+## 3. Read and verify the article identification
 
-```{r}
-fixed_doc <- my_doc |>
-  # More general pattern for hyphenation at line breaks
-  str_replace_all("([a-zA-Z])- ?\\n?([a-zA-Z])", "\\1\\2") |>
-  # Handle potential punctuation or special cases
-  str_replace_all("([a-zA-Z])- ([a-zA-Z])", "\\1\\2")
+The page includes citation metadata intended to identify the article. We read
+only the named fields needed here, rather than copying all metadata, which also
+contains author contact details. The online publication date is used because
+the separate `citation_publication_date` field describes the journal issue date.
+
+```{r read-identification}
+meta_value <- function(name) {
+  rvest::html_elements(article_page, paste0("meta[name='", name, "']")) |>
+    rvest::html_attr("content")
+}
+
+article_title <- meta_value("citation_title")
+author_names <- sub("^([^,]+), (.*)$", "\\2 \\1", meta_value("citation_author"))
+publication_date <- as.Date(meta_value("citation_online_date"), format = "%Y/%m/%d")
+journal <- meta_value("citation_journal_title")
+volume <- meta_value("citation_volume")
+article_number <- meta_value("citation_firstpage")
+doi <- meta_value("citation_doi")
+copyright_notice <- meta_value("dc.rights")
+
+stopifnot(
+  identical(article_title, "Value pluralism in research integrity"),
+  identical(doi, expected_doi),
+  identical(author_names, c("Rik Peels", "Jeroen de Ridder", "Tamarinde Haven", "Lex Bouter")),
+  identical(as.character(publication_date), "2019-08-22"),
+  length(copyright_notice) == 1L, nzchar(copyright_notice)
+)
 ```
 
+The license link is checked in the article's own rights section. This check would
+fail rather than accepting a different license or a page without that
+notice.
 
-## Store as a lone character vector
-```{r}
-Science_Values_raw <- str_squish(fixed_doc)   # removes extra line breaks/space
-Science_Values <- unlist(stringi::stri_split_boundaries(Science_Values_raw, type = "sentence"))
-## Remove any empty elements
-Science_Values <- Science_Values[Science_Values != "."]
+```{r verify-license}
+license_link <- rvest::html_elements(
+  article_page,
+  "section[data-title='Rights and permissions'] a[rel='license'][href*='/licenses/by/4.0']"
+)
+license_url <- rvest::html_attr(license_link, "href")
+stopifnot(length(license_url) == 1L,
+          grepl("^https?://creativecommons.org/licenses/by/4[.]0/?$", license_url))
+
+citation <- paste0(
+  paste(author_names, collapse = "; "), ". (", format(publication_date, "%Y"), "). ",
+  article_title, ". ", journal, ", ", volume, ", Article ", article_number,
+  ". https://doi.org/", doi
+)
 ```
 
-## Save the character vector
-```{r}
-saveRDS(Science_Values, file = "Science_Values.rds")
+## 4. Select article content and remove web controls
+
+An explicit list of article sections keeps navigation and contact information
+out of the extraction. It also makes the content boundary visible for review.
+The contribution statement is selected separately because it shares a section
+with author addresses and correspondence information.
+
+```{r select-sections}
+keep_sections <- c(
+  "Abstract", "Introduction", "Background",
+  "Metaphysical pluralism: values, norms, and virtues",
+  "Axiological pluralism: five categories of normativity",
+  "Axiological pluralism 1: Incommensurable norms from different categories",
+  "Axiological pluralism 2: Conflicting norms from the same category",
+  "Overcoming pluralism?", "Conclusions", "Availability of data and materials",
+  "Notes", "References", "Acknowledgements", "Funding",
+  "Ethics declarations", "Additional information", "Rights and permissions"
+)
+
+page_sections <- rvest::html_elements(article_page, "article section[data-title]")
+stopifnot(all(keep_sections %in% rvest::html_attr(page_sections, "data-title")))
+stopifnot(length(rvest::html_elements(article_page, "#contributions")) == 1L)
 ```
 
+The reference list has separate Google Scholar, article-search, and citation
+download controls. The rights section also has a reprint-order link. These are removed from
+the working HTML; reference citations and the rights notice remain intact.
+Footnote callouts are displayed as `[Note n]` so they do not run into adjacent
+words. Their link targets are preserved.
+
+```{r remove-controls}
+web_controls <- rvest::html_elements(
+  article_page,
+  ".c-article-references__links, .c-article-references__download, .c-article-rights"
+)
+xml2::xml_remove(web_controls)
+
+note_links <- rvest::html_elements(article_page, "sup a[href^='#Fn']")
+for (node in note_links) {
+  note_number <- sub("#Fn", "", rvest::html_attr(node, "href"), fixed = TRUE)
+  # Remove both the hidden label span and the original numeric text first.
+  xml2::xml_remove(xml2::xml_contents(node))
+  xml2::xml_text(node) <- paste0(" [Note ", note_number, "]")
+}
+```
+
+## 5. Retain the existing HTML blocks in source order
+
+The selection below keeps headings, paragraphs, and complete list items. A
+paragraph inside a selected list item is not selected again, so list text is
+not duplicated. Notes and references remain list items at this stage.
+
+```{r select-blocks}
+section_rule <- paste0("@data-title='", keep_sections, "'", collapse = " or ")
+block_rule <- paste(
+  "self::h2 or self::h3 or self::h4 or self::h5 or self::h6 or self::p or self::li"
+)
+block_xpath <- paste0(
+  "//article//section[", section_rule, "]//*[", block_rule, "][not(ancestor::li)]",
+  " | //article//h3[@id='contributions']",
+  " | //article//h3[@id='contributions']/following-sibling::p[1]"
+)
+block_nodes <- xml2::xml_find_all(article_page, block_xpath)
+stopifnot(length(block_nodes) > 0L)
+```
+
+`html_text2()` reads text in a browser-like way, retaining breaks within each
+block. It normalizes HTML display whitespace and nonbreaking spaces. We do not
+flatten the whole article, remove ordinary hyphens, or split sentences. Section
+names and HTML identifiers provide a way back to the source.
+
+```{r record-blocks}
+sections <- vapply(block_nodes, function(node) {
+  xml2::xml_find_first(node, "ancestor::section[@data-title][1]") |>
+    rvest::html_attr("data-title")
+}, character(1))
+
+block_text <- rvest::html_text2(block_nodes)
+elements <- xml2::xml_name(block_nodes)
+source_ids <- rvest::html_attr(block_nodes, "id")
+is_reference <- sections == "References" & elements == "li"
+source_ids[is_reference] <- vapply(block_nodes[is_reference], function(node) {
+  rvest::html_element(node, ".c-article-references__text") |> rvest::html_attr("id")
+}, character(1))
+source_ids[is.na(source_ids)] <- ""
+
+block_kind <- ifelse(grepl("^h[2-6]$", elements), "heading",
+                     ifelse(elements == "li", "list_item", "paragraph"))
+block_kind[sections == "Notes" & elements == "li"] <- "note"
+block_kind[is_reference] <- "reference"
+```
+
+List labels are sometimes supplied through HTML attributes or a separate span,
+rather than through paragraph text. We keep those labels in their own column.
+This preserves note and reference numbering, bullets, and the article's numbered
+categories for the passage assembly below.
+Some custom numbers already occur in `text` as well as in `list_label`; later
+assembly must check for an existing label rather than adding it twice.
+
+```{r retain-list-labels}
+list_types <- vapply(block_nodes, function(node) {
+  if (xml2::xml_name(node) == "li") xml2::xml_name(xml2::xml_parent(node)) else ""
+}, character(1))
+
+list_labels <- vapply(block_nodes, function(node) {
+  if (xml2::xml_name(node) != "li") return("")
+  counter <- rvest::html_attr(node, "data-counter")
+  if (!is.na(counter)) return(counter)
+  custom <- rvest::html_element(node, ".u-custom-list-number") |> rvest::html_text2()
+  if (!is.na(custom)) return(custom)
+  if (xml2::xml_name(xml2::xml_parent(node)) == "ul") return("-")
+  paste0(length(xml2::xml_find_all(node, "preceding-sibling::li")) + 1L, ".")
+}, character(1))
+
+article_blocks <- data.frame(
+  section = sections, kind = block_kind, element = elements,
+  source_id = source_ids, list_type = list_types, list_label = list_labels,
+  text = block_text, stringsAsFactors = FALSE
+)
+```
+
+The heading path records the section and subsection that contain each block.
+Repeated text is not deleted merely because the same wording appears elsewhere;
+for example, separate declarations may legitimately both say "Not applicable."
+
+```{r retain-heading-paths}
+heading_stack <- rep("", 6L)
+previous_section <- ""
+article_blocks$section_path <- ""
+for (i in seq_len(nrow(article_blocks))) {
+  if (article_blocks$section[i] != previous_section) {
+    heading_stack[] <- ""
+    heading_stack[2] <- article_blocks$section[i]
+  }
+  if (article_blocks$kind[i] == "heading") {
+    level <- as.integer(sub("h", "", article_blocks$element[i], fixed = TRUE))
+    heading_stack[level:6L] <- ""
+    heading_stack[level] <- article_blocks$text[i]
+  }
+  article_blocks$section_path[i] <- paste(heading_stack[nzchar(heading_stack)], collapse = " > ")
+  previous_section <- article_blocks$section[i]
+}
+```
+
+## 6. Keep identification and attribution with the extracted material
+
+These explicitly labeled records place the title, all four authors, publication
+date, full citation, source URL, copyright, license, and preparation note in the
+same structure as the article text. They are included in the saved searchable
+text, rather than being left only in this report.
+The publisher's complete rights notice is also retained in its original section.
+
+```{r add-identification}
+preparation_note <- paste(
+  "Extracted from publisher HTML for an instructional text-search activity.",
+  "Article identification and preparation records were added; web controls and",
+  "author contact/affiliation details were excluded. HTML display whitespace was",
+  "normalized and footnote callouts displayed as [Note n]. Natural paragraphs,",
+  "list items, notes, references, and identification records form the passages.",
+  "Headings are attached once to the next passage; list numbering and the rights",
+  "notice are retained. Word counts describe the supplied text, including its metadata."
+)
+
+identification <- data.frame(
+  label = c("Title", "Authors", "Published", "Citation", "Source", "Copyright",
+            "License", "License URL", "Extraction time", "Preparation note"),
+  value = c(article_title, paste(author_names, collapse = "; "),
+            as.character(publication_date), citation, article_url, copyright_notice,
+            "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+            license_url, extracted_at, preparation_note),
+  stringsAsFactors = FALSE
+)
+
+identification_blocks <- data.frame(
+  section = "Article identification", kind = "metadata", element = "metadata",
+  source_id = "", list_type = "", list_label = "",
+  text = paste0(identification$label, ": ", identification$value),
+  section_path = "Article identification", stringsAsFactors = FALSE
+)
+
+Science_Values_web <- rbind(identification_blocks, article_blocks)
+Science_Values_web$block_id <- seq_len(nrow(Science_Values_web))
+Science_Values_web <- Science_Values_web[, c("block_id", "section", "section_path",
+  "kind", "element", "source_id", "list_type", "list_label", "text")]
+
+knitr::kable(identification, caption = "Identification retained with the article text")
+```
+
+## 7. Retain citation and note links for traceability
+
+Text extraction by itself does not retain hyperlink destinations. This companion
+table associates each retained article link with its block. Internal note and
+reference links are converted to complete publisher URLs. Link labels are not
+added to the text a second time. No linked document is downloaded.
+
+```{r retain-links}
+link_rows <- lapply(seq_along(block_nodes), function(i) {
+  links <- rvest::html_elements(block_nodes[[i]], "a[href]")
+  if (length(links) == 0L) return(NULL)
+  href <- rvest::html_attr(links, "href")
+  keep <- !grepl("^mailto:", href, ignore.case = TRUE)
+  data.frame(
+    block_id = rep(i + nrow(identification_blocks), sum(keep)),
+    label = rvest::html_text2(links)[keep],
+    url = xml2::url_absolute(href[keep], article_url), stringsAsFactors = FALSE
+  )
+})
+Science_Values_links <- do.call(rbind, link_rows)
+stopifnot(!is.null(Science_Values_links), nrow(Science_Values_links) > 0L)
+```
+
+## 8. Check the extracted source structure
+
+These checks concern this specific published article. Its 17 notes and 50
+references provide useful completeness checks. They are not keyword counts.
+The checks also confirm that contact information and reference-search controls
+have not entered the retained text. If the publisher changes the page structure,
+a failed check calls for inspection rather than producing a new file.
+
+```{r check-extraction}
+checks <- c(
+  all_blocks_have_text = all(!is.na(Science_Values_web$text) & nzchar(trimws(Science_Values_web$text))),
+  all_selected_sections_present = all(keep_sections %in% Science_Values_web$section),
+  contributions_retained = "contributions" %in% Science_Values_web$source_id,
+  seventeen_notes_retained = sum(Science_Values_web$kind == "note") == 17L,
+  fifty_references_retained = sum(Science_Values_web$kind == "reference") == 50L,
+  final_reference_retained = "ref-CR50" %in% Science_Values_web$source_id,
+  genuine_hyphen_retained = any(grepl("open-mindedness", article_blocks$text, fixed = TRUE)),
+  no_duplicated_note_numbers = !any(vapply(seq_len(17L), function(n) {
+    any(grepl(paste0("[Note ", n, "]", n), Science_Values_web$text, fixed = TRUE))
+  }, logical(1))),
+  no_email_addresses = !any(grepl("[[:alnum:]._%+-]+@[[:alnum:].-]+\\.[[:alpha:]]{2,}", Science_Values_web$text)),
+  no_postal_affiliations = !any(grepl("De Boelelaan", Science_Values_web$text, fixed = TRUE)),
+  no_correspondence_details = !any(grepl("Correspondence to", Science_Values_web$text, fixed = TRUE)),
+  no_reference_search_buttons = !any(grepl("Google Scholar", Science_Values_web$text, fixed = TRUE)),
+  no_reference_download_control = !any(grepl("Download references", Science_Values_web$text, fixed = TRUE)),
+  no_reprint_order_link = !any(grepl("Reprints and permissions", Science_Values_web$text, fixed = TRUE))
+)
+knitr::kable(data.frame(check = names(checks), passed = unname(checks)))
+stopifnot(all(checks))
+```
+
+The section inventory shows what was retained. It counts source blocks, which
+should not yet be interpreted as counts of student search passages.
+
+```{r inspect-inventory}
+section_order <- unique(Science_Values_web$section)
+inventory <- data.frame(
+  section = section_order,
+  source_blocks = vapply(section_order, function(s) sum(Science_Values_web$section == s), integer(1))
+)
+knitr::kable(inventory, caption = "Retained source structure")
+```
+
+The short preview makes headings, list labels, a note, a reference, and the rights
+notice easy to locate. Preview text is shortened for display only; the extraction
+object retains the complete text of every selected block.
+
+```{r inspect-preview}
+preview_rows <- unique(c(
+  which(Science_Values_web$kind == "heading")[1:2],
+  which(Science_Values_web$kind == "list_item")[1],
+  which(Science_Values_web$kind == "note")[1],
+  which(Science_Values_web$kind == "reference")[1],
+  which(Science_Values_web$section == "Rights and permissions" &
+          Science_Values_web$kind == "paragraph")[1]
+))
+preview <- Science_Values_web[preview_rows, c("block_id", "section_path", "kind", "list_label", "text")]
+preview$text <- paste0(substr(preview$text, 1, 140), ifelse(nchar(preview$text) > 140, "...", ""))
+knitr::kable(preview, caption = "Preview only: source text is not truncated in the extraction")
+```
+
+## 9. Prepare paragraph-sized passages and list labels
+
+Each existing paragraph or list item remains intact. Individual notes,
+references, and identification records also remain separate entries. Only
+whitespace inside a block is collapsed; genuine hyphens, punctuation, citations,
+and note callouts remain. Headings will be attached in the next step.
+
+```{r prepare-passage-text}
+passage_rows <- which(Science_Values_web$kind != "heading")
+passage_sources <- Science_Values_web[passage_rows, ]
+passage_text <- stringr::str_squish(passage_sources$text)
+```
+
+Some list numbers are already in the text, while other numbers and bullets were
+supplied only by HTML. The helper checks the literal label and the following
+space, so that a label such as `1.` is not confused with a value such as `1.5`.
+Missing labels are added once; existing labels are left in place.
+
+```{r assemble-list-labels}
+has_list_label <- function(text, label) {
+  if (!nzchar(label) || !startsWith(text, label)) return(FALSE)
+  remainder <- substring(text, nchar(label) + 1L)
+  !nzchar(remainder) || grepl("^[[:space:]]", remainder)
+}
+
+for (i in seq_along(passage_text)) {
+  label <- passage_sources$list_label[i]
+  if (nzchar(label) && !has_list_label(passage_text[i], label)) {
+    passage_text[i] <- paste(label, passage_text[i])
+  }
+}
+```
+
+## 10. Attach each heading to its next passage
+
+Headings remain in their original order and appear once, before the next
+non-heading block. This avoids isolated heading-only results and avoids
+artificially repeating a heading's keywords in every paragraph. Blank lines
+separate headings from the paragraph text. A source map records all blocks
+included in each passage; it is kept in the report environment rather than
+adding attributes to the student's character vector.
+
+```{r assemble-passages}
+Science_Values <- character(length(passage_rows))
+included_blocks <- vector("list", length(passage_rows))
+pending_headings <- character()
+pending_ids <- integer()
+passage_id <- 0L
+
+for (i in seq_len(nrow(Science_Values_web))) {
+  if (Science_Values_web$kind[i] == "heading") {
+    pending_headings <- c(pending_headings, Science_Values_web$text[i])
+    pending_ids <- c(pending_ids, Science_Values_web$block_id[i])
+  } else {
+    passage_id <- passage_id + 1L
+    Science_Values[passage_id] <- paste(
+      c(pending_headings, passage_text[passage_id]), collapse = "\n\n"
+    )
+    included_blocks[[passage_id]] <- c(pending_ids, Science_Values_web$block_id[i])
+    pending_headings <- character()
+    pending_ids <- integer()
+  }
+}
+stopifnot(length(pending_headings) == 0L, length(pending_ids) == 0L)
+```
+
+The source map gives each saved passage its original section, kind, and source
+identifier. The list of block IDs also includes any attached headings. Ordinary
+paragraphs do not all have HTML identifiers, so the block IDs provide the
+complete mapping even when `source_id` is empty.
+
+```{r map-passages}
+passage_map <- data.frame(
+  passage_id = seq_along(Science_Values),
+  section_path = passage_sources$section_path,
+  kind = passage_sources$kind,
+  source_id = passage_sources$source_id,
+  stringsAsFactors = FALSE
+)
+passage_map$included_block_ids <- included_blocks
+
+mapped_ids <- unlist(included_blocks, use.names = FALSE)
+passage_checks <- c(
+  character_vector = is.character(Science_Values),
+  no_extra_attributes = is.null(attributes(Science_Values)),
+  all_passages_nonempty = all(nzchar(trimws(Science_Values))),
+  one_passage_per_nonheading_block = length(Science_Values) == length(passage_rows),
+  every_source_block_retained_once = identical(sort(mapped_ids), Science_Values_web$block_id),
+  no_duplicated_source_blocks = !anyDuplicated(mapped_ids),
+  title_retained = any(grepl(article_title, Science_Values, fixed = TRUE)),
+  license_url_retained = any(grepl(license_url, Science_Values, fixed = TRUE)),
+  final_reference_retained = "ref-CR50" %in% passage_map$source_id
+)
+knitr::kable(data.frame(check = names(passage_checks), passed = unname(passage_checks)))
+stopifnot(all(passage_checks))
+```
+
+The composition table distinguishes prose paragraphs from other natural entries.
+The total is a count of **supplied-text passages**, including identification,
+notes, and references, rather than a count of prose paragraphs alone.
+
+```{r inspect-passage-composition}
+composition <- as.data.frame(table(passage_map$kind), stringsAsFactors = FALSE)
+names(composition) <- c("passage_kind", "number_of_passages")
+knitr::kable(composition, caption = "Composition of the saved character vector")
+```
+
+## 11. Check the chapter's searches
+
+These are the chapter's current index words, searched as case-insensitive whole
+words. A matching passage and a word occurrence are different measures: a word
+can occur several times in one matching passage. Both are shown for review. All
+retained text is searched, including identification, headings, notes, references,
+and licensing information.
+
+```{r check-keyword-searches}
+index_words <- c(
+  "values", "norms", "integrity", "ethics", "bias", "trust", "transparency",
+  "responsibility", "reproducibility", "evidence", "policy", "funding", "conflict"
+)
+word_pattern <- function(word) {
+  stringr::regex(paste0("\\b", word, "\\b"), ignore_case = TRUE)
+}
+
+keyword_review <- data.frame(
+  word = index_words,
+  matching_passages = vapply(index_words, function(word) {
+    sum(stringr::str_detect(Science_Values, word_pattern(word)))
+  }, integer(1)),
+  total_occurrences = vapply(index_words, function(word) {
+    sum(stringr::str_count(Science_Values, word_pattern(word)))
+  }, integer(1)),
+  stringsAsFactors = FALSE
+)
+knitr::kable(keyword_review, row.names = FALSE,
+             caption = "Case-insensitive whole-word searches in the supplied text")
+```
+
+The same word-occurrence totals must be obtained from the source blocks and the
+assembled passages. This checks that heading attachment and label formatting
+have neither duplicated nor lost these words. The worked examples also need a
+`trust` result and at least two `transparency` passages. An absent keyword remains
+an honest zero; changing passage size cannot create a word that is absent.
+
+```{r compare-source-and-passage-searches}
+source_counts <- vapply(index_words, function(word) {
+  sum(stringr::str_count(Science_Values_web$text, word_pattern(word)))
+}, integer(1))
+stopifnot(
+  identical(unname(source_counts), keyword_review$total_occurrences),
+  keyword_review$matching_passages[keyword_review$word == "trust"] > 0L,
+  keyword_review$matching_passages[keyword_review$word == "transparency"] >= 2L
+)
+```
+
+The following preview retrieves the first `trust` match, just as the chapter
+retrieves matching text by index. It shows a complete passage rather than a
+shortened table cell. A legitimate zero-result search would instead return no
+matching indices.
+
+```{r preview-complete-passage}
+trust_indices <- which(stringr::str_detect(Science_Values, word_pattern("trust")))
+cat(Science_Values[head(trust_indices, 1L)], sep = "\n")
+```
+
+### Additional searches about scientific values
+
+Successful matches should return useful information about scientific values,
+rather than merely a frequent word. The following additional terms were checked
+against the complete saved text. Counts include any notes or references that
+match, so the passages also need to be read before choosing worked examples.
+
+```{r check-scientific-values-words}
+values_words <- c("carefulness", "honesty", "privacy", "openness", "humility", "virtues")
+values_word_review <- data.frame(
+  word = values_words,
+  matching_passages = vapply(values_words, function(word) {
+    sum(stringr::str_detect(Science_Values, word_pattern(word)))
+  }, integer(1)),
+  stringsAsFactors = FALSE
+)
+knitr::kable(values_word_review, row.names = FALSE,
+             caption = "Additional whole-word searches about scientific values")
+```
+
+**Instructional judgment after reading the results:** `carefulness` is a strong
+worked example because both matches are explanatory paragraphs. One connects
+intellectual virtues with honest reporting and acknowledging limitations. The
+other considers a novel research result that may reflect equipment or
+programming problems, and whether to publish with qualifications or wait.
+`honesty` also finds the connection between values and reporting practices.
+`privacy` and `openness` retrieve tensions between sharing knowledge and
+protecting people or respecting agreements. `humility` returns one substantive
+paragraph about listening to other reasonable viewpoints when values conflict.
+`virtues` is useful for broader exploration, but returns more material, including
+notes and reference entries.
+
+The two complete `carefulness` passages are displayed below so that the proposed
+worked example can be reviewed directly. Wrapping the display does not change
+the strings saved in the data file.
+
+```{r preview-carefulness-passages}
+carefulness_indices <- which(stringr::str_detect(Science_Values, word_pattern("carefulness")))
+stopifnot(length(carefulness_indices) == 2L)
+for (i in carefulness_indices) {
+  cat("\nPassage ", i, "\n", sep = "")
+  cat(strwrap(Science_Values[i], width = 88), sep = "\n")
+  cat("\n")
+}
+```
+
+The current chapter's first two `transparency` hits are a short values list and
+an introduction to an example; later hits contain more substantial discussion.
+For the editor's handoff, a preview using `carefulness` would return two fuller
+discussions without requiring a change to the indexing method. A focused
+three-word practice set could use `honesty`, `carefulness`, and `privacy`.
+
+Exact whole-word `bias` and `reproducibility` searches remain zero. A word-family
+pattern can instead include `biased` and `biases` using the alternation already
+introduced in Chapter 17. `ethics` does return matches, but many are in the
+references or declarations, so it is less direct as a worked example about the
+article's values argument. The editor should specify the matching rule for the
+assignment and use `Science_Values` consistently where the chapter currently
+also refers to `Science_vec`.
+
+## 12. Save the data file in the chapter's data folder
+
+The normal destination is `chapters/07-thoroughness/data/Science_Values.rds`
+inside the OER repository. The code finds the repository from the report's
+location, or from the working directory when chunks are run interactively. It
+does not depend on Lorraine's home-directory path. If neither location is within
+the OER project, open that project before running these chunks.
+
+The optional `data_dir` parameter supplies a different existing folder for a
+temporary validation run. It is not needed for normal use. The resolved path
+is printed before the file is saved.
+
+```{r locate-data-folder}
+data_override <- if (exists("params")) params$data_dir else NULL
+if (is.null(data_override)) {
+  report_input <- knitr::current_input(dir = TRUE)
+  project_dir <- if (length(report_input) == 1L && nzchar(report_input)) {
+    dirname(normalizePath(report_input, mustWork = TRUE))
+  } else getwd()
+  repeat {
+    candidate <- file.path(project_dir, "chapters", "07-thoroughness", "data")
+    if (file.exists(file.path(project_dir, "_quarto.yml")) && dir.exists(candidate)) break
+    parent_dir <- dirname(project_dir)
+    if (identical(parent_dir, project_dir)) stop("Open the OER_r project, then rerun this chunk.")
+    project_dir <- parent_dir
+  }
+  data_dir <- normalizePath(candidate, mustWork = TRUE)
+} else {
+  data_dir <- normalizePath(data_override, mustWork = TRUE)
+}
+stopifnot(dir.exists(data_dir))
+output_file <- file.path(data_dir, "Science_Values.rds")
+output_file
+```
+
+`saveRDS()` saves the one plain character vector. Rerunning this chunk replaces
+the file at the displayed path. Students can keep the chapter's existing import
+command, `Science_Values <- readRDS("Science_Values.rds")`. This is an RDS file,
+not a saved workspace containing multiple objects.
+
+```{r save-data-file}
+saveRDS(Science_Values, file = output_file)
+```
+
+Read the file back from disk and compare it with the vector in memory. This
+confirms that the saved object has the intended type, has no extra attributes,
+contains every prepared passage, and can be read using the chapter's approach.
+
+```{r verify-saved-data-file}
+saved_text <- readRDS(output_file)
+stopifnot(
+  identical(saved_text, Science_Values),
+  is.character(saved_text), is.null(attributes(saved_text)),
+  all(!is.na(saved_text) & nzchar(trimws(saved_text)))
+)
+knitr::kable(data.frame(
+  file = output_file,
+  passages = length(saved_text),
+  bytes = unname(file.info(output_file)$size),
+  md5 = unname(tools::md5sum(output_file))
+), caption = "Saved data file verified by reopening it")
+```
+
+## Completed output and remaining editorial work
+
+The saved `Science_Values.rds` contains the Peels and colleagues text as a plain
+character vector of natural passages. Identification, citation, source URL,
+copyright, license, preparation information, notes, and references travel with
+the text. Headings and list numbering are preserved in the passages.
+
+`Science_Values_web`, `Science_Values_links`, and `passage_map` are available
+while the report code runs, and can be recreated by rerunning it to trace
+passages back to the source. The HTML shows selected review tables, not the
+complete maps. These structures are not extra objects or attributes in the
+student download. The report shows the extraction checks, passage composition,
+search results, and saved-file verification so this preparation can be reviewed
+and repeated.
+
+The OER editor still needs to update Chapter 17's source identification and
+citation, use consistent language for matching passages, and check its example
+keywords against the results above. In particular, exact whole-word searches
+for `bias` or `reproducibility` should not be assumed to produce a match.
+
+The report can be knitted independently for review. Its rendered HTML should be
+kept out of the published book output unless its publication is separately
+requested. No code here edits the chapter, renders the book, or publishes it.
+
+## Software used for this run
+
+Recording the R and package versions helps explain differences if this workflow
+is rerun later. The extraction depends on the publisher's HTML layout as well as
+these tools.
+
+```{r session-information}
+sessionInfo()
+```

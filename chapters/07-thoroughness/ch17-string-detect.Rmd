@@ -1,134 +1,221 @@
 ---
 title: "Chapter 17: String Detect"
-subtitle: "Thematic Coding and Data Filtering"
+subtitle: "Text Searches and Data Filtering"
 toc: true
 ---
 
 ## Overview {#overview}
 
-In Chapter 17, We explore thematic coding and data filtering. Many datasets include text—movie genres, country names, survey answers. You often need to *find* rows that mention certain words  or exact terms. Today you’ll learn to combine `str_detect()` with `dplyr::filter()` on both **row names** and **character columns**, using word boundaries (`\\b`) and alternation (`|`) so your patterns are precise.
-
-
-To begin Chapter 17, follow these steps:
-
-1. Open your course project for RStudio 
-   
-2. Create a new file. From the file types we have used so far, pick which file type you want to use. (File > New File > ???).
-
-**Chapter Overview**
+Many datasets include text, such as movie titles, country names, and survey answers. In this chapter, you will use [`str_detect()`]{.glossary-term data-term="str_detect()"} to find text that matches a pattern and combine those results with `dplyr::filter()` to select rows. You will also search passages from a research-integrity article, count matching passages, and retrieve them to read in context.
 
 By the end of Chapter 17 you will be able to:
 
-1. ⚡ Remember – Recall `str_detect()`, word boundaries `\\b`, and `|`.
+- 🔍 Find matching text in row names and character columns with `str_detect()`.
 
-2. 🔍 Understand – Explain `sapply()` and `lapply()` and how regex boundaries match *whole* words.
+- 🎯 Use word boundaries, alternation, and capitalization options to define a search pattern.
 
-3. 🛠 Apply –  Use `filter()` + `str_detect()` on data‑frame columns *and* on `row.names()`.
+- 🧺 Combine text-matching results with `filter()` to select rows.
 
-4. 📊 Analyze –  Combine boundary tokens and alternation for precise filters.
+- 🔁 Use [`sapply()`]{.glossary-term data-term="sapply()"} and [`lapply()`]{.glossary-term data-term="lapply()"} to apply an operation to several objects or keywords.
 
-5. 🧠️ Evaluate – Judge which words give meaningful thematic signals.
+- 📖 Build a keyword index, retrieve matching passages, and distinguish passage counts from word-occurrence counts.
 
 Keep these goals in mind as you move through each section.
 
+## Setting Up Your Notes {#setup}
+
+Continue using Quarto to keep your code, output, checks, and memos in one document. The setup below follows Chapter 16. If you choose another file type introduced earlier in this book, include the same code, checks, and memos.
+
+### Create a Quarto File {#create_quarto}
+
+1. Open RStudio. Open the project or navigate to the folder where you keep your work for this book.
+
+2. Choose `File > New File > Quarto Document`.
+
+3. Keep **HTML** selected as the output format, uncheck **Use visual markdown editor**, and click **Create Empty Document**.
+
+4. Save the document in your folder as `chapter17_notes.qmd`.
+
+Keep the YAML header at the top. If any starter content appears below the closing `---`, remove that content and use the space for your notes, code, and memos.
+
+If you use Git and GitHub, follow the workflow you learned in [Chapter 9](../05-openmindedness/ch09-github.html): pull before you begin, then save, stage, commit while you work, and push after you finish.
+
+### YAML Header {#yaml_header}
+
+Edit the existing YAML header to match this example, replacing `YOUR NAME` with your name. Keep only one header, including its opening and closing `---` lines.
+
+```yaml
+---
+title: "Chapter 17 Notes"
+subtitle: "String Detect"
+author: "YOUR NAME"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+    embed-resources: true
+---
+```
+
+Set `code-fold` to `false` so that all code is visible by default. Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
+
 ## 📦 Packages {#packages}
 
-Install once (if needed): `install.packages("dplyr")`; `install.packages("dslabs")`; `install.packages("stringr")`
+If any of these packages is missing, run its installation line once in the **RStudio Console**, not in a document code chunk:
 
 ```{r , eval=FALSE}
+install.packages("dslabs")
+install.packages("dplyr")
 install.packages("stringr")
 ```
 
-Load the packages at the start of every session:
+Keep installation commands out of your document. Use `library()` in your document to load the packages whenever you run it.
 
-```{r , eval=FALSE}
+🎯 **Goal:** Load the packages at the start of every session.
+
+```{r message=FALSE, warning=FALSE}
+# ⚡ Code
 library(dslabs)  # Data science labs package
 library(dplyr)   # Data manipulation package
 library(stringr) # For str_detect() function
 ```
 
+🧶 **Test render.** Save your Quarto document and click **Render**. Check that the HTML opens with your title and headings and that the package-loading code runs without errors. If you use R Markdown, knit and inspect the HTML instead.
+
 ## Warm‑Up {#warmup}
 
-What is str_detect?
+What is `str_detect()`?
+
+A [pattern]{.glossary-term data-term="Pattern"} describes what you want to find in text. The `string` argument supplies the text to search, and `pattern` supplies the matching rule.
+
+📜 **The SYNTAX:** `str_detect(string, pattern, negate = FALSE)`
+
+🎯 **Goal:** Use the help file to identify the arguments and the type of result returned.
 
 ```{r , eval=FALSE}
 ?str_detect    # Arguments and return value (logical)
 ```
 
-👀 Check‑in: Why might `ignore_case = TRUE` be safer for text search?
+🗣 **Comment:** What do the `string` and `pattern` arguments supply, and what type of result does the function return?
+
+For each nonmissing text value, `str_detect()` returns `TRUE` if the pattern matches and `FALSE` otherwise. You can use those logical results to filter rows or find matching positions.
 
 ## Row‑name search {#row-name-search}
 
-Start every plot by piping a data frame into `ggplot()`.
+🎯 **Goal:** Find states whose names begin with `New`.
 
 ```{r , eval=FALSE}
 View(USArrests)  # View USArrests dataset in RStudio viewer
 row.names(USArrests)  # Check row names of USArrests dataset
 ```
 
-```{r , eval=FALSE}
-USArrests %>%
-  filter(str_detect(row.names(USArrests), "^New")) -> New_states
+```{r}
+# ⚡ Code
+New_states <- USArrests %>%
+  filter(str_detect(row.names(USArrests), "^New"))
 ```
 
-👀 Check‑in: Which *New* states were found? Use row.names(New_states).
+The `^` anchors the pattern to the beginning of each name. The assignment saves the selected rows as `New_states`.
+
+✔️ In [Chapter 11](../05-openmindedness/ch11-dplyr-subsetting.html#single-condition), a comparison such as `mpg >= 25` returned logical results. Here, `str_detect()` tests text instead of comparing numbers. `filter()` still uses the results in the same way: it keeps rows where the test returns `TRUE`.
+
+```{r}
+# ✅ Check
+row.names(New_states)
+```
+
+🗣 **Comment:** Which *New* states were found?
 
 ## Column search {#column-search}
+
+The `movielens` data frame contains one row per rating, so a movie title can appear in many rows.
+
+🎯 **Goal:** Keep rating rows whose movie title contains the whole word `Love`.
 
 ```{r , eval=FALSE}
 View(movielens)
 nrow(movielens) 
 ```
 
-```{r , eval=FALSE}
-movielens %>%
-  filter(str_detect(title, "\\bLove\\b")) -> Love_films
+```{r}
+# ⚡ Code
+Love_films <- movielens %>%
+  filter(str_detect(title, "\\bLove\\b"))
 ```
 
-👀 Check‑in: Run nrow(Love_films). Surprised at the count?
-
-```{r eval=FALSE, include=FALSE}
+```{r}
+# ✅ Check
 nrow(Love_films)
-View(Love_films) 
 ```
+
+🗣 **Comment:** This counts matching rating rows, not distinct movies. Why can the same movie contribute more than one row?
 
 ## Exact word match {#exact-word-match}
 
-`\\b` boundary  & `regex`
+Inside a quoted R pattern, write `\\b` to specify a [word boundary]{.glossary-term data-term="Word boundary"}.
 
-region column holds strings like "Northeast", "South".
+The `region` column in `murders` contains names such as `"Northeast"`, `"North Central"`, and `"South"`.
 
 ```{r , eval=FALSE}
 ?stringr::regex
 ```
 
-🧩 Explanation: Regular expressions (regex) allow you to search, extract, and manipulate text based on patterns rather than exact matches. 
+[Regular expressions]{.glossary-term data-term="Regular expression"} describe text patterns using ordinary text and special symbols. `str_detect()` uses them by default; [`regex()`]{.glossary-term data-term="regex()"} lets you specify matching options such as whether capitalization matters.
 
+📜 **The SYNTAX (basic):** `regex(pattern, ignore_case = FALSE, ...)`
 
-```{r , eval=FALSE}
-# Case Insensitive Matching
+🎯 **Goal:** Match text without requiring the same capitalization.
+
+```{r}
+# ⚡ Code
 str_detect("HELLO", regex("hello", ignore_case = TRUE))
 ```
 
+✅ **Check:** Inspect the logical result. Did the pattern match?
 
-```{r , eval=FALSE}
-# Word Boundary Matching
-murders %>%
-  filter(str_detect(region, regex("\\bSouth\\b"))) -> South_states
+🗣 **Comment:** Here, `ignore_case = TRUE` allows uppercase and lowercase letters to match. This is [case-insensitive matching]{.glossary-term data-term="Case-insensitive matching"}. Use [case-sensitive matching]{.glossary-term data-term="Case-sensitive matching"} when capitalization matters to your search.
+
+🎯 **Goal:** Keep rows whose region contains the whole word `South`.
+
+```{r}
+# ⚡ Code
+South_states <- murders %>%
+  filter(str_detect(region, regex("\\bSouth\\b")))
 ```
 
-🧩 Explanation: `\\b` anchors to word boundaries → avoids matching inside longer words, ensuring "South" is matched not "Southampton".
-
-```{r , eval=FALSE}
-murders %>%
-  filter(str_detect(region, regex("\\b(North|South)\\b"))) -> NS_states
+```{r}
+# ✅ Check
+nrow(South_states)
 ```
 
-🧩 Explanation:  `(A|B)` acts like A **OR** B inside a single `regex` pattern, matches either "North" OR "South" in one operation.
+🗣 **Comment:** Word boundaries let `"\\bSouth\\b"` match the whole word `South`, but not the beginning of `Southampton`. The word can occur within a longer name; the entire name does not have to equal `South`.
+
+🎯 **Goal:** Keep rows whose region contains the whole word `North` or `South`.
+
+```{r}
+# ⚡ Code
+NS_states <- murders %>%
+  filter(str_detect(region, regex("\\b(North|South)\\b")))
+```
+
+```{r}
+# ✅ Check
+nrow(NS_states)
+```
+
+🗣 **Comment:** Inside a pattern, `|` matches either alternative. This is [alternation]{.glossary-term data-term="Alternation"}. This pattern finds the whole word `North` or `South`, so it can match `North Central` but not `Northeast`.
+
+✔️ You used `|` in [Chapter 10](../05-openmindedness/ch10-and-or-in.html#or) to combine logical tests. Inside `"\\b(North|South)\\b"`, it separates text alternatives: `North` or `South`. The OR idea is familiar, but here the symbol belongs to the quoted search pattern.
 
 ## Count Matches Quickly {#count-matches-quickly}
 
-```{r , eval=FALSE}
+🎯 **Goal:** Store the four row counts in a numeric vector.
+
+```{r}
+# ⚡ Code
 match_counts <- c(
   nrow(New_states),
   nrow(Love_films),
@@ -137,193 +224,355 @@ match_counts <- c(
 )
 ```
 
-🎯 The GOAL: Build a small data frame of simulated heights.
-
-```{r , eval=FALSE}
-# Add names if needed
+```{r}
+# ⚡ Add names to the counts.
 names(match_counts) <- c("New_states", "Love_films", "South_states", "NS_states")
 
-# Display the results
+# ✅ Check
 match_counts
 ```
 
-Alternatively, use `sapply()` to count rows in each data frame
+Alternatively, use `sapply()` to count rows in each data frame.
+
+📜 **The SYNTAX (basic):** `sapply(X, FUN, ...)`
+
+`X` is the list or vector to work through, and `FUN` is the function to apply to each element.
 
 ```{r , eval=FALSE}
 ?sapply # sapply() applies a function to each element of a list or vector
+```
+
+🎯 **Goal:** Apply `nrow()` to each of the four data frames and collect the counts.
+
+```{r}
+# ⚡ Code
 match_counts <- sapply(list(New_states, Love_films, South_states, NS_states), nrow)
+
+# ✅ Check
 match_counts
 ```
 
+🗣 **Comment:** `list()` collects the four data frames, and `sapply()` applies `nrow` to each one. Here, it returns a vector of counts. This list is unnamed, so the resulting counts do not have the labels added above.
+
 ## Inspect the Corpus {#inspect-the-corpus}
 
-Download the Chapter corpus (Resnik & Elliott passages):
+A [corpus]{.glossary-term data-term="Corpus"} is a collection of text prepared for analysis. This chapter uses passages from *Value pluralism in research integrity* by Peels and colleagues (2019).
+
+**Source:** Peels, R., de Ridder, J., Haven, T., & Bouter, L. (2019). Value pluralism in research integrity. *Research Integrity and Peer Review, 4*, Article 18. [Read the original article](https://doi.org/10.1186/s41073-019-0076-4).
+
+The article is licensed under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/). For this activity, the publisher's web text was extracted, display spacing was normalized, and headings were joined to the next passage. Web controls and author contact details were excluded.
+
+Each vector entry is one passage. The supplied text includes paragraphs, list items, notes, references, and source and license information. Searches include all these entries, not just the main article.
+
+Download `Science_Values.rds` and save it in the same folder as the document you are creating for this chapter:
 
 <a href="data/Science_Values.rds" download>Download Science_Values.rds</a>
 
-Load the Chapter corpus (Resnik & Elliott passages):
+🎯 **Goal:** Read the file into the `Science_Values` character vector.
 
 ```{r , eval=FALSE}
+# ⚡ Code
 Science_Values <- readRDS("Science_Values.rds")  # creates Science_Values
 ```
 
+```{r include=FALSE}
+# Book rendering uses the bundled data file; readers use the download above.
+Science_Values <- readRDS("data/Science_Values.rds")
+```
+
+```{r}
+# ✅ Check
+length(Science_Values)   # number of passages in the supplied file
+```
+
+🗣 **Comment:** `length()` counts entries in this character vector, so it tells you the number of passages, not the number of words.
+
+To inspect the first few passages in RStudio, run:
+
 ```{r , eval=FALSE}
-length(Science_Values)   # lines/pages in the article
 head(Science_Values)
 ```
 
 ## Build a Keyword Index {#build-a-keyword-index}
 
+A [keyword index]{.glossary-term data-term="Keyword index"} connects each keyword with the positions of passages that match it. `lapply()` lets us repeat the search for each keyword and keep the results in a list.
+
+📜 **The SYNTAX (basic):** `lapply(X, FUN, ...)`
+
 ```{r , eval=FALSE}
 ?lapply  # lapply() applies a function to each element of a list or vector
 ```
 
-```{r , eval=FALSE}
+🎯 **Goal:** Create the vector of keywords to search for.
+
+```{r}
+# ⚡ Code
 Index_Words <- c("values", "norms", "integrity", "ethics", "bias", "trust", 
                  "transparency", "responsibility", "reproducibility", "evidence", 
                  "policy", "funding", "conflict")
 ```
 
-📝 We compose the `function(w)`. It takes each `Index_Words` as input.
+The searches below use case-insensitive, whole-word matching. Some words may have no matches; an empty result means the pattern was not found in the supplied text.
 
-```{r , eval=FALSE}
+In `function(w)`, `w` receives one keyword at a time. `paste0()` joins the word boundaries and keyword into a pattern. `str_detect()` tests each passage, and `which()` returns the positions of the matches. `lapply()` stores one result per keyword in a list.
+
+🎯 **Goal:** Build the index and name each list element with its keyword.
+
+```{r}
+# ⚡ Code
 Index <- lapply(Index_Words, function(w) {
   which(str_detect(Science_Values, regex(paste0("\\b", w, "\\b"),
                                          ignore_case = TRUE)))
 })
 ```
 
-```{r , eval=FALSE}
+```{r}
+# ⚡ Code
 names(Index) <- Index_Words
+
+# ✅ Check
+names(Index)
 ```
 
-👀 Check‑in: What does `Index` contain? Use names(Index) to see the words.
-
-```{r , eval=FALSE}
-# Check the index for "trust"
+```{r}
+# ✅ Check the index for "trust".
 Index[["trust"]]  
 ```
 
-👀 Check‑in: How many lines mention "trust"? Use length(Index[["trust"]])
+```{r}
+# ✅ Count the matching passages.
+length(Index[["trust"]])
+```
 
-## Preview Context Lines {#preview-context-lines}
+🗣 **Comment:** `Index[["trust"]]` contains matching passage positions. Its length counts matching passages, not individual occurrences of the word; one passage can contain it more than once.
 
-```{r , eval=FALSE}
+## Preview Context Passages {#preview-context-lines}
+
+🎯 **Goal:** Retrieve matching passages so you can read the words in context.
+
+```{r}
+# ⚡ Code
 Science_Values[Index[["transparency"]]][1:2]   # first two transparency hits
 ```
 
-```{r , eval=FALSE}
-# One-liner to get all sentences containing "trust"
-trust_sentences <- Science_Values[Index[["trust"]]]
+```{r}
+# ⚡ Code
+# Retrieve all passages containing the whole word "trust"
+trust_passages <- Science_Values[Index[["trust"]]]
 ```
 
+✔️ In [Chapter 8](../04-autonomy/ch08-indexing.html#which-function), `which()` returned positions that you used to select rows. Here, `Index[["trust"]]` contains matching passage positions. The brackets in `Science_Values[Index[["trust"]]]` use those positions to retrieve passages. Because `Science_Values` is a vector, there is no row-and-column comma.
+
+🗣 **Comment:** Read the retrieved passages before interpreting the matches. A word can occur in a reference or notice as well as the main article; a match alone does not establish its meaning.
+
+## Summary {#summary}
+
+In this chapter, you used `str_detect()` to test text and produce logical results, then used those results with `filter()` to select rows. You refined searches with word boundaries, alternation, and capitalization options. These patterns changed what counted as a match without changing the familiar role of a logical test.
+
+You also used `sapply()` to collect row counts and `lapply()` to build a keyword index. The index stores matching positions so you can retrieve passages with brackets. A matching-passage count does not tell you how often a word occurs or what the author means by it. Read the retrieved text to interpret the result.
+
+## Chapter Terms {#chapter-terms}
+
+**Alternation**: Using `|` inside a regular expression to allow either alternative to match.
+
+**Case-insensitive matching**: Matching that ignores differences between uppercase and lowercase letters. In this chapter, `ignore_case = TRUE` enables it.
+
+**Case-sensitive matching**: Matching that treats uppercase and lowercase letters as different.
+
+**Corpus**: A collection of text prepared for analysis. Here, each entry in `Science_Values` is one passage.
+
+**Keyword index**: In this chapter, a named list connecting each keyword with the positions of matching passages.
+
+**[`lapply()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/lapply.html)**: Applies a function to each element of a list or vector and returns a list containing the results.
+
+**Pattern**: Text or a matching rule that describes what to look for in text.
+
+**[`regex()`](https://stringr.tidyverse.org/reference/modifiers.html)**: Sets regular-expression matching options, such as whether capitalization matters. It supplies a pattern to a search function; it does not perform the search itself.
+
+**Regular expression**: A text pattern that can use special symbols, such as `^`, `\\b`, and `|`, to describe matching rules.
+
+**[`sapply()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/lapply.html)**: Applies a function to each element of a list or vector and simplifies the results when possible. In this chapter's row-count example, it returns a vector of counts.
+
+**[`str_detect()`](https://stringr.tidyverse.org/reference/str_detect.html)**: Tests text for a pattern and returns logical results indicating which entries match.
+
+**Word boundary**: A position at the beginning or end of a word. Write `\\b` inside a quoted R pattern to specify one; `"\\bSouth\\b"` matches `South` but not the beginning of `Southampton`.
 
 ## 📝 Practice Space {#practice-space}
 
-🧠 Challenge:
+In this Practice Space, you will search row names and country names, then count matching passages in `Science_Values`. Task 0 loads the packages and text data, Tasks 1–7 ask you to write or explain searches, and Task 8 asks you to reflect on word boundaries.
 
-1. Create **`United_Year2000`** with `gapminder` rows from `year == 2000` *and* `countries` containing `"United"`.
+The numbered tasks create six result objects: `Mazda_cars`, `United`, `Saint`, `Republics`, `Union_2000`, and `Keyword_Counts`. Keep these exact names.
 
-2. Write one `regex` that captures both "bias" and "biased". Test on `Science_vec` and count lines.
+Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Use the exact object names given in each task. Run your code and inspect the results using the supplied checks and any other checks appropriate to the result. An empty result can be valid; check it against the search conditions rather than assuming that it is an error.
 
-```{r , eval=FALSE}
+Save your source document and the `chapter17_practice.RData` workspace using the [saving instructions below](#save-and-upload). If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit.
 
+### Setup {#practice-setup}
 
-```
+1. Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as `chapter17_practice.qmd`. If you choose another familiar file type, use the matching extension.
 
-✍️ Practice:
+2. For Quarto, edit the existing YAML header to include the title `"Chapter 17 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml_header). Keep only one header, including its opening and closing `---` lines.
 
-a. Build a vector of three new ethics-related words. Or create objects that filter `gapminder` country names for each word.
+In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header. Create headings for Tasks 0–8 and keep them in order.
 
-b. Write a loop (`lapply`) that saves a separate data frame per word.
+3. Use Task 0 to load `stringr`, `dplyr`, and `dslabs`, then read `Science_Values.rds`. Save the downloaded file in the same folder as your Practice Space document.
 
-Add at least one 👀 check‑in predicting the total rows you expect.
+🧶 **Test render.** For Quarto, save your document and click **Render**. Inspect the HTML as you work to check formatting, code, output, and memos. If you use R Markdown, knit and inspect the HTML instead.
 
-## ➤ Assignment
+Use the same memo labels as in earlier chapters:
 
-Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Run each section; be sure the requested objects appear in the Environment. When finished, save **BOTH** this script and your .RData workspace and upload.
+- 🗣 **Add Comments** asks you to explain what the code or output shows.
+- 🪞 **Reflect** asks you to explain your learning process or understanding.
+- 👀 **Cite** asks you to name a person or outside resource that helped and explain how it contributed.
 
-When you’re done, your workspace should contain SIX new objects: `Merc_cars`, `United`, `Saint`, `Republics`, `Union_2000`, `Keyword_Counts`
+In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use `#` comments.
+
+For this Practice Space:
+
+- **Task 0:** Load the packages and read the supplied data file near the top of your document.
+- **Tasks 1 and 3–7:** Complete the code and checks, then answer the Comment prompts that follow.
+- **Task 2:** Explain Task 1's pipeline. No additional code or checks are required.
+- **Task 8:** Write one short paragraph answering the reflection prompt. No code or checks are required.
+
+Use the supplied 🎯 goals to organize your work. Answer the prompts where they appear; you do not need an additional generic memo after every expression.
+
+If you encounter an error, briefly record what happened, what you tried, and what you would check next or ask for help with. Add an 👀 Cite memo when a person or outside resource helps you. **Type all code yourself.**
+
+---
 
 ### Task 0 {#task-0}
 
-📦 Packages
+📦 **Packages and text data**
 
-Attach `stringr`, `dplyr`, and `dslabs` and load `Lesson_14_Workspace.RData`
+🎯 Attach `stringr`, `dplyr`, and `dslabs`. Save the supplied `Science_Values.rds` file in the same folder as your Practice Space document, then read it below. You do not need a workspace from an earlier lesson.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 ____(____) 
 ____(____)
 ____(____)
-load("Lesson_14_Workspace.RData")
+Science_Values <- readRDS("Science_Values.rds")
+```
+
+```{r, eval=FALSE}
+# ✅ Checks
+class(Science_Values)
+length(Science_Values)
 ```
 
 ### Task 1 {#task-1}
 
-Row-name search
+**Row-name search**
 
-Replace each _____ with functions to find all rows in `mtcars` with `"Mazda"`
+🎯 Replace each _____ with functions to find all rows in `mtcars` with `"Mazda"`.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 Mazda_cars <- mtcars %>% 
   _____(_____(row.names(mtcars), "Mazda"))
 ```
 
+```{r, eval=FALSE}
+# ✅ Checks
+nrow(Mazda_cars)
+row.names(Mazda_cars)
+```
+
+🗣 **Add Comments:** Which car names were matched?
+
 ### Task 2 {#task-2}
 
-⚡ Explain what Task 1’s pipeline does.
+✔️ 🗣 **Add Comments:** Explain what Task 1's pipeline does. How does its text-matching step work like a numerical comparison in an earlier filter?
 
 ✍️ EXPLANATION: "___"
 
 ### Task 3 {#task-3}
 
-“United” countries
+**“United” countries**
 
-Use `gapminder` ➜ rows whose `country` contains `"United"`. Store as **`United`**.
+🎯 Use `gapminder` ➜ rows whose `country` contains `"United"`. Store as **`United`**.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 ____ <- _____
 ```
 
+```{r, eval=FALSE}
+# ✅ Checks
+nrow(United)
+unique(United$country)
+```
+
+🗣 **Add Comments:** Which country names were matched?
+
 ### Task 4 {#task-4}
 
-Exact “St” countries
+**Countries containing the whole word “St”**
 
-`gapminder` ➜ rows whose `country` is exactly the word `"St"`. Hint: use `\\b` before and after. Store as **`Saint`**.
+🎯 Use `gapminder` ➜ rows whose `country` contains `"St"` as a whole word, such as in `"St. Lucia"`. Hint: use `\\b` before and after. Store as **`Saint`**.
 
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 _____ <- _____
 
 ```
+
+```{r, eval=FALSE}
+# ✅ Checks
+nrow(Saint)
+unique(Saint$country)
+```
+
+🗣 **Add Comments:** Do the matched country names contain `"St"` as a whole word?
 
 ### Task 5 {#task-5}
 
-Republic OR Rep
+**Republic OR Rep**
 
-Use `gapminder` ➜ rows whose `country` contains `"Republic"` OR exactly `"Rep"`. Hint: combine `\\b` with alternation (`|`). Store as **`Republics`**.
+🎯 Use `gapminder` ➜ rows whose `country` contains `"Republic"` OR the whole word `"Rep"`. Hint: combine `\\b` with alternation (`|`). Store as **`Republics`**.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 _____ <- _____
 ```
+
+```{r, eval=FALSE}
+# ✅ Checks
+nrow(Republics)
+unique(Republics$country)
+```
+
+🗣 **Add Comments:** Which country names matched each alternative in your pattern?
 
 ### Task 6 {#task-6}
 
-Year-specific filter + ignore_case
+**Year-specific filter + ignore_case**
 
-Use `gapminder` ➜ `year == 2000` AND `country` contains` "union"` (any case). Store as **`Union_2000`**.
+🎯 Use `gapminder` ➜ `year == 2000` AND `country` contains `"union"` (any case). Store as **`Union_2000`**.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 _____ <- _____
 ```
 
+```{r, eval=FALSE}
+# ✅ Checks
+nrow(Union_2000)
+unique(Union_2000$country)
+unique(Union_2000$year)
+```
+
+🗣 **Add Comments:** What do the checks show about the result of combining the year and country-name conditions?
+
 ### Task 7 {#task-7}
 
-Build a keyword hit count
+**Build a keyword hit count**
 
-Using `Science_Values` (vector of text lines) and the vector `keys` of `"bias"`, `"ethics"`, `"trust"` produce **`Keyword_Counts`**: a named integer vector of line counts per word.
+🎯 Using `Science_Values` (a character vector of passages) and the vector `keys` of `"honesty"`, `"carefulness"`, `"privacy"`, produce **`Keyword_Counts`**: a named integer vector of matching-passage counts for each word. Use case-insensitive, whole-word searches. A word with no matches should have a count of zero.
 
 ```{r, eval=FALSE}
+# ⚡ Type this in your document and fill in the blanks.
 keys <- _____
 
 
@@ -332,31 +581,59 @@ _____ <- _____
 ```
 
 ```{r, eval=FALSE}
-# Quick check
+# ✅ Check
 print(Keyword_Counts)
 ```
 
+🗣 **Add Comments:** What does each number in `Keyword_Counts` count?
+
 ### Task 8 {#task-8}
 
-🤔 Reflect: 
-
-📝 Write a short paragraph reflecting on when is adding `\\b` around a word **not** a good idea?
+🪞 **Reflect:** Write a short paragraph answering this question: When would adding `\\b` around a word **not** be a good idea?
 
 ✍️ EXPLANATION: "___"
 
-## Save and Upload {#save-and-upload}
+### Save Your Work {#save-and-upload}
 
-1. You will be submitting **both** the Quarto Document and the workspace file. The workspace file saves all the objects in your environment that you created in this lesson. You can save the workspace by running the following command in a code chunk of the Quarto Document document:
+Before you finish, confirm that your document includes:
+
+- the Task 0 package-loading and text-import code,
+- the completed code, checks, and Comments for Tasks 1 and 3–7,
+- the Task 2 explanation of the pipeline,
+- one Task 8 reflection, and
+- citations for any outside help you used.
+
+Save your source document and the `chapter17_practice.RData` workspace. If this Practice Space is assigned for submission, follow your instructor's directions for the required files.
+
+📖 **Review:** A workspace file (`.RData`) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.
+
+🎯 Recreate your work from the saved code before saving the final files.
+
+**Step 1: Sweep your Environment (start clean).**
+
+Click the 🧹 **broom icon** in the Environment pane to clear objects.
+
+**Step 2: Run everything top-to-bottom.**
+
+Use **Run → Run All** to execute every chunk in order, beginning with the package-loading and text-import code in Task 0. Confirm that the six requested result objects are recreated without relying on previously saved objects.
+
+**Step 3: Save, render, and inspect.**
+
+Save your source document. If you are using Quarto, render it and inspect `chapter17_practice.html` for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.
+
+**Step 4: Save your workspace.**
+
+Run this command in the RStudio Console after running your Practice Space code:
 
 ```{r , eval=FALSE}
-save.image("Assignment14_Workspace.RData")
+save.image("chapter17_practice.RData")
 ```
 
-Or you can click the "Save Workspace" button in the Environment pane. 
+Or use the "Save Workspace" button in the Environment pane.
 
-💾 **Always save the R documents before closing.**
+💾 **Always save your source document before closing.**
 
-2. Find the assignment in this week's module in Canvas and upload **both** the RMD and the workspace file.
+If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
 
 
 
