@@ -109,35 +109,35 @@ format:
 
 ### Headings {#headings}
 
-You will want to use headings to see how the table of contents works. Create a simple outline for Chapter 12 using headings. Try using the following structure:
+Use level-two headings (`##` followed by a space) for the main sections of your notes, just as you will use `## Task 0`, `## Task 1`, and so on in the Practice Space. Use `###` for a subsection and `####` for a section within that subsection. Write headings outside code chunks. Try this outline:
 
 ```markdown
 
-# Quarto Notes
+## Quarto Notes
 
-# Load Packages
+## Load Packages
 
-# Vectorized Conditionals
+## Vectorized Conditionals
 
-## ifelse()
+### ifelse()
 
-## case_when()
+### case_when()
 
-## More than Two Categories
+### More than Two Categories
 
-### Nested ifelse()
+#### Nested ifelse()
 
-### Multiple Rule case_when()
+#### Multiple Rule case_when()
 
-# mutate()
+## mutate()
 
-## Column Copy
+### Column Copy
 
-### mutate() with Arithmetic
+#### mutate() with Arithmetic
 
-### case_when() inside mutate()
+#### case_when() inside mutate()
 
-## Overwrite Column Values
+### Overwrite Column Values
 
 ```
 
@@ -698,11 +698,45 @@ Before you begin:
 
 1. Create a new Quarto document in RStudio.
 2. Save it in your module folder as `chapter12_practice.qmd`.
-3. Edit the existing YAML header so it includes the title `"Chapter 12 Practice"`, your name, the date, and HTML output. Keep the opening and closing `---` lines.
-4. Include the Chapter 12 Quarto settings for a table of contents and section numbering.
+3. Edit the existing YAML header to match the example below, replacing `YOUR NAME` with your name. Keep one header, including its opening and closing `---` lines.
+4. Keep `toc: true`, `number-sections: true`, and `embed-resources: true` in the HTML settings shown below.
 5. Remove any starter content below the closing `---`, but keep the YAML header.
 6. Create headings for each task using `## Task 0`, `## Task 1`, and so on.
 7. Render your document often so you can catch formatting problems and code errors early.
+
+```yaml
+---
+title: "Chapter 12 Practice"
+author: "YOUR NAME"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    embed-resources: true
+---
+```
+
+After rendering, you should see a table of contents with clickable task links and automatically numbered task headings. `embed-resources: true` keeps supporting resources, including styling, inside the HTML file so you can share the file on its own.
+
+Use `##` followed by a space for each task heading. Write memos as ordinary paragraphs outside code chunks, without `#` or `##`. This example shows the formatting only; use the code and prompt choices from each task below:
+
+```{r echo=FALSE, results='asis'}
+cat(paste(c(
+  "````markdown",
+  "## Task 2",
+  "",
+  "```{r}",
+  "# Write this task's R code here.",
+  "```",
+  "",
+  "🗣 Comment: Explain what your code or output shows here.",
+  "````"
+), collapse = "\n"))
+```
+
+The `#` inside the chunk is an R comment, not a report heading. Leave a blank line between the heading, code chunk, and memo paragraph. Use the same paragraph format for Reflect and Cite memos.
 
 Complete each task in order. When a task asks you to write the goal, state it in your own words. Fill in the blanks, run your code, and check your output.
 
@@ -886,7 +920,7 @@ head(stars_recode)
 
 ⚖️ **Unit conversion with `mutate()`**
 
-Create `international_friendly_heights` from `heights` by overwriting the `height` column. Convert the values from inches to centimeters.
+Create a new data frame named `international_friendly_heights` from `heights`. In the new data frame, **replace the existing `height` values** with centimeters and keep the column name `height`; do not add a separate converted-height column. The original `heights` data frame stays in inches.
 
 💡 **Tip:** inches × 2.54
 
@@ -906,6 +940,8 @@ summary(heights$height)
 international_friendly_heights <- heights %>%
   mutate(_____ = _____ * _____)
 ```
+
+Check `international_friendly_heights$height` below. Checking `heights$height` again would show the unchanged inch values.
 
 ```{r, eval=FALSE}
 # ✅ Checks
@@ -927,6 +963,16 @@ Compare the original and converted values so you can explain what changed.
 
 Before finishing, make sure your `.qmd` renders to HTML without errors and that your report shows the required objects, checks, and memo notes:
 
+* The HTML has a table of contents whose links take you to the task sections.
+
+* Task headings have automatic section numbers. In your `.qmd`, each task heading uses `##` followed by a space and the task name, outside code chunks.
+
+* Comment, Reflect, and Cite memos appear as ordinary paragraphs, not headings or R comments.
+
+* The HTML retains its styling when you open the file directly from your folder.
+
+* The requested results and check outputs are visible in the HTML, not only in the Console or Environment.
+
 * `height_label` exists and includes both `"Tall"` and `"Not Tall"` labels.
 
 * `height_label` has the same number of values as rows in `heights`.
@@ -940,6 +986,8 @@ Before finishing, make sure your `.qmd` renders to HTML without errors and that 
 * `stars_recode$temp_group` includes `"Cool"`, `"Warm"`, and `"Hot"`.
 
 * `international_friendly_heights` exists and has the `height` column converted from inches to centimeters.
+
+* Task 5 checks `international_friendly_heights$height`, the converted column in the new data frame, rather than the original inch column.
 
 * Your report includes the requested goals, predictions for Tasks 2 and 5, and at least one Comment or Reflect response for each of Tasks 2–5.
 
@@ -956,8 +1004,10 @@ Click the 🧹 **broom icon** in the Environment pane to clear objects.
 Use **Run → Run All** to execute every chunk in order.
 
 **Step 3: Render to HTML.**
-Click **Render** and confirm that the HTML file is created without errors.
+Save your `.qmd`, click **Render**, and confirm that the HTML file is created without errors.
 
 **Step 4: Verify the required objects and checks.**
 Use the checklist above to confirm that each object exists and contains the expected labels, columns, or converted values.
+
+Before uploading, open the newly rendered `.html` file from your folder. Click a table-of-contents link and confirm that the report shows section numbers, retained styling, and your results. Review the actual file you intend to upload, not just RStudio's preview or an older HTML copy.
 

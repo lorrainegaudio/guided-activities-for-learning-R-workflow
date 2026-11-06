@@ -63,7 +63,7 @@ format:
 ---
 ```
 
-Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
+In Quarto or R Markdown, use level-two headings (`##` followed by a space) for the main sections of your notes, following the chapter order. Use `###` for subsections. Put R code in code chunks and write your memos as ordinary paragraphs outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
 
 ## 📦 Packages {#packages}
 
@@ -321,10 +321,28 @@ Dataset: `dslabs::movielens`
 Before you begin:
 
 1. Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as `chapter14_practice.qmd`. If you choose another familiar file type, use the matching extension.
-2. For Quarto, edit the existing YAML header to include the title `"Chapter 14 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml-header). Keep the opening and closing `---` lines.
+2. For Quarto, edit the existing YAML header to match the example below, replacing `YOUR NAME` with your name. Keep one header, including its opening and closing `---` lines.
 3. In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header.
-4. Create headings for Tasks 0–3. Include the optional drafting headings from Task 2 only if you use them.
+4. In Quarto or R Markdown, create level-two headings for Tasks 0–3 using `## Task 0`, `## Task 1`, and so on. Include the optional drafting headings from Task 2 only if you use them, and use `###` for those subsections.
 5. Load `dplyr` and `dslabs` near the top of your document, as requested in Task 0.
+
+For Quarto, use this complete YAML example:
+
+```yaml
+---
+title: "Chapter 14 Practice"
+author: "YOUR NAME"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    embed-resources: true
+---
+```
+
+After rendering, you should see a table of contents with clickable task links and automatically numbered task headings. `embed-resources: true` keeps supporting resources, including styling, inside the HTML file so you can share the file on its own.
 
 Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Some code and check chunks are intentionally empty: write your own code in those spaces. Run your code and check the output.
 
@@ -334,7 +352,23 @@ Use the same memo labels as in earlier chapters:
 * 🪞 **Reflect** asks you to explain your learning process or understanding.
 * 👀 **Cite** asks you to name a person or outside resource that helped and explain how it contributed.
 
-In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use `#` comments.
+In Quarto or R Markdown, write memos as ordinary paragraphs outside code chunks, without `#` or `##`. This example shows the formatting only; use the code and prompt choices from each task below:
+
+```{r echo=FALSE, results='asis'}
+cat(paste(c(
+  "````markdown",
+  "## Task 2",
+  "",
+  "```{r}",
+  "# Write this task's R code here.",
+  "```",
+  "",
+  "🗣 Comment: Explain what your code or output shows here.",
+  "````"
+), collapse = "\n"))
+```
+
+The `#` inside the chunk is an R comment, not a report heading. Leave a blank line between the heading, code chunk, and memo paragraph. Use the same paragraph format for Reflect and Cite memos. In an R script, continue using `#` comments for memos.
 
 For this Practice Space:
 
@@ -627,6 +661,14 @@ Before you finish, confirm that your document includes:
 
 The optional drafting steps do not need separate final outputs or memos.
 
+For Quarto reports, also confirm that the rendered HTML has:
+
+* a table of contents whose links take you to Tasks 0–3,
+* automatically numbered task headings, written with `##` followed by a space in your `.qmd`,
+* Comment, Reflect, and Cite memos displayed as ordinary paragraphs, not headings or R comments,
+* styling that is retained when you open the HTML file directly from your folder, and
+* the final `Movie_Facts` table and check outputs visible in the report, not only in the Console or Environment.
+
 Save your source document and the `chapter14_workspace.RData` workspace. If this Practice Space is assigned for submission, follow your instructor's directions for the required files.
 
 📖 **Review:** A workspace file (`.RData`) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.
@@ -658,6 +700,8 @@ Or use the "Save Workspace" button in the Environment pane.
 💾 **Always save your source document before closing.**
 
 If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
+
+If you are submitting an HTML report, open the newly rendered `.html` file from your folder and review it using the checklist above before uploading. Inspect the actual file you intend to upload, not just RStudio's preview or an older HTML copy.
 
 
 

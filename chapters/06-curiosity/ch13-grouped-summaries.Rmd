@@ -89,23 +89,23 @@ format:
 
 ### Headings {#headings}
 
-Use the section headings in this file to create the structure of your notes. You can copy and paste the section headings into your new Quarto document.
+Use level-two headings (`##` followed by a space) for the main sections of your notes, just as you will use `## Task 1`, `## Task 2`, and so on in the Practice Space. Use `###` for a subsection and `####` for a section within that subsection. Write headings outside code chunks. You can copy this outline into your new Quarto document:
 
 ```markdown
 
-# Loading Packages
+## Loading Packages
 
-# Counts, Center, and Spread
+## Counts, Center, and Spread
 
-# count()
+## count()
 
-# summarize()
+## summarize()
 
-# group_by()
+## group_by()
 
-# Multiple Statistics
+## Multiple Statistics
 
-# Multiple Variables
+## Multiple Variables
 
 ```
 
@@ -659,12 +659,46 @@ Before you begin:
 
 1. Create a new Quarto document in RStudio.
 2. Save it in your module folder as `chapter13_practice.qmd`.
-3. Edit the existing YAML header so it includes the title `"Chapter 13 Practice"`, your name, the date, and HTML output. Keep the opening and closing `---` lines.
-4. Include the Chapter 13 Quarto settings for a table of contents, section numbering, and embedded resources.
+3. Edit the existing YAML header to match the example below, replacing `YOUR NAME` with your name. Keep one header, including its opening and closing `---` lines.
+4. Keep `toc: true`, `number-sections: true`, and `embed-resources: true` in the HTML settings shown below.
 5. Remove any starter content below the closing `---`, but keep the YAML header.
 6. Create headings for each task using `## Task 1`, `## Task 2`, and so on.
 7. Load the `dplyr` and `dslabs` packages near the top of your document.
 8. Render your document often so you can catch formatting problems and code errors early.
+
+```yaml
+---
+title: "Chapter 13 Practice"
+author: "YOUR NAME"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    embed-resources: true
+---
+```
+
+After rendering, you should see a table of contents with clickable task links and automatically numbered task headings. `embed-resources: true` keeps supporting resources, including styling, inside the HTML file so you can share the file on its own.
+
+Use `##` followed by a space for each task heading. Write memos as ordinary paragraphs outside code chunks, without `#` or `##`. This example shows the formatting only; use the code and prompt choices from each task below:
+
+```{r echo=FALSE, results='asis'}
+cat(paste(c(
+  "````markdown",
+  "## Task 1",
+  "",
+  "```{r}",
+  "# Write this task's R code here.",
+  "```",
+  "",
+  "🗣 Comment: Explain what your code or output shows here.",
+  "````"
+), collapse = "\n"))
+```
+
+The `#` inside the chunk is an R comment, not a report heading. Leave a blank line between the heading, code chunk, and memo paragraph. Use the same paragraph format for Reflect and Cite memos.
 
 Complete each task in order. When a task asks you to write the goal, state it in your own words. Fill in the blanks, run your code, and check your output.
 
@@ -966,6 +1000,16 @@ Your paragraph should explain the difference between:
 
 Before you finish, make sure your `.qmd` renders to HTML without errors and that your report shows the required objects, checks, and memo notes:
 
+* The HTML has a table of contents whose links take you to the task sections.
+
+* Task headings have automatic section numbers. In your `.qmd`, each task heading uses `##` followed by a space and the task name, outside code chunks.
+
+* Comment, Reflect, and Cite memos appear as ordinary paragraphs, not headings or R comments.
+
+* The HTML retains its styling when you open the file directly from your folder.
+
+* The requested results and check outputs are visible in the HTML, not only in the Console or Environment.
+
 * `twinkle_twinkle` exists and includes one row for each star `type`.
 
 * `twinkle_twinkle` includes the columns `mean_temperature` and `mean_magnitude`.
@@ -1011,9 +1055,11 @@ Click the 🧹 **broom icon** in the Environment pane to clear objects.
 Use **Run → Run All** to execute every chunk in order.
 
 **Step 3: Render to HTML.**
-Click **Render** and confirm that the HTML file is created without errors.
+Save your `.qmd`, click **Render**, and confirm that the HTML file is created without errors.
 
 **Step 4: Verify the required objects and checks.**
 Use the checklist above to confirm that each object exists and contains the expected rows, columns, summaries, counts, or grouped results.
+
+Before uploading, open the newly rendered `.html` file from your folder. Click a table-of-contents link and confirm that the report shows section numbers, retained styling, and your results. Review the actual file you intend to upload, not just RStudio's preview or an older HTML copy.
 
 
