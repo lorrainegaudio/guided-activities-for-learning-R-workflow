@@ -467,7 +467,7 @@ Note
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
+<p>In Quarto or R Markdown, use level-two headings (<code>##</code> followed by a space) for the main sections of your notes, following the chapter order. Use <code>###</code> for subsections. Put R code in code chunks and write your memos as ordinary paragraphs outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
 </section>
 </section>
 <section id="packages" class="level2">
@@ -722,11 +722,24 @@ Valiant             6  0    13.0</code></pre>
 <p>Before you begin:</p>
 <ol type="1">
 <li>Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as <code>chapter14_practice.qmd</code>. If you choose another familiar file type, use the matching extension.</li>
-<li>For Quarto, edit the existing YAML header to include the title <code>"Chapter 14 Practice"</code>, your name, the date, and the HTML settings from the <a href="#yaml-header">setup section</a>. Keep the opening and closing <code>---</code> lines.</li>
+<li>For Quarto, edit the existing YAML header to match the example below, replacing <code>YOUR NAME</code> with your name. Keep one header, including its opening and closing <code>---</code> lines.</li>
 <li>In Quarto or R Markdown, remove any starter content below the closing <code>---</code>, but keep the YAML header.</li>
-<li>Create headings for Tasks 0–3. Include the optional drafting headings from Task 2 only if you use them.</li>
+<li>In Quarto or R Markdown, create level-two headings for Tasks 0–3 using <code>## Task 0</code>, <code>## Task 1</code>, and so on. Include the optional drafting headings from Task 2 only if you use them, and use <code>###</code> for those subsections.</li>
 <li>Load <code>dplyr</code> and <code>dslabs</code> near the top of your document, as requested in Task 0.</li>
 </ol>
+<p>For Quarto, use this complete YAML example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Chapter 14 Practice"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"YOUR NAME"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After rendering, you should see a table of contents with clickable task links and automatically numbered task headings. <code>embed-resources: true</code> keeps supporting resources, including styling, inside the HTML file so you can share the file on its own.</p>
 <p>Replace each ____ placeholder (and any TODO comments) with working code or a short written answer. Some code and check chunks are intentionally empty: write your own code in those spaces. Run your code and check the output.</p>
 <p>Use the same memo labels as in earlier chapters:</p>
 <ul>
@@ -734,7 +747,15 @@ Valiant             6  0    13.0</code></pre>
 <li>🪞 <strong>Reflect</strong> asks you to explain your learning process or understanding.</li>
 <li>👀 <strong>Cite</strong> asks you to name a person or outside resource that helped and explain how it contributed.</li>
 </ul>
-<p>In Quarto or R Markdown, write your memos outside R code chunks. In an R script, use <code>#</code> comments.</p>
+<p>In Quarto or R Markdown, write memos as ordinary paragraphs outside code chunks, without <code>#</code> or <code>##</code>. This example shows the formatting only; use the code and prompt choices from each task below:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Task 2</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Write this task's R code here.</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>🗣 Comment: Explain what your code or output shows here.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>#</code> inside the chunk is an R comment, not a report heading. Leave a blank line between the heading, code chunk, and memo paragraph. Use the same paragraph format for Reflect and Cite memos. In an R script, continue using <code>#</code> comments for memos.</p>
 <p>For this Practice Space:</p>
 <ul>
 <li><strong>Task 0:</strong> Load the packages; no separate memo is needed.</li>
@@ -812,10 +833,10 @@ Valiant             6  0    13.0</code></pre>
 <p><strong>Optional drafting begins here.</strong> Use as many of Tasks 2.0–2.6 as you find helpful. They are places to test parts of your pipeline before writing the complete version in the final area.</p>
 <p>Load packages and confirm <code>movielens</code> has <code>rating</code> and <code>year</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="task2.1" class="level4">
@@ -823,10 +844,10 @@ Valiant             6  0    13.0</code></pre>
 <p>Use <code>filter()</code> to keep rows where <code>rating</code> and <code>year</code> are both non-missing and <code>year &gt;= 1990</code> (Hint: use <code>!is.na()</code>). Then use <code>select()</code> to keep only the <code>rating</code> and <code>year</code> columns.</p>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify: years are 1990 or greater</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify: years are 1990 or greater</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did you check to confirm that the retained rows meet the filtering requirements?</p>
 </section>
@@ -840,10 +861,10 @@ Valiant             6  0    13.0</code></pre>
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> Use one year from the data to explain how your calculation assigned its decade.</p>
 </section>
@@ -856,10 +877,10 @@ Valiant             6  0    13.0</code></pre>
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the labels and their factor-level order?</p>
 </section>
@@ -872,10 +893,10 @@ Valiant             6  0    13.0</code></pre>
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What does one row of your grouped summary represent?</p>
 </section>
@@ -888,10 +909,10 @@ Valiant             6  0    13.0</code></pre>
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> What did your checks show about the counts and grouping in the result?</p>
 </section>
@@ -904,10 +925,10 @@ Valiant             6  0    13.0</code></pre>
 </ol>
 <p>🎯</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Verify:</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments (optional):</strong> How did you check that the rows follow your chosen sort order?</p>
 </section>
@@ -917,7 +938,7 @@ Valiant             6  0    13.0</code></pre>
 <p>🎯 <strong>Write the goal:</strong> Restate what your final pipeline should produce in your own words.</p>
 <p>🐱 <strong>Prediction:</strong> Choose one step in your planned pipeline. What do you expect it to change: the rows, columns, groups, or summary values? Explain why before running any Task 2 code. If you are unsure, describe what you think might happen and what you are uncertain about.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Code: Write one complete pipeline and store its result as Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>For checks on filtering or recoding, inspect an <span class="glossary-term" data-term="Intermediate result">intermediate result</span> before the summary step. Those intermediate results do not need to be saved as additional final objects.</p>
 <p>Write checks that help you confirm:</p>
@@ -930,7 +951,7 @@ Valiant             6  0    13.0</code></pre>
 </ul>
 <p>If you used the optional column renaming or other enhancements, check the corresponding columns and explain those changes in your memo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check: Write your checks and display Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Check: Write your checks and display Movie_Facts.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣 <strong>Add Comments:</strong> Explain what your checks showed and how the selected step’s result compared with your prediction. If it differed, name a question and choose a small check to investigate it. If it matched, explain what your checks confirmed. State your sort choice and explain any optional changes you made.</p>
 <p><strong>🧶 Test render</strong> if you are using Quarto. Confirm that the HTML displays your final table, checks, and memo.</p>
@@ -956,6 +977,14 @@ Valiant             6  0    13.0</code></pre>
 <li>citations for any outside help you used.</li>
 </ul>
 <p>The optional drafting steps do not need separate final outputs or memos.</p>
+<p>For Quarto reports, also confirm that the rendered HTML has:</p>
+<ul>
+<li>a table of contents whose links take you to Tasks 0–3,</li>
+<li>automatically numbered task headings, written with <code>##</code> followed by a space in your <code>.qmd</code>,</li>
+<li>Comment, Reflect, and Cite memos displayed as ordinary paragraphs, not headings or R comments,</li>
+<li>styling that is retained when you open the HTML file directly from your folder, and</li>
+<li>the final <code>Movie_Facts</code> table and check outputs visible in the report, not only in the Console or Environment.</li>
+</ul>
 <p>Save your source document and the <code>chapter14_workspace.RData</code> workspace. If this Practice Space is assigned for submission, follow your instructor’s directions for the required files.</p>
 <p>📖 <strong>Review:</strong> A workspace file (<code>.RData</code>) saves the objects currently in your Environment. It does not replace your source document, which contains the code and memos.</p>
 <p>🎯 Recreate your work from the saved code before saving the final files.</p>
@@ -968,11 +997,12 @@ Valiant             6  0    13.0</code></pre>
 <p><strong>Step 4: Save your workspace.</strong></p>
 <p>Run this command in the RStudio Console after running your Practice Space code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter14_workspace.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save.image</span>(<span class="st">"chapter14_workspace.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Or use the “Save Workspace” button in the Environment pane.</p>
 <p>💾 <strong>Always save your source document before closing.</strong></p>
 <p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</p>
+<p>If you are submitting an HTML report, open the newly rendered <code>.html</code> file from your folder and review it using the checklist above before uploading. Inspect the actual file you intend to upload, not just RStudio’s preview or an older HTML copy.</p>
 
 
 </section>
