@@ -65,24 +65,24 @@ Since this document can act as a resource for you to review later, set `code-fol
 
 ### Headings {#headings}
 
-Use the section headings in this file to structure your notes. You can copy and paste these into your new Quarto document:
+Use level-two headings (`##`) to structure your notes. You can copy and paste these into your new Quarto document:
 
 ```markdown
-# Loading Packages
+## Loading Packages
 
-# What is ggplot2?
+## What is ggplot2?
 
-# The Blank Canvas
+## The Blank Canvas
 
-# Mapping Aesthetics
+## Mapping Aesthetics
 
-# Scatterplots
+## Scatterplots
 
-# Histograms
+## Histograms
 
-# Boxplots
+## Boxplots
 
-# Labels and Themes
+## Labels and Themes
 
 ```
 
@@ -539,9 +539,9 @@ Save your source document and the `chapter16_practice.RData` workspace using the
 
 🧶 **Test render.** For Quarto, save your document and click **Render**. Inspect the HTML as you work to check formatting, code, plots, and memos. If you use R Markdown, knit and inspect the HTML instead.
 
-2. For Quarto, edit the existing YAML header to include the title `"Chapter 16 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml_header). Keep only one header, including its opening and closing `---` lines.
+2. For Quarto, set up your existing YAML header with the title `"Chapter 16 Practice"`, your name, the date, and the [HTML settings](#yaml_header) used in your notes.
 
-In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header. Create headings for Tasks 0–6 and keep them in order.
+In Quarto or R Markdown, keep your YAML header and remove any starter content below it. Use level-two headings for Tasks 0–6 and keep them in order.
 
 3. 📦 Load the packages used in this chapter
 
@@ -740,7 +740,7 @@ Use **Run → Run All** to execute every chunk in order, beginning with your pac
 
 **Step 3: Save, render, and inspect.**
 
-Save your source document. If you are using Quarto, render it and inspect `chapter16_practice.html` for your code, plots, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.
+Save your source document. For Quarto, render it and open the newly rendered `chapter16_practice.html` from your folder. Check that the table-of-contents links work, section numbers and styling appear, and your code, plots, checks, and memos are visible. If you use R Markdown, knit and inspect the HTML instead.
 
 **Step 4: Save your workspace.**
 
@@ -754,7 +754,7 @@ Or use the "Save Workspace" button in the Environment pane.
 
 💾 **Always save your source document before closing.**
 
-If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
+If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested. If HTML is requested, submit the file you just inspected.
 
 
 

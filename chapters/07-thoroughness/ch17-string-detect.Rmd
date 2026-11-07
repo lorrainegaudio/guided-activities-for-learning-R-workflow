@@ -60,7 +60,7 @@ format:
 ---
 ```
 
-Set `code-fold` to `false` so that all code is visible by default. Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
+Set `code-fold` to `false` so that all code is visible by default. Use level-two headings (`##`) to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.
 
 ## 📦 Packages {#packages}
 
@@ -411,9 +411,9 @@ Save your source document and the `chapter17_practice.RData` workspace using the
 
 1. Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as `chapter17_practice.qmd`. If you choose another familiar file type, use the matching extension.
 
-2. For Quarto, edit the existing YAML header to include the title `"Chapter 17 Practice"`, your name, the date, and the HTML settings from the [setup section](#yaml_header). Keep only one header, including its opening and closing `---` lines.
+2. For Quarto, set up your existing YAML header with the title `"Chapter 17 Practice"`, your name, the date, and the [HTML settings](#yaml_header) used in your notes.
 
-In Quarto or R Markdown, remove any starter content below the closing `---`, but keep the YAML header. Create headings for Tasks 0–8 and keep them in order.
+In Quarto or R Markdown, keep your YAML header and remove any starter content below it. Use level-two headings for Tasks 0–8 and keep them in order.
 
 3. Use Task 0 to load `stringr`, `dplyr`, and `dslabs`, then read `Science_Values.rds`. Save the downloaded file in the same folder as your Practice Space document.
 
@@ -619,7 +619,7 @@ Use **Run → Run All** to execute every chunk in order, beginning with the pack
 
 **Step 3: Save, render, and inspect.**
 
-Save your source document. If you are using Quarto, render it and inspect `chapter17_practice.html` for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.
+Save your source document. For Quarto, render it and open the newly rendered `chapter17_practice.html` from your folder. Check that the table-of-contents links work, section numbers and styling appear, and your code, results, checks, and memos are visible. If you use R Markdown, knit and inspect the HTML instead.
 
 **Step 4: Save your workspace.**
 
@@ -633,7 +633,7 @@ Or use the "Save Workspace" button in the Environment pane.
 
 💾 **Always save your source document before closing.**
 
-If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.
+If this Practice Space is assigned for submission, follow your instructor's directions for which files to submit, including your source document, rendered HTML, or workspace file as requested. If HTML is requested, submit the file you just inspected.
 
 
 
