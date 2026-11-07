@@ -432,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">embed-resources</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Set <code>code-fold</code> to <code>false</code> so that all code is visible by default. Use headings to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
+<p>Set <code>code-fold</code> to <code>false</code> so that all code is visible by default. Use level-two headings (<code>##</code>) to organize your notes in the same order as the chapter. Put R code in code chunks and write your memos outside the chunks. As you work through each section, type the code, inspect the output, and record what you learn.</p>
 </section>
 </section>
 <section id="packages" class="level2">
@@ -729,9 +729,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="practice-setup">Setup</h3>
 <ol type="1">
 <li><p>Create a new document in the folder where you keep your work for this book. If you are using Quarto, save it as <code>chapter17_practice.qmd</code>. If you choose another familiar file type, use the matching extension.</p></li>
-<li><p>For Quarto, edit the existing YAML header to include the title <code>"Chapter 17 Practice"</code>, your name, the date, and the HTML settings from the <a href="#yaml_header">setup section</a>. Keep only one header, including its opening and closing <code>---</code> lines.</p></li>
+<li><p>For Quarto, set up your existing YAML header with the title <code>"Chapter 17 Practice"</code>, your name, the date, and the <a href="#yaml_header">HTML settings</a> used in your notes.</p></li>
 </ol>
-<p>In Quarto or R Markdown, remove any starter content below the closing <code>---</code>, but keep the YAML header. Create headings for Tasks 0–8 and keep them in order.</p>
+<p>In Quarto or R Markdown, keep your YAML header and remove any starter content below it. Use level-two headings for Tasks 0–8 and keep them in order.</p>
 <ol start="3" type="1">
 <li>Use Task 0 to load <code>stringr</code>, <code>dplyr</code>, and <code>dslabs</code>, then read <code>Science_Values.rds</code>. Save the downloaded file in the same folder as your Practice Space document.</li>
 </ol>
@@ -893,7 +893,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Step 2: Run everything top-to-bottom.</strong></p>
 <p>Use <strong>Run → Run All</strong> to execute every chunk in order, beginning with the package-loading and text-import code in Task 0. Confirm that the six requested result objects are recreated without relying on previously saved objects.</p>
 <p><strong>Step 3: Save, render, and inspect.</strong></p>
-<p>Save your source document. If you are using Quarto, render it and inspect <code>chapter17_practice.html</code> for your code, output, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
+<p>Save your source document. For Quarto, render it and open the newly rendered <code>chapter17_practice.html</code> from your folder. Check that the table-of-contents links work, section numbers and styling appear, and your code, results, checks, and memos are visible. If you use R Markdown, knit and inspect the HTML instead.</p>
 <p><strong>Step 4: Save your workspace.</strong></p>
 <p>Run this command in the RStudio Console after running your Practice Space code:</p>
 <div class="cell">
@@ -901,7 +901,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Or use the “Save Workspace” button in the Environment pane.</p>
 <p>💾 <strong>Always save your source document before closing.</strong></p>
-<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</p>
+<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested. If HTML is requested, submit the file you just inspected.</p>
 
 
 </section>

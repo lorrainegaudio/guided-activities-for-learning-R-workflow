@@ -447,22 +447,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="headings" class="level3">
 <h3 class="anchored" data-anchor-id="headings">Headings</h3>
-<p>Use the section headings in this file to structure your notes. You can copy and paste these into your new Quarto document:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Loading Packages</span></span>
+<p>Use level-two headings (<code>##</code>) to structure your notes. You can copy and paste these into your new Quarto document:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loading Packages</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is ggplot2?</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is ggplot2?</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Blank Canvas</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Blank Canvas</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mapping Aesthetics</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mapping Aesthetics</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Scatterplots</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scatterplots</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Histograms</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Histograms</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># Boxplots</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Boxplots</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Labels and Themes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Labels and Themes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Work through the sections under each heading. Put R code in code chunks and write your memos outside the chunks. As you work, type the code, inspect the plots and other output, and record what you learn.</p>
 </section>
 </section>
@@ -885,9 +885,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>🧶 <strong>Test render.</strong> For Quarto, save your document and click <strong>Render</strong>. Inspect the HTML as you work to check formatting, code, plots, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
 <ol start="2" type="1">
-<li>For Quarto, edit the existing YAML header to include the title <code>"Chapter 16 Practice"</code>, your name, the date, and the HTML settings from the <a href="#yaml_header">setup section</a>. Keep only one header, including its opening and closing <code>---</code> lines.</li>
+<li>For Quarto, set up your existing YAML header with the title <code>"Chapter 16 Practice"</code>, your name, the date, and the <a href="#yaml_header">HTML settings</a> used in your notes.</li>
 </ol>
-<p>In Quarto or R Markdown, remove any starter content below the closing <code>---</code>, but keep the YAML header. Create headings for Tasks 0–6 and keep them in order.</p>
+<p>In Quarto or R Markdown, keep your YAML header and remove any starter content below it. Use level-two headings for Tasks 0–6 and keep them in order.</p>
 <ol start="3" type="1">
 <li>📦 Load the packages used in this chapter</li>
 </ol>
@@ -1048,7 +1048,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Step 2: Run everything top-to-bottom.</strong></p>
 <p>Use <strong>Run → Run All</strong> to execute every chunk in order, beginning with your package-loading code. Confirm that the requested plot objects are recreated without relying on previously saved objects.</p>
 <p><strong>Step 3: Save, render, and inspect.</strong></p>
-<p>Save your source document. If you are using Quarto, render it and inspect <code>chapter16_practice.html</code> for your code, plots, checks, and memos. If you use R Markdown, knit and inspect the HTML instead.</p>
+<p>Save your source document. For Quarto, render it and open the newly rendered <code>chapter16_practice.html</code> from your folder. Check that the table-of-contents links work, section numbers and styling appear, and your code, plots, checks, and memos are visible. If you use R Markdown, knit and inspect the HTML instead.</p>
 <p><strong>Step 4: Save your workspace.</strong></p>
 <p>Run this command in the RStudio Console after running your Practice Space code:</p>
 <div class="cell">
@@ -1056,7 +1056,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Or use the “Save Workspace” button in the Environment pane.</p>
 <p>💾 <strong>Always save your source document before closing.</strong></p>
-<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested.</p>
+<p>If this Practice Space is assigned for submission, follow your instructor’s directions for which files to submit, including your source document, rendered HTML, or workspace file as requested. If HTML is requested, submit the file you just inspected.</p>
 
 
 </section>
