@@ -6,7 +6,7 @@ toc: true
 
 ## Overview {#overview}
 
-In earlier chapters, you practiced working with data frames, variables, and reproducible Quarto notes. In this chapter, you will use [`ggplot2`]{.glossary-term data-term="ggplot2"} to turn data into graphs that are easier to read and explain. You will build plots by combining a data frame, aesthetic mappings, and geometric layers.
+In earlier chapters, you practiced working with data frames, variables, and reproducible Quarto notes. In this chapter, you will use [`ggplot2`]{.glossary-term data-term="ggplot2"} to turn data into graphs that are easier to read and explain. You will build plots by combining a data frame, [aesthetic mappings]{.glossary-term data-term="Aesthetic mapping"}, and [geometric layers]{.glossary-term data-term="geom"}.
 
 This chapter matters because analysts do not only calculate results. They also need to communicate patterns, comparisons, distributions, and possible relationships in a clear visual form. In R, `ggplot2` is one of the main tools for doing that.
 
@@ -14,10 +14,10 @@ By the end of Chapter 16 you will be able to:
 
 - 🎨 Build a plot by combining `data`, `aes()`, and `geom_*()`.
 - 📍 Map variables to visual properties such as the x-axis, y-axis, `fill`, and `color`.
-- 🔵 Create scatterplots with `geom_point()`.
-- 📊 Create histograms with `geom_histogram()`.
-- 📦 Create boxplots with `geom_boxplot()`.
-- 🏷️ Improve readability with labels and themes.
+- 🔵 Create [scatterplots]{.glossary-term data-term="Scatterplot"} with `geom_point()`.
+- 📊 Create [histograms]{.glossary-term data-term="Histogram"} with `geom_histogram()`.
+- 📦 Create [boxplots]{.glossary-term data-term="Boxplot"} with `geom_boxplot()`.
+- 🏷️ Improve readability with [labels]{.glossary-term data-term="Labels"} and [themes]{.glossary-term data-term="Theme"}.
 - 📝 Continue using Quarto to organize code, output, checks, and written interpretation in a reproducible analysis document.
 
 Keep these goals in mind as you move through each section.
