@@ -430,14 +430,14 @@ window.Quarto = {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Probability is easier to understand when you can build and inspect examples yourself. In this chapter, you will use R to simulate random outcomes, visualize those results, and decide whether the patterns you see are reasonable. You will work with coin flips, dice rolls, bell-shaped data, and repeated simulations so that probability feels concrete rather than abstract. These are the same kinds of tools analysts use when they need to study uncertainty, test assumptions, or estimate risk.</p>
+<p><span class="glossary-term" data-term="Probability">Probability</span> is easier to understand when you can build and inspect examples yourself. In this chapter, you will use R to simulate random outcomes, visualize those results, and decide whether the patterns you see are reasonable. You will work with coin flips, dice rolls, bell-shaped data, and repeated <span class="glossary-term" data-term="Simulation">simulations</span> so that probability feels concrete rather than abstract. These are the same kinds of tools analysts use when they need to study uncertainty, test assumptions, or estimate risk.</p>
 <p>By the end of Chapter 15 you will be able to:</p>
 <ol type="1">
 <li><p>⚡ Remember – Name <code>sample()</code>, <code>rnorm()</code>, and <code>replicate()</code>.</p></li>
 <li><p>🔍 Understand – Explain how replacement and probability weights affect simulation results.</p></li>
 <li><p>🛠 Apply – Simulate coins, dice, and normally distributed data with R code</p></li>
 <li><p>✅ Check – Use tables, proportions, and histograms to verify whether simulated results make sense.</p></li>
-<li><p>🧠 Interpret – Describe sampling variability and distinguish between fair and biased outcomes using simulated evidence.</p></li>
+<li><p>🧠 Interpret – Describe <span class="glossary-term" data-term="Sampling Variability">sampling variability</span> and distinguish between fair and biased outcomes using simulated evidence.</p></li>
 </ol>
 <p>Keep these goals in mind as you move through each section.</p>
 </section>
@@ -479,9 +479,9 @@ window.Quarto = {
 <section id="distribution" class="level2">
 <h2 class="anchored" data-anchor-id="distribution">Distribution of Sums</h2>
 <p>🎯 Reading about the shape, or distribution, of data is <em>optional</em>, but may help you answer questions in this chapter.</p>
-<p>Below are examples of different histogram shapes that you may encounter in real data. A <strong>histogram</strong> groups numerical values into intervals (bins); in these examples, bar heights show <span class="glossary-term" data-term="Count">counts</span>. Its shape can provide insights into the underlying <strong>distribution</strong> of the data, such as whether it is uniform, symmetric, skewed, or bimodal.</p>
+<p>Below are examples of different histogram shapes that you may encounter in real data. A <strong><span class="glossary-term" data-term="Histogram">histogram</span></strong> groups numerical values into intervals (bins); in these examples, bar heights show <span class="glossary-term" data-term="Count">counts</span>. Its shape can provide insights into the underlying <strong><span class="glossary-term" data-term="Distribution">distribution</span></strong> of the data, such as whether it is uniform, symmetric, skewed, or bimodal.</p>
 <ol type="1">
-<li><strong>Uniform</strong>: Equal-width intervals have equal probabilities, so the bars of a sample histogram should be approximately the same height.</li>
+<li><strong><span class="glossary-term" data-term="Uniform Distribution">Uniform</span></strong>: Equal-width intervals have equal probabilities, so the bars of a sample histogram should be approximately the same height.</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
@@ -493,7 +493,7 @@ window.Quarto = {
 </div>
 </div>
 <ol start="2" type="1">
-<li><strong>Normal</strong>: The underlying distribution is bell-shaped and symmetric. A histogram of a large random sample is usually approximately symmetric, with similar mean and median. <span class="math inline">\(Median \approx Mean\)</span>.</li>
+<li><strong><span class="glossary-term" data-term="Normal Distribution">Normal</span></strong>: The underlying distribution is bell-shaped and symmetric. A histogram of a large random sample is usually approximately symmetric, with similar mean and median. <span class="math inline">\(Median \approx Mean\)</span>.</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
@@ -544,7 +544,7 @@ window.Quarto = {
 </section>
 <section id="warmup" class="level2">
 <h2 class="anchored" data-anchor-id="warmup">Warm‑Up</h2>
-<p>A data analyst uses <code>set.seed()</code> to make random simulations reproducible. With the same R setup, resetting the seed and running the same random operations in the same order reproduces the results. This <strong>reproducibility</strong> supports debugging, collaboration, and verification.</p>
+<p>A data analyst uses <span class="glossary-term" data-term="set.seed()"><code>set.seed()</code></span> to make random simulations reproducible. With the same R setup, resetting the seed and running the same random operations in the same order reproduces the results. This <strong><span class="glossary-term" data-term="Reproducibility">reproducibility</span></strong> supports debugging, collaboration, and verification.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚡ Test</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)  <span class="co"># 🎯 for reproducibility</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -553,12 +553,12 @@ window.Quarto = {
 </section>
 <section id="simulating" class="level2">
 <h2 class="anchored" data-anchor-id="simulating">Simulating</h2>
-<p><strong>Probability</strong> describes how likely an event is. We can use <strong>simulation</strong> to model random outcomes and inspect the results. R provides tools for simulating random data, which allows us to explore concepts like <strong>sampling variability</strong>, distributions, and the effects of bias.</p>
+<p><strong><span class="glossary-term" data-term="Probability">Probability</span></strong> describes how likely an event is. We can use <strong><span class="glossary-term" data-term="Simulation">simulation</span></strong> to model random outcomes and inspect the results. R provides tools for simulating random data, which allows us to explore concepts like <strong><span class="glossary-term" data-term="Sampling Variability">sampling variability</span></strong>, distributions, and the effects of bias.</p>
 <section id="coin-flips" class="level3">
 <h3 class="anchored" data-anchor-id="coin-flips">🪙 Coin Flips</h3>
 <p>In this first example, we’ll simulate flipping a coin 1,000 times and counting how many times it lands on tails. This simple experiment helps us understand the concept of a sample space, the role of randomness, and how to verify our results.</p>
 <p>🎯 Flip 💰 1,000 fair coins (0 = heads, 1 = tails) and count tails.</p>
-<p><strong>Sample Space</strong> “<span class="math inline">\(S\)</span>” is a collection (or set) of all possible outcomes in a random experiment.</p>
+<p><strong><span class="glossary-term" data-term="Sample Space">Sample Space</span></strong> “<span class="math inline">\(S\)</span>” is a collection (or set) of all possible outcomes in a random experiment.</p>
 <p>Set Notation: <span class="math inline">\(S\)</span> = {Head, Tail}</p>
 <ol type="1">
 <li>🎯 Create the data through a simulation</li>
@@ -570,7 +570,7 @@ window.Quarto = {
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>coins <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>🗣<code>x = 0:1</code> means that we are sampling from either 0 or 1. As the researcher, I decide that 0 = heads and 1 = tails. We set <code>size = 1000</code> to flip the coin 1,000 times. We set <code>replace = TRUE</code> because we “put the coin back” each flip.</p>
-<p><strong>replacement</strong> means that after we sample a value, we <em>“put it back”</em> into the pool of possible values for the next draw. In this coin model, both outcomes remain available with the same probabilities on each flip, modeling <strong>independent events</strong>.</p>
+<p><strong><span class="glossary-term" data-term="Replacement">replacement</span></strong> means that after we sample a value, we <em>“put it back”</em> into the pool of possible values for the next draw. In this coin model, both outcomes remain available with the same probabilities on each flip, modeling <strong><span class="glossary-term" data-term="Independent Events">independent events</span></strong>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅  Verify</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(coins)   <span class="co"># values in our data set</span></span>
@@ -692,7 +692,7 @@ window.Quarto = {
 </section>
 <section id="symmetric-data" class="level2">
 <h2 class="anchored" data-anchor-id="symmetric-data">☯️ Symmetric Data</h2>
-<p>The function <code>rnorm()</code> generates a vector of random numbers sampled from a normal (bell-shaped) distribution.</p>
+<p>The function <code>rnorm()</code> generates a vector of random numbers sampled from a <span class="glossary-term" data-term="Normal Distribution">normal (bell-shaped) distribution</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>?rnorm  <span class="co"># Check the help file for rnorm()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -742,13 +742,13 @@ window.Quarto = {
 </div>
 </div>
 <p>🗣 The histogram should look approximately bell-shaped, centered near 64 inches. Its spread should be consistent with the specified standard deviation of 2.5 inches.</p>
-<p>Sample vs.&nbsp;Population Parameters: You might wonder, “Why aren’t the sample mean and standard deviation exactly 64 and 2.5?” This is because these are random samples from a normal distribution with those parameters. Each time we run the simulation, we get slightly different values due to <strong>sampling variability</strong>.</p>
+<p>Sample vs.&nbsp;Population Parameters: You might wonder, “Why aren’t the sample mean and standard deviation exactly 64 and 2.5?” This is because these are random samples from a normal distribution with those parameters. Each time we run the simulation, we get slightly different values due to <strong><span class="glossary-term" data-term="Sampling Variability">sampling variability</span></strong>.</p>
 <p>In summary, the function <code>rnorm()</code> generates random numbers from a normal distribution using the number of values, mean, and standard deviation you supply. The underlying distribution is symmetric, but a simulated sample need not be exactly symmetric.</p>
 </section>
 <section id="repeating-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="repeating-simulation">🔁 Repeating Simulation</h2>
 <p>The function <code>replicate()</code> repeats an expression multiple times and collects the results. It can repeat simulations to estimate probabilities or study variability. It can also repeat expressions that do not generate random values.</p>
-<p><strong>Monte Carlo simulations</strong> use repeated random sampling to estimate probabilities or study uncertainty. They are a common use for <code>replicate()</code>.</p>
+<p><strong><span class="glossary-term" data-term="Monte Carlo Simulation">Monte Carlo simulations</span></strong> use repeated random sampling to estimate probabilities or study uncertainty. They are a common use for <code>replicate()</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>?replicate  <span class="co"># Check the help file for replicate()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -918,12 +918,12 @@ window.Quarto = {
 </section>
 <section id="fair-dice-check" class="level2">
 <h2 class="anchored" data-anchor-id="fair-dice-check">⚖️ Fair-Dice Check</h2>
-<p><strong>Probability weights</strong> in <code>sample()</code> let you simulate biased outcomes. Recall the syntax:</p>
+<p><strong><span class="glossary-term" data-term="Probability Weights">Probability weights</span></strong> in <code>sample()</code> let you simulate biased outcomes. Recall the syntax:</p>
 <p>📜 The SYNTAX: <code>sample(x, size, replace = FALSE, prob = NULL)</code></p>
-<p>A <strong>fair die</strong> has an equal probability of landing on each face. For a fair six-sided die, each face (1 through 6) has probability 1/6, or approximately 0.1667. The sums of two fair dice are not equally likely.</p>
+<p>A <strong><span class="glossary-term" data-term="Fair Die">fair die</span></strong> has an equal probability of landing on each face. For a fair six-sided die, each face (1 through 6) has probability 1/6, or approximately 0.1667. The sums of two fair dice are not equally likely.</p>
 <section id="biased-die" class="level3">
 <h3 class="anchored" data-anchor-id="biased-die">Biased Die</h3>
-<p>A <strong>biased die</strong> has unequal probabilities for its faces. For example, a biased six-sided die might have a higher probability of landing on certain faces, such as 1 and 6, while other faces (like 2, 3, 4, and 5) have lower probabilities.</p>
+<p>A <strong><span class="glossary-term" data-term="Biased Die">biased die</span></strong> has unequal probabilities for its faces. For example, a biased six-sided die might have a higher probability of landing on certain faces, such as 1 and 6, while other faces (like 2, 3, 4, and 5) have lower probabilities.</p>
 <p>The <code>prob</code> parameter specifies the probability weights for each element in the sampling pool.</p>
 <p>🎯 Simulate rolling a biased die 1,000 times with specified probabilities.</p>
 <div class="cell">
